@@ -1,0 +1,122 @@
+# French translation for openerp-marketplace
+# Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
+# This file is distributed under the same license as the openerp-marketplace package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: openerp-marketplace\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2014-03-05 15:21+0000\n"
+"PO-Revision-Date: 2014-03-06 10:41+0000\n"
+"Last-Translator: YannickB <yannick.buron@gmail.com>\n"
+"Language-Team: French <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2014-03-07 07:45+0000\n"
+"X-Generator: Launchpad (build 16948)\n"
+
+#. module: marketplace_groups
+#: field:mail.group,marketplace:0
+msgid "Can be used in marketplace?"
+msgstr "Peut être utilisé dans la place de marché?"
+
+#. module: marketplace_groups
+#: field:res.partner,is_group:0
+msgid "Is a group"
+msgstr "Est un group"
+
+#. module: marketplace_groups
+#: view:marketplace.announcement:0
+msgid "My groups"
+msgstr "Mes groupes"
+
+#. module: marketplace_groups
+#: field:marketplace.announcement,community_group_commission:0
+msgid "% group commission community"
+msgstr "% group commission community"
+
+#. module: marketplace_groups
+#: model:ir.model,name:marketplace_groups.model_mail_group
+msgid "Discussion group"
+msgstr "Groupe de discussion"
+
+#. module: marketplace_groups
+#: field:mail.group,community_percent:0
+msgid "% Community"
+msgstr "% Communauté"
+
+#. module: marketplace_groups
+#: model:ir.actions.act_window,name:marketplace_groups.action_marketplace_announcement_offer_my_groups
+#: model:ir.actions.act_window,name:marketplace_groups.action_marketplace_announcement_want_my_groups
+#: model:ir.ui.menu,name:marketplace_groups.menu_action_marketplace_announcement_offer_my_groups
+#: model:ir.ui.menu,name:marketplace_groups.menu_action_marketplace_announcement_want_my_groups
+msgid "In my groups"
+msgstr "Dans mes groupes"
+
+#. module: marketplace_groups
+#: view:marketplace.announcement:0
+#: view:marketplace.proposition:0
+msgid ""
+"{'invisible': ['|',('from_group','=',True),('from_company', '=', True)]}"
+msgstr ""
+"{'invisible': ['|',('from_group','=',True),('from_company', '=', True)]}"
+
+#. module: marketplace_groups
+#: field:marketplace.announcement,real_group_commission:0
+msgid "% group commission real"
+msgstr "% group commission real"
+
+#. module: marketplace_groups
+#: field:mail.group,real_percent:0
+msgid "% Real"
+msgstr "% Réel"
+
+#. module: marketplace_groups
+#: view:marketplace.announcement:0
+msgid "{'invisible': [('is_user','=',True),('from_group','!=',True)]}"
+msgstr "{'invisible': [('is_user','=',True),('from_group','!=',True)]}"
+
+#. module: marketplace_groups
+#: model:ir.model,name:marketplace_groups.model_marketplace_proposition
+msgid "Proposition"
+msgstr "Proposition"
+
+#. module: marketplace_groups
+#: model:ir.model,name:marketplace_groups.model_res_partner
+#: field:mail.group,partner_id:0
+msgid "Partner"
+msgstr "Partenaire"
+
+#. module: marketplace_groups
+#: field:marketplace.announcement,context_group_ids:0
+msgid "Groups"
+msgstr "Groupes"
+
+#. module: marketplace_groups
+#: field:marketplace.announcement,from_group:0
+#: field:marketplace.proposition,from_group:0
+msgid "From group?"
+msgstr "Depuis un groupe?"
+
+#. module: marketplace_groups
+#: field:marketplace.announcement,group_id:0
+#: field:marketplace.proposition,group_id:0
+msgid "Group"
+msgstr "Groupe"
+
+#. module: marketplace_groups
+#: field:mail.group,can_have_commission:0
+msgid "Can have commission?"
+msgstr "Peut avoir des commissions?"
+
+#. module: marketplace_groups
+#: view:marketplace.announcement:0
+msgid "Groups..."
+msgstr "Groupes"
+
+#. module: marketplace_groups
+#: model:ir.model,name:marketplace_groups.model_marketplace_announcement
+msgid "Offer/Want"
+msgstr "Offre/Demande"

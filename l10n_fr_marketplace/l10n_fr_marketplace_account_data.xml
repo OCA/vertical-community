@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <record id="pcg_Classe_8" model="account.account">
+          <field name="name">Comptes annexes</field>
+          <field name="code">Classes 8</field>
+          <field name="type">view</field>
+          <field name="user_type" ref="account.data_account_type_view"/>
+          <field name="parent_id" ref="l10n_fr.pcg_0"/>
+        </record>
+
+        <record id="marketplace_real_partner_availability_account" model="account.account">
+            <field name="code">4112</field>
+            <field name="name">Real partner availability account</field>
+            <field name="parent_id" search="[('code','=','411')]" model="account.account"/>
+            <field name="type">receivable</field>
+            <field name="user_type" ref="account.data_account_type_receivable"/>
+            <field name="reconcile" eval="True"/>
+        </record>
+
+        <record id="marketplace_real_partner_reserved_account" model="account.account">
+            <field name="code">4113</field>
+            <field name="name">Real partner reserved account</field>
+            <field name="parent_id" search="[('code','=','411')]" model="account.account"/>
+            <field name="type">receivable</field>
+            <field name="user_type" ref="account.data_account_type_receivable"/>
+            <field name="reconcile" eval="True"/>
+        </record>
+
+        <record id="marketplace_pcg_annexes" model="account.account">
+          <field name="name">Marketplace</field>
+          <field name="code">82</field>
+          <field name="type">view</field>
+          <field name="user_type" ref="account.data_account_type_view"/>
+          <field name="parent_id" search="[('code','=','0')]" model="account.account"/>
+        </record>
+
+        <record id="marketplace_real_partner_expense_account" model="account.account">
+            <field name="code">826</field>
+            <field name="name">Real partner expense account</field>
+            <field name="parent_id" ref="marketplace_pcg_annexes"/>
+            <field name="type">other</field>
+            <field name="user_type" ref="account.data_account_type_liability"/>
+        </record>
+
+        <record id="marketplace_real_partner_income_account" model="account.account">
+            <field name="code">827</field>
+            <field name="name">Real partner income account</field>
+            <field name="parent_id" ref="marketplace_pcg_annexes"/>
+            <field name="type">other</field>
+            <field name="user_type" ref="account.data_account_type_liability"/>
+        </record>
+
+        <record id="real_company_reserved_account" model="account.account">
+            <field name="code">5122</field>
+            <field name="name">Real company reserved account</field>
+            <field name="parent_id" search="[('code','=','512')]" model="account.account"/>
+            <field name="type">other</field>
+            <field name="user_type" ref="account.data_account_type_cash"/>
+        </record>
+
+        <record id="marketplace.marketplace_currency_EUR" model="marketplace.config.currency">
+            <field name="partner_availability_account_id" ref="marketplace_real_partner_availability_account"/>
+            <field name="partner_reserved_account_id" ref="marketplace_real_partner_reserved_account"/>
+            <field name="partner_expense_account_id" ref="marketplace_real_partner_expense_account"/>
+            <field name="partner_income_account_id" ref="marketplace_real_partner_income_account"/>
+            <field name="company_availability_account_id" search="[('code','=','512102')]" model="account.account"/>
+            <field name="company_reserved_account_id" ref="real_company_reserved_account"/>
+            <field name="company_expense_account_id" search="[('code','=','607100')]" model="account.account"/>
+            <field name="company_income_account_id" search="[('code','=','707100')]" model="account.account"/>
+        </record>
+
+
+    </data>
+</openerp>

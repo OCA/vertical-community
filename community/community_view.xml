@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+<!-- https://bugs.launchpad.net/openobject-server/+bug/1263401 .... -->
+        <record id="membership.action_membership_members" model="ir.actions.act_window">
+            <field name="domain">[('user_ids','!=',False)]</field>
+            <field name="context">{}</field>
+        </record>
+
+    </data>
+</openerp>

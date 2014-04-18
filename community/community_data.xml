@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="config_document_location" model="ir.config_parameter">
+            <field name="key">ir_attachment.location</field>
+            <field name="value">file:///filestore</field>
+        </record>
+
+    </data>
+
+    <data>
+        <function model="community.init" name="_community_init"/>
+    </data>
+</openerp>

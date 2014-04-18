@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <!--
+        Account Type
+        -->
+
+        <record id="marketplace_account_type_community" model="account.account.type">
+            <field name="name">Community</field>
+            <field name="code">community</field>
+            <field name="close_method">unreconciled</field>
+            <field name="report_type">liability</field>
+        </record>
+
+        <!--
+        Chart of Accounts
+        -->
+
+        <record id="chart_com" model="account.account">
+            <field name="code">COM</field>
+            <field name="name">Community Accounting</field>
+            <field name="type">view</field>
+            <field name="user_type" ref="account.data_account_type_view"/>
+        </record>
+
+
+        <record id="chart_cm" model="account.account">
+            <field name="code">CM</field>
+            <field name="name">Members</field>
+            <field name="parent_id" ref="chart_com"/>
+            <field name="type">view</field>
+            <field name="user_type" ref="account.data_account_type_view"/>
+        </record>
+
+        <record id="marketplace_community_partner_availability_account" model="account.account">
+            <field name="code">CM 41</field>
+            <field name="name">Community partner availability account</field>
+            <field name="parent_id" ref="chart_cm"/>
+            <field name="type">payable</field>
+            <field name="user_type" ref="marketplace_account_type_community"/>
+            <field name="reconcile" eval="True"/>
+        </record>
+
+        <record id="marketplace_community_partner_reserved_account" model="account.account">
+            <field name="code">CM 42</field>
+            <field name="name">Community partner reserved account</field>
+            <field name="parent_id" ref="chart_cm"/>
+            <field name="type">payable</field>
+            <field name="user_type" ref="marketplace_account_type_community"/>
+            <field name="reconcile" eval="True"/>
+        </record>
+
+        <record id="marketplace_community_partner_expense_account" model="account.account">
+            <field name="code">CM 6</field>
+            <field name="name">Community partner expense account</field>
+            <field name="parent_id" ref="chart_cm"/>
+            <field name="type">payable</field>
+            <field name="user_type" ref="marketplace_account_type_community"/>
+        </record>
+
+        <record id="marketplace_community_partner_income_account" model="account.account">
+            <field name="code">CM 7</field>
+            <field name="name">Community partner income account</field>
+            <field name="parent_id" ref="chart_cm"/>
+            <field name="type">payable</field>
+            <field name="user_type" ref="marketplace_account_type_community"/>
+        </record>
+
+
+        <record id="chart_cs" model="account.account">
+            <field name="code">CS</field>
+            <field name="name">Society</field>
+            <field name="parent_id" ref="chart_com"/>
+            <field name="type">view</field>
+            <field name="user_type" ref="account.data_account_type_view"/>
+        </record>
+
+        <record id="community_company_stock_account" model="account.account">
+            <field name="code">CS 1</field>
+            <field name="name">Community company stock account</field>
+            <field name="parent_id" ref="chart_cs"/>
+            <field name="type">payable</field>
+            <field name="user_type" ref="marketplace_account_type_community"/>
+        </record>
+
+        <record id="community_company_availability_account" model="account.account">
+            <field name="code">CS 51</field>
+            <field name="name">Community company availability account</field>
+            <field name="parent_id" ref="chart_cs"/>
+            <field name="type">payable</field>
+            <field name="user_type" ref="marketplace_account_type_community"/>
+            <field name="reconcile" eval="True"/>
+        </record>
+
+        <record id="community_company_reserved_account" model="account.account">
+            <field name="code">CS 52</field>
+            <field name="name">Community company reserved account</field>
+            <field name="parent_id" ref="chart_cs"/>
+            <field name="type">payable</field>
+            <field name="user_type" ref="marketplace_account_type_community"/>
+            <field name="reconcile" eval="True"/>
+        </record>
+
+        <record id="community_company_expense_account" model="account.account">
+            <field name="code">CS 6</field>
+            <field name="name">Community company expense account</field>
+            <field name="parent_id" ref="chart_cs"/>
+            <field name="type">payable</field>
+            <field name="user_type" ref="marketplace_account_type_community"/>
+        </record>
+
+        <record id="community_company_income_account" model="account.account">
+            <field name="code">CS 7</field>
+            <field name="name">Community company income account</field>
+            <field name="parent_id" ref="chart_cs"/>
+            <field name="type">payable</field>
+            <field name="user_type" ref="marketplace_account_type_community"/>
+        </record>
+
+
+
+
+        <!--
+        Account Journal
+        -->
+
+        <record id="sequence_community_journal" model="ir.sequence">
+            <field name="name">Account Default Community Journal</field>
+            <field eval="3" name="padding"/>
+            <field name="prefix">COMJ/%(year)s/</field>
+        </record>
+
+        <record id="community_journal" model="account.journal">
+            <field name="name">Community Journal</field>
+            <field name="code">COMJ</field>
+            <field name="type">sale</field>
+            <field name="sequence_id" ref="sequence_community_journal"/>
+            <field name="default_credit_account_id" ref="community_company_availability_account"/>
+            <field name="default_debit_account_id" ref="community_company_availability_account"/>
+        </record>
+
+        <record id="settings_community_journal" model="ir.config_parameter">
+            <field name="key">marketplace_journal_id</field>
+            <field name="value" ref="community_journal"/>
+        </record>
+
+
+        <!--
+        Currencies
+        -->
+
+        <record id="COM" model="res.currency">
+            <field name="name">COM</field>
+            <field name="symbol">COM</field>
+            <field name="rounding">0.01</field>
+            <field name="accuracy">4</field>
+            <field name="marketplace_currency" eval="True"/>
+        </record>
+        <record id="rateCOM" model="res.currency.rate">
+            <field name="currency_id" ref="COM" />
+            <field eval="time.strftime('%Y-01-01')" name="name"/>
+            <field name="rate">1.0</field>
+        </record>
+        <record id="base.EUR" model="res.currency">
+            <field name="marketplace_currency" eval="True"/>
+        </record>
+
+        <record id="settingsCOM" model="ir.config_parameter">
+            <field name="key">marketplace_community_currency_id</field>
+            <field name="value" ref="COM"/>
+        </record>
+        <record id="settingsEUR" model="ir.config_parameter">
+            <field name="key">marketplace_real_currency_id</field>
+            <field name="value" ref="base.EUR"/>
+        </record>
+
+        <record id="marketplace_settings" model='marketplace.config.settings'>
+            <field name="journal_id" ref="community_journal"/>
+            <field name="default_currency_id" ref="COM"/>
+        </record>
+
+        <record id="marketplace_currency_COM" model="marketplace.config.currency">
+            <field name="config_id" ref="marketplace_settings"/>
+            <field name="currency_id" ref="COM"/>
+            <field name="partner_availability_account_id" ref="marketplace_community_partner_availability_account"/>
+            <field name="partner_reserved_account_id" ref="marketplace_community_partner_reserved_account"/>
+            <field name="partner_expense_account_id" ref="marketplace_community_partner_expense_account"/>
+            <field name="partner_income_account_id" ref="marketplace_community_partner_income_account"/>
+            <field name="company_availability_account_id" ref="community_company_availability_account"/>
+            <field name="company_reserved_account_id" ref="community_company_reserved_account"/>
+            <field name="company_expense_account_id" ref="community_company_expense_account"/>
+            <field name="company_income_account_id" ref="community_company_income_account"/>
+        </record>
+
+        <record id="marketplace_currency_EUR" model="marketplace.config.currency">
+            <field name="config_id" ref="marketplace_settings"/>
+            <field name="currency_id" ref="base.EUR"/>
+            <field name="partner_availability_account_id" ref="community_company_stock_account"/>
+            <field name="partner_reserved_account_id" ref="community_company_stock_account"/>
+            <field name="partner_expense_account_id" ref="community_company_stock_account"/>
+            <field name="partner_income_account_id" ref="community_company_stock_account"/>
+            <field name="company_availability_account_id" ref="community_company_stock_account"/>
+            <field name="company_reserved_account_id" ref="community_company_stock_account"/>
+            <field name="company_expense_account_id" ref="community_company_stock_account"/>
+            <field name="company_income_account_id" ref="community_company_stock_account"/>
+            <field name="external_currency" eval="True"/>
+        </record>
+
+
+    </data>
+</openerp>

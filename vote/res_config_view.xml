@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="vote_settings" model='vote.config.settings'/>
+
+        <record id="view_vote_type_tree" model="ir.ui.view">
+            <field name="name">vote.type.tree</field>
+            <field name="model">vote.type</field>
+            <field name="arch" type="xml">
+                <tree string="Types">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_vote_type_form" model="ir.ui.view">
+            <field name="name">vote.type.form</field>
+            <field name="model">vote.type</field>
+            <field name="arch" type="xml">
+                <form string="Type">
+                    <field name="name"/>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="view_vote_config_line_tree" model="ir.ui.view">
+            <field name="name">vote.config.line.tree</field>
+            <field name="model">vote.config.line</field>
+            <field name="arch" type="xml">
+                <tree string="Vote types">
+                    <field name="name"/>
+                    <field name="sequence"/>
+                    <field name="action"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_vote_config_line_stored_tree" model="ir.ui.view">
+            <field name="name">vote.config.line.stored.tree</field>
+            <field name="model">vote.config.line.stored</field>
+            <field name="arch" type="xml">
+                <tree string="Vote types">
+                    <field name="name"/>
+                    <field name="sequence"/>
+                </tree>
+            </field>
+        </record>
+
+
+
+        <record id="view_vote_config_line_form" model="ir.ui.view">
+            <field name="name">vote.config.line.form</field>
+            <field name="model">vote.config.line</field>
+            <field name="arch" type="xml">
+                <form string="Line">
+                    <field name="name"/>
+                    <field name="sequence"/>
+                    <field name="action" required="1"/>
+                    <field name="model" invisible="1"/>
+                </form>
+            </field>
+        </record>
+
+
+
+        <record id="view_vote_configuration" model="ir.ui.view">
+            <field name="name">vote settings</field>
+            <field name="model">vote.config.settings</field>
+            <field name="arch" type="xml">
+                <form string="Configure Vote" version="7.0" create="false" class="oe_form_configuration">
+                    <separator string="Vote"/>
+                    <group name="vote_grp">
+                        <label for="id" string="Vote"/>
+                        <div>
+                            <field name="line_ids" context="{'default_model': 'vote.config.settings'}">
+                                <form string="Line">
+                                    <field name="target_model" required="1"/>
+                                    <field name="name"/>
+                                    <field name="sequence"/>
+                                    <field name="model" invisible="1"/>
+                                </form>
+                                <tree string="Lines">
+                                    <field name="target_model"/>
+                                    <field name="name"/>
+                                    <field name="sequence"/>
+                                </tree>
+                            </field>
+                        </div>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_vote_configuration" model="ir.actions.act_window">
+            <field name="name">Configure Vote</field>
+            <field name="res_model">vote.config.settings</field>
+            <field name="view_id" ref="view_vote_configuration"/>
+            <field name="view_mode">form</field>
+            <field name="res_id" ref="vote_settings"/>
+        </record>
+
+        <menuitem id="menu_vote_admin_configuration" name="Vote" parent="base.menu_config"
+            sequence="15" action="action_vote_configuration"/>
+
+        <record id="action_vote_type" model="ir.actions.act_window">
+            <field name="name">Vote types</field>
+            <field name="res_model">vote.type</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_vote_type" parent="menu_vote_admin_configuration"
+            sequence="15" action="action_vote_type"/>
+
+
+    </data>
+</openerp>

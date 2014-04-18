@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="res_partner_group_committee_rule_marketplace" model="ir.rule">
+            <field name="name">res.partner group committee</field>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="domain_force">[('is_group','=',True)]</field>
+            <field name="groups"  eval="[(6,0,[ref('mail_groups_management.group_mail_committee')])]"/>
+            <field name="perm_read" eval="False"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+
+    <record id="marketplace.marketplace_proposition_user_own_rule" model="ir.rule">
+        <field name="domain_force">['|',('from_group','!=',True),('user_id','=',user.id)]</field>
+        <field name="domain_force">['|','&amp;',('from_group','!=',True),('user_id','=',user.id),'&amp;',('from_group','=',True),('group_id.manager_ids','in',user.id)]</field>
+    </record>
+<!--
+    <record id="marketplace.marketplace_proposition_announcer_rule" model="ir.rule">
+        <field name="domain_force">['|','&',('announcement_id.from_group','!=',True),('announcement_id.user_id','=',user.id),'&',('announcement_id.from_group','=',True),('announcement_id.group_id.manager_ids','in',user.id)]</field>
+    </record>
+-->
+    </data>
+</openerp>

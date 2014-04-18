@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- Workflow Announcement definition -->
+
+        <record id="wkf_announcement" model="workflow">
+            <field name="name">marketplace.announcement</field>
+            <field name="osv">marketplace.announcement</field>
+            <field name="on_create">True</field>
+        </record>
+
+        <record id="act_announcement_draft" model="workflow.activity">
+            <field name="wkf_id" ref="wkf_announcement"/>
+            <field name="name">draft</field>
+            <field name="kind">function</field>
+            <field name="action">write({'state':'draft'})</field>
+            <field name="flow_start">True</field>
+        </record>
+        <record id="act_announcement_open" model="workflow.activity">
+            <field name="wkf_id" ref="wkf_announcement"/>
+            <field name="name">open</field>
+            <field name="kind">function</field>
+            <field name="action">publish()</field>
+        </record>
+        <record id="act_announcement_done" model="workflow.activity">
+            <field name="wkf_id" ref="wkf_announcement"/>
+            <field name="name">done</field>
+            <field name="kind">function</field>
+            <field name="action">write({'state':'done'})</field>
+            <field name="flow_stop">True</field>
+        </record>
+        <record id="act_announcement_cancel" model="workflow.activity">
+            <field name="wkf_id" ref="wkf_announcement"/>
+            <field name="name">cancel</field>
+            <field name="kind">function</field>
+            <field name="action">write({'state':'cancel'})</field>
+            <field name="flow_stop">True</field>
+        </record>
+
+        <record id="announcement_draft_cancel" model="workflow.transition">
+            <field name="act_from" ref="act_announcement_draft"/>
+            <field name="act_to" ref="act_announcement_cancel"/>
+            <field name="signal">announcement_draft_cancel</field>
+            <field name="condition">test_is_user()</field>
+        </record>
+        <record id="announcement_draft_open" model="workflow.transition">
+            <field name="act_from" ref="act_announcement_draft"/>
+            <field name="act_to" ref="act_announcement_open"/>
+            <field name="signal">announcement_draft_open</field>
+            <field name="condition">test_is_user()</field>
+        </record>
+        <record id="announcement_open_cancel" model="workflow.transition">
+            <field name="act_from" ref="act_announcement_open"/>
+            <field name="act_to" ref="act_announcement_cancel"/>
+            <field name="signal">announcement_open_cancel</field>
+            <field name="condition">test_is_user()</field>
+        </record>
+        <record id="announcement_open_done" model="workflow.transition">
+            <field name="act_from" ref="act_announcement_open"/>
+            <field name="act_to" ref="act_announcement_done"/>
+            <field name="signal">announcement_open_done</field>
+            <field name="condition">test_is_user()</field>
+        </record>
+
+
+        <!-- Workflow Proposition definition -->
+
+        <record id="wkf_proposition" model="workflow">
+            <field name="name">marketplace.proposition</field>
+            <field name="osv">marketplace.proposition</field>
+            <field name="on_create">True</field>
+        </record>
+
+        <record id="act_proposition_draft" model="workflow.activity">
+            <field name="wkf_id" ref="wkf_proposition"/>
+            <field name="name">draft</field>
+            <field name="kind">function</field>
+            <field name="action">change_state('draft')</field>
+            <field name="flow_start">True</field>
+        </record>
+        <record id="act_proposition_open" model="workflow.activity">
+            <field name="wkf_id" ref="wkf_proposition"/>
+            <field name="name">open</field>
+            <field name="kind">function</field>
+            <field name="action">change_state('open')</field>
+        </record>
+        <record id="act_proposition_accepted" model="workflow.activity">
+            <field name="wkf_id" ref="wkf_proposition"/>
+            <field name="name">accepted</field>
+            <field name="kind">function</field>
+            <field name="action">change_state('accepted')</field>
+        </record>
+        <record id="act_proposition_rejected" model="workflow.activity">
+            <field name="wkf_id" ref="wkf_proposition"/>
+            <field name="name">rejected</field>
+            <field name="kind">function</field>
+            <field name="action">change_state('rejected')</field>
+            <field name="flow_stop">True</field>
+        </record>
+        <record id="act_proposition_invoiced" model="workflow.activity">
+            <field name="wkf_id" ref="wkf_proposition"/>
+            <field name="name">invoiced</field>
+            <field name="kind">function</field>
+            <field name="action">change_state('invoiced')</field>
+        </record>
+        <record id="act_proposition_confirm" model="workflow.activity">
+            <field name="wkf_id" ref="wkf_proposition"/>
+            <field name="name">confirm</field>
+            <field name="kind">function</field>
+            <field name="action">change_state('confirm')</field>
+        </record>
+        <record id="act_proposition_vote" model="workflow.activity">
+            <field name="wkf_id" ref="wkf_proposition"/>
+            <field name="name">vote</field>
+            <field name="kind">function</field>
+            <field name="action">change_state('vote')</field>
+        </record>
+        <record id="act_proposition_paid" model="workflow.activity">
+            <field name="wkf_id" ref="wkf_proposition"/>
+            <field name="name">paid</field>
+            <field name="kind">function</field>
+            <field name="action">change_state('paid')</field>
+            <field name="flow_stop">True</field>
+        </record>
+        <record id="act_proposition_confirm_refund" model="workflow.activity">
+            <field name="wkf_id" ref="wkf_proposition"/>
+            <field name="name">confirm_refund</field>
+            <field name="kind">function</field>
+            <field name="action">change_state('confirm_refund')</field>
+        </record>
+        <record id="act_proposition_cancel" model="workflow.activity">
+            <field name="wkf_id" ref="wkf_proposition"/>
+            <field name="name">cancel</field>
+            <field name="kind">function</field>
+            <field name="action">change_state('cancel')</field>
+            <field name="flow_stop">True</field>
+        </record>
+
+        <record id="proposition_draft_cancel" model="workflow.transition">
+            <field name="act_from" ref="act_proposition_draft"/>
+            <field name="act_to" ref="act_proposition_cancel"/>
+            <field name="signal">proposition_draft_cancel</field>
+            <field name="condition">test_access_role('is_user')</field>
+        </record>
+        <record id="proposition_draft_open" model="workflow.transition">
+            <field name="act_from" ref="act_proposition_draft"/>
+            <field name="act_to" ref="act_proposition_open"/>
+            <field name="signal">proposition_draft_open</field>
+            <field name="condition">test_access_role('is_user')</field>
+        </record>
+        <record id="proposition_open_cancel" model="workflow.transition">
+            <field name="act_from" ref="act_proposition_open"/>
+            <field name="act_to" ref="act_proposition_cancel"/>
+            <field name="signal">proposition_open_cancel</field>
+            <field name="condition">test_access_role('is_user')</field>
+        </record>
+        <record id="proposition_open_accepted" model="workflow.transition">
+            <field name="act_from" ref="act_proposition_open"/>
+            <field name="act_to" ref="act_proposition_accepted"/>
+            <field name="signal">proposition_open_accepted</field>
+            <field name="condition">test_access_role('is_announcer')</field>
+        </record>
+        <record id="proposition_open_rejected" model="workflow.transition">
+            <field name="act_from" ref="act_proposition_open"/>
+            <field name="act_to" ref="act_proposition_rejected"/>
+            <field name="signal">proposition_open_rejected</field>
+            <field name="condition">test_access_role('is_announcer')</field>
+        </record>
+        <record id="proposition_accepted_invoiced" model="workflow.transition">
+            <field name="act_from" ref="act_proposition_accepted"/>
+            <field name="act_to" ref="act_proposition_invoiced"/>
+            <field name="signal">proposition_accepted_invoiced</field>
+            <field name="condition">test_access_role('is_invoicer')</field>
+        </record>
+        <record id="proposition_accepted_cancel" model="workflow.transition">
+            <field name="act_from" ref="act_proposition_accepted"/>
+            <field name="act_to" ref="act_proposition_cancel"/>
+            <field name="signal">proposition_accepted_cancel</field>
+            <field name="condition">test_access_role('is_moderator_or_aggree')</field>
+        </record>
+        <record id="proposition_invoiced_cancel" model="workflow.transition">
+            <field name="act_from" ref="act_proposition_invoiced"/>
+            <field name="act_to" ref="act_proposition_cancel"/>
+            <field name="signal">proposition_invoiced_cancel</field>
+            <field name="condition">test_access_role('is_moderator_or_aggree')</field>
+        </record>
+        <record id="proposition_invoiced_confirm" model="workflow.transition">
+            <field name="act_from" ref="act_proposition_invoiced"/>
+            <field name="act_to" ref="act_proposition_confirm"/>
+            <field name="signal">proposition_invoiced_confirm</field>
+            <field name="condition">test_access_role('is_payer')</field>
+        </record>
+        <record id="proposition_confirm_cancel" model="workflow.transition">
+            <field name="act_from" ref="act_proposition_confirm"/>
+            <field name="act_to" ref="act_proposition_cancel"/>
+            <field name="signal">proposition_confirm_cancel</field>
+            <field name="condition">test_access_role('is_moderator_or_aggree')</field>
+        </record>
+        <record id="proposition_confirm_vote" model="workflow.transition">
+            <field name="act_from" ref="act_proposition_confirm"/>
+            <field name="act_to" ref="act_proposition_vote"/>
+            <field name="signal">proposition_confirm_vote</field>
+            <field name="condition">test_access_role('is_invoicer')</field>
+        </record>
+        <record id="proposition_vote_paid" model="workflow.transition">
+            <field name="act_from" ref="act_proposition_vote"/>
+            <field name="act_to" ref="act_proposition_paid"/>
+            <field name="signal">proposition_vote_paid</field>
+        </record>
+        <record id="proposition_paid_confirm_refund" model="workflow.transition">
+            <field name="act_from" ref="act_proposition_draft"/>
+            <field name="act_to" ref="act_proposition_confirm_refund"/>
+            <field name="signal">proposition_paid_confirm_refund</field>
+            <field name="condition">test_access_role('is_invoicer')</field>
+        </record>
+        <record id="proposition_confirm_refund_paid" model="workflow.transition">
+            <field name="act_from" ref="act_proposition_confirm_refund"/>
+            <field name="act_to" ref="act_proposition_paid"/>
+            <field name="signal">proposition_confirm_refund_paid</field>
+            <field name="condition">test_access_role('is_payer')</field>
+        </record>
+        <record id="proposition_confirm_refund_cancel" model="workflow.transition">
+            <field name="act_from" ref="act_proposition_confirm_refund"/>
+            <field name="act_to" ref="act_proposition_cancel"/>
+            <field name="signal">proposition_confirm_refund_cancel</field>
+            <field name="condition">test_access_role('is_payer')</field>
+        </record>
+
+    </data>
+</openerp>

@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+base.access_res_partner_group_user,res_partner group_user,base.model_res_partner,base.group_user,1,1,0,0
+base.access_res_users_all,res_users all,base.model_res_users,,1,1,0,0
+access_res_users_membership_moderator,res_users membership moderator,base.model_res_users,group_membership_moderator,1,1,1,0

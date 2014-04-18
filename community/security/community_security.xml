@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="group_community_user" model="res.groups">
+            <field name="name">Community / User</field>
+            <field name="implied_ids" eval="[(6, 0, [ref('marketplace.group_marketplace_user')])]"/>
+            <field name="users" eval="[(4,ref('auth_signup.default_template_user'))]"/>
+        </record>
+
+        <record id="group_community_committee" model="res.groups">
+            <field name="name">Community / Committee</field>
+            <field name="implied_ids" eval="[(6, 0, [ref('group_community_user'), ref('mail_groups_management.group_mail_committee')])]"/>
+        </record>
+
+        <record id="group_community_moderator" model="res.groups">
+            <field name="name">Community / Moderator</field>
+            <field name="implied_ids" eval="[(6, 0, [ref('group_community_committee'),ref('marketplace.group_marketplace_moderator'),ref('membership_users.group_membership_moderator')])]"/>
+        </record>
+
+        <record id="base.group_erp_manager" model="res.groups">
+            <field name="implied_ids" eval="[(4, ref('group_community_moderator'))]"/>
+        </record>
+
+        <record id="base.group_portal" model="res.groups">
+            <field name="users" eval="[(3,ref('auth_signup.default_template_user'))]"/>
+        </record>
+
+    </data>
+</openerp>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="group_mail_committee" model="res.groups">
+            <field name="name">Social / Committee</field>
+            <field name="implied_ids" eval="[(6, 0, [ref('base.group_user'), ref('base.group_partner_manager')])]"/>
+        </record>
+
+        <record id="mail.mail_group_public_and_joined" model="ir.rule">
+            <field name="groups"  eval="[(6,0,[ref('base.group_user')])]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+
+
+        <record id="mail_group_committee_rule" model="ir.rule">
+            <field name="name">mail.group committee</field>
+            <field name="model_id" ref="mail.model_mail_group"/>
+            <field name="domain_force">[('manager_ids','in',user.id)]</field>
+            <field name="groups"  eval="[(6,0,[ref('group_mail_committee')])]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+
+    </data>
+</openerp>

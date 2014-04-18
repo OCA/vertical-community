@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_marketplace_announcement_tree" model="ir.ui.view">
+            <field name="name">marketplace.announcement.tree</field>
+            <field name="model">marketplace.announcement</field>
+            <field name="arch" type="xml">
+                <tree string="Offers">
+                    <field name="name"/>
+                    <field name="address"/>
+                    <field name="publish_date"/>
+                    <field name="expiration_date"/>
+                    <field name="user_id"/>
+                    <field name="quantity"/>
+                    <field name="uom_id"/>
+                    <field name="tag_ids"/>
+                    <field name="vote_average"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+<!--                    <button name="announcement_draft_cancel" states="draft" string="Cancel"/> -attrs="{'invisible':[('is_user','!=',True)]}"-->
+
+
+        <record id="view_marketplace_announcement_form" model="ir.ui.view">
+            <field name="name">marketplace.announcement.form</field>
+            <field name="model">marketplace.announcement</field>
+            <field name="arch" type="xml">
+                <form string="Offer" version="7.0">
+                <header>
+                    <button name="announcement_draft_cancel" states="draft" string="Cancel"/>
+                    <button name="announcement_draft_open" states="draft" class="oe_highlight" string="Publish"/>
+                    <button name="announcement_open_cancel" states="open" string="Cancel"/>
+                    <button name="reset_workflow" states="cancel" string="Set to Draft" type="object"/>
+                    <button name="announcement_open_done" states="open" string="Close"/>
+                    <button name="reset_workflow" states="done" string="Re-Open" type="object"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,open,done"/>
+                </header>
+                <sheet string="Offer">
+                    <field name="picture" widget="image" class="oe_left oe_avatar" options="{&quot;preview_image&quot;: &quot;image_medium&quot;, &quot;size&quot;: [90, 90]}"/>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1><field name="name" placeholder="Title..."/></h1>
+                    </div>
+                    <div class="oe_right">
+                        <label for="emergency"/>
+                        <field name="emergency"/>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="category_id" widget="selection" domain="[('child_ids','=',False)]"/>
+                            <field name="tag_ids" widget="many2many_tags" domain="[('category_id','=',category_id)]" context="{'default_category_id':category_id}" placeholder="Tags..."/>
+                            <field name="description"/>
+                        </group>
+                        <group>
+                            <field name="user_id" on_change="onchange_author(from_company, user_id)" attrs="{'invisible':[('from_company', '=', True)],'readonly':[('state','!=','draft')]}"/>
+                            <field name="company_name" attrs="{'invisible':[('from_company', '!=', True)]}" readonly="1"/>
+                            <field name="expiration_date"/>
+                            <field name="infinite_qty"/>
+                            <field name="quantity" attrs="{'invisible':[('infinite_qty', '=', True)]}"/>
+                            <field name="quantity_available" attrs="{'invisible':[('infinite_qty', '=', True)]}"/>
+                            <field name="uom_id"/>
+                            <field name="from_company" on_change="onchange_author(from_company, user_id)" attrs="{'readonly':[('state','!=','draft')]}"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="delivery_date"/>
+                            <field name="street"/>
+                            <field name="street2"/>
+                            <field name="zip"/>
+                            <field name="city"/>
+                            <field name="state_id"/>
+                            <field name="country_id"/>
+                        </group>
+                    </group>
+                    <field name="currency_ids">
+                        <tree string="Currencies" editable="bottom">
+                            <field name="price_unit"/>
+                            <field name="currency_id" widget="selection"/>
+<!--                            <field name="company_commission"/>-->
+                        </tree>
+                    </field>
+                    <field name="proposition_ids" context="{'default_announcement_id': id}"/>
+                    <button name='add_proposition' string='Make a reply / proposal' type='object' attrs="{'invisible':['|',('state','!=','open'),('is_user', '=', True)]}"/>
+                    <field name="is_user" invisible="1"/>
+                    <field name="is_moderator" invisible="1"/>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_marketplace_announcement_search" model="ir.ui.view">
+            <field name="name">marketplace.announcement.search</field>
+            <field name="model">marketplace.announcement</field>
+            <field name="arch" type="xml">
+               <search string="Offers">
+                    <field name="name"/>
+                    <field name="address"/>
+                    <field name="category_id"/>
+                    <field name="tag_ids"/>
+                    <field name="user_id"/>
+                    <separator/>
+                    <filter name="open" string="In Progress" domain="[('state','=','open')]" help="Open offers" icon="terp-camera_test"/>
+                    <separator/>
+                    <filter name="my_offers" string="My offers" domain="[('user_id','=',uid)]" icon="terp-check"/>
+                    <filter name="my_skills" string="My skills" domain="['|',('category_id.tag_ids.partner_ids.user_ids','in',uid),('tag_ids.partner_ids.user_ids','in',uid)]" icon="terp-check"/>
+                    <group expand="0" string="Group By...">
+                        <filter name="groupby_category" string="Category" icon="terp-partner" domain="[]" context="{'group_by':'category_id'}"/>
+                        <filter name="groupby_user" string="Author" icon="terp-personal" domain="[]" context="{'group_by':'user_id'}"/>
+                        <filter name="groupby_date" string="Publish date" icon="terp-go-month" domain="[]" context="{'group_by':'publish_date'}"/>
+                        <filter name="groupby_city" string="City" icon="terp-partner" domain="[]" context="{'group_by':'city'}"/>
+                        <filter name="groupby_region" string="Region" icon="terp-partner" domain="[]" context="{'group_by':'state_id'}"/>
+                        <filter name="groupby_country" string="Country" icon="terp-partner" domain="[]" context="{'group_by':'country_id'}"/>
+                        <filter name="groupby_state" string="State" icon="terp-partner" domain="[]" context="{'group_by':'state'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+
+        <record id="view_marketplace_proposition_tree" model="ir.ui.view">
+            <field name="name">marketplace.proposition.tree</field>
+            <field name="model">marketplace.proposition</field>
+            <field name="arch" type="xml">
+                <tree string="Propositions">
+                    <field name="announcement_id" invisible="'default_announcement_id' in context"/>
+                    <field name="user_id"/>
+                    <field name="quantity"/>
+                    <field name="uom_id"/>
+                    <field name="description_announcement_id"/>
+                    <field name="total"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+<!--
+                    <button name="proposition_draft_cancel" states="draft" string="Cancel"/>-attrs="{'invisible':[('user_role','!=','user'),('user_role','!=','moderator')]}"
+                    <button name="proposition_draft_open" states="draft" class="oe_highlight" string="Publish"/>
+                    <button name="proposition_open_cancel" states="open" string="Cancel"/>
+                    <button name="reset_workflow" states="cancel" string="Put in draft" type="object"/>
+                    <button name="proposition_open_accepted" states="open" class="oe_highlight" string="Accept"/>-attrs="{'invisible':[('user_role','!=','announcer'),('user_role','!=','moderator')]}"
+                    <button name="proposition_open_rejected" states="open" class="oe_highlight" string="Reject"/>
+                    <button name="reset_workflow" states="rejected" string="Put in draft" type="object"/>
+                    <button name="proposition_accepted_dispute" states="accepted" string="Dispute"/>-attrs="{'invisible':[('user_role','!=','user'),('user_role','!=','announcer')('user_role','!=','moderator')]}"-
+                    <button name="proposition_dispute_rejected" states="dispute" class="oe_highlight" string="Reject" groups="marketplace.group_marketplace_moderator"/>-attrs="{'invisible':[('user_role','!=','moderator')]}"-
+-->
+
+        <record id="view_marketplace_proposition_form" model="ir.ui.view">
+            <field name="name">marketplace.proposition.form</field>
+            <field name="model">marketplace.proposition</field>
+            <field name="arch" type="xml">
+                <form string="Proposition" version="7.0">
+                <header>
+                    <button name="proposition_draft_cancel" states="draft" string="Cancel"/>
+                    <button name="proposition_draft_open" states="draft" class="oe_highlight" string="Publish"/>
+                    <button name="proposition_open_cancel" states="open" string="Cancel"/>
+                    <button name="reset_workflow" states="cancel" string="Put in draft" type="object"/>
+                    <button name="proposition_open_accepted" states="open" class="oe_highlight" string="Accept"/>
+                    <button name="proposition_open_rejected" states="open" class="oe_highlight" string="Reject"/>
+                    <button name="reset_workflow" states="rejected" string="Put in draft" type="object"/>
+                    <button name="proposition_accepted_cancel" string="Cancel" attrs="{'invisible':['|','|',('want_cancel_announcer', '!=', True),('want_cancel_user', '!=', True), ('state', '!=', 'accepted')]}"/>
+                    <button name="proposition_accepted_invoiced" states="accepted" class="oe_highlight" string="Invoice"/>
+                    <button name="proposition_invoiced_cancel" string="Cancel" attrs="{'invisible':['|','|',('want_cancel_announcer', '!=', True),('want_cancel_user', '!=', True), ('state', '!=', 'invoiced')]}"/>
+                    <button name="proposition_invoiced_confirm" states="invoiced" class="oe_highlight" string="Pay"/>
+                    <button name="proposition_confirm_vote" states="confirm" class="oe_highlight" string="Confirm that you received the payment"/>
+                    <button name="reset_workflow" states="paid" string="Refund" type="object"/>
+                    <button name="proposition_confirm_refund_paid" states="confirm_refund" string="Return to paid"/>
+                    <button name="proposition_confirm_refund_cancel" states="confirm_refund" class="oe_highlight" string="Confirm that you received the payment for the refund"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,open,accepted,invoiced,paid"/>
+                </header>
+                <sheet string="Offer">
+                    <group>
+                        <group>
+                            <field name="announcement_id" attrs="{'readonly':[('state','!=','draft')]}" invisible="'default_announcement_id' in context"/>
+                            <field name="description"/>
+                        </group>
+                        <group>
+                            <field name="user_id" attrs="{'invisible':[('from_company', '=', True)]}"/>
+                            <field name="company_name" attrs="{'invisible':[('from_company', '!=', True)]}" readonly="1"/>
+                            <field name="quantity" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="uom_id"/>
+                            <field name="from_company" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="description_announcement_id" domain="[('user_id','=',uid)]" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="vote_vote" widget="vote_five_star" attrs="{'invisible': ['|',('already_accepted','!=',True),('is_user','!=',True)]}"/>
+                            <field name="vote_comment" attrs="{'invisible': ['|',('already_accepted','!=',True),('is_user','!=',True)]}"/>
+                        </group>
+                            <field name="want_cancel_announcer" states="accepted,invoiced,confirm" attrs="{'readonly':[('is_announcer', '!=', True),('is_moderator','!=',True)]}"/>
+                            <field name="want_cancel_user" states="accepted,invoiced,confirm" attrs="{'readonly':[('is_user', '!=', True),('is_moderator','!=',True)]}"/>
+                    </group>
+                    <field name="currency_ids" attrs="{'readonly':[('state','!=','draft')]}">
+                        <tree string="Currencies" editable="bottom">
+                            <field name="price_unit"/>
+                            <field name="currency_id" widget="selection"/>
+<!--                            <field name="company_commission"/>-->
+                            <field name="subtotal"/>
+                        </tree>
+                    </field>
+                    <field name="move_ids" readonly="1">
+                        <tree string="Moves">
+                            <field name="name"/>
+                            <field name="date"/>
+                            <field name="marketplace_action"/>
+                            <field name="state"/>
+                        </tree>
+                    </field>
+                    <group>
+                        <field name="call_moderator_user" attrs="{'readonly':[('is_user', '!=', True)], 'invisible':[('is_user', '!=', True),('call_moderator_user', '!=', True)]}"/>
+                        <field name="call_moderator_announcer" attrs="{'readonly':[('is_announcer', '!=', True)], 'invisible':[('is_announcer', '!=', True),('call_moderator_announcer', '!=', True)]}"/>
+                    </group>
+                    <field name="is_user" invisible="1"/>
+                    <field name="is_announcer" invisible="1"/>
+                    <field name="is_moderator" invisible="1"/>
+                    <field name="already_accepted" invisible="1"/>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_marketplace_proposition_search" model="ir.ui.view">
+            <field name="name">marketplace.proposition.search</field>
+            <field name="model">marketplace.proposition</field>
+            <field name="arch" type="xml">
+               <search string="Propositions">
+                    <field name="announcement_id"/>
+                    <field name="user_id"/>
+                    <separator/>
+                    <filter name="open" string="In Progress" domain="[('state','=','open')]" help="Open offers" icon="terp-camera_test"/>
+                    <separator/>
+                    <filter name="my_offers" string="My offers" domain="[('user_id','=',uid)]" icon="terp-check"/>
+                </search>
+            </field>
+        </record>
+
+
+        <!-- Category / Tag -->
+
+        <record id="view_marketplace_announcement_category_form" model="ir.ui.view">
+            <field name="name">marketplace.announcement.category.form</field>
+            <field name="model">marketplace.announcement.category</field>
+            <field name="arch" type="xml">
+                <form string="Offers/Wants Category" version="7.0">
+                    <group col="4">
+                        <field name="name"/>
+                        <field name="sequence"/>
+                        <field name="parent_id"/>
+                        <field name="active"/>
+                        <newline/>
+                        <field name="vote_config_ids" context="{'default_model': 'marketplace.announcement.category'}"/>
+                        <field name="vote_config_result_ids"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <record id="view_marketplace_announcement_category_tree" model="ir.ui.view">
+            <field name="name">marketplace.announcement.category.tree</field>
+            <field name="model">marketplace.announcement.category</field>
+            <field name="field_parent">child_ids</field>
+            <field name="arch" type="xml">
+                <tree toolbar="1" string="Offers/Wants Categories">
+                    <field name="complete_name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_marketplace_tag_form" model="ir.ui.view">
+            <field name="name">marketplace.tag.form</field>
+            <field name="model">marketplace.tag</field>
+            <field name="arch" type="xml">
+                <form string="Offers/Wants Tag" version="7.0">
+                    <group col="4">
+                        <field name="name"/>
+                        <field name="category_id" widget="selection"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <record id="view_marketplace_tag_tree" model="ir.ui.view">
+            <field name="name">marketplace.tag.tree</field>
+            <field name="model">marketplace.tag</field>
+            <field name="arch" type="xml">
+                <tree string="Offers/Wants Tags">
+                    <field name="name"/>
+                    <field name="category_id"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <!-- Partner -->
+
+        <record id="view_partner_form_marketplace" model="ir.ui.view">
+            <field name="name">partner.form.marketplace</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <page string="Internal Notes" position="after">
+                    <page string="Marketplace">
+                        <group>
+                            <group>
+                                <field name="skill_category_ids"/>
+                            </group>
+                            <group>
+                                <field name="skill_tag_ids" domain="[('category_id','in',skill_category_ids and skill_category_ids[0][2])]"/>
+                            </group>
+                        </group>
+                        <field name="marketplace_balance_ids">
+                            <tree string="Balance">
+                                <field name="currency_id"/>
+                                <field name="limit"/>
+                                <field name="available"/>
+                                <field name="reserved"/>
+                            </tree>
+                        </field>
+                        <field name="marketplace_currency_ids"/>
+                    </page>
+                </page>
+            </field>
+        </record>
+
+        <record id="view_res_partner_marketplace_res_partner_marketplace_currency_tree" model="ir.ui.view">
+            <field name="name">res.partner.marketplace.currency.tree</field>
+            <field name="model">res.partner.marketplace.currency</field>
+            <field name="arch" type="xml">
+                <tree string="Currencies">
+                    <field name="currency_id"/>
+                    <field name="limit"/>
+                    <field name="available_account"/>
+                    <field name="reserved_account"/>
+                    <field name="expense_account"/>
+                    <field name="income_account"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_res_partner_marketplace_currency_form" model="ir.ui.view">
+            <field name="name">res.partner.marketplace.currency.form</field>
+            <field name="model">res.partner.marketplace.currency</field>
+            <field name="arch" type="xml">
+                <form string="Currency">
+                    <field name="currency_id"/>
+                    <field name="limit"/>
+                    <field name="available_account"/>
+                    <field name="reserved_account"/>
+                    <field name="expense_account"/>
+                    <field name="income_account"/>
+                </form>
+            </field>
+        </record>
+
+
+    </data>
+</openerp>

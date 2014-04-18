@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_marketplace_config_currency_tree" model="ir.ui.view">
+            <field name="name">marketplace.config.currency.tree</field>
+            <field name="model">marketplace.config.currency</field>
+            <field name="arch" type="xml">
+                <tree string="Currencies">
+                    <field name="currency_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_marketplace_config_currency_form" model="ir.ui.view">
+            <field name="name">marketplace.config.currency.form</field>
+            <field name="model">marketplace.config.currency</field>
+            <field name="arch" type="xml">
+                <form string="Currency">
+                    <field name="currency_id"/>
+                    <field name="limit"/>
+                    <field name="partner_availability_account_id"/>
+                    <field name="partner_reserved_account_id"/>
+                    <field name="partner_expense_account_id"/>
+                    <field name="partner_income_account_id"/>
+                    <field name="company_availability_account_id"/>
+                    <field name="company_reserved_account_id"/>
+                    <field name="company_expense_account_id"/>
+                    <field name="company_income_account_id"/>
+                    <field name="percent_company"/>
+                    <field name="external_currency"/>
+                </form>
+            </field>
+        </record>
+
+
+
+        <record id="view_marketplace_configuration" model="ir.ui.view">
+            <field name="name">marketplace settings</field>
+            <field name="model">marketplace.config.settings</field>
+            <field name="arch" type="xml">
+                <form string="Configure Marketplace" version="7.0" create="false" class="oe_form_configuration">
+                    <separator string="Marketplace"/>
+                    <group name="marketplace_grp">
+                        <label for="id" string="Currencies"/>
+                        <div name="currencies">
+                            <div>
+                                <field name="journal_id" class="oe_inline"/>
+                                <label for="journal_id"/>
+                            </div>
+<!--
+                            <div>
+                                <field name="community_currency_id" domain="[('marketplace_currency','=',True)]" class="oe_inline"/>
+                                <label for="community_currency_id"/>
+                            </div>
+                            <div>
+                                <field name="community_partner_availability_account_id" class="oe_inline"/>
+                                <label for="community_partner_availability_account_id"/>
+                            </div>
+                            <div>
+                                <field name="community_partner_reserved_account_id" class="oe_inline"/>
+                                <label for="community_partner_reserved_account_id"/>
+                            </div>
+                            <div>
+                                <field name="community_partner_expense_account_id" class="oe_inline"/>
+                                <label for="community_partner_expense_account_id"/>
+                            </div>
+                            <div>
+                                <field name="community_partner_income_account_id" class="oe_inline"/>
+                                <label for="community_partner_income_account_id"/>
+                            </div>
+                            <div>
+                                <field name="community_company_stock_account_id" class="oe_inline"/>
+                                <label for="community_company_stock_account_id"/>
+                            </div>
+                            <div>
+                                <field name="community_company_availability_account_id" class="oe_inline"/>
+                                <label for="community_company_availability_account_id"/>
+                            </div>
+                            <div>
+                                <field name="community_company_reserved_account_id" class="oe_inline"/>
+                                <label for="community_company_reserved_account_id"/>
+                            </div>
+                            <div>
+                                <field name="community_company_expense_account_id" class="oe_inline"/>
+                                <label for="community_company_expense_account_id"/>
+                            </div>
+                            <div>
+                                <field name="community_company_income_account_id" class="oe_inline"/>
+                                <label for="community_company_income_account_id"/>
+                            </div>
+
+                            <div>
+                                <field name="real_currency_id" domain="[('marketplace_currency','=',True)]" class="oe_inline"/>
+                                <label for="real_currency_id"/>
+                            </div>
+                            <div>
+                                <field name="real_partner_availability_account_id" class="oe_inline"/>
+                                <label for="real_partner_availability_account_id"/>
+                            </div>
+                            <div>
+                                <field name="real_partner_reserved_account_id" class="oe_inline"/>
+                                <label for="real_partner_reserved_account_id"/>
+                            </div>
+                            <div>
+                                <field name="real_partner_expense_account_id" class="oe_inline"/>
+                                <label for="real_partner_expense_account_id"/>
+                            </div>
+                            <div>
+                                <field name="real_partner_income_account_id" class="oe_inline"/>
+                                <label for="real_partner_income_account_id"/>
+                            </div>
+                            <div>
+                                <field name="real_company_availability_account_id" class="oe_inline"/>
+                                <label for="real_company_availability_account_id"/>
+                            </div>
+                            <div>
+                                <field name="real_company_reserved_account_id" class="oe_inline"/>
+                                <label for="real_company_reserved_account_id"/>
+                            </div>
+                            <div>
+                                <field name="real_company_expense_account_id" class="oe_inline"/>
+                                <label for="real_company_expense_account_id"/>
+                            </div>
+                            <div>
+                                <field name="real_company_income_account_id" class="oe_inline"/>
+                                <label for="real_company_income_account_id"/>
+                            </div>
+                            <div>
+                                <field name="community_percent_company" class="oe_inline"/>
+                                <label for="community_percent_company"/>
+                            </div>
+                            <div>
+                                <field name="real_percent_company" class="oe_inline"/>
+                                <label for="real_percent_company"/>
+                            </div>-->
+                            <div>
+                                <field name="group_commission" class="oe_inline"/>
+                                <label for="group_commission"/>
+                            </div>
+                            <field name="currency_ids"/>
+                            <div>
+                                <field name="default_currency_id" class="oe_inline"/>
+                                <label for="default_currency_id"/>
+                            </div>
+                        </div>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_marketplace_configuration" model="ir.actions.act_window">
+            <field name="name">Configure Marketplace</field>
+            <field name="res_model">marketplace.config.settings</field>
+            <field name="view_id" ref="view_marketplace_configuration"/>
+            <field name="view_mode">form</field>
+            <field name="res_id" ref="marketplace_settings"/>
+        </record>
+
+        <menuitem id="menu_marketplace_admin_configuration" name="Marketplace" parent="base.menu_config"
+            sequence="15" action="action_marketplace_configuration"/>
+
+    </data>
+</openerp>

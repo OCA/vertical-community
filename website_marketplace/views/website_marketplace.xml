@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data noupdate="0">
+
+<template id="announcements_cart" name="Announcement Cell">
+  <div itemscope="itemscope" itemtype="http://schema.org/Product">
+  <div class="oe_product_image">
+      <a itemprop="url" t-attf-href="/shop/product/">
+          <img itemprop="image" class="img img-responsive" t-attf-src="/website/image/product.template/1/image#?max_width=300&amp;max_height=300"/>
+      </a>
+  </div>
+  <section>
+      <h5><strong><a itemprop="name" t-attf-href="/marketplace/announcement/{{ slug(announcement) }}/" t-field="announcement.name"/></strong></h5>
+      <div class="text-info oe_subdescription" contenteditable="false">
+        <div itemprop="description" t-field="announcement.description"></div>
+      </div>
+  </section>
+  </div>
+</template>
+
+<template id="announcements" name="Announcements">
+  <t t-call="website.layout">
+      <t t-set="additional_title">Marketplace</t>
+      <div id="wrap" class="js_sale">
+        <div class="oe_structure"/>
+        <div class="container oe_website_marketplace">
+<!--          <div class="announcements_pager">
+            <div class="row">
+              <t t-set="search_class">pagination form-inline col-md-3</t>
+              <t t-call="website.pager"/>
+            </div>
+          </div>-->
+          <div class='row'>
+            <div class="col-md-12" id="announcements_grid">
+              <t t-foreach="announcements" t-as="announcement">
+                <div class="oe_announcement oe_list oe_announcement_cart">
+                  <t t-call="website_marketplace.announcements_cart"/>
+                </div>
+              </t>
+              <t t-if="not announcements">
+                <div class="text-center text-muted">
+                  <h3>No announcement found.</h3>
+                </div>
+              </t>
+            </div>
+          </div>
+<!--          <div class="announcements_pager">
+              <t t-call="website.pager"/>
+          </div>-->
+        </div>
+        <div class="oe_structure mb32"/>
+      </div>
+  </t>
+</template>
+
+<template id="announcement" name="Announcement">
+  <t t-call="website.layout">
+      <t t-set="head">
+          <script type="text/javascript" src="/website_editbuttons/static/src/js/editbuttons.js"></script>
+          <t t-raw="head or ''"/>
+      </t>
+      <t t-set="additional_title" t-value="announcement.name"/>
+      <div itemscope="itemscope" itemtype="http://schema.org/Product" id="wrap" class="js_sale">
+        <section class="container mt8">
+          <div class="row">
+            <div class="col-sm-4">
+                <ol class="breadcrumb">
+                    <li><a t-attf-href="/marketplace?{{ keep_query('search', 'filters', 'page') if not category else keep_query('search', 'filters') }}">Announcements</a></li>
+                    <li class="active"><span t-field="announcement.name"/></li>
+                </ol>
+            </div>
+          </div>
+        </section>
+
+        <section class="container oe_website_sale" id="announcement_detail">
+          <div class="row">
+            <div class="col-sm-7 col-md-7 col-lg-7">
+                <span itemprop="image" t-field="announcement.picture" t-field-options='{"widget": "image", "class": "product_detail_img"}'/>
+            </div><div class="col-sm-5 col-md-5 col-lg-4 col-lg-offset-1">
+                <h1 itemprop="name" contenteditable="True" t-field="announcement.name">Announcement Name</h1>
+            </div>
+          </div>
+        </section>
+        <div itemprop="description" t-field="announcement.description" class="oe_structure mt16"/>
+
+        <t t-call="website_editbuttons.editbuttons"/>
+
+      </div>
+  </t>
+</template>
+
+</data>
+</openerp>

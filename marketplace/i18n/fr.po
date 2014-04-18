@@ -1,0 +1,1037 @@
+# French translation for openerp-marketplace
+# Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
+# This file is distributed under the same license as the openerp-marketplace package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: openerp-marketplace\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2014-03-05 15:10+0000\n"
+"PO-Revision-Date: 2014-03-05 16:24+0000\n"
+"Last-Translator: YannickB <yannick.buron@gmail.com>\n"
+"Language-Team: French <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2014-03-07 07:45+0000\n"
+"X-Generator: Launchpad (build 16948)\n"
+
+#. module: marketplace
+#: selection:marketplace.proposition,state:0
+msgid "Refund payment confirmation"
+msgstr "Confirmation du paiement de l'avoir"
+
+#. module: marketplace
+#: field:marketplace.config.settings,group_commission:0
+msgid "Group can define commission"
+msgstr "Groupes peuvent avoir des commissions"
+
+#. module: marketplace
+#: field:marketplace.proposition,is_dispute:0
+msgid "Is dispute?"
+msgstr "Est en dispute?"
+
+#. module: marketplace
+#: model:ir.actions.act_window,name:marketplace.action_marketplace_my_proposition_offer
+#: model:ir.actions.act_window,name:marketplace.action_marketplace_my_proposition_want
+#: model:ir.ui.menu,name:marketplace.menu_action_marketplace_my_proposition_offer
+#: model:ir.ui.menu,name:marketplace.menu_action_marketplace_my_proposition_want
+msgid "My propositions"
+msgstr "Mes propositions"
+
+#. module: marketplace
+#: view:marketplace.announcement:0
+#: field:marketplace.announcement,user_id:0
+#: field:marketplace.transaction,user_id:0
+msgid "Author"
+msgstr "Auteur"
+
+#. module: marketplace
+#: view:marketplace.announcement:0
+msgid "Group By..."
+msgstr "Grouper par..."
+
+#. module: marketplace
+#: field:marketplace.proposition,description:0
+msgid "Precisions"
+msgstr "Précisions"
+
+#. module: marketplace
+#: field:marketplace.config.currency,company_availability_account_id:0
+msgid "Marketplace company availability account"
+msgstr "Place de marché compte de disponibilité société"
+
+#. module: marketplace
+#: field:res.partner,skill_category_ids:0
+msgid "My skills (category)"
+msgstr "Mes compétences (catégorie)"
+
+#. module: marketplace
+#: field:marketplace.proposition,already_published:0
+msgid "Already published?"
+msgstr "Déjà publié?"
+
+#. module: marketplace
+#: field:marketplace.announcement,uom_id:0
+#: field:marketplace.proposition,uom_id:0
+msgid "Unit of Measure"
+msgstr "Unité de mesure"
+
+#. module: marketplace
+#: model:ir.ui.menu,name:marketplace.menu_marketplace_want
+msgid "Wants"
+msgstr "Demandes"
+
+#. module: marketplace
+#: field:marketplace.config.currency,external_currency:0
+msgid "External currency"
+msgstr "Monnaie externe"
+
+#. module: marketplace
+#: field:marketplace.announcement,zip:0
+msgid "Zip"
+msgstr "Code postal"
+
+#. module: marketplace
+#: field:res.partner,skill_tag_ids:0
+msgid "My skills (tags)"
+msgstr "Mes compétences (tags)"
+
+#. module: marketplace
+#: view:marketplace.announcement:0
+#: selection:marketplace.announcement,type:0
+#: view:marketplace.proposition:0
+msgid "Offer"
+msgstr "Offre"
+
+#. module: marketplace
+#: field:marketplace.announcement,message_unread:0
+#: field:marketplace.proposition,message_unread:0
+msgid "Unread Messages"
+msgstr "Messages non-lus"
+
+#. module: marketplace
+#: field:marketplace.announcement,company_name:0
+#: field:marketplace.transaction,company_name:0
+msgid "Company"
+msgstr "Société"
+
+#. module: marketplace
+#: field:marketplace.proposition,is_moderator_or_aggree:0
+msgid "Is moderator or aggree?"
+msgstr "Est modérateur ou accord?"
+
+#. module: marketplace
+#: view:marketplace.announcement:0
+msgid "Set to Draft"
+msgstr "Mettre en brouillon"
+
+#. module: marketplace
+#: view:marketplace.announcement:0
+#: view:marketplace.proposition:0
+msgid "In Progress"
+msgstr "En cours"
+
+#. module: marketplace
+#: field:marketplace.config.currency,currency_id:0
+msgid "Real currency"
+msgstr "Monnaie réelle"
+
+#. module: marketplace
+#: field:marketplace.announcement.currency,price_unit:0
+msgid "Wished unit price"
+msgstr "Prix unitaire voulu"
+
+#. module: marketplace
+#: model:ir.model,name:marketplace.model_ir_attachment
+msgid "ir.attachment"
+msgstr "ir.attachment"
+
+#. module: marketplace
+#: model:ir.actions.act_window,name:marketplace.action_marketplace_announcement_my_want
+#: model:ir.ui.menu,name:marketplace.menu_action_marketplace_announcement_my_want
+msgid "My wants"
+msgstr "Mes demandes"
+
+#. module: marketplace
+#: field:marketplace.announcement,name:0
+msgid "I have"
+msgstr "J'ai"
+
+#. module: marketplace
+#: field:marketplace.announcement.currency,subtotal:0
+msgid "Subtotal"
+msgstr "Sous-total"
+
+#. module: marketplace
+#: field:marketplace.config.currency,partner_reserved_account_id:0
+msgid "Marketplace partner reserved account"
+msgstr "Place de marché compte de réservation partenaire"
+
+#. module: marketplace
+#: model:ir.actions.act_window,name:marketplace.action_marketplace_configuration
+#: view:marketplace.config.settings:0
+msgid "Configure Marketplace"
+msgstr "Configurer place de marché"
+
+#. module: marketplace
+#: view:marketplace.announcement:0
+msgid "Region"
+msgstr "Région"
+
+#. module: marketplace
+#: field:marketplace.announcement,message_ids:0
+#: field:marketplace.proposition,message_ids:0
+msgid "Messages"
+msgstr "Messages"
+
+#. module: marketplace
+#: field:marketplace.config.currency,limit:0
+#: field:res.partner.marketplace.balance,limit:0
+msgid "Limit"
+msgstr "Limite"
+
+#. module: marketplace
+#: model:ir.model,name:marketplace.model_marketplace_config_settings
+msgid "Marketplace configuration"
+msgstr "Configuration de la place de marché"
+
+#. module: marketplace
+#: selection:marketplace.announcement,state:0
+#: selection:marketplace.proposition,state:0
+msgid "Cancelled"
+msgstr "Annulé"
+
+#. module: marketplace
+#: help:marketplace.announcement,message_unread:0
+#: help:marketplace.proposition,message_unread:0
+msgid "If checked new messages require your attention."
+msgstr "Si coché, de nouveaux messages nécessitent votre attention."
+
+#. module: marketplace
+#: view:marketplace.announcement:0
+msgid "Add a proposition"
+msgstr "Ajouter une proposition"
+
+#. module: marketplace
+#: model:ir.ui.menu,name:marketplace.menu_marketplace_configuration
+msgid "Configuration"
+msgstr "Configuration"
+
+#. module: marketplace
+#: field:marketplace.proposition,invoice_id:0
+msgid "Invoice move"
+msgstr "Mouvement de facturation"
+
+#. module: marketplace
+#: constraint:marketplace.announcement.category:0
+msgid "Error ! You can not create recursive categories."
+msgstr "Erreur ! Vous ne pouvez pas créer de catégories récursives"
+
+#. module: marketplace
+#: view:marketplace.announcement:0
+msgid "My skills"
+msgstr "Mes compétences"
+
+#. module: marketplace
+#: field:res.partner.marketplace.currency,expense_account:0
+msgid "Expense account"
+msgstr "Compte de charge"
+
+#. module: marketplace
+#: model:ir.actions.act_window,name:marketplace.action_marketplace_announcement_category_form
+#: model:ir.model,name:marketplace.model_marketplace_announcement_category
+#: model:ir.ui.menu,name:marketplace.menu_action_marketplace_announcement_category_form
+#: view:marketplace.announcement.category:0
+msgid "Offers/Wants Categories"
+msgstr "Catégories d'Offre/Demande"
+
+#. module: marketplace
+#: help:marketplace.announcement,message_summary:0
+#: help:marketplace.proposition,message_summary:0
+msgid ""
+"Holds the Chatter summary (number of messages, ...). This summary is "
+"directly in html format in order to be inserted in kanban views."
+msgstr ""
+"Gère l'historique de \"Chatter\" (nombre de messages, ...). Cet historique "
+"est au format HTML pour permettre son utilisation dans la vue kanban"
+
+#. module: marketplace
+#: view:marketplace.announcement:0
+msgid "Re-Open"
+msgstr "Ré-Ouvrir"
+
+#. module: marketplace
+#: field:marketplace.announcement,emergency:0
+msgid "Emergency?"
+msgstr "Urgence?"
+
+#. module: marketplace
+#: selection:marketplace.announcement,state:0
+#: selection:marketplace.proposition,state:0
+msgid "Draft"
+msgstr "Brouillon"
+
+#. module: marketplace
+#: field:res.currency,marketplace_currency:0
+msgid "Marketplace currency?"
+msgstr "Monnaie pour la place de marché?"
+
+#. module: marketplace
+#: field:marketplace.announcement.category,partner_ids:0
+#: field:marketplace.tag,partner_ids:0
+msgid "Partners"
+msgstr "Partenaires"
+
+#. module: marketplace
+#: field:marketplace.announcement.category,parent_left:0
+msgid "Left parent"
+msgstr "Parent de gauche"
+
+#. module: marketplace
+#: field:marketplace.announcement,vote_user_ids:0
+#: field:marketplace.proposition,vote_user_ids:0
+msgid "Vote users"
+msgstr "Vote utilisateurs"
+
+#. module: marketplace
+#: field:marketplace.announcement.category,child_ids:0
+msgid "Child Categories"
+msgstr "Catégories enfants"
+
+#. module: marketplace
+#: view:marketplace.announcement:0
+#: field:marketplace.announcement,state_id:0
+msgid "State"
+msgstr "État"
+
+#. module: marketplace
+#: model:ir.ui.menu,name:marketplace.menu_marketplace_offer
+#: view:marketplace.announcement:0
+msgid "Offers"
+msgstr "Offres"
+
+#. module: marketplace
+#: field:marketplace.announcement,message_follower_ids:0
+#: field:marketplace.proposition,message_follower_ids:0
+msgid "Followers"
+msgstr "Abonnés"
+
+#. module: marketplace
+#: model:ir.actions.act_window,name:marketplace.action_marketplace_announcement_offer_per_location
+#: model:ir.actions.act_window,name:marketplace.action_marketplace_announcement_want_per_location
+#: model:ir.ui.menu,name:marketplace.menu_action_marketplace_announcement_offer_per_location
+#: model:ir.ui.menu,name:marketplace.menu_action_marketplace_announcement_want_per_location
+msgid "Per location"
+msgstr "Par localisation"
+
+#. module: marketplace
+#: field:res.partner.marketplace.currency,income_account:0
+msgid "Income account"
+msgstr "Compte de produit"
+
+#. module: marketplace
+#: field:marketplace.config.settings,journal_id:0
+msgid "Marketplace Journal"
+msgstr "Journal de la place de marché"
+
+#. module: marketplace
+#: view:marketplace.announcement:0
+msgid "Tags..."
+msgstr "Étiquettes..."
+
+#. module: marketplace
+#: field:account.move,marketplace_action:0
+#: field:marketplace.announcement,type:0
+#: field:marketplace.proposition,type:0
+msgid "Type"
+msgstr "Type"
+
+#. module: marketplace
+#: view:marketplace.announcement:0
+msgid "at('Limit', digits_compute= dp.get_precision('Product Price')),"
+msgstr "at('Limit', digits_compute= dp.get_precision('Product Price')),"
+
+#. module: marketplace
+#: field:res.partner.marketplace.balance,available:0
+msgid "Available"
+msgstr "Disponible"
+
+#. module: marketplace
+#: field:marketplace.announcement,picture:0
+msgid "Picture"
+msgstr "Image"
+
+#. module: marketplace
+#: model:ir.actions.act_window,name:marketplace.action_marketplace_announcement_my_offer
+#: model:ir.ui.menu,name:marketplace.menu_action_marketplace_announcement_my_offer
+#: view:marketplace.announcement:0
+#: view:marketplace.proposition:0
+msgid "My offers"
+msgstr "Mes offres"
+
+#. module: marketplace
+#: field:marketplace.config.settings,default_currency_id:0
+msgid "Default currency"
+msgstr "Monnaie par défaut"
+
+#. module: marketplace
+#: model:ir.actions.act_window,name:marketplace.action_marketplace_announcement_offer_per_category
+#: model:ir.actions.act_window,name:marketplace.action_marketplace_announcement_want_per_category
+#: model:ir.ui.menu,name:marketplace.menu_action_marketplace_announcement_offer_per_category
+#: model:ir.ui.menu,name:marketplace.menu_action_marketplace_announcement_want_per_category
+msgid "Per category"
+msgstr "Par catégorie"
+
+#. module: marketplace
+#: selection:marketplace.proposition,state:0
+msgid "Rejected"
+msgstr "Refusé"
+
+#. module: marketplace
+#: model:ir.ui.menu,name:marketplace.menu_marketplace_moderation
+msgid "Moderation"
+msgstr "Modération"
+
+#. module: marketplace
+#: model:ir.model,name:marketplace.model_marketplace_tag
+#: field:marketplace.tag,name:0
+msgid "Tag"
+msgstr "Etiquette"
+
+#. module: marketplace
+#: selection:marketplace.proposition,state:0
+msgid "Accepted"
+msgstr "Accepté"
+
+#. module: marketplace
+#: field:marketplace.proposition,want_cancel_announcer:0
+msgid "(Announcer) I want to cancel the transaction"
+msgstr "(Annonceur) Je veux annuler la transaction"
+
+#. module: marketplace
+#: model:ir.actions.act_window,name:marketplace.action_marketplace_announcement_offer_my_skills
+#: model:ir.actions.act_window,name:marketplace.action_marketplace_announcement_want_my_skills
+#: model:ir.ui.menu,name:marketplace.menu_action_marketplace_announcement_offer_my_skills
+#: model:ir.ui.menu,name:marketplace.menu_action_marketplace_announcement_want_my_skills
+msgid "Corresponding to my skills"
+msgstr "Correspondant à mes compétences"
+
+#. module: marketplace
+#: field:marketplace.proposition,is_payer:0
+msgid "Is payer?"
+msgstr "Est le payeur?"
+
+#. module: marketplace
+#: field:marketplace.announcement,state:0
+#: field:marketplace.proposition,state:0
+msgid "Status"
+msgstr "Statut"
+
+#. module: marketplace
+#: field:account.move,marketplace_transaction_id:0
+#: model:ir.model,name:marketplace.model_marketplace_transaction
+#: field:marketplace.announcement.currency,transaction_id:0
+msgid "Transaction"
+msgstr "Transaction"
+
+#. module: marketplace
+#: field:marketplace.announcement,delivery_date:0
+msgid "Wished delivery date"
+msgstr "Date de livraison souhaité"
+
+#. module: marketplace
+#: field:marketplace.announcement.category,parent_id:0
+msgid "Parent Category"
+msgstr "Catégorie parente"
+
+#. module: marketplace
+#: view:marketplace.announcement:0
+#: field:marketplace.announcement,city:0
+msgid "City"
+msgstr "Ville"
+
+#. module: marketplace
+#: field:marketplace.announcement,vote_vote:0
+#: field:marketplace.proposition,vote_vote:0
+msgid "Vote"
+msgstr "Vote"
+
+#. module: marketplace
+#: model:ir.model,name:marketplace.model_res_partner
+#: field:res.partner.marketplace.balance,partner_id:0
+#: field:res.partner.marketplace.currency,partner_id:0
+msgid "Partner"
+msgstr "Partenaire"
+
+#. module: marketplace
+#: field:marketplace.config.currency,partner_income_account_id:0
+msgid "Marketplace partner income account"
+msgstr "Place de marché compte de produit partenaire"
+
+#. module: marketplace
+#: field:marketplace.announcement.category,complete_name:0
+msgid "Full Name"
+msgstr "Nom complet"
+
+#. module: marketplace
+#: field:marketplace.announcement,street:0
+msgid "Street"
+msgstr "Rue"
+
+#. module: marketplace
+#: field:marketplace.announcement,is_moderator:0
+#: field:marketplace.proposition,is_moderator:0
+msgid "Is moderator?"
+msgstr "Est modérateur?"
+
+#. module: marketplace
+#: selection:account.move,marketplace_action:0
+msgid "Refund Payment"
+msgstr "Paiement de l'avoir"
+
+#. module: marketplace
+#: field:ir.attachment,binary_field:0
+msgid "Binary field"
+msgstr "Champ binaire"
+
+#. module: marketplace
+#: model:ir.model,name:marketplace.model_marketplace_config_currency
+msgid "marketplace.config.currency"
+msgstr "marketplace.config.currency"
+
+#. module: marketplace
+#: model:ir.model,name:marketplace.model_marketplace_announcement_currency
+#: model:ir.model,name:marketplace.model_res_currency
+#: model:ir.model,name:marketplace.model_res_partner_marketplace_currency
+#: field:marketplace.announcement.currency,currency_id:0
+#: view:marketplace.config.currency:0
+#: field:res.partner.marketplace.balance,currency_id:0
+#: view:res.partner.marketplace.currency:0
+#: field:res.partner.marketplace.currency,currency_id:0
+msgid "Currency"
+msgstr "Monnaie"
+
+#. module: marketplace
+#: field:marketplace.proposition,confirm_id:0
+msgid "Confirmation move"
+msgstr "Mouvement de confirmation"
+
+#. module: marketplace
+#: selection:account.move,marketplace_action:0
+#: view:marketplace.proposition:0
+msgid "Refund"
+msgstr "Avoir"
+
+#. module: marketplace
+#: selection:marketplace.proposition,state:0
+msgid "Invoiced"
+msgstr "Facturé"
+
+#. module: marketplace
+#: view:marketplace.announcement:0
+#: field:marketplace.announcement,category_id:0
+#: field:marketplace.tag,category_id:0
+msgid "Category"
+msgstr "Catégorie"
+
+#. module: marketplace
+#: field:marketplace.announcement,vote_vote_ids:0
+#: field:marketplace.proposition,vote_vote_ids:0
+msgid "Votes"
+msgstr "Votes"
+
+#. module: marketplace
+#: view:marketplace.announcement:0
+msgid "I am looking for"
+msgstr "Je recherche"
+
+#. module: marketplace
+#: view:marketplace.proposition:0
+msgid "Confirm that you received the payment"
+msgstr "Veuillez confirmer que vous avez reçu le paiement"
+
+#. module: marketplace
+#: field:marketplace.config.currency,company_expense_account_id:0
+msgid "Marketplace company expense account"
+msgstr "Place de marché compte de charge société"
+
+#. module: marketplace
+#: selection:marketplace.announcement,state:0
+msgid "Published"
+msgstr "Publié"
+
+#. module: marketplace
+#: field:res.partner.marketplace.currency,limit:0
+msgid "Override limit"
+msgstr "Surcharger limite"
+
+#. module: marketplace
+#: field:marketplace.announcement.category,name:0
+msgid "Category Name"
+msgstr "Nom de la catégorie"
+
+#. module: marketplace
+#: selection:marketplace.announcement,state:0
+msgid "Closed"
+msgstr "Cloturé"
+
+#. module: marketplace
+#: view:marketplace.proposition:0
+msgid "Reject"
+msgstr "Rejeté"
+
+#. module: marketplace
+#: field:marketplace.proposition,is_invoicer:0
+msgid "Is invoicer?"
+msgstr "Est le factureur?"
+
+#. module: marketplace
+#: field:marketplace.config.currency,config_id:0
+msgid "Config"
+msgstr "Config"
+
+#. module: marketplace
+#: field:marketplace.config.currency,partner_availability_account_id:0
+msgid "Marketplace partner availability account"
+msgstr "Place de marché compte de disponibilité partenaire"
+
+#. module: marketplace
+#: field:marketplace.announcement,expiration_date:0
+msgid "Expiration date"
+msgstr "Date d'expiration"
+
+#. module: marketplace
+#: model:res.groups,name:marketplace.group_marketplace_moderator
+msgid "Marketplace / Moderator"
+msgstr "Place de marché / Modérateur"
+
+#. module: marketplace
+#: field:marketplace.proposition,payment_id:0
+msgid "Payment move"
+msgstr "Mouvement de paiement"
+
+#. module: marketplace
+#: view:marketplace.announcement:0
+#: field:marketplace.announcement,currency_ids:0
+#: view:marketplace.config.currency:0
+#: view:marketplace.config.settings:0
+#: field:marketplace.config.settings,currency_ids:0
+#: view:marketplace.proposition:0
+#: field:marketplace.transaction,currency_ids:0
+#: field:res.partner,marketplace_currency_ids:0
+#: view:res.partner.marketplace.currency:0
+msgid "Currencies"
+msgstr "Devises"
+
+#. module: marketplace
+#: view:marketplace.announcement:0
+msgid "Title..."
+msgstr "Titre..."
+
+#. module: marketplace
+#: field:marketplace.proposition,call_moderator_announcer:0
+msgid "(Announcer) Call moderator?"
+msgstr "(Annonceur) Appeler modérateur?"
+
+#. module: marketplace
+#: field:marketplace.announcement,tag_ids:0
+#: field:marketplace.announcement.category,tag_ids:0
+msgid "Tags"
+msgstr "Étiquettes"
+
+#. module: marketplace
+#: model:res.groups,name:marketplace.group_marketplace_user
+msgid "Marketplace / User"
+msgstr "Place de marché / Utilisateur"
+
+#. module: marketplace
+#: field:marketplace.announcement,street2:0
+msgid "Street2"
+msgstr "Rue 2"
+
+#. module: marketplace
+#: selection:marketplace.proposition,state:0
+msgid "Paid"
+msgstr "Payé"
+
+#. module: marketplace
+#: model:ir.model,name:marketplace.model_marketplace_announcement
+msgid "Offer/Want"
+msgstr "Offre/Demande"
+
+#. module: marketplace
+#: field:marketplace.announcement,message_is_follower:0
+#: field:marketplace.proposition,message_is_follower:0
+msgid "Is a Follower"
+msgstr "Est un abonné"
+
+#. module: marketplace
+#: field:marketplace.announcement,from_company:0
+#: field:marketplace.transaction,from_company:0
+msgid "From company?"
+msgstr "De la part de la société?"
+
+#. module: marketplace
+#: field:marketplace.announcement.category,active:0
+msgid "Active"
+msgstr "Actif"
+
+#. module: marketplace
+#: view:marketplace.tag:0
+msgid "Offers/Wants Tag"
+msgstr "Offre/Demande Etiquette"
+
+#. module: marketplace
+#: view:marketplace.proposition:0
+msgid "Put in draft"
+msgstr "Mettre en brouillon"
+
+#. module: marketplace
+#: selection:account.move,marketplace_action:0
+#: selection:marketplace.proposition,state:0
+msgid "Payment confirmation"
+msgstr "Confirmation du paiement"
+
+#. module: marketplace
+#: field:marketplace.proposition,already_accepted:0
+msgid "Already accepted?"
+msgstr "Déjà accepté?"
+
+#. module: marketplace
+#: model:ir.actions.act_window,name:marketplace.action_marketplace_announcement_want
+#: model:ir.ui.menu,name:marketplace.menu_action_marketplace_announcement_want
+msgid "All wants"
+msgstr "Toutes les demandes"
+
+#. module: marketplace
+#: field:marketplace.announcement,quantity:0
+#: field:marketplace.transaction,quantity:0
+msgid "Quantity"
+msgstr "Quantité"
+
+#. module: marketplace
+#: view:marketplace.proposition:0
+msgid "Confirm that you received the payment for the refund"
+msgstr "Veuillez confirmer que vous avez reçu le paiement de l'avoir"
+
+#. module: marketplace
+#: field:marketplace.announcement,message_summary:0
+#: field:marketplace.proposition,message_summary:0
+msgid "Summary"
+msgstr "Résumé"
+
+#. module: marketplace
+#: view:marketplace.announcement:0
+#: view:marketplace.proposition:0
+msgid "Publish"
+msgstr "Publier"
+
+#. module: marketplace
+#: field:res.partner.marketplace.balance,reserved:0
+msgid "Reserved"
+msgstr "Réservé"
+
+#. module: marketplace
+#: model:ir.model,name:marketplace.model_res_partner_marketplace_balance
+#: view:res.partner:0
+msgid "Balance"
+msgstr "Solde"
+
+#. module: marketplace
+#: selection:account.move,marketplace_action:0
+msgid "Payment confirmation cancellation"
+msgstr "Annulation de la confirmation du paiement"
+
+#. module: marketplace
+#: field:marketplace.proposition,description_announcement_id:0
+msgid "Link to announcement proposition"
+msgstr "Lien vers une annonce descriptive"
+
+#. module: marketplace
+#: field:res.partner.marketplace.currency,reserved_account:0
+msgid "Reserved account"
+msgstr "Compte de reservation"
+
+#. module: marketplace
+#: model:ir.ui.menu,name:marketplace.menu_marketplace
+#: model:ir.ui.menu,name:marketplace.menu_marketplace_admin_configuration
+#: view:marketplace.config.settings:0
+#: view:res.partner:0
+msgid "Marketplace"
+msgstr "Place de marché"
+
+#. module: marketplace
+#: field:marketplace.proposition,is_announcer:0
+msgid "Is announcer?"
+msgstr "Est annonceur?"
+
+#. module: marketplace
+#: field:marketplace.announcement,is_user:0
+#: field:marketplace.proposition,is_user:0
+msgid "Is user?"
+msgstr "Est utilisateur?"
+
+#. module: marketplace
+#: field:res.partner,marketplace_balance_ids:0
+msgid "Balances"
+msgstr "Soldes"
+
+#. module: marketplace
+#: field:marketplace.announcement.currency,company_commission:0
+msgid "% company commission"
+msgstr "% commission pour la société"
+
+#. module: marketplace
+#: selection:account.move,marketplace_action:0
+#: view:marketplace.proposition:0
+msgid "Invoice"
+msgstr "Facture"
+
+#. module: marketplace
+#: view:marketplace.announcement:0
+#: view:marketplace.proposition:0
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: marketplace
+#: view:marketplace.announcement:0
+msgid "Close"
+msgstr "Clôturer"
+
+#. module: marketplace
+#: view:marketplace.proposition:0
+#: field:marketplace.transaction,move_ids:0
+msgid "Moves"
+msgstr "Mouvements"
+
+#. module: marketplace
+#: selection:marketplace.proposition,state:0
+msgid "Open"
+msgstr "Ouvrir"
+
+#. module: marketplace
+#: field:marketplace.announcement.currency,announcement_id:0
+#: field:marketplace.proposition,announcement_id:0
+msgid "Announcement"
+msgstr "Annonce"
+
+#. module: marketplace
+#: view:marketplace.proposition:0
+msgid "Pay"
+msgstr "Payer"
+
+#. module: marketplace
+#: field:marketplace.proposition,want_cancel_user:0
+msgid "(Proposer) I want to cancel the transaction"
+msgstr "(Proposant) Je veux annuler la transaction"
+
+#. module: marketplace
+#: field:marketplace.config.currency,company_reserved_account_id:0
+msgid "Marketplace company reserved account"
+msgstr "Place de marché compte de réservation société"
+
+#. module: marketplace
+#: model:ir.actions.act_window,name:marketplace.action_marketplace_proposition_dispute
+#: model:ir.ui.menu,name:marketplace.menu_action_marketplace_proposition_dispute
+msgid "Propositions in dispute"
+msgstr "Propositions en dispute"
+
+#. module: marketplace
+#: field:marketplace.announcement,create_date:0
+#: field:res.partner,create_date:0
+msgid "Create date"
+msgstr "Date de création"
+
+#. module: marketplace
+#: view:marketplace.proposition:0
+msgid "Accept"
+msgstr "Accepter"
+
+#. module: marketplace
+#: field:marketplace.announcement,proposition_ids:0
+#: view:marketplace.proposition:0
+msgid "Propositions"
+msgstr "Propositions"
+
+#. module: marketplace
+#: field:marketplace.announcement,quantity_available:0
+msgid "Quantity available"
+msgstr "Quantité disponible"
+
+#. module: marketplace
+#: field:marketplace.announcement,vote_average:0
+#: field:marketplace.proposition,vote_average:0
+msgid "Average vote"
+msgstr "Moyenne des votes"
+
+#. module: marketplace
+#: model:ir.actions.act_window,name:marketplace.action_marketplace_announcement_offer
+#: model:ir.ui.menu,name:marketplace.menu_action_marketplace_announcement_offer
+msgid "All offers"
+msgstr "Toutes les offres"
+
+#. module: marketplace
+#: view:marketplace.announcement:0
+#: field:marketplace.announcement,publish_date:0
+msgid "Publish date"
+msgstr "Date de publication"
+
+#. module: marketplace
+#: selection:account.move,marketplace_action:0
+msgid "Reservation Cancellation"
+msgstr "Annulation de la réservation"
+
+#. module: marketplace
+#: field:marketplace.announcement,description:0
+msgid "Description"
+msgstr "Description"
+
+#. module: marketplace
+#: view:res.partner:0
+msgid "Internal Notes"
+msgstr "Notes internes"
+
+#. module: marketplace
+#: field:marketplace.config.currency,percent_company:0
+msgid "% for company"
+msgstr "% pour la société"
+
+#. module: marketplace
+#: view:marketplace.proposition:0
+msgid "Return to paid"
+msgstr "Renvoyer au statut payé"
+
+#. module: marketplace
+#: field:marketplace.announcement,address:0
+msgid "Address"
+msgstr "Adresse"
+
+#. module: marketplace
+#: field:marketplace.announcement,infinite_qty:0
+msgid "Infinite quantity?"
+msgstr "Quantité infinie?"
+
+#. module: marketplace
+#: selection:account.move,marketplace_action:0
+msgid "Reservation"
+msgstr "Réservation"
+
+#. module: marketplace
+#: selection:account.move,marketplace_action:0
+msgid "Payment"
+msgstr "Paiement"
+
+#. module: marketplace
+#: field:marketplace.proposition,call_moderator_user:0
+msgid "(Proposer) Call moderator?"
+msgstr "(Proposeur) Appeler modérateur?"
+
+#. module: marketplace
+#: field:res.partner.marketplace.currency,available_account:0
+msgid "Available account"
+msgstr "Compte de disponibilité"
+
+#. module: marketplace
+#: view:marketplace.announcement:0
+#: field:marketplace.announcement,country_id:0
+msgid "Country"
+msgstr "Pays"
+
+#. module: marketplace
+#: field:marketplace.announcement,vote_total:0
+#: field:marketplace.proposition,vote_total:0
+msgid "Total vote"
+msgstr "Total des votes"
+
+#. module: marketplace
+#: field:marketplace.config.currency,partner_expense_account_id:0
+msgid "Marketplace partner expense account"
+msgstr "Place de marché compte de charge partenaire"
+
+#. module: marketplace
+#: field:marketplace.config.currency,company_income_account_id:0
+msgid "Marketplace company income account"
+msgstr "Place de marché compte de produit société"
+
+#. module: marketplace
+#: view:marketplace.announcement.category:0
+msgid "Offers/Wants Category"
+msgstr "Offres/Demandes Catégories"
+
+#. module: marketplace
+#: model:ir.actions.act_window,name:marketplace.action_marketplace_tag_form
+#: model:ir.ui.menu,name:marketplace.menu_action_marketplace_tag_form
+#: view:marketplace.tag:0
+msgid "Offers/Wants Tags"
+msgstr "Offres/Demandes Etiquettes"
+
+#. module: marketplace
+#: help:marketplace.announcement,message_ids:0
+#: help:marketplace.proposition,message_ids:0
+msgid "Messages and communication history"
+msgstr "Historique des messages et des communications"
+
+#. module: marketplace
+#: model:ir.model,name:marketplace.model_account_move
+msgid "Account Entry"
+msgstr "Écriture comptable"
+
+#. module: marketplace
+#: field:marketplace.proposition,reservation_id:0
+msgid "Reservation move"
+msgstr "Mouvement de réservation"
+
+#. module: marketplace
+#: view:marketplace.announcement:0
+#: view:marketplace.proposition:0
+msgid "Open offers"
+msgstr "Offres ouvertes"
+
+#. module: marketplace
+#: field:marketplace.announcement.category,sequence:0
+msgid "Sequence"
+msgstr "Séquence"
+
+#. module: marketplace
+#: model:account.account.type,name:marketplace.marketplace_account_type_community
+msgid "Community"
+msgstr "Communauté"
+
+#. module: marketplace
+#: model:ir.model,name:marketplace.model_marketplace_proposition
+#: view:marketplace.proposition:0
+msgid "Proposition"
+msgstr "Proposition"
+
+#. module: marketplace
+#: selection:marketplace.announcement,type:0
+msgid "Want"
+msgstr "Demande"
+
+#. module: marketplace
+#: help:marketplace.announcement.category,active:0
+msgid "The active field allows you to hide the category without removing it."
+msgstr "Le champ actif permet de masquer la catégorie sans la supprimer."
+
+#. module: marketplace
+#: field:marketplace.proposition,skip_confirm:0
+msgid "Skip confirm"
+msgstr "Sauter la confirmation"
+
+#. module: marketplace
+#: field:marketplace.transaction,total:0
+msgid "Total"
+msgstr "Total"
+
+#. module: marketplace
+#: field:marketplace.proposition,transaction_id:0
+msgid "Automatically created field to link to parent marketplace.transaction"
+msgstr ""
+"Automatically created field to link to parent marketplace.transaction"
+
+#. module: marketplace
+#: field:marketplace.announcement.category,parent_right:0
+msgid "Right parent"
+msgstr "Parent de droite"

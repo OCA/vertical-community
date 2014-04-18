@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="group_membership_moderator" model="res.groups">
+            <field name="name">Membership / Moderator</field>
+            <field name="implied_ids" eval="[(6, 0, [ref('mail_groups_management.group_mail_committee')])]"/>
+        </record>
+
+        <record id="base.group_erp_manager" model="res.groups">
+            <field name="implied_ids" eval="[(4, ref('group_membership_moderator'))]"/>
+        </record>
+
+        <record id="base.menu_association" model="ir.ui.menu">
+            <field name="groups_id" eval="[(6, 0, [ref('base.group_user')])]"/>
+        </record>
+
+        <record id="base.menu_marketing_config_association" model="ir.ui.menu">
+            <field name="groups_id" eval="[(6, 0, [ref('group_membership_moderator')])]"/>
+        </record>
+
+        <record id="view_partner_form_membership_users" model="ir.ui.view">
+            <field name="name">partner.form.membership.users</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <page string="Internal Notes" position="before">
+                    <page string="Presentation">
+                        <field name="presentation"/>
+                    </page>
+                </page>
+                <page string="Internal Notes" position="attributes">
+                    <attribute name="groups">membership_users.group_membership_moderator</attribute>
+                </page>
+                <page string="Sales &amp; Purchases" position="attributes">
+                    <attribute name="groups">account.group_account_user</attribute>
+                </page>
+            </field>
+        </record>
+
+        <record id="membership_view_partner_form_membership_users" model="ir.ui.view">
+            <field name="name">membership.partner.form.membership.users</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="membership.view_partner_form"/>
+            <field name="arch" type="xml">
+                <page string="Membership" position="attributes">
+                    <attribute name="groups">membership_users.group_membership_moderator</attribute>
+                </page>
+            </field>
+        </record>
+
+        <record id="account_view_partner_form_membership_users" model="ir.ui.view">
+            <field name="name">account.partner.form.membership.users</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="account.view_partner_property_form"/>
+            <field name="arch" type="xml">
+                <page string="Accounting" position="attributes">
+                    <attribute name="groups">account.group_account_user</attribute>
+                </page>
+            </field>
+        </record>
+
+        <record id="base.res_partner_rule" model="ir.rule">
+            <field name="groups"  eval="[(6,0,[ref('base.group_user')])]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+
+        <record id="res_partner_user_own_rule" model="ir.rule">
+            <field name="name">res.partner user own</field>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="domain_force">[('user_ids','in',user.id)]</field>
+            <field name="groups"  eval="[(6,0,[ref('base.group_user')])]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+
+        <record id="res_partner_membership_moderator_rule" model="ir.rule">
+            <field name="name">res.partner membership.moderator</field>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups"  eval="[(6,0,[ref('group_membership_moderator')])]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+
+        <record id="base.res_users_rule" model="ir.rule">
+            <field name="groups"  eval="[(6,0,[ref('base.group_user')])]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+
+        <record id="res_users_user_own_rule" model="ir.rule">
+            <field name="name">res.users user own</field>
+            <field name="model_id" ref="base.model_res_users"/>
+            <field name="domain_force">[('id','=',user.id)]</field>
+            <field name="groups"  eval="[(6,0,[ref('base.group_user')])]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+
+        <record id="res_users_membership_moderator_rule" model="ir.rule">
+            <field name="name">res.users membership.moderator</field>
+            <field name="model_id" ref="base.model_res_users"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups"  eval="[(6,0,[ref('group_membership_moderator')])]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+
+
+    </data>
+</openerp>
