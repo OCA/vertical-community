@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-04-19 06:55+0000\n"
+"X-Launchpad-Export-Date: 2014-04-20 06:20+0000\n"
 "X-Generator: Launchpad (build 16985)\n"
 
 #. module: marketplace_groups
@@ -141,6 +141,3 @@ msgstr ""
 #: view:marketplace.announcement:0
 msgid "{'invisible': [('is_user','=',True),('from_group','!=',True)]}"
 msgstr "{'invisible': [('is_user','=',True),('from_group','!=',True)]}"
-
-#~ msgid "In my groups"
-#~ msgstr "Dans mes groupes"
