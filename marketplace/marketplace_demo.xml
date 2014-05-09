@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+
+        <record id="partner_isabelle" model="res.partner">
+            <field name="name">Isabelle moderator</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="customer" eval="False"/>
+            <field name="email">isaelle@yourcompany.example.com</field>
+            <field name="street">12 petite rue</field>
+            <field name="city">Paris</field>
+            <field name="zip">75011</field>
+            <field name="country_id" ref="base.fr"/>
+        </record>
+
+        <record id="user_isabelle" model="res.users">
+            <field name="partner_id" ref="marketplace.partner_isabelle"/>
+            <field name="login">isabelle</field>
+            <field name="password">isabelle</field>
+            <field name="signature">--
+Isabelle</field>
+            <field name="presentation">Lorem ipsum</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="groups_id" eval="[(6,0,[ref('base.group_user'), ref('marketplace.group_marketplace_moderator')])]"/>
+            <field name="moderator" eval="True"/>
+            <field name="commission" eval="True"/>
+        </record>
+
+
+        <record id="partner_alain" model="res.partner">
+            <field name="name">Alain user</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="customer" eval="False"/>
+            <field name="email">alain@yourcompany.example.com</field>
+            <field name="street">2 rue de Fontarabie</field>
+            <field name="city">Paris</field>
+            <field name="zip">75020</field>
+            <field name="country_id" ref="base.fr"/>
+        </record>
+
+        <record id="user_alain" model="res.users">
+            <field name="partner_id" ref="marketplace.partner_alain"/>
+            <field name="login">alain</field>
+            <field name="password">alain</field>
+            <field name="signature">--
+Alain</field>
+            <field name="presentation">Lorem ipsum</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="groups_id" eval="[(6,0,[ref('base.group_user'), ref('marketplace.group_marketplace_user')])]"/>
+        </record>
+
+
+
+        <record id="category_music" model="marketplace.announcement.category">
+            <field name="name">Music</field>
+        </record>
+
+        <record id="category_guitar_teacher" model="marketplace.announcement.category">
+            <field name="name">Guitar Teacher</field>
+            <field name="parent_id" ref="category_music"/>
+        </record>
+
+        <record id="tag_children" model="marketplace.tag">
+            <field name="name">Children</field>
+            <field name="category_id" ref="category_guitar_teacher"/>
+        </record>
+
+
+        <record id="announcement_guitar_children" model="marketplace.announcement">
+            <field name="name">Guitar lesson for children</field>
+            <field name="type">offer</field>
+            <field name="category_id" ref="category_guitar_teacher"/>
+            <field name="tag_ids" eval="[(6,0,[ref('tag_children')])]"/>
+            <field name="user_id" ref="user_alain"/>
+            <field name="description">Perfect learning method</field>
+            <field name="infinite_qty" eval="True"/>
+            <field name="uom_qty" ref="product.product_uom_hour"/>
+            <field name="street">2 rue de Fontarabie</field>
+            <field name="city">Paris</field>
+            <field name="zip">75020</field>
+            <field name="country_id" ref="base.fr"/>
+        </record>
+
+        <record id="announcement_guitar_children_EUR" model="marketplace.announcement.currency">
+            <field name="announcement_id" ref="announcement_guitar_children"/>
+            <field name="price_unit">2.50</field>
+            <field name="currency_id" ref="base.EUR"/>
+        </record>
+
+        <record id="proposition_guitar_children" model="marketplace.proposition">
+            <field name="announcement_id" ref="announcement_guitar_children"/>
+            <field name="description">I want</field>
+            <field name="quantity">1</field>
+            <field name="user_id" ref="user_isabelle"/>
+        </record>
+
+        <record id="proposition_guitar_children_COM" model="marketplace.announcement.currency">
+            <field name="proposition_id" ref="proposition_guitar_children"/>
+            <field name="price_unit">2.50</field>
+            <field name="currency_id" ref="base.EUR"/>
+        </record>
+
+    </data>
+</openerp>

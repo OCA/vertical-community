@@ -186,6 +186,7 @@ class vote_model(osv.AbstractModel):
         return res
 
     def _get_vote_config(self, cr, uid, ids, context=None):
+        vote_config_obj = self.pool.get('vote.config.line')
         res = {}
         for record in self.browse(cr, uid, ids, context=context):
             _logger.info('record %s', record)

@@ -25,6 +25,8 @@ from openerp import pooler
 from openerp.osv import fields, osv, orm
 from openerp.tools.translate import _
 
+import logging
+_logger = logging.getLogger(__name__)
 
 class community_init(osv.osv):
     _name = "community.init"
@@ -42,6 +44,9 @@ class res_users(osv.osv):
 
         model  = self.pool.get('ir.model.data')
         group_obj = self.pool.get('res.groups')
+
+
+        _logger.info('values %s', values)
 
         if 'moderator' in values:
             if values['moderator']:
@@ -75,4 +80,3 @@ class res_users(osv.osv):
         res = super(res_users, self).write(cr, uid, ids, values, context=context)
 
         return res
-

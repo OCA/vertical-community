@@ -26,6 +26,9 @@ from openerp import SUPERUSER_ID
 from openerp.osv import fields, osv, orm
 from openerp.tools.translate import _
 
+import logging
+_logger = logging.getLogger(__name__)
+
 class res_partner(osv.osv):
 
     _inherit = 'res.partner'
@@ -52,10 +55,17 @@ class res_users(osv.osv):
         'moderator': fields.boolean('Moderator?'),
     }
 
+    def create(self, cr, uid, values, context=None):
+        res = super(res_users, self).create(cr, uid, values, context=context)
+        self.write(cr, uid, [res], values, context=context)
+        return res
+
     def write(self, cr, uid, ids, values, context=None):
 
         model  = self.pool.get('ir.model.data')
         group_obj = self.pool.get('res.groups')
+
+        _logger.info('test')
 
         if 'moderator' in values:
             if values['moderator']:

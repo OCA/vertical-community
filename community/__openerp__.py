@@ -40,11 +40,11 @@ Wezer
 =================
 
 """,
- 'demo': [],
  'data': ['security/community_security.xml',
           'community_data.xml',
           'community_view.xml'
           ],
+ 'demo': ['community_demo.xml'],
  'installable': True,
  'application': True,
 }

@@ -58,7 +58,7 @@
                     <group>
                         <field name="presentation"/>
                         <field name="signature"/>
-                        <field name="notification_email_send"/>
+                        <field name="notify_email"/>
                         <field name="lang"/>
                         <field name="active" groups="membership_users.group_membership_moderator"/>
                         <field name="committee" groups="membership_users.group_membership_moderator"/>
