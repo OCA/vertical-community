@@ -23,8 +23,6 @@ Isabelle</field>
             <field name="presentation">Lorem ipsum</field>
             <field name="company_id" ref="base.main_company"/>
             <field name="groups_id" eval="[(6,0,[ref('base.group_user'), ref('marketplace.group_marketplace_moderator')])]"/>
-            <field name="moderator" eval="True"/>
-            <field name="commission" eval="True"/>
         </record>
 
 
