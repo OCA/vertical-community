@@ -36,9 +36,20 @@ class community_init(osv.osv):
         icp.set_param(cr, uid, 'auth_signup.allow_uninvited', True)
         icp.set_param(cr, uid, 'auth_signup.reset_password', True)
 
+
 class res_users(osv.osv):
 
     _inherit = 'res.users'
+
+    _columns = {
+        'committee': fields.boolean('Committee?'),
+        'moderator': fields.boolean('Moderator?'),
+    }
+
+    def create(self, cr, uid, values, context=None):
+        res = super(res_users, self).create(cr, uid, values, context=context)
+        self.write(cr, uid, [res], values, context=context)
+        return res
 
     def write(self, cr, uid, ids, values, context=None):
 

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="marketplace.user_isabelle" model="res.users">
+            <field name="groups_id" eval="[(6,0,[ref('base.group_user'), ref('community.group_community_moderator')])]"/>
+            <field name="moderator" eval="True"/>
+            <field name="committee" eval="True"/>
+        </record>
+
+        <record id="marketplace.user_alain" model="res.users">
+            <field name="groups_id" eval="[(6,0,[ref('base.group_user'), ref('community.group_community_user')])]"/>
+        </record>
+
+        <record id="community.group_community_user" model="res.groups">
+            <field name="users" eval="[(4,ref('marketplace.user_alain'))]"/>
+        </record>
+
+        <record id="community.group_community_moderator" model="res.groups">
+            <field name="users" eval="[(4,ref('marketplace.user_isabelle'))]"/>
+        </record>
+
+    </data>
+</openerp>

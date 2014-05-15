@@ -878,7 +878,7 @@ class marketplace_proposition(osv.osv):
         for proposition in self.browse(cr, uid, ids):
             fields = {'state':new_state}
             if new_state == 'open':
-                if proposition.quantity > proposition.announcement_id.quantity_available:
+                if proposition.quantity > proposition.announcement_id.quantity_available and not proposition.announcement_id.infinite_qty:
                     raise osv.except_osv(_('Access error!'),_("There is not enough quantity available!"))
                 fields['already_published'] = True
             if new_state == 'accepted':

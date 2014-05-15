@@ -2,11 +2,18 @@
 <openerp>
     <data>
 
-<!-- https://bugs.launchpad.net/openobject-server/+bug/1263401 .... -->
-        <record id="membership.action_membership_members" model="ir.actions.act_window">
-            <field name="domain">[('user_ids','!=',False)]</field>
-            <field name="context">{}</field>
+        <record id="view_users_simple_form_membership_users_community" model="ir.ui.view">
+            <field name="name">users.simple.form.membership.users.community</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_simple_form"/>
+            <field name="arch" type="xml">
+                <field name="active" position="after">
+                    <field name="committee" groups="membership_users.group_membership_moderator"/>
+                    <field name="moderator" groups="membership_users.group_membership_moderator"/>
+                </field>
+            </field>
         </record>
+
 
     </data>
 </openerp>

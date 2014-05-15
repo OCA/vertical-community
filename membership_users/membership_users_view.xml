@@ -2,6 +2,12 @@
 <openerp>
     <data>
 
+<!-- https://bugs.launchpad.net/openobject-server/+bug/1263401 .... -->
+        <record id="membership.action_membership_members" model="ir.actions.act_window">
+            <field name="domain">[('user_ids','!=',False)]</field>
+            <field name="context">{}</field>
+        </record>
+
         <record id="action_membership_my_account" model="ir.actions.server">
             <field name="name">My account</field>
             <field name="model_id" ref="base.model_res_users"/>
@@ -61,8 +67,6 @@
                         <field name="notify_email"/>
                         <field name="lang"/>
                         <field name="active" groups="membership_users.group_membership_moderator"/>
-                        <field name="committee" groups="membership_users.group_membership_moderator"/>
-                        <field name="moderator" groups="membership_users.group_membership_moderator"/>
                     </group>
                     <div groups="membership_users.group_membership_moderator">
                         <button string="Send reset password link by email" type="object" name="action_reset_password" attrs="{'invisible': [('state', '!=', 'active')]}"/>

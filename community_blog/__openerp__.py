@@ -19,35 +19,22 @@
 #
 ##############################################################################
 
-{'name': 'OpenERP CommunityTools',
+{'name': 'OpenERP CommunityTools - Website Blog',
  'version': '1.0',
  'category': 'Community',
- 'depends': ['base',
-             'calendar',
-             'document',
-#             'im',
-             'membership',
-             'membership_users',
-             'portal',
-             'website',
-#             'website_livechat',
-             'website_mail_group',
+ 'depends': ['community',
+             'website_blog',
              ],
  'author': 'Yannick Buron',
  'license': 'AGPL-3',
  'website': 'https://launchpad.net/openerp-communitytools',
  'description': """
-OpenERP for Communities
+OpenERP for Communities - Blog
 =================
 
-This module is the base module to allow your OpenERP to manage communities. It contains the base elements and a wizard which allow you to install another features.
-
 """,
- 'data': ['security/community_security.xml',
-          'community_data.xml',
-          'community_view.xml'
-          ],
- 'demo': ['community_demo.xml'],
+ 'data': ['security/community_blog_security.xml'],
+ 'demo': [],
  'installable': True,
  'application': True,
 }

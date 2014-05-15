@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="community.group_community_user" model="res.groups">
+            <field name="implied_ids" eval="[(4,ref('marketplace.group_marketplace_user'))]"/>
+        </record>
+
+        <record id="community.group_community_moderator" model="res.groups">
+            <field name="implied_ids" eval="[(4,ref('marketplace.group_marketplace_moderator'))]"/>
+        </record>
+
+    </data>
+</openerp>
