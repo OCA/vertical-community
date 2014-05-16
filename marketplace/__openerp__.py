@@ -37,7 +37,7 @@ Marketplace
 =================
 
 """,
- 'demo': ['marketplace_demo.xml'],
+ 'demo': [],
  'data': ['security/marketplace_security.xml',
           'security/ir.model.access.csv',
           'marketplace_view.xml',
