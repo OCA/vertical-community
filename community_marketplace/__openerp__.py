@@ -23,6 +23,7 @@
  'version': '1.0',
  'category': 'Community',
  'depends': ['community',
+             'l10n_fr_marketplace',
              'marketplace',
              'marketplace_groups',
              ],
