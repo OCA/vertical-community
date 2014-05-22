@@ -48,11 +48,16 @@ class res_users(osv.osv):
 
     def create(self, cr, uid, values, context=None):
         res = super(res_users, self).create(cr, uid, values, context=context)
-        self.write(cr, uid, [res], values, context=context)
+        self.update_community_rights(cr, uid, [res], values, context=context)
         return res
 
     def write(self, cr, uid, ids, values, context=None):
 
+        res = super(res_users, self).write(cr, uid, ids, values, context=context)
+        self.update_community_rights(cr, uid, ids, values, context=context)
+        return res
+
+    def update_community_rights(self, cr, uid, ids, values, context=None):
         model  = self.pool.get('ir.model.data')
         group_obj = self.pool.get('res.groups')
 
@@ -88,6 +93,4 @@ class res_users(osv.osv):
                     group_obj.write(cr, uid, group_ids, {'users': [(3, user.id)]}, context=context)
                     group_obj.write(cr, uid, [base_group_id], {'users': [(4, user.id)]}, context=context)
 
-        res = super(res_users, self).write(cr, uid, ids, values, context=context)
 
-        return res
