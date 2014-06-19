@@ -337,6 +337,10 @@ class vote_model(osv.AbstractModel):
         vote_line_ids = vote_line_obj.search(cr, uid, [('vote_id','in',vote_ids)], context=context)
         vote_line_obj.unlink(cr, uid, vote_line_ids, context=context) 
 
+    def _get_evaluated(self, cr, uid, id, partner_id, context=None):
+        res = []
+        return res
+
 
     _columns = {
         'vote_average': fields.function(_get_vote_stats, type='float', string='Average vote', multi='_get_vote_stats'),
@@ -432,10 +436,29 @@ class vote_vote(osv.Model):
             res[vote.id] = voters
         return res
 
+    def _get_res_names(self, cr, uid, ids, name, value, arg, context={}):
+        res={}
+        model_obj = self.pool.get('ir.model')
+
+        for vote in self.browse(cr, uid, ids, context=context):
+            res[vote.id] = {}
+            res[vote.id]['model_name'] = ''
+            res[vote.id]['res_name'] = ''
+
+            model_ids = model_obj.search(cr, uid, [('model', '=', vote.model)], context=context)
+            for model in model_obj.browse(cr, uid, model_ids, context=context):
+                res[vote.id]['model_name'] = model.name
+
+            for record in self.pool.get(vote.model).browse(cr, uid, [vote.res_id], context=context):
+                res[vote.id]['res_name'] = record.name
+        return res
+
 
     _columns = {
         'model': fields.char('Related Document Model', size=128, select=1),
         'res_id': fields.integer('Related Document ID', select=1),
+        'model_name': fields.function(_get_res_names, type="text", multi="_get_res_names", string="Object"),
+        'res_name': fields.function(_get_res_names, type="text", multi="_get_res_names", string="Name"),
         'create_date': fields.datetime('Create date'),
         'partner_id': fields.many2one('res.partner', 'Partner', select=1),
         'line_ids': fields.one2many('vote.vote.line', 'vote_id', 'Lines'),
@@ -444,12 +467,32 @@ class vote_vote(osv.Model):
         'voters': fields.function(_get_voters,  type='many2many', obj='res.partner', string="Voters"),
         'comment': fields.text('Comment'),
         'is_complete': fields.function(_get_lines, type='boolean', multi="_get_lines", string='Is complete?'),
+        'evaluated_object_ids': fields.many2many('vote.evaluated', 'vote_vote_evaluated_rel', 'vote_id', 'evaluated_id', 'Evaluated')
     }
 
     _sql_constraints = [
         ('user_vote', 'unique(model,res_id,partner_id)', 'We can only have one vote per record per partner')
     ]
 
+    def _update_evaluated(self, cr, uid, ids, context=None):
+        for vote in self.browse(cr, uid, ids, context=context):
+            evaluated_ids = self.pool.get(vote.model)._get_evaluated(cr, uid, vote.res_id, vote.partner_id.id, context=context)
+            _logger.info('evaluated_ids %s', evaluated_ids)
+            self.write(cr, uid, [vote.id], {'evaluated_object_ids': [(6,0,evaluated_ids)]}, context=context)
+        return True
+
+    def create(self, cr, uid, vals, context=None):
+        res = super(vote_vote, self).create(cr, uid, vals, context=context)
+        self._update_evaluated(cr, uid, [res], context=context)
+        return res
+
+    def write(self, cr, uid, ids, vals, context=None):
+        
+        res = super(vote_vote, self).write(cr, uid, ids, vals, context=context)
+        #protection anti recursivity
+        if not 'evaluated_object_ids' in vals:
+            self._update_evaluated(cr, uid, ids, context=context)
+        return res
 
 
 class vote_vote_line(osv.Model):
@@ -472,11 +515,23 @@ class vote_vote_line(osv.Model):
         ('user_vote', 'unique(vote_id,type_id)', 'We can only have one vote per vote per type')
     ]
 
+class vote_evaluated(osv.Model):
+
+    _name = 'vote.evaluated'
+
+    _columns = {
+        'vote_evaluated_ids': fields.many2many('vote.vote', 'vote_vote_evaluated_rel', 'evaluated_id', 'vote_id', 'Votes')
+    }
+
 
 class res_partner(osv.Model):
 
     _inherit = 'res.partner'
 
+    _inherits = {'vote.evaluated': "vote_evaluated_id"}
+
+
     _columns = {
+        'vote_evaluated_id': fields.many2one('vote.evaluated', 'Evaluated', ondelete="cascade", required=True),
         'vote_ids': fields.one2many('vote.vote', 'partner_id', 'Votes')
     }

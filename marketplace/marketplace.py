@@ -205,9 +205,7 @@ class marketplace_announcement(osv.osv):
     _name = "marketplace.announcement"
     _description = 'Offer/Want'
     _inherit = ['mail.thread','vote.model']
-    _vote_alternative_model = 'marketplace.proposition'
-    _vote_alternative_link_field = 'announcement_id'
-    _vote_alternative_domain = [('already_accepted','=',True)]
+    _inherits = {'vote.evaluated': "vote_evaluated_id"}
     _order = "create_date desc"
     _columns = {
         'name': fields.char('What', size=64, required=True),
@@ -251,6 +249,7 @@ class marketplace_announcement(osv.osv):
         'country_id': fields.many2one('res.country', 'Country'),
         'is_user': fields.function(_is_user, type="boolean", string="Is user?"),
         'is_moderator': fields.function(_is_user, type="boolean", string="Is moderator?"),
+        'vote_evaluated_id': fields.many2one('vote.evaluated', 'Evaluated', ondelete="cascade", required=True),
         'state': fields.selection([
             ('draft','Draft'),
             ('open','Published'),
@@ -754,6 +753,7 @@ class marketplace_proposition(osv.osv):
     _vote_category_model = 'marketplace.announcement.category'
     _columns = {
         'announcement_id': fields.many2one('marketplace.announcement', 'What', required=True),
+        'name': fields.related('announcement_id', 'name', type='char', string='Name', store=True),
         'type': fields.related('announcement_id', 'type', type='char', string='Type', store=True),
         'uom_id': fields.related('announcement_id', 'uom_id', type='many2one', relation='product.uom', string='Unit of Measure', ondelete='set null', readonly=True),
         'description_announcement_id': fields.many2one('marketplace.announcement', 'Link to announcement proposition'), #only the user announcement are displayed and countertype (offer if want annonce or want if offer annonce
@@ -844,6 +844,17 @@ class marketplace_proposition(osv.osv):
         'currency_ids': _default_currency_ids,
         'quantity': 1.0,
     }
+
+    def _get_evaluated(self, cr, uid, id, partner_id, context=None):
+        proposition = self.browse(cr, uid, id, context=context)
+        partner_evaluated_id = proposition.user_id.partner_id.vote_evaluated_id.id
+        if proposition.user_id.partner_id.id == partner_id:
+            res = [proposition.announcement_id.user_id.partner_id.vote_evaluated_id.id, proposition.announcement_id.vote_evaluated_id.id]
+        else:
+            res = [proposition.user_id.partner_id.vote_evaluated_id.id]
+        _logger.info('res %s', res)
+        return res
+
 
     def test_vote(self, cr, uid, ids, context=None):
         wf_service = netsvc.LocalService("workflow")

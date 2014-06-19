@@ -33,6 +33,39 @@
             </field>
         </record>
 
+        <record id="view_vote_vote_evaluated_tree" model="ir.ui.view">
+            <field name="name">vote.vote.evaluated.tree</field>
+            <field name="model">vote.vote</field>
+            <field name="arch" type="xml">
+                <tree string="Votes">
+                    <field name="model_name"/>
+                    <field name="res_name"/>
+                    <field name="partner_id"/>
+                    <field name="line_string"/>
+                    <field name="comment"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_vote_vote_evaluated_form" model="ir.ui.view">
+            <field name="name">vote.vote.evaluated.form</field>
+            <field name="model">vote.vote</field>
+            <field name="arch" type="xml">
+                <form string="Votes" version="7.0">
+                <sheet string="Vote">
+                    <group>
+                        <group>
+                            <field name="partner_id" domain="[('id','in',voters and voters[0][2])]"/>
+                            <field name="comment"/>
+                        </group>
+                    </group>
+                    <field name="vote_vote_line_ids"/>
+                    <field name="voters" invisible="1"/>
+                </sheet>
+                </form>
+            </field>
+        </record>
+
 
         <record id="view_vote_vote_line_tree" model="ir.ui.view">
             <field name="name">vote.vote.line.tree</field>
@@ -52,13 +85,8 @@
             <field name="arch" type="xml">
                 <page string="Internal Notes" position="after">
                     <page string="Votes">
-                        <field name="vote_ids">
-                            <tree string="Votes">
-                                <field name="partner_id"/>
-                                <field name="line_string"/>
-                                <field name="comment"/>
-                            </tree>
-                        </field>
+                        <field name="vote_evaluated_ids" context="{'form_view_ref' : 'vote.view_vote_vote_evaluated_form', 'tree_view_ref' : 'vote.view_vote_vote_evaluated_tree'}"/>
+                        <field name="vote_ids" context="{'form_view_ref' : 'vote.view_vote_vote_evaluated_form', 'tree_view_ref' : 'vote.view_vote_vote_evaluated_tree'}"/>
                     </page>
                 </page>
             </field>

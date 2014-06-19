@@ -83,6 +83,7 @@
 <!--                            <field name="company_commission"/>-->
                         </tree>
                     </field>
+                    <field name="vote_evaluated_ids"/>
                     <field name="proposition_ids" context="{'default_announcement_id': id}"/>
                     <button name='add_proposition' string='Make a reply / proposal' type='object' attrs="{'invisible':['|',('state','!=','open'),('is_user', '=', True)]}"/>
                     <field name="is_user" invisible="1"/>
