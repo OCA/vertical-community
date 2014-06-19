@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_vote_vote_tree" model="ir.ui.view">
+            <field name="name">vote.vote.tree</field>
+            <field name="model">vote.vote</field>
+            <field name="arch" type="xml">
+                <tree string="Votes">
+                    <field name="partner_id"/>
+                    <field name="line_string"/>
+                    <field name="comment"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_vote_vote_form" model="ir.ui.view">
+            <field name="name">vote.vote.form</field>
+            <field name="model">vote.vote</field>
+            <field name="arch" type="xml">
+                <form string="Votes" version="7.0">
+                <sheet string="Vote">
+                    <group>
+                        <group>
+                            <field name="partner_id" domain="[('id','in',voters and voters[0][2])]"/>
+                            <field name="comment"/>
+                        </group>
+                    </group>
+                    <field name="vote_vote_line_ids"/>
+                    <field name="voters" invisible="1"/>
+                </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="view_vote_vote_line_tree" model="ir.ui.view">
+            <field name="name">vote.vote.line.tree</field>
+            <field name="model">vote.vote.line</field>
+            <field name="arch" type="xml">
+                <tree string="Votes" editable="top" delete="false" create="false">
+                    <field name="type_id" readonly="1"/>
+                    <field name="vote"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_partner_form_vote" model="ir.ui.view">
+            <field name="name">partner.form.vote</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <page string="Internal Notes" position="after">
+                    <page string="Votes">
+                        <field name="vote_ids">
+                            <tree string="Votes">
+                                <field name="partner_id"/>
+                                <field name="line_string"/>
+                                <field name="comment"/>
+                            </tree>
+                        </field>
+                    </page>
+                </page>
+            </field>
+        </record>
+
+    </data>
+</openerp>
