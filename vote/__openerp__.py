@@ -37,6 +37,7 @@ See marketplace module for more examples.
 """,
  'demo': [],
  'data': ['security/ir.model.access.csv',
+          'vote_view.xml',
           'res_config_view.xml'],
  'installable': True,
  'application': True,

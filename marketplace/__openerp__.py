@@ -27,7 +27,6 @@
              'account_accountant',
              'account_reversal',
              'vote',
-             'web_widget_vote'
              ],
  'author': 'Yannick Buron',
  'license': 'AGPL-3',

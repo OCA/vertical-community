@@ -185,6 +185,15 @@ class vote_model(osv.AbstractModel):
 #                res[record.id]['vote_average'] = sum(vote_average)/len(vote_average)
         return res
 
+    def _get_vote_voters(self, cr, uid, ids, name, args, context=None):
+        res = {}
+
+        partner_ids = self.pool.get('res.partner').search(cr, uid, [('user_ids','!=',False)], context=context)
+        for record in self.browse(cr, uid, ids, context=context):
+            res[record.id] = [(6, 0, partner_ids)]
+        return res
+
+
     def _get_vote_config(self, cr, uid, ids, context=None):
         vote_config_obj = self.pool.get('vote.config.line')
         res = {}
@@ -194,27 +203,76 @@ class vote_model(osv.AbstractModel):
             if self._vote_category_field and getattr(record, self._vote_category_field):
                 vote_configs = getattr(record, self._vote_category_field).vote_config_result_ids
                 for vote_config in vote_configs:
-                    res[record.id].append({'id': vote_config.name.id, 'name': vote_config.name.name, 'value': -3})
+                    res[record.id].append({'id': vote_config.name.id, 'name': vote_config.name.name, 'value': False})
             else:
                 vote_config_ids = vote_config_obj.search(cr, uid, [('model','=','vote.config.settings'),('target_model.model','=', self._vote_category_model or self._name)], context=context)
                 for vote_config in vote_config_obj.browse(cr, uid, vote_config_ids, context=context):
-                    res[record.id].append({'id': vote_config.name.id, 'name': vote_config.name.name, 'value': -3})
+                    res[record.id].append({'id': vote_config.name.id, 'name': vote_config.name.name, 'value': False})
 
         return res
 
 
-    def _get_vote_vote(self, cr, uid, ids, name, arg, context=None):
+#    def _get_vote_vote(self, cr, uid, ids, name, arg, context=None):
+#        """ Display the vote of the current user for the current record, if already voted """
+#        res = {}
+#        vote_obj = self.pool.get('vote.vote')
+#        vote_line_obj = self.pool.get('vote.vote.line')
+#        vote_config_obj = self.pool.get('vote.config.line')
+#
+#        vote_configs = self._get_vote_config(cr, uid, ids, context=context)
+#
+#        for record in self.browse(cr, uid, ids, context=context):
+#            res[record.id] = {}
+#            res[record.id]['vote_vote'] = []
+#
+#            _logger.info('field %s, %s', self._vote_category_field, record)
+#            _logger.info('test %s',getattr(record, 'category_id'))
+#            vote_config_ids = vote_config_obj.search(cr, uid, [('model','=','vote.config.settings')], context=context)
+#            votes = vote_configs[record.id]
+#
+#            vote_lines = {}
+#            vote_ids = vote_obj.search(cr, uid, [('model','=',self._name),('res_id','=',record.id),('user_id','=',uid)], context=context)
+#            for vote in vote_obj.browse(cr, uid, vote_ids, context=context):
+#                res[record.id]['vote_comment'] = vote.comment
+#                for vote_line in vote.line_ids:
+#                    vote_lines[vote_line.type_id.id] = vote_line
+#
+#            for vote in votes:
+#                if vote['id'] in vote_lines:
+#                    vote['value'] = vote_lines[vote['id']].vote
+#                res[record.id]['vote_vote'].append(vote)
+#        _logger.info('res : %s', res)
+#        return resi
+
+    def _get_partner_ids(self, cr, uid, ids, context=None):
+
+        res = {}
+        user_obj = self.pool.get('res.users')
+        user = user_obj.browse(cr, uid, uid, context=context)
+        partner_id = user.partner_id.id
+
+        for record in self.browse(cr, uid, ids, context=context):
+            res[record.id] = partner_id
+        return res
+
+
+
+
+    def _get_vote_vote(self, cr, uid, ids, fields, args, context={}):
+
         """ Display the vote of the current user for the current record, if already voted """
         res = {}
         vote_obj = self.pool.get('vote.vote')
         vote_line_obj = self.pool.get('vote.vote.line')
         vote_config_obj = self.pool.get('vote.config.line')
 
+        partner_ids = self._get_partner_ids(cr, uid, ids, context=context)
+        _logger.info('partner_ids %s',partner_ids)
         vote_configs = self._get_vote_config(cr, uid, ids, context=context)
 
         for record in self.browse(cr, uid, ids, context=context):
             res[record.id] = {}
-            res[record.id]['vote_vote'] = []
+            res[record.id]['vote_vote_line_ids'] = []
 
             _logger.info('field %s, %s', self._vote_category_field, record)
             _logger.info('test %s',getattr(record, 'category_id'))
@@ -222,7 +280,10 @@ class vote_model(osv.AbstractModel):
             votes = vote_configs[record.id]
 
             vote_lines = {}
-            vote_ids = vote_obj.search(cr, uid, [('model','=',self._name),('res_id','=',record.id),('user_id','=',uid)], context=context)
+            if 'vote_id' in context:
+                vote_ids = [context['vote_id']]
+            else:
+                vote_ids = vote_obj.search(cr, uid, [('model','=',self._name),('res_id','=',record.id),('partner_id','=',partner_ids[record.id])], context=context)
             for vote in vote_obj.browse(cr, uid, vote_ids, context=context):
                 res[record.id]['vote_comment'] = vote.comment
                 for vote_line in vote.line_ids:
@@ -231,7 +292,7 @@ class vote_model(osv.AbstractModel):
             for vote in votes:
                 if vote['id'] in vote_lines:
                     vote['value'] = vote_lines[vote['id']].vote
-                res[record.id]['vote_vote'].append(vote)
+                res[record.id]['vote_vote_line_ids'].append((0,0,{'type_id':vote['id'],'vote':vote['value']}))
         _logger.info('res : %s', res)
         return res
 
@@ -242,7 +303,9 @@ class vote_model(osv.AbstractModel):
         vote_obj = self.pool.get('vote.vote')
         vote_line_obj = self.pool.get('vote.vote.line')
 
-        vote_ids = vote_obj.search(cr, uid, [('model','=',self._name),('res_id','=',id),('user_id','=',uid)], context=context)
+        partner_id = self._get_partner_ids(cr, uid, [id], context=context)[id]
+
+        vote_ids = vote_obj.search(cr, uid, [('model','=',self._name),('res_id','=',id),('partner_id','=',partner_id)], context=context)
         vote_line_ids = vote_line_obj.search(cr, uid, [('vote_id','in',vote_ids)], context=context)
         lines = {}
         for line in vote_line_obj.browse(cr, uid, vote_line_ids, context=context):
@@ -253,22 +316,17 @@ class vote_model(osv.AbstractModel):
         if value:
             fields = {}
             if name == 'vote_comment':
-                fields = {'comment': value}
+                fields.update({'comment': value})
             if not vote_ids:
-                fields.update({'model': self._name, 'res_id': id, 'user_id': uid})
+                fields.update({'model': self._name, 'res_id': id, 'partner_id': partner_id})
                 _logger.info(fields)
                 vote_id = vote_obj.create(cr, uid, fields, context=context)
             else:
                 vote_obj.write(cr, uid, vote_ids, fields, context=context)
                 vote_id = vote_ids[0]
 
-            if name == 'vote_vote':
-                for vote_line in value:
-                    type_id = int(vote_line['type_id'])
-                    if type_id in lines:
-                        vote_line_obj.write(cr, uid, [lines[type_id].id], {'vote': vote_line['value']}, context=context)
-                    else:
-                        vote_line_obj.create(cr, uid, {'vote_id': vote_id, 'type_id': vote_line['type_id'], 'vote': vote_line['value']}, context=context)
+            if name == 'vote_vote_line_ids':
+                vote_obj._set_lines(cr, uid, vote_id, name, value, arg, context=context)
 
     def clear_votes(self, cr, uid, ids, context=None):
 
@@ -284,12 +342,19 @@ class vote_model(osv.AbstractModel):
         'vote_average': fields.function(_get_vote_stats, type='float', string='Average vote', multi='_get_vote_stats'),
         'vote_total': fields.function(_get_vote_stats, type='integer', string='Total vote', multi='_get_vote_stats'),
         'vote_user_ids': fields.function(_get_vote_stats, type='many2many', obj='res.users', string='Vote users', multi='_get_vote_stats'),
-        'vote_vote': fields.function(_get_vote_vote, fnct_inv=_set_vote_vote, type='char', string='Vote', multi='_get_vote_vote'),
+        'vote_voters': fields.function(_get_vote_voters, type='many2many', obj='res.partner', string='Voters'),
+#        'vote_vote': fields.function(_get_vote_vote, fnct_inv=_set_vote_vote, type='char', string='Vote', multi='_get_vote_vote'),
         'vote_comment': fields.function(_get_vote_vote, fnct_inv=_set_vote_vote, type='text', string='Vote comment', multi='_get_vote_vote'),
+        'vote_vote_line_ids': fields.function(_get_vote_vote, fnct_inv=_set_vote_vote, type="one2many", relation="vote.vote.line", method=True, multi='_get_vote_vote', string='Votes'),
         'vote_vote_ids': fields.one2many('vote.vote', 'res_id',
             domain=lambda self: [('model', '=', self._name)],
             auto_join=True,
             string='Votes'),
+        'vote_vote_alternate_ids': fields.one2many('vote.vote', 'res_id',
+            domain=lambda self: [('model', '=', self._name)],
+            auto_join=True,
+            string='Votes'),
+
     }
 
 
@@ -300,23 +365,71 @@ class vote_vote(osv.Model):
     _name = 'vote.vote'
     _description = 'Vote'
 
-    def _is_complete(self, cr, uid, ids, name, value, arg, context=None):
+    def _get_lines(self, cr, uid, ids, name, value, arg, context={}):
         res={}
+        type_obj = self.pool.get('vote.type')
+
         for vote in self.browse(cr, uid, ids, context=context):
-            res[vote.id] = True
+            res[vote.id] = {}
+            res[vote.id]['line_string'] = ''
+            res[vote.id]['is_complete'] = True
 
             if not vote.comment:
-                res[vote.id] = False
+                res[vote.id]['is_complete'] = False
 
-            line_ids = {}
-            for line in vote.line_ids:
-                line_ids[line.type_id.id] = line.type_id.id
+#            line_ids = {}
+#            for line in vote.line_ids:
+#                line_ids[line.type_id.id] = line.type_id.id
 
             model_obj = self.pool.get(vote.model)
-            vote_configs = model_obj._get_vote_config(cr, uid, [vote.res_id], context=context)[vote.res_id]
-            for vote_config in vote_configs:
-                if vote_config['id'] not in line_ids:
-                    res[vote.id] = False
+            context['vote_id'] = vote.id
+            vote_lines = model_obj._get_vote_vote(cr, uid, [vote.res_id], '', '', context=context)[vote.res_id]['vote_vote_line_ids']
+            _logger.info('vote %s', vote)
+            res[vote.id]['vote_vote_line_ids'] = vote_lines
+            for vote_line in vote_lines:
+                vote_line = vote_line[2]
+                type = type_obj.browse(cr, uid, vote_line['type_id'], context=context)
+                vote_string = ''
+                if vote_line['vote']:
+                    vote_string = vote_line['vote']
+                _logger.info('type %s, vote %s', type.name, vote_line['vote'])
+                res[vote.id]['line_string'] += type.name + ' : ' + vote_string + '\n'
+                if not vote_line['vote']:
+                    res[vote.id]['is_complete'] = False
+
+#            vote_configs = model_obj._get_vote_config(cr, uid, [vote.res_id], context=context)[vote.res_id]
+#            for vote_config in vote_configs:
+#                if vote_config['id'] not in line_ids:
+#                    res[vote.id]['is_complete'] = False
+        return res
+
+    def _set_lines(self, cr, uid, id, name, value, arg, context=None):
+        _logger.info('name : %s, value %s, arg %s', name, value, arg)
+        _logger.info('!!!!!!!!!!!')
+        """ Create or update the vote in vote.vote model when we save the record """
+        vote_line_obj = self.pool.get('vote.vote.line')
+
+        vote = self.browse(cr, uid, id, context=context)
+
+        lines = {}
+        for line in vote.line_ids:
+            lines[line.type_id.id] = line
+
+        if value and name == 'vote_vote_line_ids':
+            _logger.info('value %s', value)
+            for vote_line in value:
+                vote_line = vote_line[2]
+                type_id = vote_line['type_id']
+                if type_id in lines:
+                    vote_line_obj.write(cr, uid, [lines[type_id].id], {'vote': vote_line['vote']}, context=context)
+                else:
+                    vote_line_obj.create(cr, uid, {'vote_id': id, 'type_id': type_id, 'vote': vote_line['vote']}, context=context)
+
+    def _get_voters(self, cr, uid, ids, name, value, arg, context=None):
+        res = {}
+        for vote in self.browse(cr, uid, ids, context=context):
+            voters = self.pool.get(vote.model)._get_vote_voters(cr, uid, [vote.res_id], name, arg, context=context)[vote.res_id]
+            res[vote.id] = voters
         return res
 
 
@@ -324,14 +437,17 @@ class vote_vote(osv.Model):
         'model': fields.char('Related Document Model', size=128, select=1),
         'res_id': fields.integer('Related Document ID', select=1),
         'create_date': fields.datetime('Create date'),
-        'user_id': fields.many2one('res.users', 'User', select=1),
+        'partner_id': fields.many2one('res.partner', 'Partner', select=1),
         'line_ids': fields.one2many('vote.vote.line', 'vote_id', 'Lines'),
+        'line_string': fields.function(_get_lines, type="text", multi="_get_lines", string="Votes"),
+        'vote_vote_line_ids': fields.function(_get_lines, fnct_inv=_set_lines, type="one2many", relation="vote.vote.line", method=True, multi='_get_lines', string='Votes'),
+        'voters': fields.function(_get_voters,  type='many2many', obj='res.partner', string="Voters"),
         'comment': fields.text('Comment'),
-        'is_complete': fields.function(_is_complete, type='boolean', string='Is complete?'),
+        'is_complete': fields.function(_get_lines, type='boolean', multi="_get_lines", string='Is complete?'),
     }
 
     _sql_constraints = [
-        ('user_vote', 'unique(model,res_id,user_id)', 'We can only have one vote per record per user')
+        ('user_vote', 'unique(model,res_id,partner_id)', 'We can only have one vote per record per partner')
     ]
 
 
@@ -345,10 +461,22 @@ class vote_vote_line(osv.Model):
     _columns = {
         'vote_id': fields.many2one('vote.vote', 'Vote', ondelete='cascade'),
         'type_id': fields.many2one('vote.type', 'Type'),
-        'vote': fields.integer('Vote')
+        'vote': fields.selection([('-2','-2'),
+                                  ('-1','-1'),
+                                  ('0','0'),
+                                  ('1','1'),
+                                  ('2','2')],'Vote')
     }
 
     _sql_constraints = [
         ('user_vote', 'unique(vote_id,type_id)', 'We can only have one vote per vote per type')
     ]
 
+
+class res_partner(osv.Model):
+
+    _inherit = 'res.partner'
+
+    _columns = {
+        'vote_ids': fields.one2many('vote.vote', 'partner_id', 'Votes')
+    }

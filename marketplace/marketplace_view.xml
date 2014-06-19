@@ -189,8 +189,8 @@
                             <field name="uom_id"/>
                             <field name="from_company" attrs="{'readonly':[('state','!=','draft')]}"/>
                             <field name="description_announcement_id" domain="[('user_id','=',uid)]" attrs="{'readonly':[('state','!=','draft')]}"/>
-                            <field name="vote_vote" widget="vote_five_star" attrs="{'invisible': ['|',('already_accepted','!=',True),('is_user','!=',True)]}"/>
-                            <field name="vote_comment" attrs="{'invisible': ['|',('already_accepted','!=',True),('is_user','!=',True)]}"/>
+                            <field name="vote_vote_line_ids" attrs="{'invisible': ['|',('already_accepted','!=',True),('is_user','!=',True),('is_announcer','!=',True)]}"/>
+                            <field name="vote_comment" attrs="{'invisible': ['|',('already_accepted','!=',True),('is_user','!=',True),('is_announcer','!=',True)]}"/>
                         </group>
                             <field name="want_cancel_announcer" states="accepted,invoiced,confirm" attrs="{'readonly':[('is_announcer', '!=', True),('is_moderator','!=',True)]}"/>
                             <field name="want_cancel_user" states="accepted,invoiced,confirm" attrs="{'readonly':[('is_user', '!=', True),('is_moderator','!=',True)]}"/>
@@ -211,6 +211,8 @@
                             <field name="state"/>
                         </tree>
                     </field>
+                    <field name="vote_vote_ids"/>
+<field name="vote_voters"/>
                     <group>
                         <field name="call_moderator_user" attrs="{'readonly':[('is_user', '!=', True)], 'invisible':[('is_user', '!=', True),('call_moderator_user', '!=', True)]}"/>
                         <field name="call_moderator_announcer" attrs="{'readonly':[('is_announcer', '!=', True)], 'invisible':[('is_announcer', '!=', True),('call_moderator_announcer', '!=', True)]}"/>

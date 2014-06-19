@@ -696,6 +696,15 @@ class marketplace_transaction(osv.osv):
 
 class marketplace_proposition(osv.osv):
 
+    def _get_vote_voters(self, cr, uid, ids, name, args, context=None):
+        res = {}
+
+        partner_ids = self.pool.get('res.partner').search(cr, uid, [('user_ids','!=',False)], context=context)
+        for record in self.browse(cr, uid, ids, context=context):
+            res[record.id] = [(6, 0, [record.user_id.partner_id.id, record.announcement_id.user_id.partner_id.id])]
+        return res
+
+
     def _get_user_role(self, cr, uid, ids, prop, unknow_none, context=None):
         wf_service = netsvc.LocalService("workflow")
         res = {}
@@ -760,6 +769,7 @@ class marketplace_proposition(osv.osv):
         'confirm_id': fields.many2one('account.move', 'Confirmation move'),
         'already_published': fields.boolean('Already published?'),
         'already_accepted': fields.boolean('Already accepted?'),
+        'vote_voters': fields.function(_get_vote_voters, type='many2many', obj='res.partner', string='Voters'),
         'is_user': fields.function(_get_user_role, type="boolean", string="Is user?", multi='role'),
         'is_announcer': fields.function(_get_user_role, type="boolean", string="Is announcer?", multi='role'),
         'is_dispute': fields.function(_get_user_role, type="boolean", string="Is dispute?", multi='role'),
@@ -842,11 +852,13 @@ class marketplace_proposition(osv.osv):
         for proposition in self.browse(cr, uid, ids, context=context):
             vote_user = False
             vote_announcer = False
-            vote_ids = vote_obj.search(cr, uid, [('model','=','marketplace.proposition'), ('res_id','=',proposition.id), ('user_id','in',[proposition.user_id.id,proposition.announcement_id.user_id.id])], context=context)
+            user_partner_id = proposition.user_id.partner_id.id
+            announcer_partner_id = proposition.announcement_id.user_id.partner_id.id
+            vote_ids = vote_obj.search(cr, uid, [('model','=','marketplace.proposition'), ('res_id','=',proposition.id), ('partner_id','in',[user_partner_id,announcer_partner_id])], context=context)
             for vote in vote_obj.browse(cr, uid, vote_ids, context=context):
-                if vote.user_id.id == proposition.user_id.id:
+                if vote.partner_id.id == user_partner_id:
                     vote_user = vote
-                if vote.user_id.id == proposition.announcement_id.user_id.id:
+                if vote.partner_id.id == announcer_partner_id:
                     vote_announcer = vote
 
             if vote_user and vote_user.is_complete and vote_announcer and vote_announcer.is_complete:
