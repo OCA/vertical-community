@@ -33,7 +33,7 @@ Mail groups management
 
 This module create a new group Committee which is required to create groups in social network. Groups have a management fields which indicate which people can modify this group, and specify if this group is free access or invitation only.
 """,
- 'demo': [],
+ 'demo': ['data/mail_groups_management_demo.xml'],
  'data': ['security/mail_groups_management_security.xml',
           'security/ir.model.access.csv',
           'mail_groups_management_view.xml'

@@ -354,10 +354,6 @@ class vote_model(osv.AbstractModel):
             domain=lambda self: [('model', '=', self._name)],
             auto_join=True,
             string='Votes'),
-        'vote_vote_alternate_ids': fields.one2many('vote.vote', 'res_id',
-            domain=lambda self: [('model', '=', self._name)],
-            auto_join=True,
-            string='Votes'),
 
     }
 

@@ -15,11 +15,115 @@
                 </field>
                 <sheet position="inside">
                     <group>
+                        <field name="type"/>
+                        <field name="parent_id"/>
                         <field name="manager_ids" widget="many2many_tags"/>
+                        <field name="role_ids" context="{'type': 'role', 'default_type': 'role'}" attrs="{'invisible': [('type','!=','circle')]}">
+                            <tree string="Roles" editable="top">
+                                <field name="name"/>
+                                <field name="type" invisible="1"/>
+                            </tree>
+                        </field>
                     </group>
                 </sheet>
             </field>
         </record>
+
+        <record id="view_mail_group_tree_tree" model="ir.ui.view">
+            <field name="name">mail.group.tree.tree</field>
+            <field name="model">mail.group</field>
+            <field name="field_parent">child_id</field>
+            <field name="arch" type="xml">
+                <tree toolbar="True" string="Groups">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+<!--
+                                        <button t-if="record.message_is_follower.raw_value" name="action_unfollow" type="object" class="oe_group_join">Unfollow</button>
+                                        <button t-if="! record.message_is_follower.raw_value" name="action_follow" type="object">Join Group</button>
+-->
+        <record id="action_mail_group_tree" model="ir.actions.act_window">
+            <field name="name">Groups list</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">mail.group</field>
+            <field name="domain">[('parent_id','=',False)]</field>
+            <field name="view_type">tree</field>
+            <field name="view_id" ref="view_mail_group_tree_tree"/>
+        </record>
+        <menuitem
+            action="action_mail_group_tree"
+            id="menu_action_mail_group_tree"
+            parent="mail.mail_group_root"
+            sequence="30"/>
+
+<!-- TODO Return in the message list of the group, not in the group form -->
+        <record id="mail_group_action_tree" model="ir.actions.server">
+            <field name="name">Group</field>
+            <field name="model_id" ref="model_mail_group"/>
+            <field name="condition">True</field>
+            <field name="type">ir.actions.server</field>
+            <field name="state">code</field>
+            <field name="code">
+search_ref = self.pool.get('ir.model.data').get_object_reference(cr, uid, 'mail', 'view_message_search')
+group = self.pool.get('mail.group').browse(cr, uid, context['active_id'], context=context)
+#action = {
+#    'type': 'ir.actions.client',
+#    'name': 'Group',
+#    'params': {
+#        'search_view_id': search_ref and search_ref[1] or False,
+#        'domain': [
+#            ('model', '=', 'mail.group'),
+#            ('res_id', '=', context['active_id']),
+#        ],
+#        'context': {
+#            'default_model': 'mail.group',
+#            'default_res_id': context['active_id'],
+#        },
+#        'res_model': 'mail.message',
+#        'thread_level': 1,
+#        'header_description': self.pool.get('mail.group')._generate_header_description(cr, uid, group, context=context),
+#        'view_mailbox': True,
+#        'compose_placeholder': 'Send a message to the group',
+#    }
+#}
+
+action = {
+    'type': 'ir.actions.act_window',
+    'name': 'Group',
+    'view_mode': 'form',
+    'view_type': 'form',
+    'res_model': 'mail.group',
+    'res_id': context['active_id']
+}
+
+            </field>
+        </record>
+
+        <record id="ir_product_category_open" model="ir.values">
+            <field eval="'tree_but_open'" name="key2"/>
+            <field eval="'mail.group'" name="model"/>
+            <field name="name">Groups list</field>
+            <field eval="'ir.actions.server,%d'%mail_group_action_tree" name="value"/>
+        </record>
+
+
+        <record id="view_group_tree_extention" model="ir.ui.view">
+            <field name="name">mail.group.tree.extention</field>
+            <field name="model">mail.group</field>
+            <field name="inherit_id" ref="mail.view_group_tree"/>
+            <field name="arch" type="xml">
+                <field name="name" position="replace">
+                    <field name="complete_name"/>
+                </field>
+            </field>
+        </record>
+
+
+        <record id="mail.action_view_groups" model="ir.actions.act_window">
+            <field name="view_mode">tree,kanban,form</field>
+        </record>
+
 
     </data>
 </openerp>
