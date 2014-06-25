@@ -332,7 +332,7 @@
             </field>
         </record>
 
-        <record id="view_res_partner_marketplace_res_partner_marketplace_currency_tree" model="ir.ui.view">
+        <record id="view_res_partner_marketplace_currency_tree" model="ir.ui.view">
             <field name="name">res.partner.marketplace.currency.tree</field>
             <field name="model">res.partner.marketplace.currency</field>
             <field name="arch" type="xml">

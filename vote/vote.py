@@ -39,101 +39,69 @@ class vote_category(osv.AbstractModel):
     _name = 'vote.category'
     _description = 'Vote Category'
 
-    def _get_stored_vote_config(self, cr, uid, ids, context=None):
-        vote_config_stored_obj = self.pool.get('vote.config.line.stored')
+    _inherit = 'base.config.inherit.model'
+    _base_config_inherit_model = 'vote.config.line'
+    _base_config_inherit_key = 'name'
+    _base_config_inherit_o2m = 'vote_config_ids'
 
-        res = {}
-        for category in self.browse(cr, uid, ids, context=context):
-            res[category.id] = []
+    def _prepare_config(self, cr, uid, id, record, vals={}, context=None):
+        res = {
+            'model': self._name,
+            'res_id': id,
+            'name': 'name' in record and record.name.id or False,
+            'sequence': 'sequence' in record and record.sequence or False,
+            'stored': True
+        }
 
-            vote_config_stored_ids = vote_config_stored_obj.search(cr, uid, [('model','=',self._name),('res_id','=', category.id)], order='sequence,name', context=context)
-            for vote_config_stored in vote_config_stored_obj.browse(cr, uid, vote_config_stored_ids, context=context):
-                res[category.id].append(vote_config_stored) #{'name': vote_config_stored.name, 'sequence': vote_config_stored.sequence})
+        res.update(super(vote_category, self)._prepare_config(cr, uid, id, record, vals=vals, context=context))
         return res
 
+#    def _get_stored_vote_config(self, cr, uid, ids, context=None):
+#        vote_config_stored_obj = self.pool.get('vote.config.line.stored')
+#
+#        res = {}
+#        for category in self.browse(cr, uid, ids, context=context):
+#            res[category.id] = []
+#
+#            vote_config_stored_ids = vote_config_stored_obj.search(cr, uid, [('model','=',self._name),('res_id','=', category.id)], order='sequence,name', context=context)
+#            for vote_config_stored in vote_config_stored_obj.browse(cr, uid, vote_config_stored_ids, context=context):
+#                res[category.id].append(vote_config_stored) #{'name': vote_config_stored.name, 'sequence': vote_config_stored.sequence})
+#        return res
 
-    def _get_vote_config(self, cr, uid, ids, field_names, arg, context=None):
 
-        config_lines = self._get_stored_vote_config(cr, uid, ids, context=context)
-
-        res = {}
-        for category in self.browse(cr, uid, ids, context=context):
-            res[category.id] = []
-            for config_line in config_lines[category.id]:
-                res[category.id].append((0,0,config_line))
-        _logger.info('res %s',res)
-        return res
+#    def _get_vote_config(self, cr, uid, ids, field_names, arg, context=None):
+#
+#        config_lines = self._get_stored_vote_config(cr, uid, ids, context=context)
+#
+#        res = {}
+#        for category in self.browse(cr, uid, ids, context=context):
+#            res[category.id] = []
+#            for config_line in config_lines[category.id]:
+#                res[category.id].append((0,0,config_line))
+#        _logger.info('res %s',res)
+#        return res
 
 
     _columns = {
         'vote_config_ids': fields.one2many('vote.config.line', 'res_id',
-            domain=lambda self: [('model', '=', self._name)],
+            domain=lambda self: [('model', '=', self._name),('stored','=',False)],
             auto_join=True,
             string='Vote configuration'),
-        'vote_config_result_ids': fields.one2many('vote.config.line.stored', 'res_id',
-            domain=lambda self: [('model', '=', self._name)],
+        'vote_config_result_ids': fields.one2many('vote.config.line', 'res_id',
+            domain=lambda self: [('model', '=', self._name),('stored','=',True)],
             auto_join=True,
             string='Vote Types', readonly=True),
     }
 
-    def _update_stored_vote_config(self, cr, uid, ids, context=None):
-        _logger.info('ids %s', ids)
-        vote_config_obj = self.pool.get('vote.config.line')
-        vote_config_stored_obj = self.pool.get('vote.config.line.stored')
-
-        vote_config_stored_ids = vote_config_stored_obj.search(cr, uid, [('model','=',self._name),('res_id','in', ids)], context=context)
-        vote_config_stored_obj.unlink(cr, uid, vote_config_stored_ids, context=context)
-
+    def _get_external_config(self, cr, uid, record, context=None):
         res = {}
-        for category in self.browse(cr, uid, ids, context=context):
-            _logger.info('name %s', self._name)
-            _logger.info('id %s', category.id)
-            config_lines = {}
-            if 'parent_id' in category and category.parent_id:
-                for config_line in self._get_stored_vote_config(cr, uid, [category.parent_id.id], context=context)[category.parent_id.id]:
-                    config_lines[config_line.name.id] = {'model': self._name, 'res_id': category.id, 'name': config_line.name.id, 'sequence': config_line.sequence}
-            else:
-                vote_config_ids = vote_config_obj.search(cr, uid, [('model','=','vote.config.settings'),('target_model.model','=', self._name)], context=context)
-                _logger.info('vote_config_ids %s', vote_config_ids)
-                for config_line in vote_config_obj.browse(cr, uid, vote_config_ids, context=context):
-                    _logger.info('config.line %s', config_line.target_model.model)
-                    config_lines[config_line.name.id] = {'model': self._name, 'res_id': category.id, 'name': config_line.name.id, 'sequence': config_line.sequence}
-
-            for config_line in category.vote_config_ids:
-                if config_line.action == 'add':
-                    config_lines[config_line.name.id] = {'model': self._name, 'res_id': category.id, 'name': config_line.name.id, 'sequence': config_line.sequence}
-                elif config_line.action == 'remove':
-                    if config_line.name.id in config_lines:
-                        del config_lines[config_line.name.id]
-
-
-            _logger.info('config_lines %s',config_lines)
-            config_lines_list = []
-            for key,config_line in config_lines.iteritems():
-                config_lines_list.append(config_line)
-
-            _logger.info('config_lines %s',config_lines_list)
-            sorted(config_lines_list, key = lambda config: (config['sequence'], config['name']))
-
-            for config_line in config_lines_list:
-                vote_config_stored_obj.create(cr, uid, config_line, context=context)
-
-        if 'parent_id' in self._columns:
-            child_ids = self.search(cr, uid, [('parent_id','in', ids)], context=context)
-            if child_ids:
-                self._update_stored_vote_config(cr, uid, child_ids, context=context)
-
-    def create(self, cr, uid, vals, context=None):
-        res = super(vote_category, self).create(cr, uid, vals, context=context)
-        self.write(cr, uid, [res], vals, context=context)
+        vote_config_obj = self.pool.get('vote.config.line')
+        vote_config_ids = vote_config_obj.search(cr, uid, [('model','=','vote.config.settings'),('target_model.model','=', self._name)], context=context)
+        _logger.info('vote_config_ids %s', vote_config_ids)
+        for config_line in vote_config_obj.browse(cr, uid, vote_config_ids, context=context):
+            _logger.info('config.line %s', config_line.target_model.model)
+            res[config_line.name.id] =  self._prepare_config(cr, uid, record.id, config_line, context=context)
         return res
-
-
-    def write(self, cr, uid, ids, vals, context=None):
-        res = super(vote_category, self).write(cr, uid, ids, vals, context=context)
-        self._update_stored_vote_config(cr, uid, ids, context=context)
-        return res
-        
 
 
 

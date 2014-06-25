@@ -23,6 +23,7 @@
  'version': '1.0',
  'category': 'Community',
  'depends': ['community',
+             'mail_groups_project',
              'website_project',
              ],
  'author': 'Yannick Buron',

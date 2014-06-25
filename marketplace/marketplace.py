@@ -35,70 +35,21 @@ _logger = logging.getLogger(__name__)
 
 class marketplace_announcement_category(osv.osv):
 
-    def name_get(self, cr, uid, ids, context=None):
-        """Return the categories' display name, including their direct
-           parent by default.
-
-        :param dict context: the ``announcement_category_display`` key can be
-                             used to select the short version of the
-                             category name (without the direct parent),
-                             when set to ``'short'``. The default is
-                             the long version."""
-        if context is None:
-            context = {}
-        if context.get('annoucement_category_display') == 'short':
-            return super(marketplace_announcement_category, self).name_get(cr, uid, ids, context=context)
-        if isinstance(ids, (int, long)):
-            ids = [ids]
-        reads = self.read(cr, uid, ids, ['name', 'parent_id','sequence'], context=context)
-        res = []
-        for record in reads:
-            name = str(record['sequence']) + ' ' + record['name']
-            if record['parent_id']:
-                name = record['parent_id'][1] + ' / ' + name
-            res.append((record['id'], name))
-        return res
-
-    def name_search(self, cr, uid, name, args=None, operator='ilike', context=None, limit=100):
-        if not args:
-            args = []
-        if not context:
-            context = {}
-        if name:
-            # Be sure name_search is symetric to name_get
-            name = name.split(' / ')[-1]
-            ids = self.search(cr, uid, [('name', operator, name)] + args, limit=limit, context=context)
-        else:
-            ids = self.search(cr, uid, args, limit=limit, context=context)
-        return self.name_get(cr, uid, ids, context)
-
-    def _name_get_fnc(self, cr, uid, ids, prop, unknow_none, context=None):
-        res = self.name_get(cr, uid, ids, context=context)
-        return dict(res)
-
     _name = 'marketplace.announcement.category'
     _description = 'Offers/Wants Categories'
-    _inherit = ['vote.category']
+    _inherit = ['vote.category','base.recursive.model']
     _columns = {
         'name': fields.char('Category Name', required=True, size=64, translate=True),
-        'parent_id': fields.many2one('marketplace.announcement.category', 'Parent Category', select=True, ondelete='cascade'),
+        'parent_id': fields.many2one('marketplace.announcement.category', 'Parent', select=True, ondelete='cascade'),
+        'child_ids': fields.one2many('marketplace.announcement.category', 'parent_id', 'Childs'),
         'sequence': fields.integer('Sequence'),
-        'complete_name': fields.function(_name_get_fnc, type="char", string='Full Name', store=True),
-        'child_ids': fields.one2many('marketplace.announcement.category', 'parent_id', 'Child Categories'),
         'tag_ids': fields.one2many('marketplace.tag', 'category_id', 'Tags'),
         'active': fields.boolean('Active', help="The active field allows you to hide the category without removing it."),
-        'parent_left': fields.integer('Left parent', select=True),
-        'parent_right': fields.integer('Right parent', select=True),
         'partner_ids': fields.many2many('res.partner', 'res_partner_marketplace_category_rel', 'category_id', 'partner_id', 'Partners'),
     }
-    _constraints = [
-        (osv.osv._check_recursion, 'Error ! You can not create recursive categories.', ['parent_id'])
-    ]
     _defaults = {
         'active': 1,
     }
-    _parent_store = True
-    _order = 'complete_name'
 
 
 class marketplace_tag(osv.osv):

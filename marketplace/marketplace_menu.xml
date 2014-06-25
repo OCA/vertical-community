@@ -13,7 +13,7 @@
             <!--The Offers -->
         <menuitem id="menu_marketplace_the_market_the_offers" name="Offers" parent="menu_marketplace_the_market" sequence="1"/>
 
-        <record id="action_marketplace_announcement_the_market_the_offers_all" model="ir.actions.act_window">
+        <record id="act_mkp_announ_the_market_the_offers_all" model="ir.actions.act_window">
             <field name="name">All</field>
             <field name="res_model">marketplace.announcement</field>
             <field name="view_type">form</field>
@@ -24,9 +24,9 @@
             <field name="search_view_id" ref="view_marketplace_announcement_search"/>
         </record>
 
-        <menuitem action="action_marketplace_announcement_the_market_the_offers_all" id="menu_action_marketplace_announcement_the_market_the_offers_all" parent="menu_marketplace_the_market_the_offers"/>
+        <menuitem action="act_mkp_announ_the_market_the_offers_all" id="menu_act_mkp_announ_the_market_the_offers_all" parent="menu_marketplace_the_market_the_offers"/>
 
-        <record id="action_marketplace_announcement_the_market_the_offers_per_category" model="ir.actions.act_window">
+        <record id="act_mkp_announ_the_market_the_offers_per_category" model="ir.actions.act_window">
             <field name="name">Per category</field>
             <field name="res_model">marketplace.announcement</field>
             <field name="view_type">form</field>
@@ -37,9 +37,9 @@
             <field name="search_view_id" ref="view_marketplace_announcement_search"/>
         </record>
 
-        <menuitem action="action_marketplace_announcement_the_market_the_offers_per_category" id="menu_action_marketplace_announcement_the_market_the_offers_per_category" parent="menu_marketplace_the_market_the_offers" sequence="11"/>
+        <menuitem action="act_mkp_announ_the_market_the_offers_per_category" id="menu_act_mkp_announ_the_market_the_offers_per_category" parent="menu_marketplace_the_market_the_offers" sequence="11"/>
 
-        <record id="action_marketplace_announcement_the_market_the_offers_per_location" model="ir.actions.act_window">
+        <record id="act_mkp_announ_the_market_the_offers_per_location" model="ir.actions.act_window">
             <field name="name">Per location</field>
             <field name="res_model">marketplace.announcement</field>
             <field name="view_type">form</field>
@@ -50,13 +50,13 @@
             <field name="search_view_id" ref="view_marketplace_announcement_search"/>
         </record>
 
-        <menuitem action="action_marketplace_announcement_the_market_the_offers_per_location" id="menu_action_marketplace_announcement_the_market_the_offers_per_location" parent="menu_marketplace_the_market_the_offers" sequence="12"/>
+        <menuitem action="act_mkp_announ_the_market_the_offers_per_location" id="menu_act_mkp_announ_the_market_the_offers_per_location" parent="menu_marketplace_the_market_the_offers" sequence="12"/>
 
 
             <!-- The Wants -->
         <menuitem id="menu_marketplace_the_market_the_wants" name="Wants" parent="menu_marketplace_the_market" sequence="2"/>
 
-        <record id="action_marketplace_announcement_the_market_the_wants_all" model="ir.actions.act_window">
+        <record id="act_mkp_announ_the_market_the_wants_all" model="ir.actions.act_window">
             <field name="name">All</field>
             <field name="res_model">marketplace.announcement</field>
             <field name="view_type">form</field>
@@ -67,9 +67,9 @@
             <field name="search_view_id" ref="view_marketplace_announcement_search"/>
         </record>
 
-        <menuitem action="action_marketplace_announcement_the_market_the_wants_all" id="menu_action_marketplace_announcement_the_market_the_wants_all" parent="menu_marketplace_the_market_the_wants"/>
+        <menuitem action="act_mkp_announ_the_market_the_wants_all" id="menu_act_mkp_announ_the_market_the_wants_all" parent="menu_marketplace_the_market_the_wants"/>
 
-        <record id="action_marketplace_announcement_the_market_the_wants_per_category" model="ir.actions.act_window">
+        <record id="act_mkp_announ_the_market_the_wants_per_category" model="ir.actions.act_window">
             <field name="name">Per category</field>
             <field name="res_model">marketplace.announcement</field>
             <field name="view_type">form</field>
@@ -80,9 +80,9 @@
             <field name="search_view_id" ref="view_marketplace_announcement_search"/>
         </record>
 
-        <menuitem action="action_marketplace_announcement_the_market_the_wants_per_category" id="menu_action_marketplace_announcement_the_market_the_wants_per_category" parent="menu_marketplace_the_market_the_wants" sequence="11"/>
+        <menuitem action="act_mkp_announ_the_market_the_wants_per_category" id="menu_act_mkp_announ_the_market_the_wants_per_category" parent="menu_marketplace_the_market_the_wants" sequence="11"/>
 
-        <record id="action_marketplace_announcement_the_market_the_wants_per_location" model="ir.actions.act_window">
+        <record id="act_mkp_announ_the_market_the_wants_per_location" model="ir.actions.act_window">
             <field name="name">Per location</field>
             <field name="res_model">marketplace.announcement</field>
             <field name="view_type">form</field>
@@ -93,9 +93,9 @@
             <field name="search_view_id" ref="view_marketplace_announcement_search"/>
         </record>
 
-        <menuitem action="action_marketplace_announcement_the_market_the_wants_per_location" id="menu_action_marketplace_announcement_the_market_the_wants_per_location" parent="menu_marketplace_the_market_the_wants" sequence="12"/>
+        <menuitem action="act_mkp_announ_the_market_the_wants_per_location" id="menu_act_mkp_announ_the_market_the_wants_per_location" parent="menu_marketplace_the_market_the_wants" sequence="12"/>
 
-        <record id="action_marketplace_announcement_the_market_the_wants_my_skills" model="ir.actions.act_window">
+        <record id="act_mkp_announ_the_market_the_wants_my_skills" model="ir.actions.act_window">
             <field name="name">Corresponding to my skills</field>
             <field name="res_model">marketplace.announcement</field>
             <field name="view_type">form</field>
@@ -106,7 +106,7 @@
             <field name="search_view_id" ref="view_marketplace_announcement_search"/>
         </record>
 
-        <menuitem action="action_marketplace_announcement_the_market_the_wants_my_skills" id="menu_action_marketplace_announcement_the_market_the_wants_my_skills" parent="menu_marketplace_the_market_the_wants" sequence="13"/>
+        <menuitem action="act_mkp_announ_the_market_the_wants_my_skills" id="menu_act_mkp_announ_the_market_the_wants_my_skills" parent="menu_marketplace_the_market_the_wants" sequence="13"/>
 
 
             <!-- The Transactions -->
@@ -158,7 +158,7 @@
             <!-- Ongoing -->
         <menuitem id="menu_marketplace_my_market_ongoing" name="Ongoing" parent="menu_marketplace_my_market" sequence="1"/>
 
-        <record id="action_marketplace_proposition_my_market_ongoing_replies_to_accept" model="ir.actions.act_window">
+        <record id="act_mkp_prop_my_market_ongoing_replies_to_accept" model="ir.actions.act_window">
             <field name="name">Replies to accept</field>
             <field name="res_model">marketplace.proposition</field>
             <field name="view_type">form</field>
@@ -169,9 +169,9 @@
             <field name="search_view_id" ref="view_marketplace_proposition_search"/>
         </record>
 
-        <menuitem action="action_marketplace_proposition_my_market_ongoing_replies_to_accept" id="menu_action_marketplace_proposition_my_market_ongoing_replies_to_accept" parent="menu_marketplace_my_market_ongoing" sequence="10"/>
+        <menuitem action="act_mkp_prop_my_market_ongoing_replies_to_accept" id="menu_act_mkp_prop_my_market_ongoing_replies_to_accept" parent="menu_marketplace_my_market_ongoing" sequence="10"/>
 
-        <record id="action_marketplace_proposition_my_market_ongoing_propositions_to_accept" model="ir.actions.act_window">
+        <record id="act_mkp_prop_my_market_ongoing_propositions_to_accept" model="ir.actions.act_window">
             <field name="name">Propositions to accept</field>
             <field name="res_model">marketplace.proposition</field>
             <field name="view_type">form</field>
@@ -182,9 +182,9 @@
             <field name="search_view_id" ref="view_marketplace_proposition_search"/>
         </record>
 
-        <menuitem action="action_marketplace_proposition_my_market_ongoing_propositions_to_accept" id="menu_action_marketplace_proposition_my_market_ongoing_propositions_to_accept" parent="menu_marketplace_my_market_ongoing" sequence="11"/>
+        <menuitem action="act_mkp_prop_my_market_ongoing_propositions_to_accept" id="menu_act_mkp_prop_my_market_ongoing_propositions_to_accept" parent="menu_marketplace_my_market_ongoing" sequence="11"/>
 
-        <record id="action_marketplace_proposition_my_market_ongoing_payments_to_confirm" model="ir.actions.act_window">
+        <record id="act_mkp_prop_my_market_ongoing_payments_to_confirm" model="ir.actions.act_window">
             <field name="name">Payments to confirm</field>
             <field name="res_model">marketplace.proposition</field>
             <field name="view_type">form</field>
@@ -195,9 +195,9 @@
             <field name="search_view_id" ref="view_marketplace_proposition_search"/>
         </record>
 
-        <menuitem action="action_marketplace_proposition_my_market_ongoing_payments_to_confirm" id="menu_action_marketplace_proposition_my_market_ongoing_payments_to_confirm" parent="menu_marketplace_my_market_ongoing" sequence="12"/>
+        <menuitem action="act_mkp_prop_my_market_ongoing_payments_to_confirm" id="menu_act_mkp_prop_my_market_ongoing_payments_to_confirm" parent="menu_marketplace_my_market_ongoing" sequence="12"/>
 
-        <record id="action_marketplace_proposition_my_market_ongoing_moderation" model="ir.actions.act_window">
+        <record id="act_mkp_prop_my_market_ongoing_moderation" model="ir.actions.act_window">
             <field name="name">My transactions in moderation</field>
             <field name="res_model">marketplace.proposition</field>
             <field name="view_type">form</field>
@@ -208,13 +208,13 @@
             <field name="search_view_id" ref="view_marketplace_proposition_search"/>
         </record>
 
-        <menuitem action="action_marketplace_proposition_my_market_ongoing_moderation" id="menu_action_marketplace_proposition_my_market_ongoing_moderation" parent="menu_marketplace_my_market_ongoing" sequence="13"/>
+        <menuitem action="act_mkp_prop_my_market_ongoing_moderation" id="menu_act_mkp_prop_my_market_ongoing_moderation" parent="menu_marketplace_my_market_ongoing" sequence="13"/>
 
 
             <!-- As Bringer -->
         <menuitem id="menu_marketplace_my_market_as_bringer" name="As Bringer" parent="menu_marketplace_my_market" sequence="2"/>
 
-        <record id="action_marketplace_announcement_my_market_as_bringer_my_offers" model="ir.actions.act_window">
+        <record id="act_mkp_announ_my_market_as_bringer_my_offers" model="ir.actions.act_window">
             <field name="name">My Offers</field>
             <field name="res_model">marketplace.announcement</field>
             <field name="view_type">form</field>
@@ -225,9 +225,9 @@
             <field name="search_view_id" ref="view_marketplace_announcement_search"/>
         </record>
 
-        <menuitem action="action_marketplace_announcement_my_market_as_bringer_my_offers" id="menu_action_marketplace_announcement_my_market_as_bringer_my_offers" parent="menu_marketplace_my_market_as_bringer" sequence="10"/>
+        <menuitem action="act_mkp_announ_my_market_as_bringer_my_offers" id="menu_act_mkp_announ_my_market_as_bringer_my_offers" parent="menu_marketplace_my_market_as_bringer" sequence="10"/>
 
-        <record id="action_marketplace_proposition_my_market_as_bringer_replies_from_other" model="ir.actions.act_window">
+        <record id="act_mkp_prop_my_market_as_bringer_replies_from_other" model="ir.actions.act_window">
             <field name="name">Replies from others</field>
             <field name="res_model">marketplace.proposition</field>
             <field name="view_type">form</field>
@@ -238,9 +238,9 @@
             <field name="search_view_id" ref="view_marketplace_proposition_search"/>
         </record>
 
-        <menuitem action="action_marketplace_proposition_my_market_as_bringer_replies_from_other" id="menu_action_marketplace_proposition_my_market_as_bringer_replies_from_other" parent="menu_marketplace_my_market_as_bringer" sequence="11"/>
+        <menuitem action="act_mkp_prop_my_market_as_bringer_replies_from_other" id="menu_act_mkp_prop_my_market_as_bringer_replies_from_other" parent="menu_marketplace_my_market_as_bringer" sequence="11"/>
 
-        <record id="action_marketplace_announcement_my_market_as_bringer_wants_to_follow" model="ir.actions.act_window">
+        <record id="act_mkp_announ_my_market_as_bringer_wants_to_follow" model="ir.actions.act_window">
             <field name="name">Wants to follow</field>
             <field name="res_model">marketplace.announcement</field>
             <field name="view_type">form</field>
@@ -251,9 +251,9 @@
             <field name="search_view_id" ref="view_marketplace_announcement_search"/>
         </record>
 
-        <menuitem action="action_marketplace_announcement_my_market_as_bringer_wants_to_follow" id="menu_action_marketplace_announcement_my_market_as_bringer_wants_to_follow" parent="menu_marketplace_my_market_as_bringer" sequence="12"/>
+        <menuitem action="act_mkp_announ_my_market_as_bringer_wants_to_follow" id="menu_act_mkp_announ_my_market_as_bringer_wants_to_follow" parent="menu_marketplace_my_market_as_bringer" sequence="12"/>
 
-        <record id="action_marketplace_proposition_my_market_as_bringer_my_propositions" model="ir.actions.act_window">
+        <record id="act_mkp_prop_my_market_as_bringer_my_propositions" model="ir.actions.act_window">
             <field name="name">My propositions to others</field>
             <field name="res_model">marketplace.proposition</field>
             <field name="view_type">form</field>
@@ -264,9 +264,9 @@
             <field name="search_view_id" ref="view_marketplace_proposition_search"/>
         </record>
 
-        <menuitem action="action_marketplace_proposition_my_market_as_bringer_my_propositions" id="menu_action_marketplace_proposition_my_market_as_bringer_my_propositions" parent="menu_marketplace_my_market_as_bringer" sequence="13"/>
+        <menuitem action="act_mkp_prop_my_market_as_bringer_my_propositions" id="menu_act_mkp_prop_my_market_as_bringer_my_propositions" parent="menu_marketplace_my_market_as_bringer" sequence="13"/>
 
-        <record id="action_marketplace_proposition_my_market_as_bringer_my_cashing" model="ir.actions.act_window">
+        <record id="act_mkp_prop_my_market_as_bringer_my_cashing" model="ir.actions.act_window">
             <field name="name">My cashing</field>
             <field name="res_model">marketplace.proposition</field>
             <field name="view_type">form</field>
@@ -277,13 +277,13 @@
             <field name="search_view_id" ref="view_marketplace_proposition_search"/>
         </record>
 
-        <menuitem action="action_marketplace_proposition_my_market_as_bringer_my_cashing" id="menu_action_marketplace_proposition_my_market_as_bringer_my_cashing" parent="menu_marketplace_my_market_as_bringer" sequence="14"/>
+        <menuitem action="act_mkp_prop_my_market_as_bringer_my_cashing" id="menu_act_mkp_prop_my_market_as_bringer_my_cashing" parent="menu_marketplace_my_market_as_bringer" sequence="14"/>
 
 
             <!-- As Receiver -->
         <menuitem id="menu_marketplace_my_market_as_asker" name="As Asker" parent="menu_marketplace_my_market" sequence="2"/>
 
-        <record id="action_marketplace_announcement_my_market_as_asker_my_wants" model="ir.actions.act_window">
+        <record id="act_mkp_announ_my_market_as_asker_my_wants" model="ir.actions.act_window">
             <field name="name">My wants</field>
             <field name="res_model">marketplace.announcement</field>
             <field name="view_type">form</field>
@@ -294,9 +294,9 @@
             <field name="search_view_id" ref="view_marketplace_announcement_search"/>
         </record>
 
-        <menuitem action="action_marketplace_announcement_my_market_as_asker_my_wants" id="menu_action_marketplace_announcement_my_market_as_asker_my_wants" parent="menu_marketplace_my_market_as_asker" sequence="10"/>
+        <menuitem action="act_mkp_announ_my_market_as_asker_my_wants" id="menu_act_mkp_announ_my_market_as_asker_my_wants" parent="menu_marketplace_my_market_as_asker" sequence="10"/>
 
-        <record id="action_marketplace_proposition_my_market_as_asker_propositions_from_other" model="ir.actions.act_window">
+        <record id="act_mkp_prop_my_market_as_asker_propositions_from_other" model="ir.actions.act_window">
             <field name="name">Propositions from others</field>
             <field name="res_model">marketplace.proposition</field>
             <field name="view_type">form</field>
@@ -307,9 +307,9 @@
             <field name="search_view_id" ref="view_marketplace_proposition_search"/>
         </record>
 
-        <menuitem action="action_marketplace_proposition_my_market_as_asker_propositions_from_other" id="menu_action_marketplace_proposition_my_market_as_asker_propositions_from_other" parent="menu_marketplace_my_market_as_asker" sequence="11"/>
+        <menuitem action="act_mkp_prop_my_market_as_asker_propositions_from_other" id="menu_act_mkp_prop_my_market_as_asker_propositions_from_other" parent="menu_marketplace_my_market_as_asker" sequence="11"/>
 
-        <record id="action_marketplace_announcement_my_market_as_asker_offers_to_follow" model="ir.actions.act_window">
+        <record id="act_mkp_announ_my_market_as_asker_offers_to_follow" model="ir.actions.act_window">
             <field name="name">Offers to follow</field>
             <field name="res_model">marketplace.announcement</field>
             <field name="view_type">form</field>
@@ -320,9 +320,9 @@
             <field name="search_view_id" ref="view_marketplace_announcement_search"/>
         </record>
 
-        <menuitem action="action_marketplace_announcement_my_market_as_asker_offers_to_follow" id="menu_action_marketplace_announcement_my_market_as_asker_offers_to_follow" parent="menu_marketplace_my_market_as_asker" sequence="12"/>
+        <menuitem action="act_mkp_announ_my_market_as_asker_offers_to_follow" id="menu_act_mkp_announ_my_market_as_asker_offers_to_follow" parent="menu_marketplace_my_market_as_asker" sequence="12"/>
 
-        <record id="action_marketplace_proposition_my_market_as_asker_my_replies" model="ir.actions.act_window">
+        <record id="act_mkp_prop_my_market_as_asker_my_replies" model="ir.actions.act_window">
             <field name="name">My replies to others</field>
             <field name="res_model">marketplace.proposition</field>
             <field name="view_type">form</field>
@@ -333,9 +333,9 @@
             <field name="search_view_id" ref="view_marketplace_proposition_search"/>
         </record>
 
-        <menuitem action="action_marketplace_proposition_my_market_as_asker_my_replies" id="menu_action_marketplace_proposition_my_market_as_asker_my_replies" parent="menu_marketplace_my_market_as_asker" sequence="13"/>
+        <menuitem action="act_mkp_prop_my_market_as_asker_my_replies" id="menu_act_mkp_prop_my_market_as_asker_my_replies" parent="menu_marketplace_my_market_as_asker" sequence="13"/>
 
-        <record id="action_marketplace_proposition_my_market_as_asker_my_payments" model="ir.actions.act_window">
+        <record id="act_mkp_prop_my_market_as_asker_my_payments" model="ir.actions.act_window">
             <field name="name">My payments</field>
             <field name="res_model">marketplace.proposition</field>
             <field name="view_type">form</field>
@@ -346,7 +346,7 @@
             <field name="search_view_id" ref="view_marketplace_proposition_search"/>
         </record>
 
-        <menuitem action="action_marketplace_proposition_my_market_as_asker_my_payments" id="menu_action_marketplace_proposition_my_market_as_asker_my_payments" parent="menu_marketplace_my_market_as_asker" sequence="14"/>
+        <menuitem action="act_mkp_prop_my_market_as_asker_my_payments" id="menu_act_mkp_prop_my_market_as_asker_my_payments" parent="menu_marketplace_my_market_as_asker" sequence="14"/>
 
 
 
@@ -370,14 +370,14 @@
         <!-- Configuration -->
         <menuitem id="menu_marketplace_configuration" name="Configuration" parent="menu_marketplace" sequence="10" groups="group_marketplace_moderator"/>
 
-        <record id="action_marketplace_announcement_category_form" model="ir.actions.act_window">
+        <record id="act_mkp_announ_category_form" model="ir.actions.act_window">
             <field name="name">Offers/Wants Categories</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">marketplace.announcement.category</field>
             <field name="view_type">form</field>
         </record>
 
-        <menuitem action="action_marketplace_announcement_category_form" id="menu_action_marketplace_announcement_category_form" parent="menu_marketplace_configuration"/>
+        <menuitem action="act_mkp_announ_category_form" id="menu_act_mkp_announ_category_form" parent="menu_marketplace_configuration"/>
 
         <record id="action_marketplace_tag_form" model="ir.actions.act_window">
             <field name="name">Offers/Wants Tags</field>

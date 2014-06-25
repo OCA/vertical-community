@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_project_assigned_user_config_tree_groups" model="ir.ui.view">
+            <field name="name">project.assigned.user.config.tree.groups</field>
+            <field name="model">project.assigned.user.config</field>
+            <field name="inherit_id" ref="project_assignment.view_project_assigned_user_config_tree"/>
+            <field name="arch" type="xml">
+                <field name="user_id" position="before">
+                    <field name="role_id"/>
+                </field>
+            </field>
+        </record>
+
+
+        <record id="view_project_project_search_groups" model="ir.ui.view">
+            <field name="name">project.project.search.groups</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.view_project_project_filter"/>
+            <field name="arch" type="xml">
+                <filter string="Member" position="after">
+                    <filter string="Managed by my teams" domain="[('user_id','=',uid)]"/><!-- TODO-->
+                </filter>
+            </field>
+        </record>
+
+
+        <record id="view_project_project_form_groups" model="ir.ui.view">
+            <field name="name">project.project.form.groups</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="arch" type="xml">
+                <field name="user_id" position="after">
+                    <newline/>
+                    <field name="team_id"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_project_task_search_groups" model="ir.ui.view">
+            <field name="name">project.task.search.groups</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_search_form"/>
+            <field name="arch" type="xml">
+                <filter string="My Tasks" position="after">
+                    <filter string="Tasks for my roles" domain="[('user_id','=',uid)]"/><!-- TODO-->
+                </filter>
+            </field>
+        </record>
+
+
+        <record id="view_project_task_form_groups" model="ir.ui.view">
+            <field name="name">project.task.form.groups</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <field name="user_id" position="before">
+                    <field name="role_id"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_project_task_type_form_groups" model="ir.ui.view">
+            <field name="name">project.task.type.form.groups</field>
+            <field name="model">project.task.type</field>
+            <field name="inherit_id" ref="project.task_type_edit"/>
+            <field name="arch" type="xml">
+                <field name="sequence" position="after">
+                    <field name="role_id"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_mail_group_form_group_management_project" model="ir.ui.view">
+            <field name="name">mail.group.form.group.management.project</field>
+            <field name="model">mail.group</field>
+            <field name="inherit_id" ref="mail_groups_management.view_mail_group_form_group_management"/>
+            <field name="arch" type="xml">
+                <tree string="Roles" position="inside">
+                    <field name="manage_project"/>
+                </tree>
+            </field>
+        </record>
+
+
+
+    </data>
+</openerp>

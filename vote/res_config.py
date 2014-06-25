@@ -55,30 +55,15 @@ vote_config_settings()
 class vote_config_line(osv.osv):
     _name = 'vote.config.line'
 
+    _inherit = 'base.config.inherit.line'
+
     _columns = {
-        'model': fields.char('Related Document Model', size=128, select=1),
-        'res_id': fields.integer('Related Document ID', select=1),
         'target_model': fields.many2one('ir.model', 'Target model', ondelete='cascade'),
         'name': fields.many2one('vote.type', 'Name', required=True),
-        'action': fields.selection([('add','Add'),('remove','Remove')], 'Action'),
-        'sequence': fields.integer('Sequence'),
     }
 
     _order = 'target_model, sequence'
 vote_config_line()
-
-class vote_config_line_stored(osv.osv):
-    _name = 'vote.config.line.stored'
-
-    _columns = {
-        'model': fields.char('Related Document Model', size=128, select=1),
-        'res_id': fields.integer('Related Document ID', select=1),
-        'name': fields.many2one('vote.type', 'Name', required=True),
-        'sequence': fields.integer('Sequence'),
-    }
-
-    _order = 'sequence'
-vote_config_line_stored()
 
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

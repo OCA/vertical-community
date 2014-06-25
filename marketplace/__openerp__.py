@@ -23,6 +23,7 @@
  'version': '1.0',
  'category': 'Association',
  'depends': ['base',
+             'base_recursive_model',
              'account',
              'account_accountant',
              'account_reversal',

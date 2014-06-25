@@ -222,7 +222,7 @@ class vote_config_settings(osv.osv):
         for config in self.browse(cr, uid, ids, context=context):
             model_obj = self.pool.get('marketplace.announcement.category') 
             model_ids = model_obj.search(cr, uid, [('parent_id', '=', False)], context=context)
-            model_obj._update_stored_vote_config(cr, uid, model_ids, context=context)
+            model_obj._update_stored_config(cr, uid, model_ids, context=context)
         return res
 
 vote_config_settings()

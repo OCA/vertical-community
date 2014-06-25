@@ -32,7 +32,7 @@
         <record id="view_mail_group_tree_tree" model="ir.ui.view">
             <field name="name">mail.group.tree.tree</field>
             <field name="model">mail.group</field>
-            <field name="field_parent">child_id</field>
+            <field name="field_parent">child_ids</field>
             <field name="arch" type="xml">
                 <tree toolbar="True" string="Groups">
                     <field name="name"/>

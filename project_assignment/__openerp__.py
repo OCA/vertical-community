@@ -19,27 +19,22 @@
 #
 ##############################################################################
 
-{'name': 'Vote',
+{'name': 'Project User Assignment',
  'version': '1.0',
- 'category': 'Social Network',
- 'depends': ['base',
-             'base_recursive_model'
+ 'category': 'Project',
+ 'depends': ['base_recursive_model',
+             'project',
              ],
  'author': 'Yannick Buron',
  'license': 'AGPL-3',
- 'website': 'https://launchpad.net/vote-openerp',
+ 'website': 'https://launchpad.net/',
  'description': """
-Vote API
+Project User Assignment
 =================
-
-This module provide an abstract class for your own classes, which you can use to integrate a vote system in your objects.
-See marketplace module for more examples.
-
 """,
  'demo': [],
  'data': ['security/ir.model.access.csv',
-          'vote_view.xml',
-          'res_config_view.xml'],
+          'project_assignment_view.xml'],
  'installable': True,
  'application': True,
 }

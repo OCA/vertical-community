@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record model="mail.group" id="mail.group_support">
+            <field name="parent_id" ref="mail.group_all_employees"/>
+            <field name="type">circle</field>
+        </record>
+        <record model="mail.group" id="mail.group_board">
+            <field name="parent_id" ref="mail.group_all_employees"/>
+            <field name="type">circle</field>
+        </record>
+
+        <record model="mail.group" id="mail.group_best_sales_practices">
+            <field name="parent_id" ref="mail.group_support"/>
+            <field name="type">circle</field>
+        </record>
+        <record model="mail.group" id="mail.group_rd">
+            <field name="parent_id" ref="mail.group_board"/>
+            <field name="type">circle</field>
+        </record>
+        <record model="mail.group" id="mail.group_hr_policies">
+            <field name="parent_id" ref="mail.group_support"/>
+            <field name="type">circle</field>
+        </record>
+
+    </data>
+</openerp>

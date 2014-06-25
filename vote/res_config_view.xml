@@ -37,19 +37,6 @@
             </field>
         </record>
 
-        <record id="view_vote_config_line_stored_tree" model="ir.ui.view">
-            <field name="name">vote.config.line.stored.tree</field>
-            <field name="model">vote.config.line.stored</field>
-            <field name="arch" type="xml">
-                <tree string="Vote types">
-                    <field name="name"/>
-                    <field name="sequence"/>
-                </tree>
-            </field>
-        </record>
-
-
-
         <record id="view_vote_config_line_form" model="ir.ui.view">
             <field name="name">vote.config.line.form</field>
             <field name="model">vote.config.line</field>

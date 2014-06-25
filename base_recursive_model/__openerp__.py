@@ -19,27 +19,20 @@
 #
 ##############################################################################
 
-{'name': 'Vote',
+{'name': 'Base recursive model',
  'version': '1.0',
- 'category': 'Social Network',
+ 'category': 'base',
  'depends': ['base',
-             'base_recursive_model'
              ],
  'author': 'Yannick Buron',
  'license': 'AGPL-3',
- 'website': 'https://launchpad.net/vote-openerp',
+ 'website': 'https://launchpad.net/',
  'description': """
-Vote API
+Base recursive model
 =================
-
-This module provide an abstract class for your own classes, which you can use to integrate a vote system in your objects.
-See marketplace module for more examples.
-
 """,
  'demo': [],
- 'data': ['security/ir.model.access.csv',
-          'vote_view.xml',
-          'res_config_view.xml'],
+ 'data': [],
  'installable': True,
  'application': True,
 }

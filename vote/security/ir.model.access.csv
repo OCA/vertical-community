@@ -2,6 +2,5 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_vote_vote_user,vote_vote user,model_vote_vote,base.group_user,1,1,1,1
 access_vote_vote_line_user,vote_vote_line user,model_vote_vote_line,base.group_user,1,1,1,1
 access_vote_config_line_user,vote_config_line user,model_vote_config_line,base.group_user,1,1,1,1
-access_vote_config_line_stored_user,vote_config_line_stored user,model_vote_config_line_stored,base.group_user,1,1,1,1
 access_vote_type_user,vote_type user,model_vote_type,base.group_user,1,1,1,1
 access_vote_evaluated_user,vote_evaluated user,model_vote_evaluated,base.group_user,1,1,1,1
