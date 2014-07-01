@@ -19,31 +19,22 @@
 #
 ##############################################################################
 
-{'name': 'Marketplace',
+{'name': 'CentralBank French localization',
  'version': '1.0',
  'category': 'Association',
- 'depends': ['base',
-             'base_recursive_model',
-             'account',
-             'account_accountant',
-             'account_centralbank',
-             'account_reversal',
-             'vote',
+ 'depends': ['account_centralbank',
+             'l10n_fr',
              ],
  'author': 'Yannick Buron',
  'license': 'AGPL-3',
  'website': 'https://launchpad.net/marketplace',
  'description': """
-Marketplace
+CentralBank french localisation
 =================
 
 """,
  'demo': [],
- 'data': ['security/marketplace_security.xml',
-          'security/ir.model.access.csv',
-          'marketplace_view.xml',
-          'marketplace_menu.xml',
-          'marketplace_workflow.xml',
+ 'data': ['l10n_fr_centralbank_account_data.xml',
           ],
  'installable': True,
  'application': True,

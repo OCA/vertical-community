@@ -96,7 +96,7 @@ class vote_category(osv.AbstractModel):
     def _get_external_config(self, cr, uid, record, context=None):
         res = {}
         vote_config_obj = self.pool.get('vote.config.line')
-        vote_config_ids = vote_config_obj.search(cr, uid, [('model','=','vote.config.settings'),('target_model.model','=', self._name)], context=context)
+        vote_config_ids = vote_config_obj.search(cr, uid, [('model','=','community.config.settings'),('target_model.model','=', self._name)], context=context)
         _logger.info('vote_config_ids %s', vote_config_ids)
         for config_line in vote_config_obj.browse(cr, uid, vote_config_ids, context=context):
             _logger.info('config.line %s', config_line.target_model.model)
@@ -173,7 +173,7 @@ class vote_model(osv.AbstractModel):
                 for vote_config in vote_configs:
                     res[record.id].append({'id': vote_config.name.id, 'name': vote_config.name.name, 'value': False})
             else:
-                vote_config_ids = vote_config_obj.search(cr, uid, [('model','=','vote.config.settings'),('target_model.model','=', self._vote_category_model or self._name)], context=context)
+                vote_config_ids = vote_config_obj.search(cr, uid, [('model','=','community.config.settings'),('target_model.model','=', self._vote_category_model or self._name)], context=context)
                 for vote_config in vote_config_obj.browse(cr, uid, vote_config_ids, context=context):
                     res[record.id].append({'id': vote_config.name.id, 'name': vote_config.name.name, 'value': False})
 

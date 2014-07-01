@@ -19,32 +19,23 @@
 #
 ##############################################################################
 
-{'name': 'Marketplace',
+{'name': 'Base Configuration',
  'version': '1.0',
- 'category': 'Association',
+ 'category': 'Community',
  'depends': ['base',
-             'base_recursive_model',
-             'account',
-             'account_accountant',
-             'account_centralbank',
-             'account_reversal',
-             'vote',
              ],
  'author': 'Yannick Buron',
  'license': 'AGPL-3',
  'website': 'https://launchpad.net/marketplace',
  'description': """
-Marketplace
+Base Community
 =================
+
+Simple module which set a configuration menu for Communities
 
 """,
  'demo': [],
- 'data': ['security/marketplace_security.xml',
-          'security/ir.model.access.csv',
-          'marketplace_view.xml',
-          'marketplace_menu.xml',
-          'marketplace_workflow.xml',
-          ],
+ 'data': ['res_config_view.xml'],
  'installable': True,
  'application': True,
 }

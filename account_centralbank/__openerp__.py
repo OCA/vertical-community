@@ -19,22 +19,27 @@
 #
 ##############################################################################
 
-{'name': 'Marketplace French localization',
+{'name': 'Account CentralBank',
  'version': '1.0',
  'category': 'Association',
- 'depends': ['l10n_fr',
-             'marketplace',
+ 'depends': ['base_community',
+             'account_accountant',
+             'account_reversal',
              ],
  'author': 'Yannick Buron',
  'license': 'AGPL-3',
  'website': 'https://launchpad.net/marketplace',
  'description': """
-Marketplace french localisation
+Account CentralBank
 =================
 
 """,
  'demo': [],
- 'data': ['l10n_fr_marketplace_account_data.xml',
+ 'data': ['account_centralbank_view.xml',
+          'account_centralbank_data.xml',
+          'account_centralbank_workflow.xml',
+          'res_config_view.xml',
+          'security/account_centralbank_security.xml'
           ],
  'installable': True,
  'application': True,

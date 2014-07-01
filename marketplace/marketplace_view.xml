@@ -303,65 +303,23 @@
 
         <!-- Partner -->
 
-        <record id="view_partner_form_marketplace" model="ir.ui.view">
-            <field name="name">partner.form.marketplace</field>
+        <record id="view_partner_form_centralbank_marketplace" model="ir.ui.view">
+            <field name="name">partner.form.centralbank.marketplace</field>
             <field name="model">res.partner</field>
-            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="inherit_id" ref="account_centralbank.view_partner_form_centralbank"/>
             <field name="arch" type="xml">
-                <page string="Internal Notes" position="after">
-                    <page string="Marketplace">
+                <field name="centralbank_balance_ids" position="before">
+                    <group>
                         <group>
-                            <group>
-                                <field name="skill_category_ids"/>
-                            </group>
-                            <group>
-                                <field name="skill_tag_ids" domain="[('category_id','in',skill_category_ids and skill_category_ids[0][2])]"/>
-                            </group>
+                            <field name="skill_category_ids"/>
                         </group>
-                        <field name="marketplace_balance_ids">
-                            <tree string="Balance">
-                                <field name="currency_id"/>
-                                <field name="limit"/>
-                                <field name="available"/>
-                                <field name="reserved"/>
-                            </tree>
-                        </field>
-                        <field name="marketplace_currency_ids"/>
-                    </page>
-                </page>
+                        <group>
+                            <field name="skill_tag_ids" domain="[('category_id','in',skill_category_ids and skill_category_ids[0][2])]"/>
+                        </group>
+                    </group>
+                </field>
             </field>
         </record>
-
-        <record id="view_res_partner_marketplace_currency_tree" model="ir.ui.view">
-            <field name="name">res.partner.marketplace.currency.tree</field>
-            <field name="model">res.partner.marketplace.currency</field>
-            <field name="arch" type="xml">
-                <tree string="Currencies">
-                    <field name="currency_id"/>
-                    <field name="limit"/>
-                    <field name="available_account"/>
-                    <field name="reserved_account"/>
-                    <field name="expense_account"/>
-                    <field name="income_account"/>
-                </tree>
-            </field>
-        </record>
-
-        <record id="view_res_partner_marketplace_currency_form" model="ir.ui.view">
-            <field name="name">res.partner.marketplace.currency.form</field>
-            <field name="model">res.partner.marketplace.currency</field>
-            <field name="arch" type="xml">
-                <form string="Currency">
-                    <field name="currency_id"/>
-                    <field name="limit"/>
-                    <field name="available_account"/>
-                    <field name="reserved_account"/>
-                    <field name="expense_account"/>
-                    <field name="income_account"/>
-                </form>
-            </field>
-        </record>
-
 
     </data>
 </openerp>

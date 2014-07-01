@@ -36,21 +36,34 @@ class vote_type(osv.osv):
     _columns = {
         'name': fields.char('Name', size=128, required=True),
     }
-vote_type()
 
 
-class vote_config_settings(osv.osv):
-    _name = 'vote.config.settings'
-    _description = 'Vote configuration'
+class community_config_settings(osv.osv):
+    _inherit = 'community.config.settings'
 
     _columns = {
-        'line_ids': fields.one2many('vote.config.line', 'res_id',
+        'vote_line_ids': fields.one2many('vote.config.line', 'res_id',
             domain=lambda self: [('model', '=', self._name)],
             auto_join=True,
             string='Lines'),
     }
 
-vote_config_settings()
+
+    def write(self, cr, uid, ids, vals, context=None):
+        res = super(community_config_settings, self).write(cr, uid, ids, vals, context=context)
+
+        models = {}
+        for config in self.browse(cr, uid, ids, context=context):
+            for line in config.vote_line_ids:
+                models[line.target_model.name] = line.target_model.name
+
+        for model in models:
+            model_obj = self.pool.get(model)
+            model_ids = model_obj.search(cr, uid, [('parent_id', '=', False)], context=context)
+            model_obj._update_stored_config(cr, uid, model_ids, context=context)
+        return res
+
+
 
 class vote_config_line(osv.osv):
     _name = 'vote.config.line'
@@ -63,7 +76,6 @@ class vote_config_line(osv.osv):
     }
 
     _order = 'target_model, sequence'
-vote_config_line()
 
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

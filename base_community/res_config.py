@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    Author: Yannick Buron
-#    Copyright 2013 Yannick Buron
+#    OpenERP, Open Source Business Applications
+#    Copyright (C) 2004-2012 OpenERP S.A. (<http://openerp.com>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,32 +19,18 @@
 #
 ##############################################################################
 
-{'name': 'Marketplace',
- 'version': '1.0',
- 'category': 'Association',
- 'depends': ['base',
-             'base_recursive_model',
-             'account',
-             'account_accountant',
-             'account_centralbank',
-             'account_reversal',
-             'vote',
-             ],
- 'author': 'Yannick Buron',
- 'license': 'AGPL-3',
- 'website': 'https://launchpad.net/marketplace',
- 'description': """
-Marketplace
-=================
+from openerp import netsvc
+from openerp import pooler
+from openerp import SUPERUSER_ID
+from openerp.osv import fields, osv, orm
+from openerp.tools.translate import _
+import openerp.addons.decimal_precision as dp
 
-""",
- 'demo': [],
- 'data': ['security/marketplace_security.xml',
-          'security/ir.model.access.csv',
-          'marketplace_view.xml',
-          'marketplace_menu.xml',
-          'marketplace_workflow.xml',
-          ],
- 'installable': True,
- 'application': True,
-}
+import logging
+_logger = logging.getLogger(__name__)
+
+
+class community_config_settings(osv.osv):
+    _name = 'community.config.settings'
+    _description = 'Community configuration'
+

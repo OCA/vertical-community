@@ -23,7 +23,8 @@
  'version': '1.0',
  'category': 'Social Network',
  'depends': ['base',
-             'base_recursive_model'
+             'base_community',
+             'base_recursive_model',
              ],
  'author': 'Yannick Buron',
  'license': 'AGPL-3',
