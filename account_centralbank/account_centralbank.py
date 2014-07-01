@@ -116,6 +116,8 @@ class account_centralbank_transaction(osv.osv):
         'invoice_id': fields.many2one('account.move', 'Invoice move'),
         'payment_id': fields.many2one('account.move', 'Payment move'),
         'confirm_id': fields.many2one('account.move', 'Confirmation move'),
+        'model_id': fields.many2one('ir.model', 'Model', required=True),
+        'model_name': fields.related('model_id','model', type='char', size=64, string='Model', readonly=True),
         'is_sender': fields.function(_get_user_role, type="boolean", string="Is sender?", multi='role'),
         'is_receiver': fields.function(_get_user_role, type="boolean", string="Is receiver?", multi='role'),
         'is_moderator': fields.function(_get_user_role, type="boolean", string="Is moderator?", multi='role'),
@@ -128,6 +130,16 @@ class account_centralbank_transaction(osv.osv):
             ],'Status', readonly=True, required=True),
 
     }
+
+    def _check_same_partner(self, cr, uid, ids, context=None):
+        for t in self.browse(cr, uid, ids, context=context):
+            if t.sender_id.id == t.receiver_id.id:
+                return False
+        return True
+
+    _constraints = [
+        (_check_same_partner, 'You cannot make a transaction between the same partner.', ['sender_id']),
+    ]
 
     def _default_partner(self, cr, uid, context=None):
 
@@ -157,12 +169,20 @@ class account_centralbank_transaction(osv.osv):
         except Exception, ex:
             return False
 
+    def _default_model(self, cr, uid, context=None):
+
+        proxy = self.pool.get('ir.model.data')
+        result = proxy.get_object_reference(cr, uid, 'account_centralbank', 'model_account_centralbank_transaction')
+        return result[1]
+
+
     _defaults = {
         'state': 'draft',
         'currency_ids': _default_currency_ids,
         'quantity': 1.0,
         'uom_id': _get_uom_id,
         'sender_id': _default_partner,
+        'model_id': _default_model,
     }
 
     def test_access_role(self, cr, uid, ids, role_to_test, *args):
@@ -214,13 +234,12 @@ class account_centralbank_transaction(osv.osv):
                 if res_partner['total_debit'] == res_partner['total_credit'] and account.reconcile:
                      move_line_obj.reconcile(cr, uid, res_partner['line_ids'], context=context)
 
-    def refund(self, cr, uid, ids, fields, obj, context=None):
+    def refund(self, cr, uid, ids, fields, context=None):
 
-        pool = self.pool.get(obj)
         move_obj = self.pool.get('account.move')
         date = datetime.now().strftime("%Y-%m-%d")
 
-        for transaction in pool.browse(cr, uid, ids, context=context):
+        for transaction in self.browse(cr, uid, ids, context=context):
 
             for move_field in fields:
                 import logging
@@ -498,7 +517,7 @@ class account_centralbank_transaction(osv.osv):
             if new_state == 'done':
                 self.prepare_move(cr, uid, [transaction.id], 'confirm')
             if new_state == 'cancel':
-                self.refund(cr, uid, [transaction.id], ['reservation','invoice','payment','confirm'], 'account.centralbank.transaction')
+                self.refund(cr, uid, [transaction.id], ['reservation','invoice','payment','confirm'])
             import logging
             _logger = logging.getLogger(__name__)
             _logger.info('fields : %s', fields)
@@ -525,9 +544,9 @@ class account_centralbank_transaction(osv.osv):
                 skip_confirm = self.get_skip_confirm(cr, uid, transaction)
                 _logger.info('skip_confirm %s', skip_confirm)
                 if not skip_confirm:
-                    wf_service.trg_validate(uid, 'account.centralbank.transaction', transaction.id, 'transaction_done_confirm_refund', cr)
+                    wf_service.trg_validate(uid, 'account.centralbank.transaction', transaction.id, 'transaction_draft_confirm_refund', cr)
                 else:
-                    wf_service.trg_validate(uid, 'account.centralbank.transaction', transaction.id, 'transaction_done_cancel', cr)
+                    wf_service.trg_validate(uid, 'account.centralbank.transaction', transaction.id, 'transaction_draft_cancel', cr)
         return True
 
 

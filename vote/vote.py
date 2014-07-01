@@ -261,7 +261,7 @@ class vote_model(osv.AbstractModel):
                 if vote['id'] in vote_lines:
                     vote['value'] = vote_lines[vote['id']].vote
                 res[record.id]['vote_vote_line_ids'].append((0,0,{'type_id':vote['id'],'vote':vote['value']}))
-        _logger.info('res : %s', res)
+        _logger.info('res _get_vote_vote : %s', res)
         return res
 
     def _set_vote_vote(self, cr, uid, id, name, value, arg, context=None):
@@ -280,6 +280,7 @@ class vote_model(osv.AbstractModel):
             lines[line.type_id.id] = line
         _logger.info('lines %s', lines)
         _logger.info('value %s', value)
+        _logger.info('vote_ids %s', vote_ids)
 
         if value:
             fields = {}
@@ -287,9 +288,10 @@ class vote_model(osv.AbstractModel):
                 fields.update({'comment': value})
             if not vote_ids:
                 fields.update({'model': self._name, 'res_id': id, 'partner_id': partner_id})
-                _logger.info(fields)
+                _logger.info('before create %s', fields)
                 vote_id = vote_obj.create(cr, uid, fields, context=context)
             else:
+                _logger.info('In write vote_ids %s, fields : %s', fields)
                 vote_obj.write(cr, uid, vote_ids, fields, context=context)
                 vote_id = vote_ids[0]
 
@@ -440,12 +442,16 @@ class vote_vote(osv.Model):
 
     def _update_evaluated(self, cr, uid, ids, context=None):
         for vote in self.browse(cr, uid, ids, context=context):
+            _logger.info('vote.model %s', vote.model)
             evaluated_ids = self.pool.get(vote.model)._get_evaluated(cr, uid, vote.res_id, vote.partner_id.id, context=context)
             _logger.info('evaluated_ids %s', evaluated_ids)
             self.write(cr, uid, [vote.id], {'evaluated_object_ids': [(6,0,evaluated_ids)]}, context=context)
+            _logger.info('after')
+        _logger.info('_end _update_evaluated')
         return True
 
     def create(self, cr, uid, vals, context=None):
+        _logger.info('vals create %s', vals)
         res = super(vote_vote, self).create(cr, uid, vals, context=context)
         self._update_evaluated(cr, uid, [res], context=context)
         return res

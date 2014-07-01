@@ -55,7 +55,7 @@ class community_config_settings(osv.osv):
         models = {}
         for config in self.browse(cr, uid, ids, context=context):
             for line in config.vote_line_ids:
-                models[line.target_model.name] = line.target_model.name
+                models[line.target_model.model] = line.target_model.model
 
         for model in models:
             model_obj = self.pool.get(model)

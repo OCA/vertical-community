@@ -11,7 +11,7 @@
                     <field name="address"/>
                     <field name="publish_date"/>
                     <field name="expiration_date"/>
-                    <field name="user_id"/>
+                    <field name="partner_id"/>
                     <field name="quantity"/>
                     <field name="uom_id"/>
                     <field name="tag_ids"/>
@@ -44,10 +44,10 @@
                         <label for="name" class="oe_edit_only"/>
                         <h1><field name="name" placeholder="Title..."/></h1>
                     </div>
-                    <div class="oe_right">
+<!--                    <div class="oe_right">
                         <label for="emergency"/>
                         <field name="emergency"/>
-                    </div>
+                    </div>-->
                     <group>
                         <group>
                             <field name="category_id" widget="selection" domain="[('child_ids','=',False)]"/>
@@ -55,14 +55,12 @@
                             <field name="description"/>
                         </group>
                         <group>
-                            <field name="user_id" on_change="onchange_author(from_company, user_id)" attrs="{'invisible':[('from_company', '=', True)],'readonly':[('state','!=','draft')]}"/>
-                            <field name="company_name" attrs="{'invisible':[('from_company', '!=', True)]}" readonly="1"/>
+                            <field name="partner_id" on_change="onchange_author(partner_id)" attrs="{'readonly':[('state','!=','draft')]}"/>
                             <field name="expiration_date"/>
                             <field name="infinite_qty"/>
                             <field name="quantity" attrs="{'invisible':[('infinite_qty', '=', True)]}"/>
                             <field name="quantity_available" attrs="{'invisible':[('infinite_qty', '=', True)]}"/>
                             <field name="uom_id"/>
-                            <field name="from_company" on_change="onchange_author(from_company, user_id)" attrs="{'readonly':[('state','!=','draft')]}"/>
                         </group>
                     </group>
                     <group>
@@ -76,16 +74,17 @@
                             <field name="country_id"/>
                         </group>
                     </group>
-                    <field name="currency_ids">
+                    <field name="currency_ids" context="{'default_model': 'marketplace.announcement'}">
                         <tree string="Currencies" editable="bottom">
                             <field name="price_unit"/>
                             <field name="currency_id" widget="selection"/>
+                            <field name="model" invisible="1"/>
 <!--                            <field name="company_commission"/>-->
                         </tree>
                     </field>
                     <field name="vote_evaluated_ids"/>
                     <field name="proposition_ids" context="{'default_announcement_id': id}"/>
-                    <button name='add_proposition' string='Make a reply / proposal' type='object' attrs="{'invisible':['|',('state','!=','open'),('is_user', '=', True)]}"/>
+                    <button name='add_proposition' string='Make a reply / proposal' type='object' attrs="{'invisible':['|',('state','!=','open'),('is_user', '=', True),('is_moderator','!=',True)]}"/>
                     <field name="is_user" invisible="1"/>
                     <field name="is_moderator" invisible="1"/>
                 </sheet>
@@ -106,15 +105,15 @@
                     <field name="address"/>
                     <field name="category_id"/>
                     <field name="tag_ids"/>
-                    <field name="user_id"/>
+                    <field name="partner_id"/>
                     <separator/>
                     <filter name="open" string="In Progress" domain="[('state','=','open')]" help="Open offers" icon="terp-camera_test"/>
                     <separator/>
-                    <filter name="my_offers" string="My offers" domain="[('user_id','=',uid)]" icon="terp-check"/>
+                    <filter name="my_offers" string="My offers" domain="[('partner_id.user_ids','in',uid)]" icon="terp-check"/>
                     <filter name="my_skills" string="My skills" domain="['|',('category_id.tag_ids.partner_ids.user_ids','in',uid),('tag_ids.partner_ids.user_ids','in',uid)]" icon="terp-check"/>
                     <group expand="0" string="Group By...">
                         <filter name="groupby_category" string="Category" icon="terp-partner" domain="[]" context="{'group_by':'category_id'}"/>
-                        <filter name="groupby_user" string="Author" icon="terp-personal" domain="[]" context="{'group_by':'user_id'}"/>
+                        <filter name="groupby_user" string="Author" icon="terp-personal" domain="[]" context="{'group_by':'partner_id'}"/>
                         <filter name="groupby_date" string="Publish date" icon="terp-go-month" domain="[]" context="{'group_by':'publish_date'}"/>
                         <filter name="groupby_city" string="City" icon="terp-partner" domain="[]" context="{'group_by':'city'}"/>
                         <filter name="groupby_region" string="Region" icon="terp-partner" domain="[]" context="{'group_by':'state_id'}"/>
@@ -132,7 +131,7 @@
             <field name="arch" type="xml">
                 <tree string="Propositions">
                     <field name="announcement_id" invisible="'default_announcement_id' in context"/>
-                    <field name="user_id"/>
+                    <field name="sender_id"/>
                     <field name="quantity"/>
                     <field name="uom_id"/>
                     <field name="description_announcement_id"/>
@@ -170,8 +169,8 @@
                     <button name="proposition_accepted_cancel" string="Cancel" attrs="{'invisible':['|','|',('want_cancel_announcer', '!=', True),('want_cancel_user', '!=', True), ('state', '!=', 'accepted')]}"/>
                     <button name="proposition_accepted_invoiced" states="accepted" class="oe_highlight" string="Invoice"/>
                     <button name="proposition_invoiced_cancel" string="Cancel" attrs="{'invisible':['|','|',('want_cancel_announcer', '!=', True),('want_cancel_user', '!=', True), ('state', '!=', 'invoiced')]}"/>
-                    <button name="proposition_invoiced_confirm" states="invoiced" class="oe_highlight" string="Pay"/>
-                    <button name="proposition_confirm_vote" states="confirm" class="oe_highlight" string="Confirm that you received the payment"/>
+                    <button name="pay" states="invoiced" class="oe_highlight" string="Pay" type="object"/>
+                    <button name="confirm" states="confirm" class="oe_highlight" string="Confirm that you received the payment" type="object"/>
                     <button name="reset_workflow" states="paid" string="Refund" type="object"/>
                     <button name="proposition_confirm_refund_paid" states="confirm_refund" string="Return to paid"/>
                     <button name="proposition_confirm_refund_cancel" states="confirm_refund" class="oe_highlight" string="Confirm that you received the payment for the refund"/>
@@ -181,14 +180,13 @@
                     <group>
                         <group>
                             <field name="announcement_id" attrs="{'readonly':[('state','!=','draft')]}" invisible="'default_announcement_id' in context"/>
+                            <field name="receiver_id" readonly="1" required="0"/>
                             <field name="description"/>
                         </group>
                         <group>
-                            <field name="user_id" attrs="{'invisible':[('from_company', '=', True)]}"/>
-                            <field name="company_name" attrs="{'invisible':[('from_company', '!=', True)]}" readonly="1"/>
+                            <field name="sender_id"/>
                             <field name="quantity" attrs="{'readonly':[('state','!=','draft')]}"/>
                             <field name="uom_id"/>
-                            <field name="from_company" attrs="{'readonly':[('state','!=','draft')]}"/>
                             <field name="description_announcement_id" domain="[('user_id','=',uid)]" attrs="{'readonly':[('state','!=','draft')]}"/>
                             <field name="vote_vote_line_ids" attrs="{'invisible': ['|',('already_accepted','!=',True),('is_user','!=',True),('is_announcer','!=',True)]}"/>
                             <field name="vote_comment" attrs="{'invisible': ['|',('already_accepted','!=',True),('is_user','!=',True),('is_announcer','!=',True)]}"/>
@@ -196,24 +194,16 @@
                             <field name="want_cancel_announcer" states="accepted,invoiced,confirm" attrs="{'readonly':[('is_announcer', '!=', True),('is_moderator','!=',True)]}"/>
                             <field name="want_cancel_user" states="accepted,invoiced,confirm" attrs="{'readonly':[('is_user', '!=', True),('is_moderator','!=',True)]}"/>
                     </group>
-                    <field name="currency_ids" attrs="{'readonly':[('state','!=','draft')]}">
+                    <field name="currency_ids" context="{'default_model': 'account.centralbank.transaction'}">
                         <tree string="Currencies" editable="bottom">
                             <field name="price_unit"/>
                             <field name="currency_id" widget="selection"/>
 <!--                            <field name="company_commission"/>-->
                             <field name="subtotal"/>
-                        </tree>
-                    </field>
-                    <field name="move_ids" readonly="1">
-                        <tree string="Moves">
-                            <field name="name"/>
-                            <field name="date"/>
-                            <field name="marketplace_action"/>
-                            <field name="state"/>
+                            <field name="model" invisible="1"/>
                         </tree>
                     </field>
                     <field name="vote_vote_ids"/>
-<field name="vote_voters"/>
                     <group>
                         <field name="call_moderator_user" attrs="{'readonly':[('is_user', '!=', True)], 'invisible':[('is_user', '!=', True),('call_moderator_user', '!=', True)]}"/>
                         <field name="call_moderator_announcer" attrs="{'readonly':[('is_announcer', '!=', True)], 'invisible':[('is_announcer', '!=', True),('call_moderator_announcer', '!=', True)]}"/>
@@ -237,11 +227,11 @@
             <field name="arch" type="xml">
                <search string="Propositions">
                     <field name="announcement_id"/>
-                    <field name="user_id"/>
+                    <field name="sender_id"/>
                     <separator/>
                     <filter name="open" string="In Progress" domain="[('state','=','open')]" help="Open offers" icon="terp-camera_test"/>
                     <separator/>
-                    <filter name="my_offers" string="My offers" domain="[('user_id','=',uid)]" icon="terp-check"/>
+                    <filter name="my_offers" string="My offers" domain="[('sender_id.user_ids','in',uid)]" icon="terp-check"/>
                 </search>
             </field>
         </record>

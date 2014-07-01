@@ -60,7 +60,7 @@
                     <group name="vote_grp">
                         <label for="id" string="Vote"/>
                         <div>
-                            <field name="vote_line_ids" context="{'default_model': 'vote.config.settings'}">
+                            <field name="vote_line_ids" context="{'default_model': 'community.config.settings'}">
                                 <form string="Line">
                                     <field name="target_model" required="1"/>
                                     <field name="name"/>

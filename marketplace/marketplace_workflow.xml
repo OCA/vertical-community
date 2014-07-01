@@ -42,25 +42,25 @@
             <field name="act_from" ref="act_announcement_draft"/>
             <field name="act_to" ref="act_announcement_cancel"/>
             <field name="signal">announcement_draft_cancel</field>
-            <field name="condition">test_is_user()</field>
+            <field name="condition">test_access_role('is_user')</field>
         </record>
         <record id="announcement_draft_open" model="workflow.transition">
             <field name="act_from" ref="act_announcement_draft"/>
             <field name="act_to" ref="act_announcement_open"/>
             <field name="signal">announcement_draft_open</field>
-            <field name="condition">test_is_user()</field>
+            <field name="condition">test_access_role('is_user')</field>
         </record>
         <record id="announcement_open_cancel" model="workflow.transition">
             <field name="act_from" ref="act_announcement_open"/>
             <field name="act_to" ref="act_announcement_cancel"/>
             <field name="signal">announcement_open_cancel</field>
-            <field name="condition">test_is_user()</field>
+            <field name="condition">test_access_role('is_user')</field>
         </record>
         <record id="announcement_open_done" model="workflow.transition">
             <field name="act_from" ref="act_announcement_open"/>
             <field name="act_to" ref="act_announcement_done"/>
             <field name="signal">announcement_open_done</field>
-            <field name="condition">test_is_user()</field>
+            <field name="condition">test_access_role('is_user')</field>
         </record>
 
 
@@ -108,13 +108,13 @@
             <field name="wkf_id" ref="wkf_proposition"/>
             <field name="name">confirm</field>
             <field name="kind">function</field>
-            <field name="action">change_state('confirm')</field>
+            <field name="action">write({'state':'confirm'})</field>
         </record>
         <record id="act_proposition_vote" model="workflow.activity">
             <field name="wkf_id" ref="wkf_proposition"/>
             <field name="name">vote</field>
             <field name="kind">function</field>
-            <field name="action">change_state('vote')</field>
+            <field name="action">write({'state':'vote'})</field>
         </record>
         <record id="act_proposition_paid" model="workflow.activity">
             <field name="wkf_id" ref="wkf_proposition"/>
@@ -127,7 +127,7 @@
             <field name="wkf_id" ref="wkf_proposition"/>
             <field name="name">confirm_refund</field>
             <field name="kind">function</field>
-            <field name="action">change_state('confirm_refund')</field>
+            <field name="action">write({'state':'confirm_refund'})</field>
         </record>
         <record id="act_proposition_cancel" model="workflow.activity">
             <field name="wkf_id" ref="wkf_proposition"/>
@@ -136,7 +136,6 @@
             <field name="action">change_state('cancel')</field>
             <field name="flow_stop">True</field>
         </record>
-
         <record id="proposition_draft_cancel" model="workflow.transition">
             <field name="act_from" ref="act_proposition_draft"/>
             <field name="act_to" ref="act_proposition_cancel"/>
@@ -171,7 +170,7 @@
             <field name="act_from" ref="act_proposition_accepted"/>
             <field name="act_to" ref="act_proposition_invoiced"/>
             <field name="signal">proposition_accepted_invoiced</field>
-            <field name="condition">test_access_role('is_invoicer')</field>
+            <field name="condition">test_access_role('is_receiver')</field>
         </record>
         <record id="proposition_accepted_cancel" model="workflow.transition">
             <field name="act_from" ref="act_proposition_accepted"/>
@@ -189,7 +188,13 @@
             <field name="act_from" ref="act_proposition_invoiced"/>
             <field name="act_to" ref="act_proposition_confirm"/>
             <field name="signal">proposition_invoiced_confirm</field>
-            <field name="condition">test_access_role('is_payer')</field>
+            <field name="condition">test_access_role('is_sender')</field>
+        </record>
+        <record id="proposition_invoiced_vote" model="workflow.transition">
+            <field name="act_from" ref="act_proposition_invoiced"/>
+            <field name="act_to" ref="act_proposition_vote"/>
+            <field name="signal">proposition_invoiced_vote</field>
+            <field name="condition">test_access_role('is_sender')</field>
         </record>
         <record id="proposition_confirm_cancel" model="workflow.transition">
             <field name="act_from" ref="act_proposition_confirm"/>
@@ -201,30 +206,30 @@
             <field name="act_from" ref="act_proposition_confirm"/>
             <field name="act_to" ref="act_proposition_vote"/>
             <field name="signal">proposition_confirm_vote</field>
-            <field name="condition">test_access_role('is_invoicer')</field>
+            <field name="condition">test_access_role('is_receiver')</field>
         </record>
         <record id="proposition_vote_paid" model="workflow.transition">
             <field name="act_from" ref="act_proposition_vote"/>
             <field name="act_to" ref="act_proposition_paid"/>
             <field name="signal">proposition_vote_paid</field>
         </record>
-        <record id="proposition_paid_confirm_refund" model="workflow.transition">
+        <record id="proposition_draft_confirm_refund" model="workflow.transition">
             <field name="act_from" ref="act_proposition_draft"/>
             <field name="act_to" ref="act_proposition_confirm_refund"/>
-            <field name="signal">proposition_paid_confirm_refund</field>
-            <field name="condition">test_access_role('is_invoicer')</field>
+            <field name="signal">proposition_draft_confirm_refund</field>
+            <field name="condition">test_access_role('is_receiver')</field>
         </record>
         <record id="proposition_confirm_refund_paid" model="workflow.transition">
             <field name="act_from" ref="act_proposition_confirm_refund"/>
             <field name="act_to" ref="act_proposition_paid"/>
             <field name="signal">proposition_confirm_refund_paid</field>
-            <field name="condition">test_access_role('is_payer')</field>
+            <field name="condition">test_access_role('is_receiver')</field>
         </record>
         <record id="proposition_confirm_refund_cancel" model="workflow.transition">
             <field name="act_from" ref="act_proposition_confirm_refund"/>
             <field name="act_to" ref="act_proposition_cancel"/>
             <field name="signal">proposition_confirm_refund_cancel</field>
-            <field name="condition">test_access_role('is_payer')</field>
+            <field name="condition">test_access_role('is_sender')</field>
         </record>
 
     </data>
