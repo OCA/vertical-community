@@ -22,7 +22,7 @@
 {'name': 'Mail Groups Project',
  'version': '1.0',
  'category': 'Project',
- 'depends': ['mail_groups_management',
+ 'depends': ['mail_groups_holacracy',
              'project_assignment',
              ],
  'author': 'Yannick Buron',

@@ -19,7 +19,7 @@
 #
 ##############################################################################
 
-{'name': 'Social groups management',
+{'name': 'Holacracy',
  'version': '1.0',
  'category': 'Social Network',
  'depends': ['base_recursive_model',
@@ -29,15 +29,16 @@
  'license': 'AGPL-3',
  'website': 'https://launchpad.net/openerp-communitytools',
  'description': """
-Mail groups management
+Holacracy
 =================
 
-This module create a new group Committee which is required to create groups in social network. Groups have a management fields which indicate which people can modify this group, and specify if this group is free access or invitation only.
+This module improve the mail.group object native in Odoo in order to use them as holacratic circle.
+Now the group are in arborescence, you can use them as circle or role, and define access rights based on the parent and children groups.
 """,
- 'demo': ['data/mail_groups_management_demo.xml'],
- 'data': ['security/mail_groups_management_security.xml',
+ 'demo': ['data/mail_groups_holacracy_demo.xml'],
+ 'data': ['security/mail_groups_holacracy_security.xml',
           'security/ir.model.access.csv',
-          'mail_groups_management_view.xml'
+          'mail_groups_holacracy_view.xml'
           ],
  'installable': True,
  'application': True,

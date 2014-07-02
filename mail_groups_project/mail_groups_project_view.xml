@@ -72,18 +72,6 @@
             </field>
         </record>
 
-        <record id="view_mail_group_form_group_management_project" model="ir.ui.view">
-            <field name="name">mail.group.form.group.management.project</field>
-            <field name="model">mail.group</field>
-            <field name="inherit_id" ref="mail_groups_management.view_mail_group_form_group_management"/>
-            <field name="arch" type="xml">
-                <tree string="Roles" position="inside">
-                    <field name="manage_project"/>
-                </tree>
-            </field>
-        </record>
-
-
 
     </data>
 </openerp>

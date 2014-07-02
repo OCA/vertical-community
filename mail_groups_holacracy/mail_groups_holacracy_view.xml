@@ -2,8 +2,8 @@
 <openerp>
     <data>
 
-        <record id="view_mail_group_form_group_management" model="ir.ui.view">
-            <field name="name">mail.group.form.group.management</field>
+        <record id="view_mail_group_form_holacracy" model="ir.ui.view">
+            <field name="name">mail.group.form.holacracy</field>
             <field name="model">mail.group</field>
             <field name="inherit_id" ref="mail.view_group_form"/>
             <field name="arch" type="xml">
@@ -17,13 +17,15 @@
                     <group>
                         <field name="type"/>
                         <field name="parent_id"/>
-                        <field name="manager_ids" widget="many2many_tags"/>
-                        <field name="role_ids" context="{'type': 'role', 'default_type': 'role'}" attrs="{'invisible': [('type','!=','circle')]}">
+                        <field name="child_ids" context="{'type': 'role', 'default_type': 'role'}" attrs="{'invisible': [('type','!=','circle')]}">
                             <tree string="Roles" editable="top">
                                 <field name="name"/>
-                                <field name="type" invisible="1"/>
+                                <field name="type"/>
+                                <field name="right_ids" widget="many2many_tags" placeholder="Rights..."/>
                             </tree>
                         </field>
+                       <field name="partner_invitation_ids" widget="many2many_tags"/>
+                       <field name="partner_group_management_ids" widget="many2many_tags"/>
                     </group>
                 </sheet>
             </field>
@@ -124,6 +126,16 @@ action = {
             <field name="view_mode">tree,kanban,form</field>
         </record>
 
+
+        <record id="mail_group_right_invitation" model="mail.group.right">
+            <field name="name">Invitation</field>
+            <field name="code">invitation</field>
+        </record>
+
+        <record id="mail_group_right_group_management" model="mail.group.right">
+            <field name="name">Group management</field>
+            <field name="code">group_management</field>
+        </record>
 
     </data>
 </openerp>

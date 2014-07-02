@@ -10,7 +10,7 @@
 
         <record id="group_community_committee" model="res.groups">
             <field name="name">Community / Committee</field>
-            <field name="implied_ids" eval="[(6, 0, [ref('group_community_user'), ref('mail_groups_management.group_mail_committee')])]"/>
+            <field name="implied_ids" eval="[(6, 0, [ref('group_community_user'), ref('mail_groups_holacracy.group_mail_committee')])]"/>
         </record>
 
         <record id="group_community_moderator" model="res.groups">

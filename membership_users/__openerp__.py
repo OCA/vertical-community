@@ -22,7 +22,7 @@
 {'name': 'Membership Users',
  'version': '1.0',
  'category': 'Association',
- 'depends': ['mail_groups_management',
+ 'depends': ['mail_groups_holacracy',
              'membership',
              ],
  'author': 'Yannick Buron',

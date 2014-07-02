@@ -141,11 +141,6 @@ class mail_group(osv.osv):
 
     _inherit = 'mail.group'
 
-
-    _columns = {
-        'manage_project': fields.boolean('Can manage projects?')
-    }
-
     def _update_project_followers(self, cr, uid, ids, context=None):
         project_obj = self.pool.get('project.project')
         task_obj = self.pool.get('project.task')
