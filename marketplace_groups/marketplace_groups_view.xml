@@ -2,18 +2,6 @@
 <openerp>
     <data>
 
-        <record id="view_mail_group_form_marketplace" model="ir.ui.view">
-            <field name="name">mail.group.form.marketplace</field>
-            <field name="model">mail.group</field>
-            <field name="inherit_id" ref="mail.view_group_form"/>
-            <field name="arch" type="xml">
-                <field name="group_ids" position="after">
-                    <field name="marketplace"/>
-                    <field name="can_have_commission" invisible="1"/>
-                </field>
-            </field>
-        </record>
-
         <record id="view_marketplace_announcement_tree_groups" model="ir.ui.view">
             <field name="name">marketplace.announcement.tree.groups</field>
             <field name="model">marketplace.announcement</field>
@@ -34,19 +22,22 @@
                 <field name="tag_ids" position="after">
                     <field name="context_group_ids" widget="many2many_tags" placeholder="Groups..."/>
                 </field>
-                <field name="user_id" position="attributes">
-                    <attribute name="attrs">{'invisible': ['|',('from_group','=',True),('from_company', '=', True)]}</attribute>
+                <field name="partner_id" position="attributes">
+                    <attribute name="domain">['|',('user_ids','in',uid),('group_id.partner_wallet_ids.user_ids','in',uid)]</attribute>
                 </field>
-                <field name="user_id" position="after">
-                    <field name="group_id" attrs="{'invisible':['|',('from_group','!=',True),('from_company', '=', True)],'required':[('from_group','=',True),('from_company', '!=', True)]}" domain="[('manager_ids','in',uid),('marketplace','=',True)]"/>
-                </field>
+            </field>
+        </record>
 
-                <field name="from_company" position="before">
-                    <field name="from_group" groups="mail_groups_management.group_mail_committee" attrs="{'readonly':[('state','!=','draft')]}"/>
+        <record id="view_marketplace_announcement_form_admin_groups" model="ir.ui.view">
+            <field name="name">marketplace.announcement.form.admin.groups</field>
+            <field name="model">marketplace.announcement</field>
+            <field name="inherit_id" ref="marketplace.view_marketplace_announcement_form"/>
+            <field name="groups_id" eval="[(6, 0, [ref('account_centralbank.group_account_centralbank_moderator')])]"/>
+            <field name="priority">99</field>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="attributes">
+                    <attribute name="domain">['|',('user_ids','!=',False),('group_id','!=',False)]</attribute>
                 </field>
-                <button name="add_proposition" position="attributes">
-                    <attribute name="attrs">{'invisible': [('is_user','=',True),('from_group','!=',True)]}</attribute>
-                </button>
             </field>
         </record>
 
@@ -66,15 +57,25 @@
             <field name="model">marketplace.proposition</field>
             <field name="inherit_id" ref="marketplace.view_marketplace_proposition_form"/>
             <field name="arch" type="xml">
-                <field name="user_id" position="attributes">
-                    <attribute name="attrs">{'invisible': ['|',('from_group','=',True),('from_company', '=', True)]}</attribute>
-                </field>
-                <field name="user_id" position="after">
-                    <field name="group_id" attrs="{'invisible':['|',('from_group','!=',True),('from_company', '=', True)],'required':[('from_group','=',True),('from_company', '!=', True)]}" domain="[('manager_ids','in',uid),('marketplace','=',True)]"/>
-                    <field name="from_group" groups="mail_groups_management.group_mail_committee" attrs="{'readonly':[('state','!=','draft')]}"/>
+                <field name="sender_id" position="attributes">
+                    <attribute name="domain">['|',('user_ids','in',uid),('group_id.partner_wallet_ids.user_ids','in',uid)]</attribute>
                 </field>
             </field>
         </record>
+
+        <record id="view_marketplace_proposition_form_admin_groups" model="ir.ui.view">
+            <field name="name">marketplace.proposition.form.admin.groups</field>
+            <field name="model">marketplace.proposition</field>
+            <field name="inherit_id" ref="marketplace.view_marketplace_proposition_form"/>
+            <field name="groups_id" eval="[(6, 0, [ref('account_centralbank.group_account_centralbank_moderator')])]"/>
+            <field name="priority">99</field>
+            <field name="arch" type="xml">
+                <field name="sender_id" position="attributes">
+                    <attribute name="domain">['|',('user_ids','!=',False),('group_id','!=',False)]</attribute>
+                </field>
+            </field>
+        </record>
+
 
         <record id="action_marketplace_announcement_the_market_the_offers_per_group" model="ir.actions.act_window">
             <field name="name">Per group</field>
@@ -82,8 +83,8 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field eval="False" name="view_id"/>
-            <field name="domain">[('type','=','offer')]</field>
-            <field name="context">{'default_type':'offer', 'type':'offer', 'group_by':'group_id'}</field>
+            <field name="domain">[('type','=','offer'),('partner_id.group_id','!=',False)]</field>
+            <field name="context">{'default_type':'offer', 'type':'offer', 'group_by':'partner_id'}</field>
             <field name="search_view_id" ref="marketplace.view_marketplace_announcement_search"/>
         </record>
 
@@ -95,8 +96,8 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field eval="False" name="view_id"/>
-            <field name="domain">[('type','=','want')]</field>
-            <field name="context">{'default_type':'want', 'type':'want', 'group_by':'group_id'}</field>
+            <field name="domain">[('type','=','want'),('partner_id.group_id','!=',False)]</field>
+            <field name="context">{'default_type':'want', 'type':'want', 'group_by':'partner_id'}</field>
             <field name="search_view_id" ref="marketplace.view_marketplace_announcement_search"/>
         </record>
 
@@ -108,8 +109,8 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field eval="False" name="view_id"/>
-            <field name="domain">[]</field>
-            <field name="context">{'group_by':'group_id'}</field>
+            <field name="domain">[('partner_id.group_id','!=',False)]</field>
+            <field name="context">{'group_by':'partner_id'}</field>
             <field name="search_view_id" ref="marketplace.view_marketplace_proposition_search"/>
         </record>
 

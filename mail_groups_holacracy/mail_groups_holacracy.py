@@ -49,12 +49,46 @@ class mail_group(osv.osv):
                                   ('circle','Circle'),
                                   ('role', 'Role')],'Type', required=True),
         'parent_id': fields.many2one('mail.group', 'Parent', select=True, ondelete='cascade'),
+        'partner_id': fields.many2one('res.partner', 'Partner'),
         'child_ids': fields.one2many('mail.group', 'parent_id', 'Childs'),
         'sequence': fields.integer('Sequence', select=True, help="Gives the sequence order when displaying a list of group."),
         'right_ids': fields.many2many('mail.group.right', 'mail_group_rights', 'group_id', 'right_id', 'Rights'),
         'partner_invitation_ids': fields.many2many('res.partner', 'mail_group_partner_invitations', 'group_id', 'partner_id', 'Partners invitation', readonly=True),
         'partner_group_management_ids': fields.many2many('res.partner', 'mail_group_partner_group_management', 'group_id', 'partner_id', 'Partners group management', readonly=True),
     }
+
+    def create_partner(self, cr, uid, ids, *args):
+        partner_obj = self.pool.get('res.partner')
+
+        for group in self.browse(cr, uid, ids):
+            if not group.partner_id:
+                partner_id = partner_obj.create(cr, uid, {'name': group.name, 'group_id': group.id})
+                self.write(cr, uid, [group.id], {'partner_id': partner_id})
+        return True
+
+    def write(self, cr, uid, ids, vals, context=None):
+        partner_obj = self.pool.get('res.partner')
+        old_parent_ids = []
+        _logger.info('ids %s', ids)
+        if 'name' in vals:
+            for group in self.browse(cr, uid, ids, context=context):
+                if group.partner_id:
+                    partner_obj.write(cr, uid, [group.partner_id.id], {'name':vals['name']}, context=context)
+        if 'partner_id' in vals:
+            for group in self.browse(cr, uid, ids, context=context):
+                partner_obj.write(cr, uid, [group.partner_id.id], {'group_id': vals['partner_id'] and group.id or False}, context=context)
+        if 'parent_id' in vals:
+            for group in self.browse(cr, uid, ids, context=context):
+                if group.parent_id:
+                    old_parent_ids.append(group.parent_id.id)
+        res = super(mail_group, self).write(cr, uid, ids, vals, context=context)
+        if 'parent_id' in vals or 'right_ids' in vals:
+            self.update_followers(cr, uid, ids, context=context)
+            _logger.info('old_parent %s', old_parent_ids)
+            self.update_followers(cr, uid, old_parent_ids, context=context)
+        return res
+
+
 
     def _check_role_no_child(self, cr, uid, ids, context=None):
         for group in self.browse(cr, uid, ids, context=context):
@@ -178,19 +212,12 @@ class mail_group(osv.osv):
                 self.update_followers(cr, uid, [group.id], context=context)
 
 
-    def write(self, cr, uid, ids, vals, context=None):
-        old_parent_ids = []
-        if 'parent_id' in vals:
-            for group in self.browse(cr, uid, ids, context=context):
-                if group.parent_id:
-                    old_parent_ids.append(group.parent_id.id)
-        res = super(mail_group, self).write(cr, uid, ids, vals, context=context)
-        if 'parent_id' in vals or 'right_ids' in vals:
-            self.update_followers(cr, uid, ids, context=context)
-            _logger.info('old_parent %s', old_parent_ids)
-            self.update_followers(cr, uid, old_parent_ids, context=context)
-        return res
 
 
+class res_partner(osv.osv):
 
+    _inherit = 'res.partner'
 
+    _columns = {
+        'group_id': fields.many2one('mail.group','Group', readonly=True)
+    }

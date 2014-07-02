@@ -11,6 +11,7 @@
         <field name="implied_ids" eval="[(6, 0, [ref('group_marketplace_user'),ref('account_centralbank.group_account_centralbank_moderator')])]"/>
     </record>
 
+<!--
     <record id="marketplace_announcement_user_read_rule" model="ir.rule">
         <field name="name">marketplace announcement user read</field>
         <field name="model_id" ref="model_marketplace_announcement"/>
@@ -96,6 +97,6 @@
         <field name="perm_create" eval="False"/>
         <field name="perm_unlink" eval="False"/>
     </record>
-
+-->
 </data>
 </openerp>

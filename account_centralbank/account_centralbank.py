@@ -78,6 +78,7 @@ class account_centralbank_transaction(osv.osv):
     def _get_user_role(self, cr, uid, ids, prop, unknow_none, context=None):
         wf_service = netsvc.LocalService("workflow")
         res = {}
+        _logger.info('In regular get_user_role')
         partner_id = self.pool.get('res.users').browse(cr, uid, uid, context=context).partner_id.id 
         for transaction in self.browse(cr, uid, ids, context=context):
             res[transaction.id] = {}
@@ -93,6 +94,7 @@ class account_centralbank_transaction(osv.osv):
                 res[transaction.id]['is_sender'] = True
                 res[transaction.id]['is_receiver'] = True
                 res[transaction.id]['is_moderator'] = True
+        _logger.info('res %s', res)
         return res
 
 

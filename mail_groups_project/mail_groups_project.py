@@ -141,6 +141,11 @@ class mail_group(osv.osv):
 
     _inherit = 'mail.group'
 
+    _columns = {
+        'partner_project_ids': fields.many2many('res.partner', 'mail_group_partner_projects', 'group_id', 'partner_id', 'Partners Projects', readonly=True),
+    }
+
+
     def _update_project_followers(self, cr, uid, ids, context=None):
         project_obj = self.pool.get('project.project')
         task_obj = self.pool.get('project.task')

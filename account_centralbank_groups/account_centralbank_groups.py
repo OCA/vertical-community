@@ -32,24 +32,37 @@ _logger = logging.getLogger(__name__)
 
 
 
-class marketplace_announcement(osv.osv):
+class mail_group(osv.osv):
 
-    _inherit = 'marketplace.announcement'
+    _inherit = 'mail.group'
 
+    _columns = {
+        'partner_wallet_ids': fields.many2many('res.partner', 'mail_group_partner_wallets', 'group_id', 'partner_id', 'Partners Wallet', readonly=True),
+    }
+
+
+
+class account_centralbank_transaction(osv.osv):
+
+    _inherit = 'account.centralbank.transaction'
 
     def _get_user_role(self, cr, uid, ids, prop, unknow_none, context=None):
-        res = super(marketplace_announcement, self)._get_user_role(cr, uid, ids, prop, unknow_none, context=context)
+        res = super(account_centralbank_transaction, self)._get_user_role(cr, uid, ids, prop, unknow_none, context=context)
+        wf_service = netsvc.LocalService("workflow")
         partner_id = self.pool.get('res.users').browse(cr, uid, uid, context=context).partner_id.id
         _logger.info('res init %s', res)
         _logger.info('partner_id %s', partner_id)
-        for announcement in self.browse(cr, uid, ids, context=context):
-            if announcement.partner_id.group_id and partner_id in [p.id for p in announcement.partner_id.group_id.partner_wallet_ids]:
-                res[announcement.id]['is_user'] = True
+        for transaction in self.browse(cr, uid, ids, context=context):
+            _logger.info(' wallet_ids %s', transaction.sender_id.group_id and transaction.sender_id.group_id.partner_wallet_ids or False)
+            if transaction.sender_id.group_id and partner_id in [p.id for p in transaction.sender_id.group_id.partner_wallet_ids]:
+                res[transaction.id]['is_sender'] = True
+            if transaction.receiver_id.group_id and partner_id in [p.id for p in transaction.receiver_id.group_id.partner_wallet_ids]:
+                res[transaction.id]['is_receiver'] = True
         _logger.info('res %s', res)
         return res
 
-
     _columns = {
-        'context_group_ids': fields.many2many('mail.group', 'marketplace_announcement_group_rel', 'announcement_id', 'group_id', 'Groups'),
-        'is_user': fields.function(_get_user_role, type="boolean", string="Is user?", multi='role'),
+        'is_sender': fields.function(_get_user_role, type="boolean", string="Is sender?", multi='role'),
+        'is_receiver': fields.function(_get_user_role, type="boolean", string="Is receiver?", multi='role'),
+        'is_moderator': fields.function(_get_user_role, type="boolean", string="Is moderator?", multi='role'),
     }

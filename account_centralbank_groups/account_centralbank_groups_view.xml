@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_account_centralbank_transaction_form_groups" model="ir.ui.view">
+            <field name="name">account.centralbank.transaction.form.groups</field>
+            <field name="model">account.centralbank.transaction</field>
+            <field name="inherit_id" ref="account_centralbank.view_account_centralbank_transaction_form"/>
+            <field name="arch" type="xml">
+                <field name="sender_id" position="attributes">
+                    <attribute name="domain">['|',('user_ids','in',uid),('group_id.partner_wallet_ids.user_ids','in',uid)]</attribute>
+                </field>
+                <field name="receiver_id" position="attributes">
+                    <attribute name="domain">['|',('user_ids','!=',False),('group_id','!=',False)]</attribute>
+                </field>
+            </field>
+        </record>
+
+
+        <record id="view_account_centralbank_transaction_form_admin_groups" model="ir.ui.view">
+            <field name="name">account.centralbank.transaction.form.admin.groups</field>
+            <field name="model">account.centralbank.transaction</field>
+            <field name="inherit_id" ref="account_centralbank.view_account_centralbank_transaction_form"/>
+            <field name="groups_id" eval="[(6, 0, [ref('account_centralbank.group_account_centralbank_moderator')])]"/>
+            <field name="priority">99</field>
+            <field name="arch" type="xml">
+                <field name="sender_id" position="attributes">
+                    <attribute name="domain">['|',('user_ids','!=',False),('group_id','!=',False)]</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_mail_group_form_holacracy_centralbank" model="ir.ui.view">
+            <field name="name">mail.group.form.holacracy.centralbank</field>
+            <field name="model">mail.group</field>
+            <field name="inherit_id" ref="mail_groups_holacracy.view_mail_group_form_holacracy"/>
+            <field name="arch" type="xml">
+                <field name="partner_group_management_ids" position="after">
+                       <field name="partner_wallet_ids" widget="many2many_tags"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="mail_group_right_wallet" model="mail.group.right">
+            <field name="name">Wallet</field>
+            <field name="code">wallet</field>
+        </record>
+
+
+    </data>
+</openerp>

@@ -22,7 +22,7 @@
 {'name': 'Marketplace Groups',
  'version': '1.0',
  'category': 'Association',
- 'depends': ['mail_groups_management',
+ 'depends': ['account_centralbank_groups',
              'marketplace',
              ],
  'author': 'Yannick Buron',
@@ -35,7 +35,7 @@ Marketplace Groups
 This module allow to make proposition to and from mail groups.
 """,
  'demo': [],
- 'data': ['security/marketplace_groups_security.xml',
+ 'data': [
           'marketplace_groups_view.xml'
           ],
  'installable': True,

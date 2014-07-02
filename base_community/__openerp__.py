@@ -35,7 +35,8 @@ Simple module which set a configuration menu for Communities
 
 """,
  'demo': [],
- 'data': ['res_config_view.xml'],
+ 'data': ['res_config_view.xml',
+          'security/ir.model.access.csv'],
  'installable': True,
  'application': True,
 }

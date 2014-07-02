@@ -19,28 +19,21 @@
 #
 ##############################################################################
 
-{'name': 'Account CentralBank',
+{'name': 'Account CentralBank Groups',
  'version': '1.0',
  'category': 'Association',
- 'depends': ['base_community',
-             'account_accountant',
-             'account_reversal',
+ 'depends': ['account_centralbank',
+             'mail_groups_holacracy',
              ],
  'author': 'Yannick Buron',
  'license': 'AGPL-3',
- 'website': 'https://launchpad.net/marketplace',
+ 'website': 'https://launchpad.net/openerp-communitytools',
  'description': """
-Account CentralBank
+Account CentralBank Groups
 =================
-
 """,
  'demo': [],
- 'data': ['account_centralbank_view.xml',
-          'account_centralbank_data.xml',
-          'account_centralbank_workflow.xml',
-          'res_config_view.xml',
-          'security/account_centralbank_security.xml',
-          'security/ir.model.access.csv'
+ 'data': ['account_centralbank_groups_view.xml'
           ],
  'installable': True,
  'application': True,

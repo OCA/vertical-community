@@ -72,6 +72,22 @@
             </field>
         </record>
 
+        <record id="view_mail_group_form_holacracy_project" model="ir.ui.view">
+            <field name="name">mail.group.form.holacracy.project</field>
+            <field name="model">mail.group</field>
+            <field name="inherit_id" ref="mail_groups_holacracy.view_mail_group_form_holacracy"/>
+            <field name="arch" type="xml">
+                <field name="partner_group_management_ids" position="after">
+                       <field name="partner_project_ids" widget="many2many_tags"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="mail_group_right_project" model="mail.group.right">
+            <field name="name">Project</field>
+            <field name="code">project</field>
+        </record>
+
 
     </data>
 </openerp>

@@ -26,6 +26,8 @@
                         </field>
                        <field name="partner_invitation_ids" widget="many2many_tags"/>
                        <field name="partner_group_management_ids" widget="many2many_tags"/>
+                       <field name="partner_id"/>
+                       <button name="create_partner" string="Create Partner" type="object" attrs="{'invisible': [('partner_id','!=',False)]}"/>
                     </group>
                 </sheet>
             </field>
@@ -117,6 +119,20 @@ action = {
             <field name="arch" type="xml">
                 <field name="name" position="replace">
                     <field name="complete_name"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_partner_form_holacracy" model="ir.ui.view">
+            <field name="name">partner.form.holacracy</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <field name="name" position="attributes">
+                    <attribute name="attrs">{'readonly': [('group_id','!=',False)]}</attribute>
+                </field>
+                <field name="parent_id" position="before">
+                    <field name="group_id"/>
                 </field>
             </field>
         </record>

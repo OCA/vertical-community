@@ -55,7 +55,7 @@
                             <field name="description"/>
                         </group>
                         <group>
-                            <field name="partner_id" on_change="onchange_author(partner_id)" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="partner_id" on_change="onchange_author(partner_id)" domain="[('user_ids','in',uid)]" attrs="{'readonly':[('state','!=','draft')]}"/>
                             <field name="expiration_date"/>
                             <field name="infinite_qty"/>
                             <field name="quantity" attrs="{'invisible':[('infinite_qty', '=', True)]}"/>
@@ -95,6 +95,19 @@
                 </form>
             </field>
         </record>
+
+        <record id="view_marketplace_announcement_form_admin" model="ir.ui.view">
+            <field name="name">marketplace.announcement.form.admin</field>
+            <field name="model">marketplace.announcement</field>
+            <field name="inherit_id" ref="view_marketplace_announcement_form"/>
+            <field name="groups_id" eval="[(6, 0, [ref('account_centralbank.group_account_centralbank_moderator')])]"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="attributes">
+                    <attribute name="domain">[('user_ids','!=',False)]</attribute>
+                </field>
+            </field>
+        </record>
+
 
         <record id="view_marketplace_announcement_search" model="ir.ui.view">
             <field name="name">marketplace.announcement.search</field>
@@ -184,7 +197,7 @@
                             <field name="description"/>
                         </group>
                         <group>
-                            <field name="sender_id"/>
+                            <field name="sender_id" domain="[('user_ids','in',uid)]"/>
                             <field name="quantity" attrs="{'readonly':[('state','!=','draft')]}"/>
                             <field name="uom_id"/>
                             <field name="description_announcement_id" domain="[('user_id','=',uid)]" attrs="{'readonly':[('state','!=','draft')]}"/>
@@ -220,6 +233,19 @@
                 </form>
             </field>
         </record>
+
+        <record id="view_marketplace_proposition_form_admin" model="ir.ui.view">
+            <field name="name">marketplace.proposition.form.admin</field>
+            <field name="model">marketplace.proposition</field>
+            <field name="inherit_id" ref="view_marketplace_proposition_form"/>
+            <field name="groups_id" eval="[(6, 0, [ref('account_centralbank.group_account_centralbank_moderator')])]"/>
+            <field name="arch" type="xml">
+                <field name="sender_id" position="attributes">
+                    <attribute name="domain">[('user_ids','!=',False)]</attribute>
+                </field>
+            </field>
+        </record>
+
 
         <record id="view_marketplace_proposition_search" model="ir.ui.view">
             <field name="name">marketplace.proposition.search</field>
