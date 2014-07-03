@@ -34,15 +34,8 @@ _logger = logging.getLogger(__name__)
 
 
 
-class marketplace_announcement(osv.osv):
+class project_project(osv.osv):
 
-    _name = 'marketplace.announcement'
-    _inherit = ['marketplace.announcement','crowdfunding.campaign']
+    _name = 'project.project'
+    _inherit = ['project.project','crowdfunding.campaign']
 
-    _columns = {
-        'crowdfunding_use_funds': fields.boolean('The reserved funds will be recovered when a propasal is accepted', groups="account_centralbank.group_account_centralbank_moderator"),
-    }
-
-    _defaults = {
-        'crowdfunding_use_funds': True,
-    }

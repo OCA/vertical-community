@@ -54,6 +54,7 @@ class crowdfunding_campaign(osv.AbstractModel):
 
 
     _columns = {
+        'crowdfunding': fields.boolean('Launch a crowdfunding campaign?'),
         'crowdfunding_description': fields.text('Crowdfunding description'),
         'crowdfunding_currency_mode': fields.selection([('one','Only one currency'),('all','All currency')], 'Currency mode', required=True, help="Specify the currency mode, if you select one then you'll get the currency when a goal for one currency if attein but you'll lose all other currency. If you select all, you must atteign each goal for each currency but you'll win all the currency"),
         'crowdfunding_date_limit': fields.datetime('Limit date'),

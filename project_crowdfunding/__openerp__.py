@@ -19,30 +19,24 @@
 #
 ##############################################################################
 
-import openerp.addons.decimal_precision as dp
+{'name': 'Project Crowdfunding',
+ 'version': '1.0',
+ 'category': 'Community',
+ 'depends': ['crowdfunding',
+             'mail_groups_project',
+             'project',
+             ],
+ 'author': 'Yannick Buron',
+ 'license': 'AGPL-3',
+ 'website': 'https://launchpad.net/marketplace',
+ 'description': """
+Project Crowdfunding
+=================
 
-from openerp import netsvc
-from openerp import pooler
-from openerp import SUPERUSER_ID
-from openerp.osv import fields, osv, orm
-from openerp.tools.translate import _
-from datetime import datetime
-import base64
-
-import logging
-_logger = logging.getLogger(__name__)
-
-
-
-class marketplace_announcement(osv.osv):
-
-    _name = 'marketplace.announcement'
-    _inherit = ['marketplace.announcement','crowdfunding.campaign']
-
-    _columns = {
-        'crowdfunding_use_funds': fields.boolean('The reserved funds will be recovered when a propasal is accepted', groups="account_centralbank.group_account_centralbank_moderator"),
-    }
-
-    _defaults = {
-        'crowdfunding_use_funds': True,
-    }
+""",
+ 'demo': [],
+ 'data': ['project_crowdfunding_view.xml',
+          ],
+ 'installable': True,
+ 'application': True,
+}
