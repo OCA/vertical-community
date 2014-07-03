@@ -163,8 +163,9 @@ class marketplace_announcement(osv.osv):
         'quantity': fields.float('Quantity', digits_compute= dp.get_precision('Product Unit of Measure')),
         'quantity_available': fields.function(_get_qty_available, type="float", string="Available", digits_compute= dp.get_precision('Product Unit of Measure'), readonly=True),
         'uom_id': fields.many2one('product.uom', 'Unit of Measure', ondelete='set null'),
+        'currency_mode': fields.selection([('one','I propose one of the following currencies'),('all','I propose all the following currencies')], 'Currency mode'),
         'currency_ids': fields.one2many('account.centralbank.currency.line', 'res_id',
-            domain=lambda self: [('model', '=', self._name)],
+            domain=lambda self: [('model', '=', self._name),('field','=','currency_ids')],
             auto_join=True,
             string='Currencies'),
         'delivery_date': fields.date('When'),
@@ -220,6 +221,7 @@ class marketplace_announcement(osv.osv):
     _defaults = {
         'type': 'offer',
         'state': 'draft',
+        'currency_mode': 'one',
         'partner_id': _default_partner,
         'currency_ids': _default_currency_ids,
         'quantity': 1.0,

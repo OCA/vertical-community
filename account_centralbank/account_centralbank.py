@@ -52,11 +52,15 @@ class account_centralbank_currency_line(osv.osv):
     _columns = {
         'model': fields.char('Related Document Model', size=128, select=1),
         'res_id': fields.integer('Related Document ID', select=1),
+        'field': fields.char('Field', size=64, select=1),
         'price_unit': fields.float('Unit price', required=True, digits_compute= dp.get_precision('Product Price')),
         'currency_id': fields.many2one('res.currency', 'Currency', domain=[('centralbank_currency', '=', True)], required=True),
         'subtotal': fields.function(_get_subtotal, string='Subtotal', digits_compute= dp.get_precision('Account')),
     }
 
+    _defaults = {
+        'field': 'currency_ids'
+    }
 
 class account_centralbank_transaction(osv.osv):
 
@@ -110,7 +114,7 @@ class account_centralbank_transaction(osv.osv):
         'quantity': fields.float('Exchanged quantity', digits_compute= dp.get_precision('Product Unit of Measure')),
         'uom_id': fields.many2one('product.uom', 'Unit of Measure', ondelete='set null'),
         'currency_ids': fields.one2many('account.centralbank.currency.line', 'res_id',
-            domain=lambda self: [('model', '=', self._name)],
+            domain=lambda self: [('model', '=', self._name),('field','=','currency_ids')],
             auto_join=True,
             string='Currencies', readonly=True, states={'draft':[('readonly',False)]}),
         'move_ids': fields.one2many('account.move', 'centralbank_transaction_id', 'Moves'),

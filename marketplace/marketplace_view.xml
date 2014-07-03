@@ -63,28 +63,36 @@
                             <field name="uom_id"/>
                         </group>
                     </group>
-                    <group>
-                        <group>
-                            <field name="delivery_date"/>
-                            <field name="street"/>
-                            <field name="street2"/>
-                            <field name="zip"/>
-                            <field name="city"/>
-                            <field name="state_id"/>
-                            <field name="country_id"/>
-                        </group>
-                    </group>
-                    <field name="currency_ids" context="{'default_model': 'marketplace.announcement'}">
-                        <tree string="Currencies" editable="bottom">
-                            <field name="price_unit"/>
-                            <field name="currency_id" widget="selection"/>
-                            <field name="model" invisible="1"/>
+                    <notebook colspan="4">
+                        <page string="General">
+                            <group>
+                                <group>
+                                    <field name="delivery_date"/>
+                                    <field name="street"/>
+                                    <field name="street2"/>
+                                    <field name="zip"/>
+                                    <field name="city"/>
+                                    <field name="state_id"/>
+                                    <field name="country_id"/>
+                                </group>
+                            </group>
+                            <field name="currency_mode"/>
+                            <field name="currency_ids" context="{'default_model': 'marketplace.announcement'}">
+                                <tree string="Currencies" editable="bottom">
+                                    <field name="price_unit"/>
+                                    <field name="currency_id" widget="selection"/>
+                                    <field name="model" invisible="1"/>
 <!--                            <field name="company_commission"/>-->
-                        </tree>
-                    </field>
-                    <field name="vote_evaluated_ids"/>
-                    <field name="proposition_ids" context="{'default_announcement_id': id}"/>
-                    <button name='add_proposition' string='Make a reply / proposal' type='object' attrs="{'invisible':['|',('state','!=','open'),('is_user', '=', True),('is_moderator','!=',True)]}"/>
+                                </tree>
+                            </field>
+                            <field name="proposition_ids" context="{'default_announcement_id': id}"/>
+                            <button name='add_proposition' string='Make a reply / proposal' type='object' attrs="{'invisible':['|',('state','!=','open'),('is_user', '=', True),('is_moderator','!=',True)]}"/>
+                        </page>
+                        <page string="Votes">
+                            <field name="vote_evaluated_ids"/>
+                        </page>
+                    </notebook>
+                    <field name="type" invisible="1"/>
                     <field name="is_user" invisible="1"/>
                     <field name="is_moderator" invisible="1"/>
                 </sheet>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- Top menu item -->
+        <menuitem id="menu_crowdfunding" name="Crowdfunding" sequence="40"/>
+
+        <record id="view_crowdfunding_reward_tree" model="ir.ui.view">
+            <field name="name">crowdfunding.reward.tree</field>
+            <field name="model">crowdfunding.reward</field>
+            <field name="arch" type="xml">
+                <tree string="Rewards">
+                    <field name="description"/>
+                    <field name="total"/>
+                    <field name="quantity_available"/>
+                    <field name="quantity"/>
+                    <field name="model" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_crowdfunding_reward_form" model="ir.ui.view">
+            <field name="name">crowdfunding.reward.form</field>
+            <field name="model">crowdfunding.reward</field>
+            <field name="arch" type="xml">
+                <form string="Transaction" version="7.0">
+                <sheet string="Reward">
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="description"/>
+                        </group>
+                        <group>
+                            <field name="quantity"/>
+                            <field name="quantity_available"/>
+                        </group>
+                    </group>
+                    <field name="currency_ids" context="{'default_model': 'crowdfunding.reward'}">
+                        <tree string="Currencies" editable="bottom">
+                            <field name="price_unit"/>
+                            <field name="currency_id" widget="selection"/>
+                            <field name="subtotal"/>
+                            <field name="model" invisible="1"/>
+                        </tree>
+                    </field>
+                    <field name="partner_ids" widget="many2many_tags"/>
+                </sheet>
+                </form>
+            </field>
+        </record>
+
+
+
+        <record id="view_crowdfundingtransaction_tree" model="ir.ui.view">
+            <field name="name">crowdfunding.transaction.tree</field>
+            <field name="model">crowdfunding.transaction</field>
+            <field name="arch" type="xml">
+                <tree string="Transaction">
+                    <field name="sender_id"/>
+                    <field name="description"/>
+                    <field name="total"/>
+                    <field name="model" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_crowdfunding_transaction_form" model="ir.ui.view">
+            <field name="name">crowdfunding.transaction.form</field>
+            <field name="model">crowdfunding.transaction</field>
+            <field name="arch" type="xml">
+                <form string="Transaction" version="7.0">
+                <header>
+                    <button name="transaction_draft_cancel" states="draft" string="Cancel"/>
+                    <button name="confirm" states="draft" class="oe_highlight" string="Confirm" type="object"/>
+                    <button name="transaction_confirm_cancel" states="confirm" string="Cancel"/>
+                    <button name="transaction_confirm_done" states="confirm" class="oe_highlight" string="Confirm that your have received the payment"/>
+                    <button name="reset_workflow" states="cancel" string="Put in draft" type="object"/>
+                    <button name="reset_workflow" states="done" string="Refund" type="object"/>
+                    <button name="transaction_confirm_refund_done" states="confirm_refund" string="Return to done"/>
+                    <button name="transaction_confirm_refund_cancel" states="confirm_refund" class="oe_highlight" string="Confirm that you received the payment for the refund"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+                </header>
+                <sheet string="Transaction">
+                    <group>
+                        <group>
+                            <field name="sender_id" domain="[('user_ids','in',uid)]"/>
+                            <field name="description"/>
+                        </group>
+                        <group>
+                            <field name="receiver_id" readonly="1"/>
+                            <field name="quantity" invisible="1"/>
+                        </group>
+                    </group>
+                    <field name="currency_ids" context="{'default_model': 'crowdfunding.transaction'}"/>
+<!--                        <tree string="Currencies" editable="bottom">
+                            <field name="price_unit"/>
+                            <field name="currency_id" widget="selection"/>
+                            <field name="subtotal"/>
+                            <field name="model" invisible="1"/>
+                        </tree>
+                    </field>-->
+                    <field name="move_ids" readonly="1">
+                        <tree string="Moves">
+                            <field name="name"/>
+                            <field name="date"/>
+                            <field name="centralbank_action"/>
+                            <field name="state"/>
+                        </tree>
+                    </field>
+                    <field name="is_sender" invisible="1"/>
+                    <field name="is_receiver" invisible="1"/>
+                    <field name="is_moderator" invisible="1"/>
+                </sheet>
+                </form>
+            </field>
+        </record>
+
+
+    </data>
+</openerp>

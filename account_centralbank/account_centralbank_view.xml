@@ -2,6 +2,21 @@
 <openerp>
     <data>
 
+        <record id="view_account_centralbank_currency_line_tree" model="ir.ui.view">
+            <field name="name">account.centralbank.currency.line.tree</field>
+            <field name="model">account.centralbank.currency.line</field>
+            <field name="arch" type="xml">
+                <tree string="Currencies" editable="bottom">
+                    <field name="price_unit"/>
+                    <field name="currency_id" widget="selection"/>
+                    <field name="subtotal"/>
+                    <field name="model" invisible="1"/>
+                    <field name="field" invisible="1"/>
+                </tree>
+           </field>
+        </record>
+
+
         <record id="view_account_centralbank_transaction_tree" model="ir.ui.view">
             <field name="name">account.centralbank.transaction.tree</field>
             <field name="model">account.centralbank.transaction</field>
@@ -45,14 +60,14 @@
                             <field name="quantity" invisible="1"/>
                         </group>
                     </group>
-                    <field name="currency_ids" context="{'default_model': 'account.centralbank.transaction'}" attrs="{'readonly': [('model_name','!=','account.centralbank.transaction'),('model_name','!=',False)]}">
-                        <tree string="Currencies" editable="bottom">
+                    <field name="currency_ids" context="{'default_model': 'account.centralbank.transaction'}" attrs="{'readonly': [('model_name','!=','account.centralbank.transaction'),('model_name','!=',False)]}"/>
+<!--                        <tree string="Currencies" editable="bottom">
                             <field name="price_unit"/>
                             <field name="currency_id" widget="selection"/>
                             <field name="subtotal"/>
                             <field name="model" invisible="1"/>
                         </tree>
-                    </field>
+                    </field>-->
                     <field name="move_ids" readonly="1">
                         <tree string="Moves">
                             <field name="name"/>

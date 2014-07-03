@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_marketplace_announcement_form_crowdfunding" model="ir.ui.view">
+            <field name="name">marketplace.announcement.form.crowdfunding</field>
+            <field name="model">marketplace.announcement</field>
+            <field name="inherit_id" ref="marketplace.view_marketplace_announcement_form"/>
+            <field name="arch" type="xml">
+                <page string="General" position="after">
+                    <page string="Crowdfunding" attrs="{'invisible': [('type','!=','want')]}">
+                        <group>
+                            <field name="crowdfunding" attrs="{'readonly': [('crowdfunding_state','!=','draft')]}"/>
+                        </group>
+                        <notebook colspan="4">
+                            <page string="Detail" attrs="{'invisible': [('crowdfunding','!=',True)]}">
+                                <group>
+                                    <field name="crowdfunding_date_limit" attrs="{'readonly': [('crowdfunding_state','!=','draft')]}"/>
+                                </group>
+                                <field name="crowdfunding_currency_mode" attrs="{'readonly': [('crowdfunding_state','!=','draft')]}"/>
+                                <field name="crowdfunding_currency_ids" context="{'default_model': 'marketplace.announcement', 'default_field': 'crowdfunding_currency_ids'}" attrs="{'readonly': [('crowdfunding_state','!=','draft')]}"/>
+<!--                                    <tree string="Currencies" editable="bottom">
+                                        <field name="price_unit"/>
+                                        <field name="currency_id" widget="selection"/>
+                                        <field name="subtotal"/>
+                                        <field name="model" invisible="1"/>
+                                        <field name="field" invisible="1"/>
+                                    </tree>
+                                </field>-->
+                                <field name="crowdfunding_reward_ids" context="{'default_model': 'marketplace.announcement'}"/>
+<!--                                    <tree string="Rewards">
+                                        <field name="description"/>
+                                        <field name="total"/>
+                                        <field name="quantity_available"/>
+                                        <field name="quantity"/>
+                                        <field name="model" invisible="1"/>
+                                    </tree>
+                                </field>-->
+                                <group>
+                                    <group>
+                                        <field name="crowdfunding_state"/>
+                                        <field name="crowdfunding_use_funds" invisible="1"/>
+                                    </group>
+                                    <group>
+                                        <button name="crowdfunding_cancel_campaign" string="Cancel Campaign" type="object" attrs="{'invisible': [('crowdfunding_state','in',['open','done'])]}"/>
+                                        <button name="crowdfunding_draft_campaign" string="Put in draft" type="object" attrs="{'invisible': [('crowdfunding_state','!=','cancel')]}" groups="account_centralbank.group_account_centralbank_moderator"/>
+                                        <button name="crowdfunding_start_campaign" string="Start Campaign!" attrs="{'invisible': [('crowdfunding_state','!=','draft')]}" type="object"/>
+                                        <field name="crowdfunding_funded" invisible="1"/>
+                                        <button name="crowdfunding_get_funds" string="Get the fund" attrs="{'invisible': ['|',('crowdfunding_state','!=','open'),('crowdfunding_funded','!=',True)]}" type="object"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Description" attrs="{'invisible': [('crowdfunding','!=',True)]}">
+                                <field name="crowdfunding_description"/>
+                            </page>
+                            <page string="Transactions">
+                                <field name="crowdfunding_transaction_ids" context="{'default_model': 'marketplace.announcement'}"/>
+<!--                                    <tree string="Transaction">
+                                        <field name="sender_id"/>
+                                        <field name="description"/>
+                                        <field name="total"/>
+                                        <field name="model" invisible="1"/>
+                                    </tree>
+                                </field>-->
+                            </page>
+                            <field name="crowdfunding_funded" invisible="1"/>
+                        </notebook>
+                    </page>
+                </page>
+            </field>
+       </record>
+
+        <record id="view_marketplace_announcement_crowdfunding_tree" model="ir.ui.view">
+            <field name="name">marketplace.announcement.crowdfunding.tree</field>
+            <field name="model">marketplace.announcement</field>
+            <field name="priority" eval="20"/>
+            <field name="arch" type="xml">
+                <tree string="Campaigns">
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="crowdfunding_total"/>
+                    <field name="publish_date"/>
+                    <field name="crowdfunding_date_limit"/>
+                    <field name="crowdfunding_state"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="view_marketplace_announcement_crowdfunding_form" model="ir.ui.view">
+            <field name="name">marketplace.announcement.crowdfunding.form</field>
+            <field name="model">marketplace.announcement</field>
+            <field name="priority" eval="20"/>
+            <field name="arch" type="xml">
+                <form string="Offer" version="7.0">
+                <sheet string="Offer">
+                    <field name="picture" widget="image" class="oe_left oe_avatar" options="{&quot;preview_image&quot;: &quot;image_medium&quot;, &quot;size&quot;: [90, 90]}"/>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1><field name="name" placeholder="Title..."/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="category_id" widget="selection" domain="[('child_ids','=',False)]"/>
+                            <field name="tag_ids" widget="many2many_tags" domain="[('category_id','=',category_id)]" context="{'default_category_id':category_id}" placeholder="Tags..."/>
+                        </group>
+                        <group>
+                            <field name="partner_id" on_change="onchange_author(partner_id)" domain="[('user_ids','in',uid)]" readonly="1"/>
+                            <field name="crowdfunding_date_limit" attrs="{'readonly': [('crowdfunding_state','!=','draft')]}"/>
+                        </group>
+                    </group>
+                    <notebook colspan="4">
+                        <page string="Description">
+                            <field name="crowdfunding_description"/>
+                            <field name="crowdfunding_currency_mode" attrs="{'readonly': [('crowdfunding_state','!=','draft')]}"/>
+                            <field name="crowdfunding_currency_ids" context="{'default_model': 'marketplace.announcement', 'default_field': 'crowdfunding_currency_ids'}" attrs="{'readonly': [('crowdfunding_state','!=','draft')]}">
+                                <tree string="Currencies" editable="bottom">
+                                    <field name="price_unit"/>
+                                    <field name="currency_id" widget="selection"/>
+                                    <field name="subtotal"/>
+                                    <field name="model" invisible="1"/>
+                                    <field name="field" invisible="1"/>
+                                </tree>
+                            </field>
+                            <field name="crowdfunding_reward_ids" context="{'default_model': 'marketplace.announcement'}"/>
+<!--                                <tree string="Rewards" editable="bottom">
+                                    <field name="description"/>
+                                    <field name="total"/>
+                                    <field name="quantity_available"/>
+                                    <field name="quantity"/>
+                                    <field name="model" invisible="1"/>
+                                </tree>
+                            </field>-->
+                            <group>
+                                <field name="crowdfunding_state"/>
+                            </group>
+                        </page>
+                        <page string="Transactions">
+                            <field name="crowdfunding_transaction_ids" context="{'default_model': 'marketplace.announcement'}"/>
+<!--                                <tree string="Transaction">
+                                    <field name="sender_id"/>
+                                    <field name="description"/>
+                                    <field name="total"/>
+                                    <field name="model" invisible="1"/>
+                                </tree>
+                            </field>-->
+                        </page>
+                        <page string="Propositions">
+                            <field name="proposition_ids" readonly="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+                </form>
+            </field>
+        </record>
+
+
+        <menuitem id="menu_crowdfunding_marketplace" name="Marketplace" parent="crowdfunding.menu_crowdfunding" sequence="10"/>
+
+        <record id="act_crowdfunding_marketplace_all" model="ir.actions.act_window">
+            <field name="name">All</field>
+            <field name="res_model">marketplace.announcement</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field eval="False" name="view_id"/>
+            <field name="domain">[('type','=','want'),('crowdfunding','=',True)]</field>
+            <field name="context">{'default_type':'want', 'type':'want'}</field>
+            <field name="search_view_id" ref="marketplace.view_marketplace_announcement_search"/>
+        </record>
+
+        <record id="act_crowdfunding_marketplace_all_tree" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_marketplace_announcement_crowdfunding_tree"/>
+            <field name="act_window_id" ref="act_crowdfunding_marketplace_all"/>
+        </record>
+
+        <record id="act_crowdfunding_marketplace_all_form" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_marketplace_announcement_crowdfunding_form"/>
+            <field name="act_window_id" ref="act_crowdfunding_marketplace_all"/>
+        </record>
+
+
+        <menuitem action="act_crowdfunding_marketplace_all" id="menu_act_crowdfunding_marketplace_all" parent="menu_crowdfunding_marketplace"/>
+
+
+    </data>
+</openerp>
