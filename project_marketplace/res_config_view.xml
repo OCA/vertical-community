@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+
+
+        <record id="view_community_configuration_centralbank" model="ir.ui.view">
+            <field name="name">community.configuration.centralbank</field>
+            <field name="model">community.config.settings</field>
+            <field name="inherit_id" ref="base_community.view_community_configuration"/>
+            <field name="arch" type="xml">
+                <form position="inside">
+                    <group>
+                        <field name="project_marketplace_stage_id"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</openerp>

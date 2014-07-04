@@ -252,6 +252,13 @@ class marketplace_announcement(osv.osv):
                 raise osv.except_osv(_('Access error!'),_("You need to have the role " + role_to_test + " to perform this action!"))
         return True
 
+    def change_state(self, cr, uid, ids, new_state, *args):
+        wf_service = netsvc.LocalService("workflow")
+        partner_obj = self.pool.get('res.partner')
+        for announcement in self.browse(cr, uid, ids):
+            fields = {'state':new_state}
+            self.write(cr, uid, [announcement.id], fields)
+
 
     def publish(self, cr, uid, ids, *args):
         for announcement in self.browse(cr, uid, ids):

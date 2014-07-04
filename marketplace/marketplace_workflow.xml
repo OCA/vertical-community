@@ -27,7 +27,7 @@
             <field name="wkf_id" ref="wkf_announcement"/>
             <field name="name">done</field>
             <field name="kind">function</field>
-            <field name="action">write({'state':'done'})</field>
+            <field name="action">change_state('done')</field>
             <field name="flow_stop">True</field>
         </record>
         <record id="act_announcement_cancel" model="workflow.activity">
