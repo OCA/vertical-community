@@ -46,7 +46,7 @@ Robert</field>
 Isabelle</field>
             <field name="presentation">Lorem ipsum</field>
             <field name="company_id" ref="base.main_company"/>
-            <field name="groups_id" eval="[(6,0,[ref('base.group_user'), ref('community.group_community_moderator')])]"/>
+            <field name="groups_id" eval="[(6,0,[ref('base.group_user')])]"/>
             <field name="moderator" eval="True"/>
             <field name="committee" eval="True"/>
         </record>

@@ -54,14 +54,18 @@ class groups_view(osv.osv):
 
         _logger.info('In community get_simplified')
 
-        category = model.get_object(cr, uid, 'community', 'module_category_community')
-        group_community_user = model.get_object(cr, uid, 'community', 'group_community_user')
-        group_community_administrator = model.get_object(cr, uid, 'community', 'group_community_administrator')
+        #We need to catch the exception for the community module installation, the records are not created at this point
+        try:
+            category = model.get_object(cr, uid, 'community', 'module_category_community')
+            group_community_user = model.get_object(cr, uid, 'community', 'group_community_user')
+            group_community_administrator = model.get_object(cr, uid, 'community', 'group_community_administrator')
 
-        res.append((category, 'selection', [group_community_user,group_community_administrator]))
+            res.append((category, 'selection', [group_community_user,group_community_administrator]))
 
-        group_membership_moderator = model.get_object(cr, uid, 'membership_users', 'group_membership_moderator')
-        res.append((category, 'boolean', [group_membership_moderator]))
+            group_membership_moderator = model.get_object(cr, uid, 'membership_users', 'group_membership_moderator')
+            res.append((category, 'boolean', [group_membership_moderator]))
+        except ValueError:
+            pass
 
         return res
 

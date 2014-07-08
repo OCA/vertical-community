@@ -34,3 +34,5 @@ class community_config_settings(osv.osv):
     _name = 'community.config.settings'
     _description = 'Community configuration'
 
+    _inherit = 'res.config.settings'
+

@@ -39,7 +39,7 @@
         <record id="centralbank_real_partner_expense_account" model="account.account">
             <field name="code">826</field>
             <field name="name">Real partner expense account</field>
-            <field name="parent_id" ref="marketplace_pcg_annexes"/>
+            <field name="parent_id" ref="centralbank_pcg_annexes"/>
             <field name="type">other</field>
             <field name="user_type" ref="account.data_account_type_liability"/>
         </record>
@@ -47,7 +47,7 @@
         <record id="centralbank_real_partner_income_account" model="account.account">
             <field name="code">827</field>
             <field name="name">Real partner income account</field>
-            <field name="parent_id" ref="marketplace_pcg_annexes"/>
+            <field name="parent_id" ref="centralbank_pcg_annexes"/>
             <field name="type">other</field>
             <field name="user_type" ref="account.data_account_type_liability"/>
         </record>

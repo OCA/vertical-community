@@ -2,6 +2,7 @@
 <openerp>
     <data>
 
+        <menuitem id="gamification.gamification_menu" name="Gamification Tools" parent="base.menu_marketing_config_association"/>
 
 
     </data>

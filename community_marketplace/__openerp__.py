@@ -23,7 +23,6 @@
  'version': '1.0',
  'category': 'Community',
  'depends': ['community',
-             'l10n_fr_marketplace',
              'marketplace',
              'marketplace_groups',
              ],
@@ -36,7 +35,7 @@ OpenERP for Communities - Marketplace
 
 """,
  'data': ['security/community_marketplace_security.xml'],
- 'demo': ['community_marketplace_demo.xml'],
+# 'demo': ['community_marketplace_demo.xml'],
  'installable': True,
  'application': True,
 }

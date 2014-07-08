@@ -15,14 +15,14 @@
         </record>
 
         <record id="action_community_configuration" model="ir.actions.act_window">
-            <field name="name">Configure Community</field>
+            <field name="name">Community</field>
             <field name="res_model">community.config.settings</field>
             <field name="view_id" ref="view_community_configuration"/>
             <field name="view_mode">form</field>
             <field name="res_id" ref="community_settings"/>
         </record>
 
-        <menuitem id="menu_community_admin_configuration" name="Community" parent="base.menu_config"
+        <menuitem id="menu_community_admin_configuration" parent="base.menu_config"
             sequence="15" action="action_community_configuration"/>
 
     </data>

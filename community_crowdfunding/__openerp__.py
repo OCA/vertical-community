@@ -19,32 +19,22 @@
 #
 ##############################################################################
 
-{'name': 'Marketplace',
+{'name': 'OpenERP CommunityTools - Crowdfunding',
  'version': '1.0',
- 'category': 'Association',
- 'depends': ['base',
-             'base_recursive_model',
-             'account',
-             'account_accountant',
-             'account_centralbank',
-             'account_reversal',
-             'vote',
+ 'category': 'Community',
+ 'depends': ['community',
+             'crowdfunding',
              ],
  'author': 'Yannick Buron',
  'license': 'AGPL-3',
- 'website': 'https://launchpad.net/marketplace',
+ 'website': 'https://launchpad.net/openerp-communitytools',
  'description': """
-Marketplace
+OpenERP for Communities - Crowdfunding
 =================
 
 """,
+ 'data': [],
  'demo': [],
- 'data': ['security/marketplace_security.xml',
-#          'security/ir.model.access.csv',
-          'marketplace_view.xml',
-          'marketplace_menu.xml',
-          'marketplace_workflow.xml',
-          ],
  'installable': True,
  'application': True,
 }

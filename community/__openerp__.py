@@ -23,8 +23,10 @@
  'version': '1.0',
  'category': 'Community',
  'depends': ['base',
+             'base_community',
              'calendar',
              'document',
+             'gamification',
 #             'im',
              'mail_groups_holacracy',
              'membership',
@@ -47,6 +49,7 @@ This module is the base module to allow your OpenERP to manage communities. It c
  'data': ['community_data.xml',
           'community_view.xml',
           'security/community_security.xml',
+          'res_config_view.xml'
           ],
  'demo': ['community_demo.xml'],
  'installable': True,
