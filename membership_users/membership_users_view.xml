@@ -68,12 +68,23 @@
                         <field name="lang"/>
                         <field name="active" groups="membership_users.group_membership_moderator"/>
                     </group>
+                    <group name="group_groups_id" col="4"/>
                     <div groups="membership_users.group_membership_moderator">
                         <button string="Send reset password link by email" type="object" name="action_reset_password" attrs="{'invisible': [('state', '!=', 'active')]}"/>
                         <button string="Send an invitation email" type="object" name="action_reset_password" context="{'create_user': 1}" attrs="{'invisible': [('state', '!=', 'new')]}"/>
                     </div>
 
                 </sheet>
+            </field>
+        </record>
+
+        <record id="user_groups_view_simple_form" model="ir.ui.view">
+            <field name="name">res.users.groups.simple.form</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="membership_users.view_users_simple_form_membership_users"/>
+            <field name="arch" type="xml">
+                <!-- dummy, will be modified by groups -->
+                <group name="group_groups_id" position="after"/>
             </field>
         </record>
 

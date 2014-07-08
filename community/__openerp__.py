@@ -26,6 +26,7 @@
              'calendar',
              'document',
 #             'im',
+             'mail_groups_holacracy',
              'membership',
              'membership_users',
              'portal',
@@ -43,9 +44,9 @@ OpenERP for Communities
 This module is the base module to allow your OpenERP to manage communities. It contains the base elements and a wizard which allow you to install another features.
 
 """,
- 'data': ['security/community_security.xml',
-          'community_data.xml',
-          'community_view.xml'
+ 'data': ['community_data.xml',
+          'community_view.xml',
+          'security/community_security.xml',
           ],
  'demo': ['community_demo.xml'],
  'installable': True,

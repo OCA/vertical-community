@@ -37,60 +37,32 @@ class community_init(osv.osv):
         icp.set_param(cr, uid, 'auth_signup.reset_password', True)
 
 
-class res_users(osv.osv):
+class groups_view(osv.osv):
+    _inherit = 'res.groups'
 
-    _inherit = 'res.users'
 
-    _columns = {
-        'committee': fields.boolean('Committee?'),
-        'moderator': fields.boolean('Moderator?'),
-    }
-
-    def create(self, cr, uid, values, context=None):
-        res = super(res_users, self).create(cr, uid, values, context=context)
-        self.update_community_rights(cr, uid, [res], values, context=context)
-        return res
-
-    def write(self, cr, uid, ids, values, context=None):
-
-        res = super(res_users, self).write(cr, uid, ids, values, context=context)
-        self.update_community_rights(cr, uid, ids, values, context=context)
-        return res
-
-    def update_community_rights(self, cr, uid, ids, values, context=None):
+    def get_simplified_groups_by_application(self, cr, uid, context=None):
+        """ return all groups classified by application (module category), as a list of pairs:
+                [(app, kind, [group, ...]), ...],
+            where app and group are browse records, and kind is either 'boolean' or 'selection'.
+            Applications are given in sequence order.  If kind is 'selection', the groups are
+            given in reverse implication order.
+        """
         model  = self.pool.get('ir.model.data')
-        group_obj = self.pool.get('res.groups')
 
+        res = super(groups_view, self).get_simplified_groups_by_application(cr, uid, context=context)
 
-        _logger.info('values %s', values)
+        _logger.info('In community get_simplified')
 
-        if 'moderator' in values:
-            if values['moderator']:
-                values['committee'] = True
+        category = model.get_object(cr, uid, 'community', 'module_category_community')
+        group_community_user = model.get_object(cr, uid, 'community', 'group_community_user')
+        group_community_administrator = model.get_object(cr, uid, 'community', 'group_community_administrator')
 
-        if 'committee' in values:
-            if values['committee']:
-                moderator_group_id = model.get_object(cr, uid, 'community', 'group_community_committee').id
-                for id in ids:
-                    group_obj.write(cr, uid, [moderator_group_id], {'users': [(4, id)]}, context=context)
-            else:
-                group_ids = group_obj.search(cr, uid, [('name', 'not in',['Portal','Anonymous'])], context=context)
-                base_group_id = model.get_object(cr, uid, 'community', 'group_community_user').id
-                for id in ids:
-                    group_obj.write(cr, uid, group_ids, {'users': [(3, id)]}, context=context)
-                    group_obj.write(cr, uid, [base_group_id], {'users': [(4, id)]}, context=context)
-        if 'moderator' in values:
-            if values['moderator']:
-                moderator_group_id = model.get_object(cr, uid, 'community', 'group_community_moderator').id
-                for id in ids:
-                    group_obj.write(cr, uid, [moderator_group_id], {'users': [(4, id)]}, context=context)
-            else:
-                group_ids = group_obj.search(cr, uid, [('name', 'not in',['Portal','Anonymous'])], context=context)
-                base_group_id = model.get_object(cr, uid, 'community', 'group_community_user').id
-                for user in self.browse(cr, uid, ids, context=context):
-                    if user.committee and not 'committee' in values or 'committee' in values and values['committee']:
-                        base_group_id = model.get_object(cr, uid, 'community', 'group_community_committee').id
-                    group_obj.write(cr, uid, group_ids, {'users': [(3, user.id)]}, context=context)
-                    group_obj.write(cr, uid, [base_group_id], {'users': [(4, user.id)]}, context=context)
+        res.append((category, 'selection', [group_community_user,group_community_administrator]))
+
+        group_membership_moderator = model.get_object(cr, uid, 'membership_users', 'group_membership_moderator')
+        res.append((category, 'boolean', [group_membership_moderator]))
+
+        return res
 
 
