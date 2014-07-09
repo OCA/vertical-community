@@ -34,7 +34,8 @@ OpenERP for Communities - Marketplace
 =================
 
 """,
- 'data': ['security/community_marketplace_security.xml'],
+ 'data': ['security/community_marketplace_security.xml',
+          'community_marketplace_view.xml'],
 # 'demo': ['community_marketplace_demo.xml'],
  'installable': True,
  'application': True,

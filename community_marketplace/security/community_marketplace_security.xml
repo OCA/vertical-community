@@ -3,7 +3,11 @@
     <data>
 
         <record id="community.group_community_user" model="res.groups">
-            <field name="implied_ids" eval="[(4,ref('marketplace.group_marketplace_user'))]"/>
+            <field name="implied_ids" eval="[(4,ref('account_centralbank.group_account_centralbank_user'))]"/>
+        </record>
+
+        <record id="community.group_community_administrator" model="res.groups">
+            <field name="implied_ids" eval="[(4,ref('account_centralbank.group_account_centralbank_moderator'))]"/>
         </record>
 
     </data>

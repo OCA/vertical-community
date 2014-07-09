@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <menuitem id="vote.menu_vote_configuration" name="Vote" parent="base.menu_marketing_config_association"/>
+
+    </data>
+</openerp>

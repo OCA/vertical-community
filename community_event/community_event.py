@@ -28,14 +28,6 @@ from openerp.tools.translate import _
 import logging
 _logger = logging.getLogger(__name__)
 
-class community_init(osv.osv):
-    _name = "community.init"
-
-    def _community_init(self, cr, uid):
-        icp = self.pool.get('ir.config_parameter')
-        icp.set_param(cr, uid, 'auth_signup.allow_uninvited', True)
-        icp.set_param(cr, uid, 'auth_signup.reset_password', True)
-
 
 class groups_view(osv.osv):
     _inherit = 'res.groups'
@@ -52,31 +44,12 @@ class groups_view(osv.osv):
 
         res = super(groups_view, self).get_simplified_groups_by_application(cr, uid, context=context)
 
-        _logger.info('In community get_simplified')
-
         #We need to catch the exception for the community module installation, the records are not created at this point
         try:
-            category = model.get_object(cr, uid, 'community', 'module_category_community')
-            group_community_user = model.get_object(cr, uid, 'community', 'group_community_user')
-            group_community_administrator = model.get_object(cr, uid, 'community', 'group_community_administrator')
-            res.append((category, 'selection', [group_community_user,group_community_administrator]))
-
-            category = model.get_object(cr, uid, 'base', 'module_category_website')
-            group_website_publisher = model.get_object(cr, uid, 'base', 'group_website_publisher')
-            group_website_designer = model.get_object(cr, uid, 'base', 'group_website_designer')
-            res.append((category, 'selection', [group_website_publisher,group_website_designer]))
-
-            category = model.get_object(cr, uid, 'base', 'module_category_knowledge_management')
-            group_document_user = model.get_object(cr, uid, 'base', 'group_document_user')
-            res.append((category, 'selection', [group_document_user]))
-
-            category = model.get_object(cr, uid, 'gamification', 'module_goal_category')
-            group_goal_manager = model.get_object(cr, uid, 'gamification', 'group_goal_manager')
-            res.append((category, 'selection', [group_goal_manager]))
-
-            category = model.get_object(cr, uid, 'community', 'module_category_community')
-            group_membership_moderator = model.get_object(cr, uid, 'membership_users', 'group_membership_moderator')
-            res.append((category, 'boolean', [group_membership_moderator]))
+            category = model.get_object(cr, uid, 'event', 'module_category_event_management')
+            group_event_user = model.get_object(cr, uid, 'event', 'group_event_user')
+            group_event_manager = model.get_object(cr, uid, 'event', 'group_event_manager')
+            res.append((category, 'selection', [group_event_user,group_event_manager]))
 
         except ValueError:
             pass

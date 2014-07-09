@@ -3,8 +3,7 @@
     <data>
 
         <record id="group_membership_moderator" model="res.groups">
-            <field name="name">Membership / Moderator</field>
-            <field name="implied_ids" eval="[(6, 0, [ref('mail_groups_holacracy.group_mail_committee')])]"/>
+            <field name="name">Membership / Manage Users</field>
         </record>
 
         <record id="base.group_erp_manager" model="res.groups">

@@ -363,12 +363,12 @@
             <field name="search_view_id" ref="view_marketplace_proposition_search"/>
         </record>
 
-        <menuitem action="action_marketplace_moderation_dispute" id="menu_action_marketplace_moderation_dispute" parent="menu_marketplace_moderation" groups="group_marketplace_moderator"/>
+        <menuitem action="action_marketplace_moderation_dispute" id="menu_action_marketplace_moderation_dispute" parent="menu_marketplace_moderation" groups="account_centralbank.group_account_centralbank_moderator"/>
 
 
 
         <!-- Configuration -->
-        <menuitem id="menu_marketplace_configuration" name="Configuration" parent="menu_marketplace" sequence="10" groups="group_marketplace_moderator"/>
+        <menuitem id="menu_marketplace_configuration" name="Configuration" parent="menu_marketplace" sequence="10" groups="account_centralbank.group_account_centralbank_moderator"/>
 
         <record id="act_mkp_announ_category_form" model="ir.actions.act_window">
             <field name="name">Offers/Wants Categories</field>
