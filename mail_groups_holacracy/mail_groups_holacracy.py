@@ -69,7 +69,7 @@ class mail_group(osv.osv):
     def write(self, cr, uid, ids, vals, context=None):
         partner_obj = self.pool.get('res.partner')
         old_parent_ids = []
-        _logger.info('ids %s', ids)
+        #_logger.info('ids %s', ids)
         if 'name' in vals:
             for group in self.browse(cr, uid, ids, context=context):
                 if group.partner_id:
@@ -84,7 +84,7 @@ class mail_group(osv.osv):
         res = super(mail_group, self).write(cr, uid, ids, vals, context=context)
         if 'parent_id' in vals or 'right_ids' in vals:
             self.update_followers(cr, uid, ids, context=context)
-            _logger.info('old_parent %s', old_parent_ids)
+#            _logger.info('old_parent %s', old_parent_ids)
             self.update_followers(cr, uid, old_parent_ids, context=context)
         return res
 
@@ -106,15 +106,15 @@ class mail_group(osv.osv):
         right_ids = right_obj.search(cr, uid, [], context=context)
         rights = right_obj.browse(cr, uid, right_ids, context=context)
 
-        _logger.info('get_right_from_children ids %s', ids)
+#        _logger.info('get_right_from_children ids %s', ids)
         res = {}
         for group in self.browse(cr, uid, ids, context=context):
             res[group.id] = {}
             for right in rights:
                 res[group.id][right.code] = []
 
-            _logger.info('group %s', group)
-            _logger.info('group.child_ids %s', group.child_ids)
+#            _logger.info('group %s', group)
+#            _logger.info('group.child_ids %s', group.child_ids)
             for child in group.child_ids:
                 child_rights = []
                 for child_right in child.right_ids:
@@ -128,7 +128,7 @@ class mail_group(osv.osv):
                 #deduplicate
                 res[group.id][right.code] = list(set(res[group.id][right.code]))
 
-        _logger.info('res get_right_from_children %s', res)
+#        _logger.info('res get_right_from_children %s', res)
         return res
 
 
@@ -142,7 +142,7 @@ class mail_group(osv.osv):
     def update_followers(self, cr, uid, ids, context={}):
         fol_obj = self.pool.get('mail.followers')
         context['in_recursivity'] = True
-        _logger.info('ids %s', ids)
+#        _logger.info('ids %s', ids)
 
         rights = self.get_right_from_children(cr, uid, ids, context=context)
 
@@ -154,7 +154,7 @@ class mail_group(osv.osv):
                 vals['partner_' + right + '_ids'] = [(6,0, partner_ids)]
             self.write(cr, uid, [group.id], vals, context=context)
  
-            _logger.info('group %s', group)
+#            _logger.info('group %s', group)
             if group.child_ids:
                 self.message_unsubscribe(cr, uid, [group.id], [p.id for p in group.message_follower_ids], context=context)
                 for child in group.child_ids:
@@ -163,22 +163,22 @@ class mail_group(osv.osv):
                 parent_ids.append(group.parent_id.id)
             else:
                 group_without_children_ids.append(group.id)
-        _logger.info('recursivity, parent : %s', parent_ids)
+#        _logger.info('recursivity, parent : %s', parent_ids)
         if parent_ids:
             self.update_followers(cr, uid, parent_ids, context=context)
 
         if group_without_children_ids:
-            _logger.info('group_without_children_ids %s', group_without_children_ids)
+#            _logger.info('group_without_children_ids %s', group_without_children_ids)
             self.update_rights_descendant(cr, uid, group_without_children_ids, rights, context=context)
 
     def update_rights_descendant(self, cr, uid, ids, rights, context=None):
 
         child_ids = []
         child_rights = self.get_right_from_children(cr, uid, [c.id for group in self.browse(cr, uid, ids, context=context) for c in group.child_ids], context=context)
-        _logger.info('update_rights_descendant ids %s', ids)
-        _logger.info('rights %s', rights)
+#        _logger.info('update_rights_descendant ids %s', ids)
+#        _logger.info('rights %s', rights)
         for group in self.browse(cr, uid, ids, context=context):
-            _logger.info('name %s', group.name)
+#            _logger.info('name %s', group.name)
 
             for child in group.child_ids:
                 child_ids.append(child.id)
@@ -194,7 +194,7 @@ class mail_group(osv.osv):
                 self.write(cr, uid, [child.id], vals, context=context)
 
 
-        _logger.info('child_ids %s', child_ids)
+#        _logger.info('child_ids %s', child_ids)
         if child_ids:
             self.update_rights_descendant(cr, uid, child_ids, child_rights, context=context)
             

@@ -19,10 +19,10 @@
 #
 ##############################################################################
 
-{'name': 'Base Configuration',
+{'name': 'Base Community',
  'version': '1.0',
  'category': 'Community',
- 'depends': ['base',
+ 'depends': ['base','mail'
              ],
  'author': 'Yannick Buron',
  'license': 'AGPL-3',
@@ -34,7 +34,7 @@ Base Community
 Simple module which set a configuration menu for Communities
 
 """,
- 'demo': [],
+ 'demo': ['base_community_demo.xml'],
  'data': ['res_config_view.xml',
           'security/ir.model.access.csv'],
  'installable': True,

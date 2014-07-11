@@ -22,7 +22,8 @@
 {'name': 'Holacracy',
  'version': '1.0',
  'category': 'Social Network',
- 'depends': ['base_recursive_model',
+ 'depends': ['base_community',
+             'base_recursive_model',
              'mail',
              ],
  'author': 'Yannick Buron',
@@ -40,6 +41,7 @@ Now the group are in arborescence, you can use them as circle or role, and defin
           'security/ir.model.access.csv',
           'mail_groups_holacracy_view.xml'
           ],
+ 'test': ['tests/mail_groups_holacracy.yml'],
  'installable': True,
  'application': True,
 }

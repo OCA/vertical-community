@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+   <data>
+
+        <record id="partner_joel" model="res.partner">
+            <field name="name">Joel Grand-Guillaume</field>
+            <field name="parent_id" ref="base.res_partner_12"/>
+            <field name="use_parent_address" eval="True"/>
+            <field name="function">Business Division Manager</field>
+            <field name="email">joel.grandguillaume@camptocamp.example.com</field>
+            <field name="notify_email">none</field>
+        </record>
+
+        <record id="user_joel" model="res.users">
+            <field name="partner_id" ref="partner_joel"/>
+            <field name="login">joel</field>
+            <field name="password">joel</field>
+           <field name="signature">--
+Joel</field>
+            <field name="company_id" ref="base.main_company"/>
+        </record>
+
+        <record id="user_luc" model="res.users">
+            <field name="partner_id" ref="base.res_partner_address_21"/>
+            <field name="login">luc</field>
+            <field name="password">luc</field>
+           <field name="signature">--
+Luc</field>
+            <field name="company_id" ref="base.main_company"/>
+        </record>
+
+        <record id="user_nhomar" model="res.users">
+            <field name="partner_id" ref="base.res_partner_address_36"/>
+            <field name="login">nhomar</field>
+            <field name="password">nhomar</field>
+            <field name="signature">--
+Nhomar</field>
+            <field name="company_id" ref="base.main_company"/>
+        </record>
+
+    </data>
+</openerp>

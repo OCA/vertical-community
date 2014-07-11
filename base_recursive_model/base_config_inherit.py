@@ -147,7 +147,7 @@ class base_config_inherit_model(osv.AbstractModel):
                 _logger.info('config_line_del %s', config_line_del)
                 config_del_obj.create(cr, uid, config_line_del, context=context)
 
-        if 'parent_id' in record:
+        if 'parent_id' in self._columns:
             child_ids = self._get_child_ids(cr, uid, ids, context=context)
             _logger.info('-----------------------------')
             _logger.info('parent_ids %s, child_ids %s', ids, child_ids)
