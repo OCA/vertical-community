@@ -32,9 +32,11 @@
 Account CentralBank Groups
 =================
 """,
- 'demo': [],
- 'data': ['account_centralbank_groups_view.xml'
+ 'demo': ['data/account_centralbank_groups_demo.xml'],
+ 'data': ['account_centralbank_groups_view.xml',
+          'security/account_centralbank_groups_security.xml',
           ],
+ 'test': ['tests/account_centralbank_groups.yml'],
  'installable': True,
  'application': True,
 }

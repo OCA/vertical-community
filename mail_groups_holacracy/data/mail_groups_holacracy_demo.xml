@@ -61,7 +61,7 @@
             <field name="description">Members</field>
             <field name="type">circle</field>
             <field name="parent_id" ref="group_oca"/>
-            <field name="message_follower_ids" eval="[(4,ref('base.partner_demo'))]"/>
+            <field name="message_follower_ids" eval="[(4,ref('base.partner_demo')),(4,ref('base.res_partner_main1')),(4,ref('base.res_partner_main2'))]"/>
         </record>
         <record model="mail.group" id="group_organisations">
             <field name="name">Organisations</field>
@@ -105,11 +105,12 @@
         <record id="base.res_partner_23" model="res.partner">
             <field name="group_id" ref="group_organisations_vauxoo"/>
         </record>
-        <record model="mail.group" id="group_organisations_vauxoo_employee">
-            <field name="name">Employees</field>
+        <record model="mail.group" id="group_organisations_vauxoo_director">
+            <field name="name">Director</field>
             <field name="type">role</field>
             <field name="parent_id" ref="group_organisations_vauxoo"/>
             <field name="message_follower_ids" eval="[(4,ref('base.res_partner_address_36'))]"/>
+            <field name="right_ids" eval="[(4,ref('mail_group_right_invitation')),(4,ref('mail_group_right_group_management'))]"/>
         </record>
         <record model="mail.group" id="group_organisations_yourcompany">
             <field name="name">Your Company</field>
@@ -124,14 +125,14 @@
             <field name="name">Director</field>
             <field name="type">role</field>
             <field name="parent_id" ref="group_organisations_yourcompany"/>
-            <field name="message_follower_ids" eval="[(4,ref('base.partner_root'))]"/>
+            <field name="message_follower_ids" eval="[(4,ref('base.partner_root')),(4,ref('base.res_partner_main1'))]"/>
             <field name="right_ids" eval="[(4,ref('mail_group_right_invitation')),(4,ref('mail_group_right_group_management'))]"/>
         </record>
         <record model="mail.group" id="group_organisations_yourcompany_employee">
             <field name="name">Employees</field>
             <field name="type">role</field>
             <field name="parent_id" ref="group_organisations_yourcompany"/>
-            <field name="message_follower_ids" eval="[(4,ref('base.partner_demo'))]"/>
+            <field name="message_follower_ids" eval="[(4,ref('base.partner_demo')),(4,ref('base.res_partner_main2'))]"/>
         </record>
 
         <record model="mail.group" id="group_teams">
