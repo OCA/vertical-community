@@ -38,5 +38,23 @@ Nhomar</field>
             <field name="company_id" ref="base.main_company"/>
         </record>
 
+        <record id="user_mark" model="res.users">
+            <field name="partner_id" ref="base.res_partner_main1"/>
+            <field name="login">mark</field>
+            <field name="password">mark</field>
+            <field name="signature">--
+Mark</field>
+            <field name="company_id" ref="base.main_company"/>
+        </record>
+
+        <record id="user_roger" model="res.users">
+            <field name="partner_id" ref="base.res_partner_main2"/>
+            <field name="login">roger</field>
+            <field name="password">roger</field>
+            <field name="signature">--
+Roger</field>
+            <field name="company_id" ref="base.main_company"/>
+        </record>
+
     </data>
 </openerp>

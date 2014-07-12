@@ -62,6 +62,11 @@ class account_centralbank_currency_line(osv.osv):
         'field': 'currency_ids'
     }
 
+    _sql_constraints = [
+        ('object_currency', 'unique(model,res_id,field,currency_id)', 'We can only have one currency per record')
+    ]
+
+
 class account_centralbank_transaction(osv.osv):
 
     def _get_price_name(self, cr, uid, ids, prop, unknow_none, context=None):
@@ -82,7 +87,7 @@ class account_centralbank_transaction(osv.osv):
     def _get_user_role(self, cr, uid, ids, prop, unknow_none, context=None):
         wf_service = netsvc.LocalService("workflow")
         res = {}
-        _logger.info('In regular get_user_role')
+        _logger.info('In regular get_user_role, uid %s', uid)
         partner_id = self.pool.get('res.users').browse(cr, uid, uid, context=context).partner_id.id 
         for transaction in self.browse(cr, uid, ids, context=context):
             res[transaction.id] = {}
@@ -117,6 +122,7 @@ class account_centralbank_transaction(osv.osv):
             domain=lambda self: [('model', '=', self._name),('field','=','currency_ids')],
             auto_join=True,
             string='Currencies', readonly=True, states={'draft':[('readonly',False)]}),
+        'already_published': fields.boolean('Already published?'),
         'move_ids': fields.one2many('account.move', 'centralbank_transaction_id', 'Moves'),
         'reservation_id': fields.many2one('account.move', 'Reservation move'),
         'invoice_id': fields.many2one('account.move', 'Invoice move'),
@@ -191,6 +197,14 @@ class account_centralbank_transaction(osv.osv):
         'model_id': _default_model,
     }
 
+    def unlink(self, cr, uid, ids, context=None):
+        currency_line_obj = self.pool.get('account.centralbank.currency.line')
+        for transaction in self.browse(cr, uid, ids, context=context):
+            currency_line_ids = [c.id for c in transaction.currency_ids]
+            currency_line_obj.unlink(cr, uid, currency_line_ids, context=context)
+        return super(account_centralbank_transaction, self).unlink(cr, uid, ids, context=context)
+
+
     def test_access_role(self, cr, uid, ids, role_to_test, *args):
         import logging
         _logger = logging.getLogger(__name__)
@@ -250,7 +264,7 @@ class account_centralbank_transaction(osv.osv):
             for move_field in fields:
                 import logging
                 _logger = logging.getLogger(__name__)
-                _logger.info('Move field: %s', getattr(transaction, move_field + '_id'))
+                _logger.info('Move %s_id field: %s', move_field, getattr(transaction, move_field + '_id'))
 
                 move = getattr(transaction, move_field + '_id')
                 import logging
@@ -268,6 +282,7 @@ class account_centralbank_transaction(osv.osv):
                     move_obj.write(cr, uid, [reversal_move_id], {'centralbank_action': flag, 'centralbank_transaction_id': transaction.id}, context=context)
                     self.write(cr, uid, [transaction.id], {move_field + '_id': False}, context=context)
                     self.reconcile(cr, uid, [move.id, reversal_move_id], context=context)
+                _logger.info('2Move %s_id field: %s', move_field, getattr(transaction, move_field + '_id').id)
 
     def control_amount(self, cr, uid, transaction, sender, receiver, inv=False, context=None):
 
@@ -436,6 +451,7 @@ class account_centralbank_transaction(osv.osv):
                     'quantity': transaction.quantity,
                     'product_uom_id': transaction.uom_id.id,
                 }))
+        _logger.info('lines: %s', lines)
         return lines
 
 
@@ -472,7 +488,7 @@ class account_centralbank_transaction(osv.osv):
 #                lines = self.get_account_line(cr, uid, lines, proposition, 'community', 'payment', 'group_com', context=context)
 #            if proposition.real_price_unit and proposition.announcement_id.real_company_commission:
 #                lines = self.get_account_line(cr, uid, lines, proposition, 'real', 'payment', 'group_com', context=context)
-
+                _logger.info('lines: %s', lines)
                 move_obj.write(cr, uid, [move_id], {'line_id': lines})
                 move_obj.post(cr, uid, [move_id])
                 self.write(cr, uid, [transaction.id], {action + '_id': move_id})
@@ -503,6 +519,7 @@ class account_centralbank_transaction(osv.osv):
         wf_service = netsvc.LocalService("workflow")
         self.test_access_role(cr, uid, ids, 'is_sender', *args)
 
+        self.write(cr, uid, ids, {'already_published': True})
         for transaction in self.browse(cr, uid, ids):
             self.prepare_move(cr, uid, [transaction.id], 'reservation')
             self.prepare_move(cr, uid, [transaction.id], 'payment')
@@ -552,7 +569,7 @@ class account_centralbank_transaction(osv.osv):
                 if not skip_confirm:
                     wf_service.trg_validate(uid, 'account.centralbank.transaction', transaction.id, 'transaction_draft_confirm_refund', cr)
                 else:
-                    wf_service.trg_validate(uid, 'account.centralbank.transaction', transaction.id, 'transaction_draft_cancel', cr)
+                    wf_service.trg_validate(uid, 'account.centralbank.transaction', transaction.id, 'transaction_done_cancel_through_draft', cr)
         return True
 
 
@@ -800,7 +817,7 @@ class res_partner_centralbank_currency(osv.osv):
         'income_account': fields.many2one('account.account', 'Income account'),
     }
 
-class res_partner_marketplace_balance(osv.osv_memory):
+class res_partner_centralbank_balance(osv.osv_memory):
 
     _name = "res.partner.centralbank.balance"
     _description = "Balance"

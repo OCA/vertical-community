@@ -24,80 +24,44 @@
         <field name="implied_ids" eval="[(4, ref('group_account_centralbank_moderator'))]"/>
     </record>
 
-
-<!--
-    <record id="marketplace_announcement_user_read_rule" model="ir.rule">
-        <field name="name">marketplace announcement user read</field>
-        <field name="model_id" ref="model_marketplace_announcement"/>
-        <field name="domain_force">[('state','not in',['draft','cancel'])]</field>
-        <field name="groups"  eval="[(6,0,[ref('group_marketplace_user')])]"/>
-        <field name="perm_read" eval="True"/>
-        <field name="perm_write" eval="False"/>
-        <field name="perm_create" eval="False"/>
-        <field name="perm_unlink" eval="False"/>
-    </record>
-
-    <record id="marketplace_proposition_user_read_rule" model="ir.rule">
-        <field name="name">marketplace proposition user read</field>
-        <field name="model_id" ref="model_marketplace_proposition"/>
+    <record id="account_centralbank_transaction_user_read_rule" model="ir.rule">
+        <field name="name">centralbank transaction user read</field>
+        <field name="model_id" ref="model_account_centralbank_transaction"/>
         <field name="domain_force">['|',('state','not in',['draft','cancel']),('already_published','=',True)]</field>
-        <field name="groups"  eval="[(6,0,[ref('group_marketplace_user')])]"/>
+        <field name="groups"  eval="[(6,0,[ref('group_account_centralbank_user')])]"/>
         <field name="perm_read" eval="True"/>
         <field name="perm_write" eval="False"/>
         <field name="perm_create" eval="False"/>
         <field name="perm_unlink" eval="False"/>
     </record>
 
-    <record id="marketplace_announcement_user_own_rule" model="ir.rule">
-        <field name="name">marketplace announcement user own</field>
-        <field name="model_id" ref="model_marketplace_announcement"/>
-        <field name="domain_force">[('user_id','=',user.id)]</field>
-        <field name="groups"  eval="[(6,0,[ref('group_marketplace_user')])]"/>
+    <record id="account_centralbank_transaction_user_own_rule" model="ir.rule">
+        <field name="name">centralbank transaction user own</field>
+        <field name="model_id" ref="model_account_centralbank_transaction"/>
+        <field name="domain_force">[('sender_id.user_ids','in',user.id)]</field>
+        <field name="groups"  eval="[(6,0,[ref('group_account_centralbank_user')])]"/>
         <field name="perm_read" eval="True"/>
         <field name="perm_write" eval="True"/>
         <field name="perm_create" eval="True"/>
         <field name="perm_unlink" eval="True"/>
     </record>
 
-    <record id="marketplace_proposition_user_own_rule" model="ir.rule">
-        <field name="name">marketplace proposition user own</field>
-        <field name="model_id" ref="model_marketplace_proposition"/>
-        <field name="domain_force">[('user_id','=',user.id)]</field>
-        <field name="groups"  eval="[(6,0,[ref('group_marketplace_user')])]"/>
-        <field name="perm_read" eval="True"/>
-        <field name="perm_write" eval="True"/>
-        <field name="perm_create" eval="True"/>
-        <field name="perm_unlink" eval="True"/>
-    </record>
-
-    <record id="marketplace_proposition_announcer_rule" model="ir.rule">
-        <field name="name">marketplace proposition announcer</field>
-        <field name="model_id" ref="model_marketplace_proposition"/>
-        <field name="domain_force">[('announcement_id.user_id','=',user.id)]</field>
-        <field name="groups"  eval="[(6,0,[ref('group_marketplace_user')])]"/>
+    <record id="account_centralbank_transaction_receiver_rule" model="ir.rule">
+        <field name="name">centralbank transaction receiver</field>
+        <field name="model_id" ref="model_account_centralbank_transaction"/>
+        <field name="domain_force">[('receiver_id.user_ids','in',user.id)]</field>
+        <field name="groups"  eval="[(6,0,[ref('group_account_centralbank_user')])]"/>
         <field name="perm_read" eval="True"/>
         <field name="perm_write" eval="True"/>
         <field name="perm_create" eval="False"/>
         <field name="perm_unlink" eval="False"/>
     </record>
 
-
-    <record id="marketplace_announcement_moderator_rule" model="ir.rule">
-        <field name="name">marketplace announcement moderator all rights</field>
-        <field name="model_id" ref="model_marketplace_announcement"/>
+    <record id="account_centralbank_transaction_moderator_rule" model="ir.rule">
+        <field name="name">centralbank transaction moderator all rights</field>
+        <field name="model_id" ref="model_account_centralbank_transaction"/>
         <field name="domain_force">[(1,'=',1)]</field>
-        <field name="groups"  eval="[(6,0,[ref('group_marketplace_moderator')])]"/>
-        <field name="perm_read" eval="True"/>
-        <field name="perm_write" eval="True"/>
-        <field name="perm_create" eval="True"/>
-        <field name="perm_unlink" eval="True"/>
-    </record>
-
-    <record id="marketplace_proposition_moderator_rule" model="ir.rule">
-        <field name="name">marketplace proposition moderator all rights</field>
-        <field name="model_id" ref="model_marketplace_proposition"/>
-        <field name="domain_force">[(1,'=',1)]</field>
-        <field name="groups"  eval="[(6,0,[ref('group_marketplace_moderator')])]"/>
+        <field name="groups"  eval="[(6,0,[ref('group_account_centralbank_moderator')])]"/>
         <field name="perm_read" eval="True"/>
         <field name="perm_write" eval="True"/>
         <field name="perm_create" eval="True"/>
@@ -111,6 +75,6 @@
         <field name="perm_create" eval="False"/>
         <field name="perm_unlink" eval="False"/>
     </record>
--->
+
 </data>
 </openerp>

@@ -74,6 +74,12 @@
             <field name="signal">transaction_draft_done</field>
             <field name="condition">test_access_role('is_sender')</field>
         </record>
+        <record id="transaction_done_cancel_through_draft" model="workflow.transition">
+            <field name="act_from" ref="act_transaction_draft"/>
+            <field name="act_to" ref="act_transaction_cancel"/>
+            <field name="signal">transaction_done_cancel_through_draft</field>
+            <field name="condition">test_access_role('is_receiver')</field>
+        </record>
         <record id="transaction_draft_confirm_refund" model="workflow.transition">
             <field name="act_from" ref="act_transaction_draft"/>
             <field name="act_to" ref="act_transaction_confirm_refund"/>

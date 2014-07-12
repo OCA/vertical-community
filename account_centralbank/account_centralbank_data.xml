@@ -161,9 +161,6 @@
             <field eval="time.strftime('%Y-01-01')" name="name"/>
             <field name="rate">1.0</field>
         </record>
-        <record id="base.EUR" model="res.currency">
-            <field name="centralbank_currency" eval="True"/>
-        </record>
 
         <record id="base_community.community_settings" model='community.config.settings'>
             <field name="journal_id" ref="community_journal"/>
@@ -174,7 +171,7 @@
             <field name="config_id" ref="base_community.community_settings"/>
             <field name="currency_id" ref="COM"/>
             <field name="limit_negative" eval="True"/>
-            <field name="limit_negative_value">500</field>
+            <field name="limit_negative_value">-500</field>
             <field name="limit_positive" eval="True"/>
             <field name="limit_positive_value">500</field>
             <field name="partner_availability_account_id" ref="community_partner_availability_account"/>
@@ -182,19 +179,6 @@
             <field name="partner_expense_account_id" ref="community_partner_expense_account"/>
             <field name="partner_income_account_id" ref="community_partner_income_account"/>
         </record>
-
-        <record id="centralbank_currency_EUR" model="account.centralbank.config.currency">
-            <field name="config_id" ref="base_community.community_settings"/>
-            <field name="currency_id" ref="base.EUR"/>
-            <field name="limit_negative" eval="False"/>
-            <field name="limit_positive" eval="False"/>
-            <field name="partner_availability_account_id" ref="community_centralbank_stock_account"/>
-            <field name="partner_reserved_account_id" ref="community_centralbank_stock_account"/>
-            <field name="partner_expense_account_id" ref="community_centralbank_stock_account"/>
-            <field name="partner_income_account_id" ref="community_centralbank_stock_account"/>
-            <field name="external_currency" eval="True"/>
-        </record>
-
 
     </data>
 </openerp>

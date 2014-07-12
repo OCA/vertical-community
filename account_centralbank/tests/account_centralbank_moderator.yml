@@ -1,0 +1,52 @@
+-
+  In order to test account transaction I create a new transaction with the moderator nhomar
+-
+  !context
+    uid: 'base_community.user_nhomar'
+-
+  !record {model: account.centralbank.transaction, id: transaction_test_1}:
+    sender_id: base.partner_demo
+    receiver_id: base.res_partner_main1
+    description: 'Test transaction between users'
+    currency_ids:
+      - model: "account.centralbank.transaction"
+        field: "currency_ids"
+        price_unit: 50
+        currency_id: COM
+-
+  I check that nhomar can confirm it
+-
+  !python {model: account.centralbank.transaction}: |
+    self.confirm(cr, uid, [ref('transaction_test_1')])
+-
+  !assert {model: account.centralbank.transaction, id: transaction_test_1, string: "Nhomar wasn't able to confirm the transaction, or the confirm state wasn't skipped!"}:
+    - state == 'done'
+-
+  I check that a reservation transaction was made
+-
+  !assert {model: account.centralbank.transaction, id: transaction_test_1, string: "No reservation transaction was made"}:
+    - reservation_id.id != False
+-
+  I check that a payment transaction was made
+-
+  !assert {model: account.centralbank.transaction, id: transaction_test_1, string: "No payment transaction was made"}:
+    - payment_id.id != False
+#########################################################
+-
+  I check that nhomar can cancel it
+-
+  !python {model: account.centralbank.transaction}: |
+    self.reset_workflow(cr, uid, [ref('transaction_test_1')])
+-
+  !assert {model: account.centralbank.transaction, id: transaction_test_1, string: "Nhomar wasn't able to cancel the transaction, or the confirm refund state wasn't skipped!"}:
+    - state == 'cancel'
+-
+  I check that the reservation transaction is cancelled
+-
+  !assert {model: account.centralbank.transaction, id: transaction_test_1, string: "The reservation transaction is still here!"}:
+    - reservation_id.id == False
+-
+  I check that a payment transaction is cancelled
+-
+  !assert {model: account.centralbank.transaction, id: transaction_test_1, string: "The payment transaction is still here!"}:
+    - payment_id.id == False

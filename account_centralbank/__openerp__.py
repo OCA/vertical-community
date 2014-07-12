@@ -34,7 +34,7 @@ Account CentralBank
 =================
 
 """,
- 'demo': [],
+ 'demo': ['data/account_centralbank_demo.xml'],
  'data': ['security/account_centralbank_security.xml',
           'account_centralbank_view.xml',
           'account_centralbank_data.xml',
@@ -42,6 +42,8 @@ Account CentralBank
           'res_config_view.xml',
           'security/ir.model.access.csv'
           ],
+ 'test': ['tests/account_centralbank.yml',
+          'tests/account_centralbank_moderator.yml'],
  'installable': True,
  'application': True,
 }
