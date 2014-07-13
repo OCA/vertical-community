@@ -36,7 +36,6 @@ CentralBank french localisation
  'demo': [],
  'data': ['l10n_fr_centralbank_account_data.xml',
           ],
- 'test': ['tests/l10n_fr_centralbank.yml'],
  'installable': True,
  'application': True,
 }
