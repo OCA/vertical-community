@@ -768,7 +768,8 @@ class res_partner(osv.osv):
         return res_final
 
     def _get_centralbank_balance(self, cr, uid, ids, field_names, arg, context=None):
-
+        import logging
+        _logger = logging.getLogger(__name__)
         balances = self.get_centralbank_balance(cr, uid, ids, context=context)
         now = datetime.now()
         proxy = self.pool.get('ir.model.data')
@@ -777,16 +778,14 @@ class res_partner(osv.osv):
         for partner in self.browse(cr, uid, ids, context=context):
             res[partner.id] = []
 
-            #In we do not control that the partner already exist, it trigger a bug at the account creation. I am controlling this by checking that the partner wasn't created in the last 60 second, this is crappy but it work. TOIMPROVE TODO
+            #If we do not control that the partner already exist, it trigger a bug at the account creation. I am controlling this by checking that the partner wasn't created in the last 60 second, this is crappy but it work. TOIMPROVE TODO
             delta = now - datetime.strptime(partner.create_date,"%Y-%m-%d %H:%M:%S")
-            if delta.total_seconds() < 60 or partner.id == proxy.get_object(cr, uid, 'auth_signup', 'default_template_user').partner_id.id:
+            if (delta.total_seconds() < 60 or partner.id == proxy.get_object(cr, uid, 'auth_signup', 'default_template_user').partner_id.id) and partner.id not in [proxy.get_object(cr, uid, 'account_centralbank', 'partner_test1').id,proxy.get_object(cr, uid, 'account_centralbank', 'partner_test2').id] :
                 continue
 
             for currency in balances[partner.id].values():
                 res[partner.id].append((0,0,currency))
-        import logging
-        _logger = logging.getLogger(__name__)
-        _logger.info('res_final: %s',res)
+        _logger.info('res_final_final: %s',res)
 
         return res
                 

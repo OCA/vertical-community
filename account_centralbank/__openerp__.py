@@ -42,8 +42,13 @@ Account CentralBank
           'res_config_view.xml',
           'security/ir.model.access.csv'
           ],
- 'test': ['tests/account_centralbank.yml',
-          'tests/account_centralbank_moderator.yml'],
+ 'test': ['tests/account_centralbank_users.yml',
+          'tests/account_centralbank_rights.yml',
+          'tests/account_centralbank_moderator.yml',
+          'tests/account_centralbank_external.yml',
+          'tests/account_centralbank_limits.yml',
+          'tests/account_centralbank_balances.yml',
+          ],
  'installable': True,
  'application': True,
 }

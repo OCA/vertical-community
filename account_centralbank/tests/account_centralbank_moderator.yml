@@ -5,13 +5,13 @@
     uid: 'base_community.user_nhomar'
 -
   !record {model: account.centralbank.transaction, id: transaction_test_1}:
-    sender_id: base.partner_demo
-    receiver_id: base.res_partner_main1
+    sender_id: partner_test1
+    receiver_id: partner_test2
     description: 'Test transaction between users'
     currency_ids:
       - model: "account.centralbank.transaction"
         field: "currency_ids"
-        price_unit: 50
+        price_unit: 100
         currency_id: COM
 -
   I check that nhomar can confirm it
