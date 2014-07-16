@@ -80,6 +80,7 @@ class marketplace_announcement(osv.osv):
             if self.pool.get('res.users').has_group(cr, uid, 'account_centralbank.group_account_centralbank_moderator'):
                 res[transaction.id]['is_user'] = True
                 res[transaction.id]['is_moderator'] = True
+            _logger.info('uid %s, role %s', uid, res[transaction.id])
         return res
 
     def _get_address(self, cr, uid, ids, prop, unknow_none, context=None):
@@ -248,6 +249,7 @@ class marketplace_announcement(osv.osv):
         res = self._get_user_role(cr, uid, ids, {}, {})
         for announcement in self.browse(cr, uid, ids):
             role = res[announcement.id]
+            _logger.info('uid %s, role %s', uid, role)
             if not role[role_to_test]:
                 raise osv.except_osv(_('Access error!'),_("You need to have the role " + role_to_test + " to perform this action!"))
         return True
@@ -256,6 +258,7 @@ class marketplace_announcement(osv.osv):
         wf_service = netsvc.LocalService("workflow")
         partner_obj = self.pool.get('res.partner')
         for announcement in self.browse(cr, uid, ids):
+            _logger.info('uid %s, new_state %s', uid, new_state)
             fields = {'state':new_state}
             self.write(cr, uid, [announcement.id], fields)
 
@@ -352,7 +355,7 @@ class marketplace_proposition(osv.osv):
                 values['is_moderator_or_aggree'] = True
 
             res[proposition.id] = values
-
+        _logger.info('user_role proposition uid %s, res %s', uid, res)
         return res
 
     _name = 'marketplace.proposition'
@@ -417,6 +420,7 @@ class marketplace_proposition(osv.osv):
     _defaults = {
         'currency_ids': _default_currency_ids,
         'model_id': _default_model,
+        'state': 'draft'
     }
 
     def test_access_role(self, cr, uid, ids, role_to_test, *args):
@@ -533,6 +537,7 @@ class marketplace_proposition(osv.osv):
                 role_to_test = 'is_announcer'
             elif state == 'paid':
                 role_to_test = 'is_receiver'
+            _logger.info('reset workflow state %s, role to test %s', state, role_to_test)
             self.test_access_role(cr, uid, ids, role_to_test, *args)
 
             wf_service.trg_delete(uid, 'marketplace.proposition', proposition.id, cr)
@@ -544,7 +549,7 @@ class marketplace_proposition(osv.osv):
                 if not skip_confirm:
                     wf_service.trg_validate(uid, 'marketplace.proposition', proposition.id, 'proposition_draft_confirm_refund', cr)
                 else:
-                    wf_service.trg_validate(uid, 'marketplace.proposition', proposition.id, 'proposition_draft_cancel', cr)
+                    wf_service.trg_validate(uid, 'marketplace.proposition', proposition.id, 'proposition_paid_cancel_through_draft', cr)
         return True
 
 #    def get_debit_credit_partner(self, cr, uid, debit_object, credit_object, context=None):
@@ -562,6 +567,14 @@ class marketplace_proposition(osv.osv):
 
 
     def write(self, cr, uid, ids, vals, context=None):
+        _logger.info('write vals %s', vals)
+        if 'want_cancel_user' in vals or 'want_cancel_announcer' in vals:
+            for proposition in self.browse(cr, uid, ids, context=context):
+                if 'want_cancel_user' in vals and not proposition.is_user:
+                    raise osv.except_osv(_('Access error!'),_("You need to have the role is_user to tick the cancel checkbox from user"))
+                _logger.info('uid %s, proposition.is_announcer %s', uid, proposition.is_announcer)
+                if 'want_cancel_announcer' in vals and not proposition.is_announcer:
+                    raise osv.except_osv(_('Access error!'),_("You need to have the role is_announcer to tick the cancel checkbox from announcer"))
         res = super(marketplace_proposition, self).write(cr, uid, ids, vals, context=context)
         for proposition in self.browse(cr, uid, ids, context=context):
             if proposition.state == 'vote':

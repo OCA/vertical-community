@@ -120,7 +120,6 @@ class base_config_inherit_model(osv.AbstractModel):
             for config_line in getattr(record, self._base_config_inherit_o2m):
                 key = getattr(config_line, self._base_config_inherit_key).id
                 if config_line.action == 'add':
-                    _logger.info('In add config_line %s, %s', config_line, config_line.role_id)
                     config_lines[key] = self._prepare_config(cr, uid, record.id, config_line, vals={}, context=context)
                     _logger.info('After config_line %s', config_lines)
                     if key in config_line_dels:
