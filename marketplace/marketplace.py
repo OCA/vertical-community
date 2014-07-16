@@ -153,7 +153,7 @@ class marketplace_announcement(osv.osv):
         'type': fields.selection([
             ('offer','Offer'),
             ('want','Want'),
-            ],'Type', readonly=True, required=True),
+            ],'Type', required=True),
         'description': fields.text('Description'),
         'picture': fields.function(_get_binary_filesystem, fnct_inv=_set_binary_filesystem, type='binary', string='Picture'),
         'expiration_date': fields.date('Expiry on'),
@@ -228,6 +228,17 @@ class marketplace_announcement(osv.osv):
         'quantity': 1.0,
         'uom_id': _get_uom_id,
     }
+
+    def test_close(self, cr, uid, ids, context=None):
+        wf_service = netsvc.LocalService("workflow")
+        for announcement in self.browse(cr, uid, ids, context=context):
+            _logger.info('==============================================')
+            _logger.info('announcement.state %s, announcement.quantity_available %s, announcement.infinite_qty %s', announcement.state, announcement.quantity_available, announcement.infinite_qty)
+            if announcement.state == 'open' and announcement.quantity_available == 0 and not announcement.infinite_qty:
+                _logger.info('Condition validated')
+                wf_service.trg_validate(SUPERUSER_ID, 'marketplace.announcement', announcement.id, 'announcement_open_done', cr)
+            _logger.info('==============================================')
+
 
     def onchange_author(self, cr, uid, ids, partner_id, context=None):
         partner_obj = self.pool.get('res.partner')
@@ -335,6 +346,18 @@ class marketplace_proposition(osv.osv):
             values['is_announcer'] = False
             values['is_dispute'] = False
             values['is_moderator_or_aggree'] = False
+
+            if proposition.type == 'want':
+                _logger.info('want detected')
+                is_sender = False
+                if values['is_sender']:
+                    is_sender = True
+                values['is_sender'] = False
+                if values['is_receiver']:
+                    values['is_sender'] = True
+                values['is_receiver'] = False
+                if is_sender:
+                    values['is_receiver'] = True
 
             if values['is_sender']:
                 _logger.info('values %s', values)
@@ -470,6 +493,7 @@ class marketplace_proposition(osv.osv):
 
     def change_state(self, cr, uid, ids, new_state, *args):
         wf_service = netsvc.LocalService("workflow")
+        announcement_obj = self.pool.get('marketplace.announcement')
         transaction_obj = self.pool.get('account.centralbank.transaction')
         partner_obj = self.pool.get('res.partner')
         for proposition in self.browse(cr, uid, ids):
@@ -482,6 +506,7 @@ class marketplace_proposition(osv.osv):
                 fields['already_published'] = True
             if new_state == 'accepted':
                 transaction_obj.prepare_move(cr, uid, [proposition.transaction_id.id], 'reservation')
+                announcement_obj.test_close(cr, uid, [proposition.announcement_id.id])
                 fields['already_accepted'] = True
             if new_state == 'invoiced':
                 transaction_obj.prepare_move(cr, uid, [proposition.transaction_id.id], 'invoice')
@@ -494,6 +519,9 @@ class marketplace_proposition(osv.osv):
             _logger = logging.getLogger(__name__)
             _logger.info('fields : %s', fields)
             self.write(cr, SUPERUSER_ID, [proposition.id], fields)
+
+            if new_state == 'accepted':
+                announcement_obj.test_close(cr, uid, [proposition.announcement_id.id])
 
     def pay(self, cr, uid, ids, *args):
 

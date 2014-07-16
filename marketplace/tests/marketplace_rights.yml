@@ -328,7 +328,7 @@
     vote_meet_needs = proxy.get_object(cr, uid, 'marketplace', 'vote_meet_needs')
     vote_cordial = proxy.get_object(cr, uid, 'marketplace', 'vote_cordial')
     vote_code_quality = proxy.get_object(cr, uid, 'marketplace', 'vote_code_quality')
-    self.write(cr, uid, [ref('proposition_test_1')], {'vote_comment': 'Good customer who know what he want', 'vote_vote_line_ids': [(0,0,{'type_id': vote_cordial.id, 'vote': '1'}),(0,0,{'type_id': vote_meet_needs.id, 'vote': '2'}),(0,0,{'type_id': vote_code_quality.id, 'vote': '1'})]}, context=context)
+    self.write(cr, uid, [ref('proposition_test_1')], {'vote_comment': 'VoteRightsPartner1', 'vote_vote_line_ids': [(0,0,{'type_id': vote_cordial.id, 'vote': '1'}),(0,0,{'type_id': vote_meet_needs.id, 'vote': '2'}),(0,0,{'type_id': vote_code_quality.id, 'vote': '1'})]}, context=context)
 -
   I write the vote from test2
 -
@@ -340,7 +340,7 @@
     vote_meet_needs = proxy.get_object(cr, uid, 'marketplace', 'vote_meet_needs')
     vote_cordial = proxy.get_object(cr, uid, 'marketplace', 'vote_cordial')
     vote_code_quality = proxy.get_object(cr, uid, 'marketplace', 'vote_code_quality')
-    self.write(cr, uid, [ref('proposition_test_1')], {'vote_comment': 'Great service, delivered on time', 'vote_vote_line_ids': [(0,0,{'type_id': vote_cordial.id, 'vote': '1'}),(0,0,{'type_id': vote_meet_needs.id, 'vote': '2'}),(0,0,{'type_id': vote_code_quality.id, 'vote': '1'})]}, context=context)
+    self.write(cr, uid, [ref('proposition_test_1')], {'vote_comment': 'VoteRightsPartner2', 'vote_vote_line_ids': [(0,0,{'type_id': vote_cordial.id, 'vote': '1'}),(0,0,{'type_id': vote_meet_needs.id, 'vote': '2'}),(0,0,{'type_id': vote_code_quality.id, 'vote': '1'})]}, context=context)
 -
   I check that votes are complete and the proposition went in the final stage
 -

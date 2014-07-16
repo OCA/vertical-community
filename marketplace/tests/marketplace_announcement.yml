@@ -91,18 +91,21 @@
 -
   !record {model: marketplace.announcement, id: announcement_test_1}:
     name: Need help for a little change in Odoo frontend
-    type: want
     description: I need to make some HTML change in an home page
     category_id: category_odoo
     tag_ids:
       - tag_odoo_frontend
     partner_id: partner_test1
-    quantity: 1
+    quantity: 2
+    type: want
     currency_ids:
       - model: "marketplace.announcement"
         field: "currency_ids"
         price_unit: 100
         currency_id: account_centralbank.COM
+-
+  !assert {model: marketplace.announcement, id: announcement_test_1, string: "The announcement is not of want type!"}:
+    - type == 'want'
 -
   I check that test1 can publish it
 -

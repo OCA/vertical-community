@@ -779,9 +779,10 @@ class res_partner(osv.osv):
             res[partner.id] = []
 
             #If we do not control that the partner already exist, it trigger a bug at the account creation. I am controlling this by checking that the partner wasn't created in the last 60 second, this is crappy but it work. TOIMPROVE TODO
-            delta = now - datetime.strptime(partner.create_date,"%Y-%m-%d %H:%M:%S")
-            if (delta.total_seconds() < 60 or partner.id == proxy.get_object(cr, uid, 'auth_signup', 'default_template_user').partner_id.id) and partner.id not in [proxy.get_object(cr, uid, 'account_centralbank', 'partner_test1').id,proxy.get_object(cr, uid, 'account_centralbank', 'partner_test2').id] :
-                continue
+#            delta = now - datetime.strptime(partner.create_date,"%Y-%m-%d %H:%M:%S")
+#            if (delta.total_seconds() < 60 or partner.id == proxy.get_object(cr, uid, 'auth_signup', 'default_template_user').partner_id.id) and partner.id not in [proxy.get_object(cr, uid, 'account_centralbank', 'partner_test1').id,proxy.get_object(cr, uid, 'account_centralbank', 'partner_test2').id] :
+#                continue
+# I seems I don't have the problem anymore
 
             for currency in balances[partner.id].values():
                 res[partner.id].append((0,0,currency))

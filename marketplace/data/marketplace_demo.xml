@@ -108,7 +108,7 @@
             <field name="price_unit">50</field>
             <field name="currency_id" ref="account_centralbank.COM"/>
         </record>
-<!--        <function model="account.centralbank.transaction" name="confirm" eval="[ref('transaction_demo1')]"/>-->
+        <workflow action="announcement_draft_open" model="marketplace.announcement" ref="announcement_demo1"/>
 
         <record id="proposition_demo1" model="marketplace.proposition">
             <field name="announcement_id" ref="announcement_demo1"/>
@@ -123,6 +123,10 @@
             <field name="price_unit">50</field>
             <field name="currency_id" ref="account_centralbank.COM"/>
         </record>
+        <workflow action="proposition_draft_open" model="marketplace.proposition" ref="proposition_demo1"/>
+        <workflow action="proposition_open_accepted" model="marketplace.proposition" ref="proposition_demo1"/>
+        <workflow action="proposition_accepted_invoiced" model="marketplace.proposition" ref="proposition_demo1"/>
+        <function model="marketplace.proposition" name="pay" eval="[ref('proposition_demo1')]"/>
 
 
         <record id="announcement_demo2" model="marketplace.announcement">
@@ -141,6 +145,22 @@
             <field name="price_unit">100</field>
             <field name="currency_id" ref="account_centralbank.COM"/>
         </record>
+        <workflow action="announcement_draft_open" model="marketplace.announcement" ref="announcement_demo2"/>
+        <record id="proposition_demo2" model="marketplace.proposition">
+            <field name="announcement_id" ref="announcement_demo2"/>
+            <field name="description">We have the skills you needs, please find below our proposition</field>
+            <field name="sender_id" ref="base.res_partner_main2"/>
+            <field name="quantity">1</field>
+        </record>
+        <record id="proposition_demo2_line1" model="account.centralbank.currency.line">
+            <field name="model">account.centralbank.transaction</field>
+            <field name="res_id" ref="proposition_demo2"/>
+            <field name="field">currency_ids</field>
+            <field name="price_unit">50</field>
+            <field name="currency_id" ref="account_centralbank.COM"/>
+        </record>
+        <workflow action="proposition_draft_open" model="marketplace.proposition" ref="proposition_demo2"/>
+        <workflow action="proposition_open_accepted" model="marketplace.proposition" ref="proposition_demo2"/>
 
     </data>
 </openerp>

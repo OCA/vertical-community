@@ -1,0 +1,141 @@
+-
+  In order to test marketplace.proposition I create a new proposition with the moderator nhomar
+-
+  !context
+    uid: 'base_community.user_nhomar'
+-
+  !record {model: marketplace.proposition, id: proposition_test_3}:
+    announcement_id: announcement_test_1
+    description: We think we can help you
+    sender_id: partner_test2
+    quantity: 1
+    currency_ids:
+      - model: "account.centralbank.transaction"
+        field: "currency_ids"
+        price_unit: 100
+        currency_id: account_centralbank.COM
+-
+  I check that nhomar can publish it
+-
+  !python {model: marketplace.proposition}: |
+    from openerp import workflow
+    workflow.trg_validate(uid, 'marketplace.proposition', ref('proposition_test_3'), 'proposition_draft_open', cr)
+-
+  !assert {model: marketplace.proposition, id: proposition_test_3, string: "Test2 wasn't able to publish the proposition!"}:
+    - state == 'open'
+-
+  I check that nhomar can accept it
+-
+  !python {model: marketplace.proposition}: |
+    from openerp import workflow
+    workflow.trg_validate(uid, 'marketplace.proposition', ref('proposition_test_3'), 'proposition_open_accepted', cr)
+-
+  !assert {model: marketplace.proposition, id: proposition_test_3, string: "Test1 wasn't able to accept the proposition!"}:
+    - state == 'accepted'
+-
+  I check that nhomar can invoice it
+-
+  !python {model: marketplace.proposition}: |
+    from openerp import workflow
+    workflow.trg_validate(uid, 'marketplace.proposition', ref('proposition_test_3'), 'proposition_accepted_invoiced', cr)
+-
+  !assert {model: marketplace.proposition, id: proposition_test_3, string: "Test1 wasn't able to invoice the proposition!"}:
+    - state == 'invoiced'
+-
+  I check that a invoice transaction was made
+-
+  !assert {model: marketplace.proposition, id: proposition_test_3, string: "No invoice transaction was made"}:
+    - invoice_id.id != False
+-
+  I check that nhomar can pay it
+-
+  !python {model: marketplace.proposition}: |
+    self.pay(cr, uid, [ref('proposition_test_3')])
+-
+  !assert {model: marketplace.proposition, id: proposition_test_3, string: "Test2 wasn't able to pay the proposition or confirm state wasn't skipped!"}:
+    - state == 'vote'
+-
+  I check that a payment transaction was made
+-
+  !assert {model: marketplace.proposition, id: proposition_test_3, string: "No payment transaction was made"}:
+    - payment_id.id != False
+-
+  I write the votes from nhomar
+-
+  !record {model: marketplace.proposition, id: proposition_test_3}:
+    vote_vote_ids:
+      - model: "marketplace.proposition"
+        partner_id: partner_test1
+        comment: VoteModeratorPartner1
+        vote_vote_line_ids:
+          - type_id: vote_cordial
+            vote: '1'
+          - type_id: vote_meet_needs
+            vote: '2'
+          - type_id: vote_code_quality
+            vote: '1'
+      - model: "marketplace.proposition"
+        partner_id: partner_test2
+        comment: VoteModeratorPartner2
+        vote_vote_line_ids:
+          - type_id: vote_cordial
+            vote: '1'
+          - type_id: vote_meet_needs
+            vote: '2'
+          - type_id: vote_code_quality
+            vote: '1'
+-
+  I check that votes are complete and the proposition went in the final stage
+-
+  !assert {model: marketplace.proposition, id: proposition_test_3, string: "The votes wasn't enough to move the proposition in his final stage!"}:
+    - state == 'paid'
+########################################################
+-
+  I check that nhomar can cancel it
+-
+  !python {model: marketplace.proposition}: |
+    self.reset_workflow(cr, uid, [ref('proposition_test_3')])
+-
+  !assert {model: marketplace.proposition, id: proposition_test_3, string: "Test2 wasn't able to cancel the proposition, or the confirm refund state was skipped!"}:
+    - state == 'cancel'
+-
+      I check that nhomar can reset it
+-
+  !python {model: marketplace.proposition}: |
+    self.reset_workflow(cr, uid, [ref('proposition_test_3')])
+#####################################################
+-
+  I check that nhomar can publish it
+-
+  !python {model: marketplace.proposition}: |
+    from openerp import workflow
+    workflow.trg_validate(uid, 'marketplace.proposition', ref('proposition_test_3'), 'proposition_draft_open', cr)
+-
+  !assert {model: marketplace.proposition, id: proposition_test_3, string: "Test2 wasn't able to publish the proposition!"}:
+    - state == 'open'
+-
+  I check that nhomar can accept it
+-
+  !python {model: marketplace.proposition}: |
+    from openerp import workflow
+    workflow.trg_validate(uid, 'marketplace.proposition', ref('proposition_test_3'), 'proposition_open_accepted', cr)
+-
+  !assert {model: marketplace.proposition, id: proposition_test_3, string: "Test1 wasn't able to accept the proposition!"}:
+    - state == 'accepted'
+-
+  I check that nhomar can invoice it
+-
+  !python {model: marketplace.proposition}: |
+    from openerp import workflow
+    workflow.trg_validate(uid, 'marketplace.proposition', ref('proposition_test_3'), 'proposition_accepted_invoiced', cr)
+-
+  !assert {model: marketplace.proposition, id: proposition_test_3, string: "Test1 wasn't able to invoice the proposition!"}:
+    - state == 'invoiced'
+-
+  I check that nhomar can pay it
+-
+  !python {model: marketplace.proposition}: |
+    self.pay(cr, uid, [ref('proposition_test_3')])
+-
+  !assert {model: marketplace.proposition, id: proposition_test_3, string: "Test2 wasn't able to pay the proposition or confirm state wasn't skipped!"}:
+    - state == 'paid'

@@ -1,0 +1,124 @@
+-
+  In make the test with test1 to check his access right on res.partner
+-
+  !context
+    uid: 'user_test1'
+-
+  I check the balance information of test1
+-
+  !python {model: res.partner}: |
+    proxy = self.pool.get('ir.model.data')
+    partner = proxy.get_object(cr, uid, 'marketplace', 'partner_test1')
+    currency = proxy.get_object(cr, uid, 'account_centralbank', 'COM')
+    balance_com = False
+    for balance in partner.centralbank_balance_ids:
+        if balance.currency_id.id == currency.id:
+            balance_com = balance
+    assert (balance_com), "No balance for COM"
+    log = "The available balance for test1 isn't correct, expected 150, got " + str(balance_com.available)
+    assert (balance_com.available == 150), log
+
+    VoteRightsPartner1 = False
+    VoteExternalPartner1 = False
+    VoteModeratorPartner1 = False
+    for vote in partner.vote_ids:
+        if vote.comment == 'VoteRightsPartner1':
+            VoteRightsPartner1 = True
+        if vote.comment == 'VoteExternalPartner1':
+            VoteExternalPartner1 = True
+        if vote.comment == 'VoteModeratorPartner1':
+            VoteModeratorPartner1 = True
+    if not VoteRightsPartner1:
+        assert False, "VoteRightsPartner1 not in vote_ids for partner1"
+    if not VoteExternalPartner1:
+        assert False, "VoteExternalPartner1 not in vote_ids for partner1"
+    if not VoteModeratorPartner1:
+        assert False, "VoteModeratorPartner1 not in vote_ids for partner1"
+
+    VoteRightsPartner2 = False
+    VoteExternalPartner2 = False
+    VoteModeratorPartner2 = False
+    for vote in partner.vote_evaluated_ids:
+        if vote.comment == 'VoteRightsPartner2':
+            VoteRightsPartner2 = True
+        if vote.comment == 'VoteExternalPartner2':
+            VoteExternalPartner2 = True
+        if vote.comment == 'VoteModeratorPartner2':
+            VoteModeratorPartner2 = True
+    if not VoteRightsPartner2:
+        assert False, "VoteRightsPartner2 not in vote_evaluated_ids for partner1"
+    if not VoteExternalPartner2:
+        assert False, "VoteExternalPartner2 not in vote_evaluated_ids for partner1"
+    if not VoteModeratorPartner2:
+        assert False, "VoteModeratorPartner2 not in vote_evaluated_ids for partner1"
+
+-
+  I check the balance information of test2
+-
+  !python {model: res.partner}: |
+    proxy = self.pool.get('ir.model.data')
+    partner = proxy.get_object(cr, uid, 'marketplace', 'partner_test2')
+    currency = proxy.get_object(cr, uid, 'account_centralbank', 'COM')
+    balance_com = False
+    for balance in partner.centralbank_balance_ids:
+        if balance.currency_id.id == currency.id:
+            balance_com = balance
+    assert (balance_com), "No balance for COM"
+    log = "The available balance for test2 isn't correct, expected -150, got " + str(balance_com.available)
+    assert (balance_com.available == -150), log
+
+    VoteRightsPartner2 = False
+    VoteExternalPartner2 = False
+    VoteModeratorPartner2 = False
+    for vote in partner.vote_ids:
+        if vote.comment == 'VoteRightsPartner2':
+            VoteRightsPartner2 = True
+        if vote.comment == 'VoteExternalPartner2':
+            VoteExternalPartner2 = True
+        if vote.comment == 'VoteModeratorPartner2':
+            VoteModeratorPartner2 = True
+    if not VoteRightsPartner2:
+        assert False, "VoteRightsPartner2 not in vote_ids for partner2"
+    if not VoteExternalPartner2:
+        assert False, "VoteExternalPartner2 not in vote_ids for partner2"
+    if not VoteModeratorPartner2:
+        assert False, "VoteModeratorPartner2 not in vote_ids for partner2"
+
+    VoteRightsPartner1 = False
+    VoteExternalPartner1 = False
+    VoteModeratorPartner1 = False
+    for vote in partner.vote_evaluated_ids:
+        if vote.comment == 'VoteRightsPartner1':
+            VoteRightsPartner1 = True
+        if vote.comment == 'VoteExternalPartner1':
+            VoteExternalPartner1 = True
+        if vote.comment == 'VoteModeratorPartner1':
+            VoteModeratorPartner1 = True
+    if not VoteRightsPartner1:
+        assert False, "VoteRightsPartner1 not in vote_evaluated_ids for partner2"
+    if not VoteExternalPartner1:
+        assert False, "VoteExternalPartner1 not in vote_evaluated_ids for partner2"
+    if not VoteModeratorPartner1:
+        assert False, "VoteModeratorPartner1 not in vote_evaluated_ids for partner2"
+-
+  I check that the want announcement is correctly clotured and has the evaluations
+-
+  !assert {model: marketplace.announcement, id: announcement_test_1, string: "The announcement isn't closed or has incorect quantity available"}:
+    - state == 'done'
+    - quantity_available == 0
+-
+  !python {model: marketplace.announcement}: |
+    proxy = self.pool.get('ir.model.data')
+    announcement = proxy.get_object(cr, uid, 'marketplace', 'announcement_test_1')
+
+    VoteExternalPartner2 = False
+    VoteModeratorPartner2 = False
+    for vote in announcement.vote_evaluated_ids:
+        if vote.comment == 'VoteExternalPartner2':
+            VoteExternalPartner2 = True
+        if vote.comment == 'VoteModeratorPartner2':
+            VoteModeratorPartner2 = True
+    if not VoteExternalPartner2:
+        assert False, "VoteExternalPartner2 not in vote_evaluated_ids for announcement"
+    if not VoteModeratorPartner2:
+        assert False, "VoteModeratorPartner2 not in vote_evaluated_ids for announcement"
