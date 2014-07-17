@@ -387,7 +387,7 @@ class marketplace_proposition(osv.osv):
     _inherit = ['mail.thread','vote.model']
     _vote_category_field = 'category_id'
     _vote_category_model = 'marketplace.announcement.category'
-    _order = "create_date desc"
+#    _order = "create_date desc" TODO reference to create date ambiguous because of centralbank.transaction
     _columns = {
         'announcement_id': fields.many2one('marketplace.announcement', 'What', required=True),
         'name': fields.related('announcement_id', 'name', type='char', string='Name', store=True),
@@ -459,10 +459,15 @@ class marketplace_proposition(osv.osv):
     def _get_evaluated(self, cr, uid, id, partner_id, context=None):
         proposition = self.browse(cr, uid, id, context=context)
         partner_evaluated_id = proposition.sender_id.vote_evaluated_id.id
+        res = []
         if proposition.sender_id.id == partner_id:
-            res = [proposition.receiver_id.vote_evaluated_id.id, proposition.announcement_id.vote_evaluated_id.id]
+            if proposition.receiver_id.vote_evaluated_id:
+                res.append(proposition.receiver_id.vote_evaluated_id.id)
+            if proposition.announcement_id.vote_evaluated_id:
+                res.append(proposition.announcement_id.vote_evaluated_id.id)
         else:
-            res = [proposition.sender_id.vote_evaluated_id.id]
+            if proposition.sender_id.vote_evaluated_id:
+                res = [proposition.sender_id.vote_evaluated_id.id]
         _logger.info('res evaluated marketplace %s', res)
         return res
 

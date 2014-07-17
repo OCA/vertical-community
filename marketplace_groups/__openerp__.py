@@ -34,10 +34,14 @@ Marketplace Groups
 
 This module allow to make proposition to and from mail groups.
 """,
- 'demo': [],
+ 'demo': ['data/marketplace_groups_demo.xml'],
  'data': [
-          'marketplace_groups_view.xml'
+          'marketplace_groups_view.xml',
+          'security/marketplace_groups_security.xml'
           ],
+ 'test': ['tests/marketplace_groups_announcement.yml',
+           'tests/marketplace_groups_rights.yml'
+],
  'installable': True,
  'application': True,
 }

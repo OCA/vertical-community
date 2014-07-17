@@ -209,6 +209,7 @@
                             <field name="quantity" attrs="{'readonly':[('state','!=','draft')]}"/>
                             <field name="uom_id"/>
                             <field name="description_announcement_id" domain="[('user_id','=',uid)]" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="vote_partner_id" on_change="onchange_vote_partner(vote_partner_id)" domain="[('user_ids','in',uid)]" attrs="{'invisible': ['|',('already_accepted','!=',True),('is_user','!=',True),('is_announcer','!=',True)]}"/>
                             <field name="vote_vote_line_ids" attrs="{'invisible': ['|',('already_accepted','!=',True),('is_user','!=',True),('is_announcer','!=',True)]}"/>
                             <field name="vote_comment" attrs="{'invisible': ['|',('already_accepted','!=',True),('is_user','!=',True),('is_announcer','!=',True)]}"/>
                         </group>
@@ -249,6 +250,9 @@
             <field name="groups_id" eval="[(6, 0, [ref('account_centralbank.group_account_centralbank_moderator')])]"/>
             <field name="arch" type="xml">
                 <field name="sender_id" position="attributes">
+                    <attribute name="domain">[('user_ids','!=',False)]</attribute>
+                </field>
+                <field name="vote_partner_id" position="attributes">
                     <attribute name="domain">[('user_ids','!=',False)]</attribute>
                 </field>
             </field>
