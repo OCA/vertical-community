@@ -19,7 +19,7 @@
 #
 ##############################################################################
 
-{'name': 'Project User Assignment',
+{'name': 'Project Assignment',
  'version': '1.0',
  'category': 'Project',
  'depends': ['base_recursive_model',
@@ -29,12 +29,13 @@
  'license': 'AGPL-3',
  'website': 'https://launchpad.net/',
  'description': """
-Project User Assignment
+Project Assignment
 =================
 """,
- 'demo': [],
+ 'demo': ['data/project_assignment_demo.xml'],
  'data': ['security/ir.model.access.csv',
           'project_assignment_view.xml'],
+ 'test': ['tests/project_assignment_test.yml'],
  'installable': True,
  'application': True,
 }

@@ -32,7 +32,7 @@ Base recursive model
 =================
 """,
  'demo': [],
- 'data': [],
+ 'data': ['security/ir.model.access.csv'],
  'installable': True,
  'application': True,
 }

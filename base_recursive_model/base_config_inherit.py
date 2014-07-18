@@ -71,7 +71,6 @@ class base_config_inherit_model(osv.AbstractModel):
         return True
 
 
-#TODO Centralize with vote object, make another module to manage this concept
     def _update_stored_config(self, cr, uid, ids, context=None):
 
         _logger.info('ids %s', ids)
