@@ -29,7 +29,7 @@ from openerp.tools.translate import _
 from operator import itemgetter
 
 import logging
-_logger = logging.getLogger(__name__)
+#_logger = logging.getLogger(__name__)
 
 class project_task_type(osv.osv):
     ''' vote_category is meant to be inherited by any model which will define vote type
@@ -46,7 +46,7 @@ class project_task_type(osv.osv):
         if 'partner_id' in vals:
             project_ids = {}
             for type in self.browse(cr, uid, ids, context=context):
-                _logger.info('project_ids %s', type.project_ids)
+                #_logger.info('project_ids %s', type.project_ids)
                 for project in type.project_ids:
                     project_ids[project.id] = project.id
             project_obj._update_stored_config(cr, uid, list(project_ids), context=context)
@@ -99,7 +99,7 @@ class project_assigned_partner_model(osv.AbstractModel):
         }
 
         res.update(super(project_assigned_partner_model, self)._prepare_config(cr, uid, id, record, vals=vals, context=context))
-        _logger.info('res %s', res)
+        #_logger.info('res %s', res)
         return res
 
 
@@ -113,12 +113,13 @@ class project_project(osv.osv):
     _name = 'project.project'
     _inherit = ['project.project', 'project.assigned.partner.model']
 
+
     def _get_external_config(self, cr, uid, record, context=None):
         res = {}
         for type in record.type_ids:
             if type.partner_id:
                 res[type.id] =  self._prepare_config(cr, uid, record.id, type, vals={'stage_id': type.id}, context=context)
-        _logger.info('res %s', res)
+        #_logger.info('res %s', res)
         return res
 
     def _get_child_ids(self, cr, uid, ids, context=None):
@@ -184,7 +185,7 @@ class project_task(osv.osv):
 
     def write(self, cr, uid, ids, vals, context=None):
         vals = self._update_assigned_partner(cr, uid, ids, vals, context=context)
-        _logger.info('vals %s', vals)
+        #_logger.info('vals %s', vals)
         res = super(project_task, self).write(cr, uid, ids, vals, context=context)
         return res
 

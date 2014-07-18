@@ -23,6 +23,12 @@
     group=self.browse(cr, uid, ref("mail_groups_holacracy.group_teams_localizations_swiss"))
     partner=group.partner_id
     assert (partner.group_id.id == group.id), "Something went wrong when creating the partner for Swiss localizations team"
+-
+  I check that the camptocamp partner know it has a group linked
+-
+  !python {model: res.partner}: |
+    partner=self.browse(cr, uid, ref("base.res_partner_12"))
+    assert (partner.group_id), "Something went wrong when linking the group to camptocamp partner"
 #-
 #  I test that Luc, a board member, is also automatically put inside the Members group
 #-

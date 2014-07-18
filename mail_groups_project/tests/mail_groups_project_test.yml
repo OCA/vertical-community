@@ -1,0 +1,115 @@
+-
+  I check that luc and joel are in the project followers
+-
+  !python {model: project.project}: |
+    proxy = self.pool.get('ir.model.data')
+    project = proxy.get_object(cr, uid, 'project', 'project_project_1')
+    luc_partner = proxy.get_object(cr, uid, 'base', 'res_partner_address_21')
+    joel_partner = proxy.get_object(cr, uid, 'base_community', 'partner_joel')
+    joel = False
+    luc = False
+    for partner in project.message_follower_ids:
+        if partner.id == joel_partner.id:
+            joel = True
+        if partner.id == luc_partner.id:
+            luc = True
+    assert (joel and luc), "Joel and luc aren't in the followers of the project"
+-
+  I try to change the stage of the task
+-
+  !context
+    uid: 'base_community.user_luc'
+-
+  !python {model: project.task}: |
+    self.write(cr, uid, [ref('project.project_task_4')], {'stage_id': ref('project.project_tt_design')})
+-
+  I check that the task is correctly assigned to director
+-
+  !assert {model: project.task, id: project.project_task_4}:
+    - stage_id.id == ref('project.project_tt_design')
+    - assigned_partner_id.id == ref('mail_groups_holacracy.partner_organisations_camptocamp_director')
+    - user_id.id == False
+-
+  I check that luc is in the follower of the task
+-
+  !python {model: project.task}: |
+    proxy = self.pool.get('ir.model.data')
+    task = proxy.get_object(cr, uid, 'project', 'project_task_4')
+    luc_partner = proxy.get_object(cr, uid, 'base', 'res_partner_address_21')
+    luc = False
+    for partner in task.message_follower_ids:
+        if partner.id == luc_partner.id:
+            luc = True
+    assert (luc), "Luc aren't in the followers of the task"
+-
+  I try to change the stage of the task to development, assigned to admin
+-
+  !context
+    uid: 'base_community.user_joel'
+-
+  !python {model: project.task}: |
+    self.write(cr, uid, [ref('project.project_task_4')], {'stage_id': ref('project.project_tt_testing')})
+-
+  I check that the task is correctly assigned to project managers
+-
+  !assert {model: project.task, id: project.project_task_4}:
+    - stage_id.id == ref('project.project_tt_testing')
+    - assigned_partner_id.id == ref('mail_groups_holacracy.partner_organisations_camptocamp_projectmanagers')
+    - user_id.id == False
+-
+  I check that joel is in the follower of the task
+-
+  !python {model: project.task}: |
+    proxy = self.pool.get('ir.model.data')
+    task = proxy.get_object(cr, uid, 'project', 'project_task_4')
+    joel_partner = proxy.get_object(cr, uid, 'base', 'res_partner_address_21')
+    joel = False
+    for partner in task.message_follower_ids:
+        if partner.id == joel_partner.id:
+            joel = True
+    assert (joel), "Joel aren't in the followers of the task"
+-
+  I place Mark in the projectmanager role
+-
+  !context
+    uid: 'base_community.user_mark'
+    in_recursivity: False
+-
+  !python {model: mail.group}: |
+    self.message_subscribe(cr, uid, [ref('mail_groups_holacracy.group_organisations_camptocamp_projectmanagers')], [ref('base.res_partner_main1')], context={'in_recursivity':False})
+-
+  I check that mark is in the group followers
+-
+  !python {model: project.project}: |
+    proxy = self.pool.get('ir.model.data')
+    group = proxy.get_object(cr, uid, 'mail_groups_holacracy', 'group_organisations_camptocamp_projectmanagers')
+    mark_partner = proxy.get_object(cr, uid, 'base', 'res_partner_main1')
+    mark = False
+    for partner in group.message_follower_ids:
+        if partner.id == mark_partner.id:
+            mark = True
+    assert (mark), "Mark isn't in the followers of the group"
+-
+  I check that mark is in the project followers
+-
+  !python {model: project.project}: |
+    proxy = self.pool.get('ir.model.data')
+    project = proxy.get_object(cr, uid, 'project', 'project_project_1')
+    mark_partner = proxy.get_object(cr, uid, 'base', 'res_partner_main1')
+    mark = False
+    for partner in project.message_follower_ids:
+        if partner.id == mark_partner.id:
+            mark = True
+    assert (mark), "Mark isn't in the followers of the project"
+-
+  I check that mark is in the task followers
+-
+  !python {model: project.task}: |
+    proxy = self.pool.get('ir.model.data')
+    task = proxy.get_object(cr, uid, 'project', 'project_task_4')
+    mark_partner = proxy.get_object(cr, uid, 'base', 'res_partner_main1')
+    mark = False
+    for partner in task.message_follower_ids:
+        if partner.id == mark_partner.id:
+            mark = True
+    assert (mark), "Mark isn't in the followers of the task"

@@ -32,8 +32,9 @@
 Mail groups project
 =================
 """,
- 'demo': [],
+ 'demo': ['data/mail_groups_project_demo.xml'],
  'data': ['mail_groups_project_view.xml'],
+ 'test': ['tests/mail_groups_project_test.yml'],
  'installable': True,
  'application': True,
 }

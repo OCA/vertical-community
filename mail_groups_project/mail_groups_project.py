@@ -31,24 +31,6 @@ from operator import itemgetter
 import logging
 _logger = logging.getLogger(__name__)
 
-class project_task_type(osv.osv):
-    ''' vote_category is meant to be inherited by any model which will define vote type
-        for linked records.
-    '''
-    _inherit = 'project.task.type'
-
-    _columns = {
-        'role_id': fields.many2one('mail.group', 'Assigned role', domain=[('type','=','role')]),
-    }
-
-    def _update_assigned_user(self, cr, uid, ids, vals, context=None):
-        if 'role_id' in vals and not 'user_id' in vals:
-            vals['user_id'] = False
-        res = super(project_task_type, self)._update_assigned_user(cr, uid, ids, vals, context=context)
-        return res
-
-
-
 class project_project(osv.osv):
     ''' vote_category is meant to be inherited by any model which will define vote type
         for linked records.
@@ -58,15 +40,6 @@ class project_project(osv.osv):
     _columns = {
         'team_id': fields.many2one('mail.group', 'Team', domain=[('type','=','circle')])
     }
-
-    def _prepare_config(self, cr, uid, id, record, vals={}, context=None):
-        _logger.info('TEST Prepare_config')
-        if 'role_id' not in vals:
-            vals['role_id'] = 'role_id' in record and record.role_id.id or False
-        _logger.info('vals prepare_config %s', vals)
-        res = super(project_project, self)._prepare_config(cr, uid, id, record, vals=vals, context=context)
-        return res
-
 
     def create(self, cr, uid, vals, context=None):
         group_obj = self.pool.get('mail.group')
@@ -90,52 +63,25 @@ class project_task(osv.osv):
     '''
     _inherit = 'project.task'
 
-    _columns = {
-        'role_id': fields.many2one('mail.group', 'Assigned role', domain=[('type','=','role')]),
-    }
-
-    def _prepare_config(self, cr, uid, id, record, vals={}, context=None):
-        _logger.info('TEST Prepare_config %s', record)
-        if 'role_id' not in vals:
-            vals['role_id'] = 'role_id' in record and record.role_id.id or False
-        _logger.info('vals prepare_config %s', vals)
-        res = super(project_task, self)._prepare_config(cr, uid, id, record, vals=vals, context=context)
-        return res
-
-
-    def _update_assigned_user(self, cr, uid, ids, vals, context=None):
-        res = super(project_task, self)._update_assigned_user(cr, uid, ids, vals, context=context)
-        if 'stage_id' in vals and not 'role_id' in vals:
-            for task in self.browse(cr, uid, ids, context=context):
-                for config in task.assigned_user_config_result_ids:
-                    if config.stage_id.id == vals['stage_id'] and config.role_id:
-                        self.write(cr, uid, [task.id], {'role_id': config.role_id.id}, context=context)
-        return res
-
-
     def create(self, cr, uid, vals, context=None):
-        group_obj = self.pool.get('mail.group')
+        partner_obj = self.pool.get('res.partner')
         res = super(project_task, self).create(cr, uid, vals, context=context)
-        if 'role_id' in vals:
-            group_obj._update_project_followers(cr, uid, [vals['role_id']], context=context)
+        if 'assigned_partner_id' in vals:
+            partner = partner_obj.browse(cr, uid, vals['assigned_partner_id'], context=context)
+            if partner.group_id:
+                group_obj._update_project_followers(cr, uid, [partner.group_id.id], context=context)
         return res
 
 
     def write(self, cr, uid, ids, vals, context=None):
+        partner_obj = self.pool.get('res.partner')
         group_obj = self.pool.get('mail.group')
         res = super(project_task, self).write(cr, uid, ids, vals, context=context)
-        if 'role_id' in vals:
-            group_obj._update_project_followers(cr, uid, [vals['role_id']], context=context)
+        if 'assigned_partner_id' in vals:
+            partner = partner_obj.browse(cr, uid, vals['assigned_partner_id'], context=context)
+            if partner.group_id:
+                group_obj._update_project_followers(cr, uid, [partner.group_id.id], context=context)
         return res
-
-
-class project_assigned_user_config(osv.osv):
-    _inherit = 'project.assigned.user.config'
-
-    _columns = {
-        'role_id': fields.many2one('mail.group', 'Assigned role', domain=[('type','=','role')])
-    }
-
 
 class mail_group(osv.osv):
 
@@ -149,6 +95,15 @@ class mail_group(osv.osv):
     def _update_project_followers(self, cr, uid, ids, context=None):
         project_obj = self.pool.get('project.project')
         task_obj = self.pool.get('project.task')
+        partner_obj = self.pool.get('res.partner')
+
+        partner_ids = []
+        for g in self.browse(cr, uid, ids, context=context):
+            if g.partner_id:
+                partner_ids.append(g.partner_id.id)
+        _logger.info('partner_ids %s', partner_ids)
+        partner_ids = [g.partner_id and g.partner_id.id for g in self.browse(cr, uid, ids, context=context)]
+        _logger.info('partner_ids %s', partner_ids)
 
         followers = self._get_followers(cr, uid, ids, '', '', context=context)
         _logger.info('followers %s', followers)
@@ -160,13 +115,15 @@ class mail_group(osv.osv):
                 projects[project.team_id.id] = []
             projects[project.team_id.id].append(project.id)
 
-        task_ids = task_obj.search(cr, uid, [('role_id', 'in', ids)], context=context)
+        task_ids = task_obj.search(cr, uid, [('assigned_partner_id', 'in', partner_ids)], context=context)
         tasks = {}
         for task in task_obj.browse(cr, uid, task_ids, context=context):
-            if not task.role_id.id in tasks:
-                tasks[task.role_id.id] = []
-            tasks[task.role_id.id].append(task.id)
+            if not task.assigned_partner_id.id in tasks:
+                tasks[task.assigned_partner_id.group_id.id] = []
+            tasks[task.assigned_partner_id.group_id.id].append(task.id)
 
+        _logger.info('group project %s %s', projects, followers)
+        _logger.info('group task %s %s', tasks, followers)
         for group in self.browse(cr, uid, ids, context=context):
             if group.id in projects:
                 project_obj.message_subscribe(cr, uid, projects[group.id], followers[group.id]['message_follower_ids'], context=context)
@@ -174,7 +131,7 @@ class mail_group(osv.osv):
                 task_obj.message_subscribe(cr, uid, tasks[group.id], followers[group.id]['message_follower_ids'], context=context)
         return True
 
-    def message_subscribe(self, cr, uid, ids, partner_ids, subtype_ids=None, context=None):
+    def message_subscribe(self, cr, uid, ids, partner_ids, subtype_ids=None, context={}):
         res = super(mail_group, self).message_subscribe(cr, uid, ids, partner_ids, subtype_ids=subtype_ids, context=context)
         self._update_project_followers(cr, uid, ids, context=context)
         return res

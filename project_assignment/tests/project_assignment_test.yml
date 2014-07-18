@@ -10,7 +10,7 @@
   I check that the task is correctly assigned to demo
 -
   !assert {model: project.task, id: project.project_task_5}:
-#    - stage_id.id == ref('project.project_tt_specification')
+    - stage_id.id == ref('project.project_tt_specification')
     - assigned_partner_id.id == ref('base.partner_demo')
     - user_id.id == ref('base.user_demo')
 -

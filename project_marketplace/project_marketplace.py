@@ -135,7 +135,7 @@ class marketplace_announcement(osv.osv):
         if 'task_id' in vals:
             for announcement in self.browse(cr, uid, ids, context=context):
                 if announcement.task_id:
-                    old_task.append(announcement.task_id)
+                    old_task_ids.append(announcement.task_id.id)
         res = super(marketplace_announcement, self).write(cr, uid, ids, vals, context=context)
 
         #Update function fields in task

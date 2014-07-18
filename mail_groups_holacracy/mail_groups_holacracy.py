@@ -66,17 +66,27 @@ class mail_group(osv.osv):
                 self.write(cr, uid, [group.id], {'partner_id': partner_id})
         return True
 
+
+
+    def create(self, cr, uid, vals, context=None):
+        partner_obj = self.pool.get('res.partner')
+        res = super(mail_group, self).create(cr, uid, vals, context=context)
+        if 'parent_id' in vals and vals['parent_id']:
+            self.update_followers(cr, uid, [vals['parent_id']], context=context)
+        if 'partner_id' in  vals:
+            partner_obj.write(cr, uid, [vals['partner_id']], {}, context=context)
+        return res
+
     def write(self, cr, uid, ids, vals, context=None):
         partner_obj = self.pool.get('res.partner')
         old_parent_ids = []
         #_logger.info('ids %s', ids)
-        if 'name' in vals:
-            for group in self.browse(cr, uid, ids, context=context):
-                if group.partner_id:
-                    partner_obj.write(cr, uid, [group.partner_id.id], {'name':vals['name']}, context=context)
+
+        old_partner_ids = []
         if 'partner_id' in vals:
             for group in self.browse(cr, uid, ids, context=context):
-                partner_obj.write(cr, uid, [group.partner_id.id], {'group_id': vals['partner_id'] and group.id or False}, context=context)
+                if group.partner_id:
+                    old_partner_ids.append(group.partner_id.id)
         if 'parent_id' in vals:
             for group in self.browse(cr, uid, ids, context=context):
                 if group.parent_id:
@@ -86,6 +96,18 @@ class mail_group(osv.osv):
             self.update_followers(cr, uid, ids, context=context)
 #            _logger.info('old_parent %s', old_parent_ids)
             self.update_followers(cr, uid, old_parent_ids, context=context)
+
+        #Update function fields in partner
+        if 'partner_id' in vals:
+            if vals['partner_id']:
+                partner_obj.write(cr, uid, [vals['partner_id']], {}, context=context)
+            if old_partner_ids:
+                partner_obj.write(cr, uid, old_partner_ids, {}, context=context)
+
+        if 'name' in vals:
+            for group in self.browse(cr, uid, ids, context=context):
+                if group.partner_id:
+                    partner_obj.write(cr, uid, [group.partner_id.id], {'name':vals['name']}, context=context)
         return res
 
 
@@ -131,18 +153,10 @@ class mail_group(osv.osv):
 #        _logger.info('res get_right_from_children %s', res)
         return res
 
-
-
-    def create(self, cr, uid, vals, context=None):
-        res = super(mail_group, self).create(cr, uid, vals, context=context)
-        if 'parent_id' in vals and vals['parent_id']:
-            self.update_followers(cr, uid, [vals['parent_id']], context=context)
-        return res
-
     def update_followers(self, cr, uid, ids, context={}):
         fol_obj = self.pool.get('mail.followers')
         context['in_recursivity'] = True
-#        _logger.info('ids %s', ids)
+        _logger.info('update_followers ids %s', ids)
 
         rights = self.get_right_from_children(cr, uid, ids, context=context)
 
@@ -163,8 +177,9 @@ class mail_group(osv.osv):
                 parent_ids.append(group.parent_id.id)
             else:
                 group_without_children_ids.append(group.id)
-#        _logger.info('recursivity, parent : %s', parent_ids)
+
         if parent_ids:
+            _logger.info('recursivity, parent : %s', parent_ids)
             self.update_followers(cr, uid, parent_ids, context=context)
 
         if group_without_children_ids:
@@ -199,17 +214,19 @@ class mail_group(osv.osv):
             self.update_rights_descendant(cr, uid, child_ids, child_rights, context=context)
             
 
-    def message_subscribe(self, cr, uid, ids, partner_ids, subtype_ids=None, context=None):
+    def message_subscribe(self, cr, uid, ids, partner_ids, subtype_ids=None, context={}):
+        _logger.info('in holacracy message_subscribe')
         res = super(mail_group, self).message_subscribe(cr, uid, ids, partner_ids, subtype_ids=subtype_ids, context=context)
+        _logger.info('in holacracy message_subscribe after %s', context)
         for group in self.browse(cr, uid, ids, context=context):
-            if not 'in_recursivity' in context:
-                self.update_followers(cr, uid, [group.id], context=context)
+            if not 'in_recursivity' in context or 'in_recursivity' in context and not context['in_recursivity']:
+                self.update_followers(cr, SUPERUSER_ID, [group.id], context=context)
 
-    def message_unsubscribe(self, cr, uid, ids, partner_ids, context=None):
+    def message_unsubscribe(self, cr, uid, ids, partner_ids, context={}):
         res = super(mail_group, self).message_unsubscribe(cr, uid, ids, partner_ids, context=context)
         for group in self.browse(cr, uid, ids, context=context):
-            if not 'in_recursivity' in context:
-                self.update_followers(cr, uid, [group.id], context=context)
+            if not 'in_recursivity' in context or 'in_recursivity' in context and not context['in_recursivity']:
+                self.update_followers(cr, SUPERUSER_ID, [group.id], context=context)
 
 
 
@@ -218,6 +235,21 @@ class res_partner(osv.osv):
 
     _inherit = 'res.partner'
 
+    def _get_group(self, cr, uid, ids, prop, unknow_none, context=None):
+        group_obj = self.pool.get('mail.group')
+
+        res = {}
+        for partner in self.browse(cr, uid, ids, context=context):
+            res[partner.id] = False
+
+            group_ids = group_obj.search(cr, uid, [('partner_id','=',partner.id)], context=context)
+            if group_ids:
+                res[partner.id] = group_ids[0]
+
+        return res
+
+
     _columns = {
-        'group_id': fields.many2one('mail.group','Group', readonly=True)
+        'group_id': fields.function(_get_group, type="many2one", relation="mail.group", string="Group", readonly=True, store=True),
     }
+

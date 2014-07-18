@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="assigned_config_project_test" model="project.assigned.partner.config">
+            <field name="model">project.project</field>
+            <field name="res_id" ref="project.project_project_1"/>
+            <field name="stage_id" ref="project.project_tt_design"/>
+            <field name="partner_id" ref="mail_groups_holacracy.partner_organisations_camptocamp_director"/>
+            <field name="action">add</field>
+        </record>
+
+        <record id="assigned_config_project_development" model="project.assigned.partner.config">
+            <field name="model">project.project</field>
+            <field name="res_id" ref="project.project_project_1"/>
+            <field name="stage_id" ref="project.project_tt_testing"/>
+            <field name="partner_id" ref="mail_groups_holacracy.partner_organisations_camptocamp_projectmanagers"/>
+            <field name="action">add</field>
+        </record>
+
+        <!-- We trigger a write on project to recomputed the assigned partner-->
+        <record id="project.project_project_1" model="project.project">
+            <field name="team_id" ref="mail_groups_holacracy.group_organisations_camptocamp"/>
+        </record>
+
+        <record id="base_community.user_joel" model="res.users">
+            <field name="groups_id" eval="[(4,ref('project.group_project_user'))]"/>
+        </record>
+
+        <record id="base_community.user_luc" model="res.users">
+            <field name="groups_id" eval="[(4,ref('project.group_project_user'))]"/>
+        </record>
+
+        <record id="base_community.user_nhomar" model="res.users">
+            <field name="groups_id" eval="[(4,ref('project.group_project_user'))]"/>
+        </record>
+
+        <record id="base_community.user_mark" model="res.users">
+            <field name="groups_id" eval="[(4,ref('project.group_project_user'))]"/>
+        </record>
+
+        <record id="base_community.user_roger" model="res.users">
+            <field name="groups_id" eval="[(4,ref('project.group_project_user'))]"/>
+        </record>
+
+        <record id="base.user_demo" model="res.users">
+            <field name="groups_id" eval="[(4,ref('project.group_project_user'))]"/>
+        </record>
+
+    </data>
+</openerp>

@@ -75,20 +75,27 @@
             <field name="parent_id" ref="group_organisations"/>
             <field name="partner_id" ref="base.res_partner_12"/>
         </record>
-        <record id="base.res_partner_12" model="res.partner">
-            <field name="group_id" ref="group_organisations_camptocamp"/>
+        <record id="partner_organisations_camptocamp_director" model="res.partner">
+            <field name="name">Director</field>
+            <field name="parent_id" ref="base.res_partner_12"/>
         </record>
         <record model="mail.group" id="group_organisations_camptocamp_director">
             <field name="name">Director</field>
             <field name="type">role</field>
             <field name="parent_id" ref="group_organisations_camptocamp"/>
+            <field name="partner_id" ref="partner_organisations_camptocamp_director"/>
             <field name="message_follower_ids" eval="[(4,ref('base.res_partner_address_21'))]"/>
             <field name="right_ids" eval="[(4,ref('mail_group_right_invitation')),(4,ref('mail_group_right_group_management'))]"/>
+        </record>
+        <record id="partner_organisations_camptocamp_projectmanagers" model="res.partner">
+            <field name="name">Project Managers</field>
+            <field name="parent_id" ref="base.res_partner_12"/>
         </record>
         <record model="mail.group" id="group_organisations_camptocamp_projectmanagers">
             <field name="name">Project Managers</field>
             <field name="type">role</field>
             <field name="parent_id" ref="group_organisations_camptocamp"/>
+            <field name="partner_id" ref="partner_organisations_camptocamp_projectmanagers"/>
             <field name="message_follower_ids" eval="[(4,ref('base_community.partner_joel'))]"/>
         </record>
         <record model="mail.group" id="group_organisations_camptocamp_employee">
@@ -102,9 +109,6 @@
             <field name="parent_id" ref="group_organisations"/>
             <field name="partner_id" ref="base.res_partner_23"/>
         </record>
-        <record id="base.res_partner_23" model="res.partner">
-            <field name="group_id" ref="group_organisations_vauxoo"/>
-        </record>
         <record model="mail.group" id="group_organisations_vauxoo_director">
             <field name="name">Director</field>
             <field name="type">role</field>
@@ -117,9 +121,6 @@
             <field name="type">circle</field>
             <field name="parent_id" ref="group_organisations"/>
             <field name="partner_id" ref="base.main_partner"/>
-        </record>
-        <record id="base.main_partner" model="res.partner">
-            <field name="group_id" ref="group_organisations_yourcompany"/>
         </record>
         <record model="mail.group" id="group_organisations_yourcompany_director">
             <field name="name">Director</field>

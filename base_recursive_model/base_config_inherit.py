@@ -29,7 +29,7 @@ from openerp.tools.translate import _
 from operator import itemgetter
 
 import logging
-_logger = logging.getLogger(__name__)
+#_logger = logging.getLogger(__name__)
 
 
 
@@ -51,7 +51,7 @@ class base_config_inherit_model(osv.AbstractModel):
     def _prepare_config(self, cr, uid, id, record, vals={}, context=None):
         res = {}
 
-        _logger.info('vals %s', vals)
+        #_logger.info('vals %s', vals)
 
         for key, value in vals.iteritems():
             res[key] = value
@@ -60,7 +60,7 @@ class base_config_inherit_model(osv.AbstractModel):
 
 
     def _get_external_config(self, cr, uid, record, context=None):
-        _logger.info('external null')
+        #_logger.info('external null')
         return {}
 
     def _get_child_ids(self, cr, uid, ids, context=None):
@@ -73,7 +73,7 @@ class base_config_inherit_model(osv.AbstractModel):
 
     def _update_stored_config(self, cr, uid, ids, context=None):
 
-        _logger.info('ids %s', ids)
+        #_logger.info('ids %s', ids)
         config_obj = self.pool.get(self._base_config_inherit_model)
         config_del_obj = self.pool.get('base.config.inherit.line.del')
 
@@ -85,22 +85,22 @@ class base_config_inherit_model(osv.AbstractModel):
         res = {}
         for record in self.browse(cr, uid, ids, context=context):
 
-            if self._name == 'project.project':
-                _logger.info('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<')
-                _logger.info('<<<<<<<<<<<<<< % <<<<<<<<<<<<<', record.id)
-                _logger.info('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<')
-                _logger.info('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<')
+            #if self._name == 'project.project':
+                #_logger.info('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<')
+                #_logger.info('<<<<<<<<<<<<<< % <<<<<<<<<<<<<', record.id)
+                #_logger.info('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<')
+                #_logger.info('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<')
 
 
-            _logger.info('name %s', self._name)
-            _logger.info('id %s', record.id)
+            #_logger.info('name %s', self._name)
+            #_logger.info('id %s', record.id)
             config_lines = {}
             config_line_dels = {}
 
-            _logger.info('before get_external')
+            #_logger.info('before get_external')
             for key, config in self._get_external_config(cr, uid, record, context=context).iteritems():
                 config_lines[key] = config
-            _logger.info('after get_external')
+            #_logger.info('after get_external')
 
 
             if 'parent_id' in record and record.parent_id:
@@ -120,7 +120,7 @@ class base_config_inherit_model(osv.AbstractModel):
                 key = getattr(config_line, self._base_config_inherit_key).id
                 if config_line.action == 'add':
                     config_lines[key] = self._prepare_config(cr, uid, record.id, config_line, vals={}, context=context)
-                    _logger.info('After config_line %s', config_lines)
+                    #_logger.info('After config_line %s', config_lines)
                     if key in config_line_dels:
                         del config_line_dels[key]
                 elif config_line.action == 'remove':
@@ -129,27 +129,27 @@ class base_config_inherit_model(osv.AbstractModel):
                         del config_lines[key]
 
 
-            _logger.info('config_lines %s',config_lines)
+            #_logger.info('config_lines %s',config_lines)
             config_lines_list = []
             for key,config_line in config_lines.iteritems():
                 config_lines_list.append(config_line)
 
-            _logger.info('config_lines %s',config_lines_list)
+            #_logger.info('config_lines %s',config_lines_list)
             sorted(config_lines_list, key = lambda config: (config['sequence'], config[self._base_config_inherit_key]))
 
             for config_line in config_lines_list:
                 config_obj.create(cr, uid, config_line, context=context)
 
-            _logger.info('config_line_dels %s', config_line_dels)
+            #_logger.info('config_line_dels %s', config_line_dels)
             for key, config_line_del in config_line_dels.iteritems():
-                _logger.info('config_line_del %s', config_line_del)
+                #_logger.info('config_line_del %s', config_line_del)
                 config_del_obj.create(cr, uid, config_line_del, context=context)
 
         if 'parent_id' in self._columns:
             child_ids = self._get_child_ids(cr, uid, ids, context=context)
-            _logger.info('-----------------------------')
-            _logger.info('parent_ids %s, child_ids %s', ids, child_ids)
-            _logger.info('-----------------------------')
+            #_logger.info('-----------------------------')
+            #_logger.info('parent_ids %s, child_ids %s', ids, child_ids)
+            #_logger.info('-----------------------------')
             if child_ids:
                 self._update_stored_config(cr, uid, child_ids, context=context)
 
