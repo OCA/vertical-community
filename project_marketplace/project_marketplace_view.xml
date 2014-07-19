@@ -8,7 +8,7 @@
             <field name="inherit_id" ref="marketplace.view_marketplace_announcement_form"/>
             <field name="arch" type="xml">
                 <field name="description" position="before">
-                    <field name="task_id" attrs="{'invisible':[('task_id','=',False)], 'readonly': [('is_moderator','!=',True)]}"/>
+                    <field name="task_id" context="{'name': name, 'description': description', 'assigned_partner_id': partner_id}" attrs="{'invisible':[('type','!=','want')]}"/><!--attrs="{'invisible':[('task_id','=',False)], 'readonly': [('is_moderator','!=',True)]}"/>-->
                 </field>
             </field>
         </record>
@@ -20,6 +20,7 @@
             <field name="arch" type="xml">
                 <field name="announcement_id" position="after">
                     <field name="task_id" attrs="{'invisible':[('task_id','=',False)], 'readonly': [('is_moderator','!=',True)]}"/>
+                    <field name="task_want_id" attrs="{'invisible':[('type','!=','offer')]}"/>
                     <field name="planned_hours"/>
                 </field>
             </field>
@@ -44,12 +45,12 @@
             </field>
         </record>
 
-        <record id="view_project_assigned_user_config_tree_marketplace" model="ir.ui.view">
-            <field name="name">project.assigned.user.config.tree.marketplace</field>
-            <field name="model">project.assigned.user.config</field>
-            <field name="inherit_id" ref="project_assignment.view_project_assigned_user_config_tree"/>
+        <record id="view_project_assigned_partner_config_tree_marketplace" model="ir.ui.view">
+            <field name="name">project.assigned.partner.config.tree.marketplace</field>
+            <field name="model">project.assigned.partner.config</field>
+            <field name="inherit_id" ref="project_assignment.view_project_assigned_partner_config_tree"/>
             <field name="arch" type="xml">
-                <field name="user_id" position="after">
+                <field name="partner_id" position="after">
                     <field name="marketplace_assignment"/>
                 </field>
             </field>
@@ -66,10 +67,10 @@
             </field>
         </record>
 
-
+<!--
         <record id="base_community.community_settings" model='community.config.settings'>
             <field name="project_marketplace_stage_id" ref="project.project_tt_deployment"/>
         </record>
-
+-->
     </data>
 </openerp>

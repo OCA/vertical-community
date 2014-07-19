@@ -51,7 +51,9 @@
                 <field name="user_id" position="replace">
                     <field name="assigned_partner_id"/>
                 </field>
-                <field name="reviewer_id" position="replace"/>
+                <field name="reviewer_id" position="replace">
+                    <field name="reviewer_partner_id"/>
+                </field>
                 <page string="Extra Info" position="after">
                     <page string="Assign Partner">
                         <group>
@@ -84,6 +86,7 @@
                 </field>
                 <filter string="My Tasks" position="replace">
                     <filter string="My Tasks" domain="[('assigned_partner_id.user_ids','in',uid)]"/>
+                    <filter string="My Reviews" domain="[('reviewer_partner_id.user_ids','in',uid)]"/>
                 </filter>
                 <filter name="unassigned" position="replace">
                     <filter string="Unassigned" name="unassigned" domain="[('assigned_partner_id', '=', False)]"/>

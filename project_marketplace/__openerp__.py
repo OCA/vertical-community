@@ -34,10 +34,11 @@ Project Marketplace
 =================
 
 """,
- 'demo': [],
+ 'demo': ['data/project_marketplace_demo.xml'],
  'data': ['project_marketplace_view.xml',
-          'res_config_view.xml'
+#          'res_config_view.xml'
           ],
+ 'test': ['tests/project_marketplace_offer.yml'],
  'installable': True,
  'application': True,
 }

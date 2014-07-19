@@ -29,7 +29,7 @@ from openerp.tools.translate import _
 from operator import itemgetter
 
 import logging
-#_logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 class project_task_type(osv.osv):
     ''' vote_category is meant to be inherited by any model which will define vote type
@@ -41,12 +41,18 @@ class project_task_type(osv.osv):
         'partner_id': fields.many2one('res.partner', 'Assigned partner'),
     }
 
+    def _boolean_update_projects(self, cr, uid, vals, context=None):
+        res = False
+        if 'partner_id' in vals:
+            res = True
+        return res
+
     def _update_assigned_partner(self, cr, uid, ids, vals, context=None):
         project_obj = self.pool.get('project.project')
-        if 'partner_id' in vals:
+        if self._boolean_update_projects(cr, uid, vals, context=context):
             project_ids = {}
             for type in self.browse(cr, uid, ids, context=context):
-                #_logger.info('project_ids %s', type.project_ids)
+                _logger.info('projects will be recomputed')
                 for project in type.project_ids:
                     project_ids[project.id] = project.id
             project_obj._update_stored_config(cr, uid, list(project_ids), context=context)
@@ -99,7 +105,7 @@ class project_assigned_partner_model(osv.AbstractModel):
         }
 
         res.update(super(project_assigned_partner_model, self)._prepare_config(cr, uid, id, record, vals=vals, context=context))
-        #_logger.info('res %s', res)
+        _logger.info('res %s', res)
         return res
 
 
@@ -144,19 +150,22 @@ class project_task(osv.osv):
     _inherit = ['project.task', 'project.assigned.partner.model']
 
     _columns = {
-        'assigned_partner_id': fields.many2one('res.partner', 'Assigned to')
+        'assigned_partner_id': fields.many2one('res.partner', 'Assigned to'),
+        'reviewer_partner_id': fields.many2one('res.partner', 'Reviewer'),
     }
 
     def _get_external_config(self, cr, uid, record, context=None):
         res = {}
         if record.project_id:
             for config in record.project_id.assigned_partner_config_result_ids:
-                res[config.stage_id.id] = self._prepare_config(cr, uid, record.id, config, context=context)
+                res[config.stage_id.id] = self._prepare_config(cr, uid, record.id, config, vals={}, context=context)
         return res
 
     def _update_assigned_partner(self, cr, uid, ids, vals, context=None):
         if 'user_id' in vals:
             vals['assigned_partner_id'] = self.pool.get('res.users').browse(cr, uid, vals['user_id'], context=context).partner_id.id
+        if 'reviewer_id' in vals:
+            vals['reviewer_partner_id'] = self.pool.get('res.users').browse(cr, uid, vals['reviewer_id'], context=context).partner_id.id
 
         if 'stage_id' in vals and not 'assigned_partner_id' in vals:
             for task in self.browse(cr, uid, ids, context=context):
@@ -170,6 +179,12 @@ class project_task(osv.osv):
                 vals['user_id'] = partner.user_ids[0].id
             else:
                 vals['user_id'] = False
+        if 'reviewer_partner_id' in vals:
+            partner = self.pool.get('res.partner').browse(cr, uid, vals['reviewer_partner_id'], context=context)
+            if partner.user_ids:
+                vals['reviewer_id'] = partner.user_ids[0].id
+            else:
+                vals['reviewer_id'] = False
 
         return vals
 
@@ -178,12 +193,14 @@ class project_task(osv.osv):
 
 
     def create(self, cr, uid, vals, context=None):
+        _logger.info('task vals create %s', vals)
         res = super(project_task, self).create(cr, uid, vals, context=context)
         self.write(cr, uid, [res], vals, context=context)
         return res
 
 
     def write(self, cr, uid, ids, vals, context=None):
+        _logger.info('task vals write %s', vals)
         vals = self._update_assigned_partner(cr, uid, ids, vals, context=context)
         #_logger.info('vals %s', vals)
         res = super(project_task, self).write(cr, uid, ids, vals, context=context)

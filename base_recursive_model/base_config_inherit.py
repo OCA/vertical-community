@@ -29,7 +29,7 @@ from openerp.tools.translate import _
 from operator import itemgetter
 
 import logging
-#_logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 
@@ -100,7 +100,7 @@ class base_config_inherit_model(osv.AbstractModel):
             #_logger.info('before get_external')
             for key, config in self._get_external_config(cr, uid, record, context=context).iteritems():
                 config_lines[key] = config
-            #_logger.info('after get_external')
+            _logger.info('after get_external %s', config_lines)
 
 
             if 'parent_id' in record and record.parent_id:
@@ -117,6 +117,7 @@ class base_config_inherit_model(osv.AbstractModel):
                     config_lines[key] = self._prepare_config(cr, uid, record.id, config_line, context=context)
 
             for config_line in getattr(record, self._base_config_inherit_o2m):
+                _logger.info('config line in %s', self.pool.get(config_line.model).browse(cr, uid, config_line.res_id).name)
                 key = getattr(config_line, self._base_config_inherit_key).id
                 if config_line.action == 'add':
                     config_lines[key] = self._prepare_config(cr, uid, record.id, config_line, vals={}, context=context)
@@ -129,7 +130,7 @@ class base_config_inherit_model(osv.AbstractModel):
                         del config_lines[key]
 
 
-            #_logger.info('config_lines %s',config_lines)
+            _logger.info('config_lines %s',config_lines)
             config_lines_list = []
             for key,config_line in config_lines.iteritems():
                 config_lines_list.append(config_line)
