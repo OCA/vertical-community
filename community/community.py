@@ -26,7 +26,7 @@ from openerp.osv import fields, osv, orm
 from openerp.tools.translate import _
 
 import logging
-_logger = logging.getLogger(__name__)
+#_logger = logging.getLogger(__name__)
 
 class community_init(osv.osv):
     _name = "community.init"
@@ -52,7 +52,7 @@ class groups_view(osv.osv):
 
         res = super(groups_view, self).get_simplified_groups_by_application(cr, uid, context=context)
 
-        _logger.info('In community get_simplified')
+        #_logger.info('In community get_simplified')
 
         #We need to catch the exception for the community module installation, the records are not created at this point
         try:

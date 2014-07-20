@@ -26,7 +26,7 @@ from openerp.osv import fields, osv, orm
 from openerp.tools.translate import _
 
 import logging
-_logger = logging.getLogger(__name__)
+#_logger = logging.getLogger(__name__)
 
 
 class groups_view(osv.osv):

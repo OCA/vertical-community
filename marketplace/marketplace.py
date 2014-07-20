@@ -30,7 +30,7 @@ from datetime import datetime
 import base64
 
 import logging
-_logger = logging.getLogger(__name__)
+#_logger = logging.getLogger(__name__)
 
 
 class marketplace_announcement_category(osv.osv):
@@ -80,7 +80,7 @@ class marketplace_announcement(osv.osv):
             if self.pool.get('res.users').has_group(cr, uid, 'account_centralbank.group_account_centralbank_moderator'):
                 res[transaction.id]['is_user'] = True
                 res[transaction.id]['is_moderator'] = True
-            _logger.info('uid %s, role %s', uid, res[transaction.id])
+            #_logger.info('uid %s, role %s', uid, res[transaction.id])
         return res
 
     def _get_address(self, cr, uid, ids, prop, unknow_none, context=None):
@@ -93,8 +93,8 @@ class marketplace_announcement(osv.osv):
             res[announcement.id] += ', ' + (announcement.state_id and announcement.state_id.name or '')
             res[announcement.id] += ' ' + (announcement.country_id and announcement.country_id.name or '')
             import logging
-            _logger = logging.getLogger(__name__)
-            _logger.info('res %s', res)
+            #_logger = logging.getLogger(__name__)
+            #_logger.info('res %s', res)
 
         return res
 
@@ -120,11 +120,11 @@ class marketplace_announcement(osv.osv):
             res[record.id] = False
             attachment_ids = attachment_obj.search(cr, uid, [('res_model','=',self._name),('res_id','=',record.id),('binary_field','=',name)], context=context)
             import logging
-            _logger = logging.getLogger(__name__)
-            _logger.info('res %s', attachment_ids)
+            #_logger = logging.getLogger(__name__)
+            #_logger.info('res %s', attachment_ids)
             if attachment_ids:
                 img = attachment_obj.browse(cr, uid, attachment_ids, context=context)[0].datas
-                _logger.info('res %s', img)
+                #_logger.info('res %s', img)
                 res[record.id] = img
         return res
 
@@ -204,8 +204,8 @@ class marketplace_announcement(osv.osv):
         proxy = self.pool.get('ir.model.data')
         config = proxy.get_object(cr, uid, 'base_community', 'community_settings')
         import logging
-        _logger = logging.getLogger(__name__)
-        _logger.info('config :  %s', config)
+        #_logger = logging.getLogger(__name__)
+        #_logger.info('config :  %s', config)
 
         vals = {}
         vals['price_unit'] = 1.0
@@ -232,12 +232,12 @@ class marketplace_announcement(osv.osv):
     def test_close(self, cr, uid, ids, context=None):
         wf_service = netsvc.LocalService("workflow")
         for announcement in self.browse(cr, uid, ids, context=context):
-            _logger.info('==============================================')
-            _logger.info('announcement.state %s, announcement.quantity_available %s, announcement.infinite_qty %s', announcement.state, announcement.quantity_available, announcement.infinite_qty)
+            #_logger.info('==============================================')
+            #_logger.info('announcement.state %s, announcement.quantity_available %s, announcement.infinite_qty %s', announcement.state, announcement.quantity_available, announcement.infinite_qty)
             if announcement.state == 'open' and announcement.quantity_available == 0 and not announcement.infinite_qty:
-                _logger.info('Condition validated')
+                #_logger.info('Condition validated')
                 wf_service.trg_validate(SUPERUSER_ID, 'marketplace.announcement', announcement.id, 'announcement_open_done', cr)
-            _logger.info('==============================================')
+            #_logger.info('==============================================')
 
 
     def onchange_author(self, cr, uid, ids, partner_id, context=None):
@@ -260,7 +260,7 @@ class marketplace_announcement(osv.osv):
         res = self._get_user_role(cr, uid, ids, {}, {})
         for announcement in self.browse(cr, uid, ids):
             role = res[announcement.id]
-            _logger.info('uid %s, role %s', uid, role)
+            #_logger.info('uid %s, role %s', uid, role)
             if not role[role_to_test]:
                 raise osv.except_osv(_('Access error!'),_("You need to have the role " + role_to_test + " to perform this action!"))
         return True
@@ -269,7 +269,7 @@ class marketplace_announcement(osv.osv):
         wf_service = netsvc.LocalService("workflow")
         partner_obj = self.pool.get('res.partner')
         for announcement in self.browse(cr, uid, ids):
-            _logger.info('uid %s, new_state %s', uid, new_state)
+            #_logger.info('uid %s, new_state %s', uid, new_state)
             fields = {'state':new_state}
             self.write(cr, uid, [announcement.id], fields)
 
@@ -341,14 +341,14 @@ class marketplace_proposition(osv.osv):
         res = self.pool.get('account.centralbank.transaction')._get_user_role(cr, uid, transaction_ids, prop, unknow_none, context=context)
         for proposition in self.browse(cr, uid, ids, context=context):
             values = res[proposition.transaction_id.id]
-            _logger.info('values %s', values)
+            #_logger.info('values %s', values)
             values['is_user'] = False
             values['is_announcer'] = False
             values['is_dispute'] = False
             values['is_moderator_or_aggree'] = False
 
             if proposition.type == 'want':
-                _logger.info('want detected')
+                #_logger.info('want detected')
                 is_sender = False
                 if values['is_sender']:
                     is_sender = True
@@ -360,7 +360,7 @@ class marketplace_proposition(osv.osv):
                     values['is_receiver'] = True
 
             if values['is_sender']:
-                _logger.info('values %s', values)
+                #_logger.info('values %s', values)
                 values['is_dispute'] = True
                 if proposition.type == 'offer':
                     values['is_user'] = True
@@ -378,7 +378,7 @@ class marketplace_proposition(osv.osv):
                 values['is_moderator_or_aggree'] = True
 
             res[proposition.id] = values
-        _logger.info('user_role proposition uid %s, res %s', uid, res)
+        #_logger.info('user_role proposition uid %s, res %s', uid, res)
         return res
 
     _name = 'marketplace.proposition'
@@ -468,7 +468,7 @@ class marketplace_proposition(osv.osv):
         else:
             if proposition.sender_id.vote_evaluated_id:
                 res = [proposition.sender_id.vote_evaluated_id.id]
-        _logger.info('res evaluated marketplace %s', res)
+        #_logger.info('res evaluated marketplace %s', res)
         return res
 
 
@@ -521,8 +521,8 @@ class marketplace_proposition(osv.osv):
                 wf_service.trg_delete(uid, 'account.centralbank.transaction', proposition.transaction_id.id, cr)
 
             import logging
-            _logger = logging.getLogger(__name__)
-            _logger.info('fields : %s', fields)
+            #_logger = logging.getLogger(__name__)
+            #_logger.info('fields : %s', fields)
             self.write(cr, SUPERUSER_ID, [proposition.id], fields)
 
             if new_state == 'accepted':
@@ -538,7 +538,7 @@ class marketplace_proposition(osv.osv):
             transaction_obj.prepare_move(cr, uid, [proposition.transaction_id.id], 'payment')
 
             skip_confirm = transaction_obj.get_skip_confirm(cr, uid, proposition.transaction_id)
-            _logger.info('skip_confirm %s', skip_confirm)
+            #_logger.info('skip_confirm %s', skip_confirm)
             if not skip_confirm:
                 wf_service.trg_validate(uid, 'marketplace.proposition', proposition.id, 'proposition_invoiced_confirm', cr)
             else:
@@ -570,7 +570,7 @@ class marketplace_proposition(osv.osv):
                 role_to_test = 'is_announcer'
             elif state == 'paid':
                 role_to_test = 'is_receiver'
-            _logger.info('reset workflow state %s, role to test %s', state, role_to_test)
+            #_logger.info('reset workflow state %s, role to test %s', state, role_to_test)
             self.test_access_role(cr, uid, ids, role_to_test, *args)
 
             wf_service.trg_delete(uid, 'marketplace.proposition', proposition.id, cr)
@@ -578,7 +578,7 @@ class marketplace_proposition(osv.osv):
 
             if state == 'paid':
                 skip_confirm = transaction_obj.get_skip_confirm(cr, uid, proposition.transaction_id)
-                _logger.info('skip_confirm %s', skip_confirm)
+                #_logger.info('skip_confirm %s', skip_confirm)
                 if not skip_confirm:
                     wf_service.trg_validate(uid, 'marketplace.proposition', proposition.id, 'proposition_draft_confirm_refund', cr)
                 else:
@@ -600,12 +600,12 @@ class marketplace_proposition(osv.osv):
 
 
     def write(self, cr, uid, ids, vals, context=None):
-        _logger.info('write vals %s', vals)
+        #_logger.info('write vals %s', vals)
         if 'want_cancel_user' in vals or 'want_cancel_announcer' in vals:
             for proposition in self.browse(cr, uid, ids, context=context):
                 if 'want_cancel_user' in vals and not proposition.is_user:
                     raise osv.except_osv(_('Access error!'),_("You need to have the role is_user to tick the cancel checkbox from user"))
-                _logger.info('uid %s, proposition.is_announcer %s', uid, proposition.is_announcer)
+                #_logger.info('uid %s, proposition.is_announcer %s', uid, proposition.is_announcer)
                 if 'want_cancel_announcer' in vals and not proposition.is_announcer:
                     raise osv.except_osv(_('Access error!'),_("You need to have the role is_announcer to tick the cancel checkbox from announcer"))
         res = super(marketplace_proposition, self).write(cr, uid, ids, vals, context=context)

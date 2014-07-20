@@ -30,7 +30,7 @@ from datetime import datetime
 import base64
 
 import logging
-_logger = logging.getLogger(__name__)
+#_logger = logging.getLogger(__name__)
 
 
 class account_centralbank_currency_line(osv.osv):
@@ -87,14 +87,14 @@ class account_centralbank_transaction(osv.osv):
     def _get_user_role(self, cr, uid, ids, prop, unknow_none, context=None):
         wf_service = netsvc.LocalService("workflow")
         res = {}
-        _logger.info('In regular get_user_role, uid %s', uid)
+        #_logger.info('In regular get_user_role, uid %s', uid)
         partner_id = self.pool.get('res.users').browse(cr, uid, uid, context=context).partner_id.id 
         for transaction in self.browse(cr, uid, ids, context=context):
             res[transaction.id] = {}
             res[transaction.id]['is_sender'] = False
             res[transaction.id]['is_receiver'] = False
             res[transaction.id]['is_moderator'] = False
-            _logger.info('user_ids %s', transaction.sender_id.user_ids)
+            #_logger.info('user_ids %s', transaction.sender_id.user_ids)
             if transaction.sender_id.id == partner_id:
                 res[transaction.id]['is_sender'] = True
             if transaction.receiver_id.id == partner_id:
@@ -103,7 +103,7 @@ class account_centralbank_transaction(osv.osv):
                 res[transaction.id]['is_sender'] = True
                 res[transaction.id]['is_receiver'] = True
                 res[transaction.id]['is_moderator'] = True
-        _logger.info('res %s', res)
+        #_logger.info('res %s', res)
         return res
 
 
@@ -207,16 +207,16 @@ class account_centralbank_transaction(osv.osv):
 
     def test_access_role(self, cr, uid, ids, role_to_test, *args):
         import logging
-        _logger = logging.getLogger(__name__)
-        _logger.info('test')
+        #_logger = logging.getLogger(__name__)
+        #_logger.info('test')
 
         res = self._get_user_role(cr, uid, ids, {}, {})
 
         for transaction in self.browse(cr, uid, ids):
             role = res[transaction.id]
             import logging
-            _logger = logging.getLogger(__name__)
-            _logger.info('Role : %s, role to test : %s', role, role_to_test)
+            #_logger = logging.getLogger(__name__)
+            #_logger.info('Role : %s, role to test : %s', role, role_to_test)
 
             if not role[role_to_test]:
                 raise osv.except_osv(_('Access error!'),_("You need to have the role " + role_to_test + " to perform this action!"))
@@ -245,12 +245,12 @@ class account_centralbank_transaction(osv.osv):
         for account_id, res_account in res.iteritems():
             account = account_obj.browse(cr, uid, [account_id], context=context)[0]
             import logging
-            _logger = logging.getLogger(__name__)
-            _logger.info('res_account: %s', res_account)
+            #_logger = logging.getLogger(__name__)
+            #_logger.info('res_account: %s', res_account)
             for partner_id, res_partner in res_account.iteritems():
                 import logging
-                _logger = logging.getLogger(__name__)
-                _logger.info('res_partner: %s, reconcile %s', res_partner, account.reconcile)
+                #_logger = logging.getLogger(__name__)
+                #_logger.info('res_partner: %s, reconcile %s', res_partner, account.reconcile)
                 if res_partner['total_debit'] == res_partner['total_credit'] and account.reconcile:
                      move_line_obj.reconcile(cr, uid, res_partner['line_ids'], context=context)
 
@@ -263,26 +263,26 @@ class account_centralbank_transaction(osv.osv):
 
             for move_field in fields:
                 import logging
-                _logger = logging.getLogger(__name__)
-                _logger.info('Move %s_id field: %s', move_field, getattr(transaction, move_field + '_id'))
+                #_logger = logging.getLogger(__name__)
+                #_logger.info('Move %s_id field: %s', move_field, getattr(transaction, move_field + '_id'))
 
                 move = getattr(transaction, move_field + '_id')
                 import logging
-                _logger = logging.getLogger(__name__)
-                _logger.info('Move %s', move)
+                #_logger = logging.getLogger(__name__)
+                #_logger.info('Move %s', move)
 
 #                if getattr(proposition, move_field + '_id'):
                 if move:
                     flag = 'cancel_' + move_field
                     reversal_move_id = move_obj.create_reversals(cr, uid, [move.id], date)[0]
                     import logging
-                    _logger = logging.getLogger(__name__)
-                    _logger.info('Reversal moveid : %s', reversal_move_id)
+                    #_logger = logging.getLogger(__name__)
+                    #_logger.info('Reversal moveid : %s', reversal_move_id)
                     move_obj.post(cr, uid, [reversal_move_id])
                     move_obj.write(cr, uid, [reversal_move_id], {'centralbank_action': flag, 'centralbank_transaction_id': transaction.id}, context=context)
                     self.write(cr, uid, [transaction.id], {move_field + '_id': False}, context=context)
                     self.reconcile(cr, uid, [move.id, reversal_move_id], context=context)
-                _logger.info('2Move %s_id field: %s', move_field, getattr(transaction, move_field + '_id').id)
+                #_logger.info('2Move %s_id field: %s', move_field, getattr(transaction, move_field + '_id').id)
 
     def control_amount(self, cr, uid, transaction, sender, receiver, inv=False, context=None):
 
@@ -295,8 +295,8 @@ class account_centralbank_transaction(osv.osv):
 
         balance = partner_obj.get_centralbank_balance(cr, uid, [sender.id])[sender.id]
         import logging
-        _logger = logging.getLogger(__name__)
-        _logger.info('balance : %s, sender: %s', balance, sender)
+        #_logger = logging.getLogger(__name__)
+        #_logger.info('balance : %s, sender: %s', balance, sender)
         for currency in transaction.currency_ids:
             balance_currency = balance[currency.currency_id.id]
             if balance_currency['limit_negative'] and (balance_currency['available'] - currency.subtotal) < balance_currency['limit_negative_value']:
@@ -304,8 +304,8 @@ class account_centralbank_transaction(osv.osv):
 
         balance = partner_obj.get_centralbank_balance(cr, uid, [receiver.id])[receiver.id]
         import logging
-        _logger = logging.getLogger(__name__)
-        _logger.info('balance : %s, receiver: %s', balance, receiver)
+        #_logger = logging.getLogger(__name__)
+        #_logger.info('balance : %s, receiver: %s', balance, receiver)
         for currency in transaction.currency_ids:
             balance_currency = balance[currency.currency_id.id]
             if balance_currency['limit_positive'] and (balance_currency['available'] - currency.subtotal) > balance_currency['limit_positive_value']:
@@ -316,8 +316,8 @@ class account_centralbank_transaction(osv.osv):
     def get_account_line(self, cr, uid, transaction, action, action2, deduction=0.0, inv=False, name='Transaction', context=None):
 
         import logging
-        _logger = logging.getLogger(__name__)
-        _logger.info('test get_account_line : %s', action)
+        #_logger = logging.getLogger(__name__)
+        #_logger.info('test get_account_line : %s', action)
 
 
         if not inv:
@@ -357,8 +357,8 @@ class account_centralbank_transaction(osv.osv):
 
             if action == 'confirm' and not config_currency.external_currency:
                 import logging
-                _logger = logging.getLogger(__name__)
-                _logger.info('test %s', config_currency.currency_id.name)
+                #_logger = logging.getLogger(__name__)
+                #_logger.info('test %s', config_currency.currency_id.name)
 
                 continue
 
@@ -406,8 +406,8 @@ class account_centralbank_transaction(osv.osv):
 #                elif action == 'payment':
 #                    account_debit_id = config_currency.company_availability_account_id.id
             import logging
-            _logger = logging.getLogger(__name__)
-            _logger.info('test1 account_debit_id: %s', account_debit_id)
+            #_logger = logging.getLogger(__name__)
+            #_logger.info('test1 account_debit_id: %s', account_debit_id)
 
 
         #TODO move in groups
@@ -428,9 +428,9 @@ class account_centralbank_transaction(osv.osv):
 #                account_debit_id = partner_debit.property_marketplace_real_partner_expense_account.id,
 #                account_credit_id = partner_credit.property_marketplace_real_partner_income_account.id,
             import logging
-            _logger = logging.getLogger(__name__)
+            #_logger = logging.getLogger(__name__)
 
-            _logger.info('account_debit_id final : %s',account_debit_id)
+            #_logger.info('account_debit_id final : %s',account_debit_id)
             lines.append((0,0,{
                     'name': name,
                     'partner_id': partner_debit and partner_debit.id or False,
@@ -451,7 +451,7 @@ class account_centralbank_transaction(osv.osv):
                     'quantity': transaction.quantity,
                     'product_uom_id': transaction.uom_id.id,
                 }))
-        _logger.info('lines: %s', lines)
+        #_logger.info('lines: %s', lines)
         return lines
 
 
@@ -488,7 +488,7 @@ class account_centralbank_transaction(osv.osv):
 #                lines = self.get_account_line(cr, uid, lines, proposition, 'community', 'payment', 'group_com', context=context)
 #            if proposition.real_price_unit and proposition.announcement_id.real_company_commission:
 #                lines = self.get_account_line(cr, uid, lines, proposition, 'real', 'payment', 'group_com', context=context)
-                _logger.info('lines: %s', lines)
+                #_logger.info('lines: %s', lines)
                 move_obj.write(cr, uid, [move_id], {'line_id': lines})
                 move_obj.post(cr, uid, [move_id])
                 self.write(cr, uid, [transaction.id], {action + '_id': move_id})
@@ -505,8 +505,8 @@ class account_centralbank_transaction(osv.osv):
         config_currency_ids = config_currency_obj.search(cr, uid, [('currency_id', 'in', currency_ids)])
 
         import logging
-        _logger = logging.getLogger(__name__)
-        _logger.info("config_currency_ids : %s", config_currency_ids)
+        #_logger = logging.getLogger(__name__)
+        #_logger.info("config_currency_ids : %s", config_currency_ids)
 
 
         skip_confirm = True
@@ -525,7 +525,7 @@ class account_centralbank_transaction(osv.osv):
             self.prepare_move(cr, uid, [transaction.id], 'payment')
 
             skip_confirm = self.get_skip_confirm(cr, uid, transaction)
-            _logger.info('skip_confirm %s', skip_confirm)
+            #_logger.info('skip_confirm %s', skip_confirm)
             if not skip_confirm:
                 wf_service.trg_validate(uid, 'account.centralbank.transaction', transaction.id, 'transaction_draft_confirm', cr)
             else:
@@ -542,15 +542,15 @@ class account_centralbank_transaction(osv.osv):
             if new_state == 'cancel':
                 self.refund(cr, uid, [transaction.id], ['reservation','invoice','payment','confirm'])
             import logging
-            _logger = logging.getLogger(__name__)
-            _logger.info('fields : %s', fields)
+            #_logger = logging.getLogger(__name__)
+            #_logger.info('fields : %s', fields)
             self.write(cr, uid, [transaction.id], fields)
         return True
 
     def reset_workflow(self, cr, uid, ids, *args):
         import logging
-        _logger = logging.getLogger(__name__)
-        _logger.info('test reset')
+        #_logger = logging.getLogger(__name__)
+        #_logger.info('test reset')
 
         wf_service = netsvc.LocalService("workflow")
         for transaction in self.browse(cr, uid, ids):
@@ -565,7 +565,7 @@ class account_centralbank_transaction(osv.osv):
 
             if state == 'done':
                 skip_confirm = self.get_skip_confirm(cr, uid, transaction)
-                _logger.info('skip_confirm %s', skip_confirm)
+                #_logger.info('skip_confirm %s', skip_confirm)
                 if not skip_confirm:
                     wf_service.trg_validate(uid, 'account.centralbank.transaction', transaction.id, 'transaction_draft_confirm_refund', cr)
                 else:
@@ -664,8 +664,8 @@ class res_partner(osv.osv):
             currency_ids.append(config_currency.currency_id.id)
 
         import logging
-        _logger = logging.getLogger(__name__)
-        _logger.info("[('partner_id', 'in', %s), ('currency_id', 'in', %s)]", ids, currency_ids)
+        #_logger = logging.getLogger(__name__)
+        #_logger.info("[('partner_id', 'in', %s), ('currency_id', 'in', %s)]", ids, currency_ids)
 
 
         partner_currencies = {}
@@ -688,14 +688,14 @@ class res_partner(osv.osv):
         query = self.pool.get('account.move.line')._query_get(cr, uid, context=ctx)
 
         import logging
-        _logger = logging.getLogger(__name__)
-        _logger.info('partner_currency %s',partner_currencies)
+        #_logger = logging.getLogger(__name__)
+        #_logger.info('partner_currency %s',partner_currencies)
 
 
         import logging
-        _logger = logging.getLogger(__name__)
-        _logger.info('test %s',tuple(account_ids))
-#        _logger.info("SELECT l.partner_id, SUM(l.debit-l.credit), l.account_id, a.code FROM account_move_line l LEFT JOIN account_account a ON (l.account_id=a.id) WHERE a.id IN %s AND l.partner_id IN %s AND l.reconcile_id IS NULL AND %s GROUP BY l.partner_id, l.account_id, a.code",tuple(ids),tuple(account_ids)))
+        #_logger = logging.getLogger(__name__)
+        #_logger.info('test %s',tuple(account_ids))
+#        #_logger.info("SELECT l.partner_id, SUM(l.debit-l.credit), l.account_id, a.code FROM account_move_line l LEFT JOIN account_account a ON (l.account_id=a.id) WHERE a.id IN %s AND l.partner_id IN %s AND l.reconcile_id IS NULL AND %s GROUP BY l.partner_id, l.account_id, a.code",tuple(ids),tuple(account_ids)))
 
 
         cr.execute("""SELECT l.partner_id, SUM(l.debit-l.credit), l.account_id, l.currency_id, a.code
@@ -711,8 +711,8 @@ class res_partner(osv.osv):
         res = {}
         for pid,val,account_id,currency_id,code in cr.fetchall():
             import logging
-            _logger = logging.getLogger(__name__)
-            _logger.info('pid: %s, val : %s, account_id: %s, code:%s',pid,val,account_id,code)
+            #_logger = logging.getLogger(__name__)
+            #_logger.info('pid: %s, val : %s, account_id: %s, code:%s',pid,val,account_id,code)
             if not currency_id:
                 currency_id = company_currency_id
             if val is None: val=0
@@ -723,15 +723,15 @@ class res_partner(osv.osv):
             res[currency_id][pid][account_id] = val
 
         import logging
-        _logger = logging.getLogger(__name__)
-        _logger.info('res: %s',res)
+        #_logger = logging.getLogger(__name__)
+        #_logger.info('res: %s',res)
 
         res_final = {}
         partners = self.browse(cr, uid, ids, context=context)
 
 #        import logging
-#        _logger = logging.getLogger(__name__)
-#        _logger.info('control_partner_ids: %s',control_partner_ids)
+#        #_logger = logging.getLogger(__name__)
+#        #_logger.info('control_partner_ids: %s',control_partner_ids)
         limits = self.get_centralbank_limits(cr, uid, ids, currency_ids, context=context)
 
         for partner in partners:
@@ -751,8 +751,8 @@ class res_partner(osv.osv):
                 else:
                     account_id = default_account[currency_id]['available']
                 import logging
-                _logger = logging.getLogger(__name__)
-                _logger.info('currency_id: %s, pid: %s, account_id: %s',currency_id, pid, account_id)
+                #_logger = logging.getLogger(__name__)
+                #_logger.info('currency_id: %s, pid: %s, account_id: %s',currency_id, pid, account_id)
                 vals['available'] = currency_id in res and pid in res[currency_id] and account_id in res[currency_id][pid] and res[currency_id][pid][account_id] or 0.0
                 if currency_id in partner_currencies and pid in partner_currencies[currency_id] and 'reserved' in partner_currencies[currency_id][pid] and partner_currencies[currency_id][pid]['reserved']:
                     account_id = partner_currencies[currency_id][pid]['reserved']
@@ -762,14 +762,14 @@ class res_partner(osv.osv):
                 res_final[pid][currency_id] = vals
 
         import logging
-        _logger = logging.getLogger(__name__)
-        _logger.info('res_final: %s',res_final)
+        #_logger = logging.getLogger(__name__)
+        #_logger.info('res_final: %s',res_final)
 
         return res_final
 
     def _get_centralbank_balance(self, cr, uid, ids, field_names, arg, context=None):
         import logging
-        _logger = logging.getLogger(__name__)
+        #_logger = logging.getLogger(__name__)
         balances = self.get_centralbank_balance(cr, uid, ids, context=context)
         now = datetime.now()
         proxy = self.pool.get('ir.model.data')
@@ -786,7 +786,7 @@ class res_partner(osv.osv):
 
             for currency in balances[partner.id].values():
                 res[partner.id].append((0,0,currency))
-        _logger.info('res_final_final: %s',res)
+        #_logger.info('res_final_final: %s',res)
 
         return res
                 

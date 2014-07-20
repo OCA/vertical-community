@@ -28,7 +28,7 @@ from openerp.tools.translate import _
 import openerp.addons.decimal_precision as dp
 
 import logging
-_logger = logging.getLogger(__name__)
+#_logger = logging.getLogger(__name__)
 
 
 
@@ -40,12 +40,12 @@ class marketplace_announcement(osv.osv):
     def _get_user_role(self, cr, uid, ids, prop, unknow_none, context=None):
         res = super(marketplace_announcement, self)._get_user_role(cr, uid, ids, prop, unknow_none, context=context)
         partner_id = self.pool.get('res.users').browse(cr, uid, uid, context=context).partner_id.id
-        _logger.info('res init %s', res)
-        _logger.info('partner_id %s', partner_id)
+        #_logger.info('res init %s', res)
+        #_logger.info('partner_id %s', partner_id)
         for announcement in self.browse(cr, uid, ids, context=context):
             if announcement.partner_id.group_id and partner_id in [p.id for p in announcement.partner_id.group_id.partner_wallet_ids]:
                 res[announcement.id]['is_user'] = True
-        _logger.info('res %s', res)
+        #_logger.info('res %s', res)
         return res
 
 

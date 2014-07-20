@@ -28,7 +28,7 @@ from openerp.tools.translate import _
 import openerp.addons.decimal_precision as dp
 
 import logging
-_logger = logging.getLogger(__name__)
+#_logger = logging.getLogger(__name__)
 
 
 
@@ -50,15 +50,15 @@ class account_centralbank_transaction(osv.osv):
         res = super(account_centralbank_transaction, self)._get_user_role(cr, uid, ids, prop, unknow_none, context=context)
         wf_service = netsvc.LocalService("workflow")
         partner_id = self.pool.get('res.users').browse(cr, uid, uid, context=context).partner_id.id
-        _logger.info('res init %s', res)
-        _logger.info('partner_id %s', partner_id)
+        #_logger.info('res init %s', res)
+        #_logger.info('partner_id %s', partner_id)
         for transaction in self.browse(cr, uid, ids, context=context):
-            _logger.info(' wallet_ids %s', transaction.sender_id.group_id and transaction.sender_id.group_id.partner_wallet_ids or False)
+            #_logger.info(' wallet_ids %s', transaction.sender_id.group_id and transaction.sender_id.group_id.partner_wallet_ids or False)
             if transaction.sender_id.group_id and partner_id in [p.id for p in transaction.sender_id.group_id.partner_wallet_ids]:
                 res[transaction.id]['is_sender'] = True
             if transaction.receiver_id.group_id and partner_id in [p.id for p in transaction.receiver_id.group_id.partner_wallet_ids]:
                 res[transaction.id]['is_receiver'] = True
-        _logger.info('res %s', res)
+        #_logger.info('res %s', res)
         return res
 
     _columns = {

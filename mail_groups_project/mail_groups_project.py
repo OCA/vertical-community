@@ -29,7 +29,7 @@ from openerp.tools.translate import _
 from operator import itemgetter
 
 import logging
-_logger = logging.getLogger(__name__)
+#_logger = logging.getLogger(__name__)
 
 class project_project(osv.osv):
     ''' vote_category is meant to be inherited by any model which will define vote type
@@ -101,12 +101,12 @@ class mail_group(osv.osv):
         for g in self.browse(cr, uid, ids, context=context):
             if g.partner_id:
                 partner_ids.append(g.partner_id.id)
-        _logger.info('partner_ids %s', partner_ids)
+        #_logger.info('partner_ids %s', partner_ids)
         partner_ids = [g.partner_id and g.partner_id.id for g in self.browse(cr, uid, ids, context=context)]
-        _logger.info('partner_ids %s', partner_ids)
+        #_logger.info('partner_ids %s', partner_ids)
 
         followers = self._get_followers(cr, uid, ids, '', '', context=context)
-        _logger.info('followers %s', followers)
+        #_logger.info('followers %s', followers)
 
         project_ids = project_obj.search(cr, uid, [('team_id', 'in', ids)], context=context)
         projects = {}
@@ -122,8 +122,8 @@ class mail_group(osv.osv):
                 tasks[task.assigned_partner_id.group_id.id] = []
             tasks[task.assigned_partner_id.group_id.id].append(task.id)
 
-        _logger.info('group project %s %s', projects, followers)
-        _logger.info('group task %s %s', tasks, followers)
+        #_logger.info('group project %s %s', projects, followers)
+        #_logger.info('group task %s %s', tasks, followers)
         for group in self.browse(cr, uid, ids, context=context):
             if group.id in projects:
                 project_obj.message_subscribe(cr, uid, projects[group.id], followers[group.id]['message_follower_ids'], context=context)

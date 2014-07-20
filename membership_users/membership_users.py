@@ -29,7 +29,7 @@ from openerp.osv import fields, osv, orm
 from openerp.tools.translate import _
 
 import logging
-_logger = logging.getLogger(__name__)
+#_logger = logging.getLogger(__name__)
 
 class res_partner(osv.osv):
 
@@ -59,7 +59,7 @@ class groups_view(osv.osv):
     def update_user_groups_view(self, cr, uid, context=None):
         res = super(groups_view, self).update_user_groups_view(cr, uid, context=context)
 
-        _logger.info('In update_user_groups_view')
+        #_logger.info('In update_user_groups_view')
         view = self.pool['ir.model.data'].xmlid_to_object(cr, SUPERUSER_ID, 'membership_users.user_groups_view_simple_form', context=context)
         if view and view.exists() and view._name == 'ir.ui.view':
             xml1, xml2 = [], []
@@ -82,7 +82,7 @@ class groups_view(osv.osv):
             xml = E.group(*(xml1 + xml2), name="group_groups_id", position="inside")
             xml.addprevious(etree.Comment("GENERATED AUTOMATICALLY BY GROUPS"))
             xml_content = etree.tostring(xml, pretty_print=True, xml_declaration=True, encoding="utf-8")
-            _logger.info('xml_content %s', xml_content)
+            #_logger.info('xml_content %s', xml_content)
             view.write({'arch': xml_content})
         return res
 

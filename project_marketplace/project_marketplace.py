@@ -30,7 +30,7 @@ from datetime import datetime
 import base64
 
 import logging
-_logger = logging.getLogger(__name__)
+#_logger = logging.getLogger(__name__)
 
 
 
@@ -128,7 +128,7 @@ class marketplace_announcement(osv.osv):
         res = super(marketplace_announcement, self).create(cr, uid, vals, context=context)
        #Update function fields in task
         if 'task_id' in vals:
-            _logger.info('task_id %s', vals['task_id'])
+            #_logger.info('task_id %s', vals['task_id'])
             task_obj.write(cr, uid, [vals['task_id']], {'assigned_partner_id': vals['partner_id']}, context=context)
         return res
 
@@ -193,16 +193,16 @@ class marketplace_proposition(osv.osv):
             if new_state == 'accepted':
                 if not proposition.task_id:
                     task_vals = self._prepare_task_values(cr, uid, proposition)
-                    _logger.info('task_vals %s', task_vals)
+                    #_logger.info('task_vals %s', task_vals)
                     parent_ids = False
                     if 'parent_ids' in task_vals:
                         parent_ids = task_vals['parent_ids']
                         del(task_vals['parent_ids'])
                     task_id = task_obj.create(cr, SUPERUSER_ID, task_vals)
                     if parent_ids:
-                        _logger.info('parent_ids proposition creation %s', parent_ids)
+                        #_logger.info('parent_ids proposition creation %s', parent_ids)
                         task_obj.write(cr, SUPERUSER_ID, [task_id], {'parent_ids': parent_ids})
-                        _logger.info('task parent_ids %s', task_obj.browse(cr, SUPERUSER_ID, [task_id]).parent_ids)
+                        #_logger.info('task parent_ids %s', task_obj.browse(cr, SUPERUSER_ID, [task_id]).parent_ids)
                     self.write(cr, SUPERUSER_ID, [proposition.id], {'task_id': task_id})
                     #Update function field in task
                     task_obj.write(cr, SUPERUSER_ID, [task_id], {'name': proposition.announcement_id.name})
@@ -267,12 +267,12 @@ class project_project(osv.osv):
         name = 'name' in record and record.name or False
         if not name:
             name = self.pool.get(record.model).browse(cr, uid, record.res_id).name
-        _logger.info('vals prepare_config %s, name %s, stage %s, marketplace %s', vals, name, 'stage_id' in record and record.stage_id.name, record.marketplace_assignment)
+        #_logger.info('vals prepare_config %s, name %s, stage %s, marketplace %s', vals, name, 'stage_id' in record and record.stage_id.name, record.marketplace_assignment)
         if 'marketplace_assignment' not in vals:
             vals['marketplace_assignment'] = 'marketplace_assignment' in record and record.marketplace_assignment or False
-        _logger.info('vals prepare_config %s', vals)
+        #_logger.info('vals prepare_config %s', vals)
         res = super(project_project, self)._prepare_config(cr, uid, id, record, vals=vals, context=context)
-        _logger.info('vals prepare_config after %s', res)
+        #_logger.info('vals prepare_config after %s', res)
         return res
 
 class project_task(osv.osv):
@@ -283,32 +283,32 @@ class project_task(osv.osv):
         name = 'name' in record and record.name or False
         if not name:
             name = self.pool.get(record.model).browse(cr, uid, record.res_id).name
-        _logger.info('vals prepare_config %s, name %s, stage %s, marketplace %s', vals, name, 'stage_id' in record and record.stage_id.name, record.marketplace_assignment)
+        #_logger.info('vals prepare_config %s, name %s, stage %s, marketplace %s', vals, name, 'stage_id' in record and record.stage_id.name, record.marketplace_assignment)
         if 'marketplace_assignment' not in vals:
             vals['marketplace_assignment'] = 'marketplace_assignment' in record and record.marketplace_assignment or False
-        _logger.info('vals prepare_config %s', vals)
+        #_logger.info('vals prepare_config %s', vals)
         res = super(project_task, self)._prepare_config(cr, uid, id, record, vals=vals, context=context)
-        _logger.info('vals prepare_config after %s', res)
+        #_logger.info('vals prepare_config after %s', res)
         return res
 
 
     def _update_assigned_partner(self, cr, uid, ids, vals, context=None):
         res = super(project_task, self)._update_assigned_partner(cr, uid, ids, vals, context=context)
-        _logger.info('In update vals %s, res %s', vals, res)
+        #_logger.info('In update vals %s, res %s', vals, res)
         if 'stage_id' in vals:
             for task in self.browse(cr, uid, ids, context=context):
                 for config in task.assigned_partner_config_result_ids:
-                    _logger.info('In config %s, proposition %s, marketplace_assignment %s', config.stage_id.name, task.proposition_id, config.marketplace_assignment)
+                    #_logger.info('In config %s, proposition %s, marketplace_assignment %s', config.stage_id.name, task.proposition_id, config.marketplace_assignment)
                     if config.stage_id.id == vals['stage_id'] and task.proposition_id and config.marketplace_assignment:
-                        _logger.info('Proposition ok')
+                        #_logger.info('Proposition ok')
                         if config.marketplace_assignment == 'payer' and task.proposition_id.type == 'want' or config.marketplace_assignment == 'invoicer' and task.proposition_id.type == 'offer':
                             partner_id = task.proposition_id.announcement_id.partner_id.id
                             if task.parent_ids and task.parent_ids[0].assigned_partner_id:
                                 partner_id = task.parent_ids[0].assigned_partner_id.id
-                            _logger.info('before write announcer')
+                            #_logger.info('before write announcer')
                             res['assigned_partner_id'] = partner_id
                         if config.marketplace_assignment == 'payer' and task.proposition_id.type == 'offer' or config.marketplace_assignment == 'invoicer' and task.proposition_id.type == 'want':
-                            _logger.info('before write proposer')
+                            #_logger.info('before write proposer')
                             res['assigned_partner_id'] = task.proposition_id.sender_id.id
 
         if 'assigned_partner_id' in res:
@@ -317,6 +317,6 @@ class project_task(osv.osv):
                 res['user_id'] = partner.user_ids[0].id
             else:
                 res['user_id'] = False
-        _logger.info('res project_marketplace %s', res)
+        #_logger.info('res project_marketplace %s', res)
         return res
 

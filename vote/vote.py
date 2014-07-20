@@ -29,7 +29,7 @@ from openerp.tools.translate import _
 from operator import itemgetter
 
 import logging
-_logger = logging.getLogger(__name__)
+#_logger = logging.getLogger(__name__)
 
 
 class vote_category(osv.AbstractModel):
@@ -78,7 +78,7 @@ class vote_category(osv.AbstractModel):
 #            res[category.id] = []
 #            for config_line in config_lines[category.id]:
 #                res[category.id].append((0,0,config_line))
-#        _logger.info('res %s',res)
+#        #_logger.info('res %s',res)
 #        return res
 
 
@@ -97,9 +97,9 @@ class vote_category(osv.AbstractModel):
         res = {}
         vote_config_obj = self.pool.get('vote.config.line')
         vote_config_ids = vote_config_obj.search(cr, uid, [('model','=','community.config.settings'),('target_model.model','=', self._name)], context=context)
-        _logger.info('vote_config_ids %s', vote_config_ids)
+        #_logger.info('vote_config_ids %s', vote_config_ids)
         for config_line in vote_config_obj.browse(cr, uid, vote_config_ids, context=context):
-            _logger.info('config.line %s', config_line.target_model.model)
+            #_logger.info('config.line %s', config_line.target_model.model)
             res[config_line.name.id] =  self._prepare_config(cr, uid, record.id, config_line, context=context)
         return res
 
@@ -166,7 +166,7 @@ class vote_model(osv.AbstractModel):
         vote_config_obj = self.pool.get('vote.config.line')
         res = {}
         for record in self.browse(cr, uid, ids, context=context):
-            _logger.info('record %s', record)
+            #_logger.info('record %s', record)
             res[record.id] = []
             if self._vote_category_field and getattr(record, self._vote_category_field):
                 vote_configs = getattr(record, self._vote_category_field).vote_config_result_ids
@@ -193,8 +193,8 @@ class vote_model(osv.AbstractModel):
 #            res[record.id] = {}
 #            res[record.id]['vote_vote'] = []
 #
-#            _logger.info('field %s, %s', self._vote_category_field, record)
-#            _logger.info('test %s',getattr(record, 'category_id'))
+#            #_logger.info('field %s, %s', self._vote_category_field, record)
+#            #_logger.info('test %s',getattr(record, 'category_id'))
 #            vote_config_ids = vote_config_obj.search(cr, uid, [('model','=','vote.config.settings')], context=context)
 #            votes = vote_configs[record.id]
 #
@@ -209,7 +209,7 @@ class vote_model(osv.AbstractModel):
 #                if vote['id'] in vote_lines:
 #                    vote['value'] = vote_lines[vote['id']].vote
 #                res[record.id]['vote_vote'].append(vote)
-#        _logger.info('res : %s', res)
+#        #_logger.info('res : %s', res)
 #        return resi
 
     # def _get_partner_ids(self, cr, uid, ids, context=None):
@@ -253,8 +253,8 @@ class vote_model(osv.AbstractModel):
             res[record.id]['vote_comment'] = False
             res[record.id]['vote_vote_line_ids'] = []
 
-            _logger.info('field %s, %s', self._vote_category_field, record)
-            _logger.info('test %s',getattr(record, 'category_id'))
+            #_logger.info('field %s, %s', self._vote_category_field, record)
+            #_logger.info('test %s',getattr(record, 'category_id'))
 #            vote_config_ids = vote_config_obj.search(cr, uid, [('model','=','vote.config.settings')], context=context)
             votes = vote_configs[record.id]
 
@@ -272,11 +272,11 @@ class vote_model(osv.AbstractModel):
                 if vote['id'] in vote_lines:
                     vote['value'] = vote_lines[vote['id']].vote
                 res[record.id]['vote_vote_line_ids'].append((0,0,{'type_id':vote['id'],'vote':vote['value']}))
-        _logger.info('res _get_vote_vote : %s', res)
+        #_logger.info('res _get_vote_vote : %s', res)
         return res
 
     def _set_vote_vote(self, cr, uid, id, name, value, arg, context={}):
-        _logger.info('name : %s, value %s, arg %s', name, value, arg)
+        #_logger.info('name : %s, value %s, arg %s', name, value, arg)
 
         """ Create or update the vote in vote.vote model when we save the record """
         vote_obj = self.pool.get('vote.vote')
@@ -294,9 +294,9 @@ class vote_model(osv.AbstractModel):
         lines = {}
         for line in vote_line_obj.browse(cr, uid, vote_line_ids, context=context):
             lines[line.type_id.id] = line
-        _logger.info('lines %s', lines)
-        _logger.info('value %s', value)
-        _logger.info('vote_ids %s', vote_ids)
+        #_logger.info('lines %s', lines)
+        #_logger.info('value %s', value)
+        #_logger.info('vote_ids %s', vote_ids)
 
         if value:
             fields = {}
@@ -304,10 +304,10 @@ class vote_model(osv.AbstractModel):
                 fields.update({'comment': value})
             if not vote_ids:
                 fields.update({'model': self._name, 'res_id': id, 'partner_id': vote_partner_id})
-                _logger.info('before create %s', fields)
+                #_logger.info('before create %s', fields)
                 vote_id = vote_obj.create(cr, uid, fields, context=context)
             else:
-                _logger.info('In write vote_ids %s, fields : %s', fields)
+                #_logger.info('In write vote_ids %s, fields : %s', fields)
                 vote_obj.write(cr, uid, vote_ids, fields, context=context)
                 vote_id = vote_ids[0]
 
@@ -317,7 +317,7 @@ class vote_model(osv.AbstractModel):
     def onchange_vote_partner(self, cr, uid, ids, vote_partner_id, context={}):
         context['vote_partner_id'] = vote_partner_id
         votes = self._get_vote_vote(cr, uid, ids, '', '', context=context)
-        _logger.info('votes %s', votes)
+        #_logger.info('votes %s', votes)
 
         res = {
             'vote_partner_id': vote_partner_id,
@@ -392,7 +392,7 @@ class vote_vote(osv.Model):
             model_obj = self.pool.get(vote.model)
             context['vote_id'] = vote.id
             vote_lines = model_obj._get_vote_vote(cr, uid, [vote.res_id], '', '', context=context)[vote.res_id]['vote_vote_line_ids']
-            _logger.info('vote %s', vote)
+            #_logger.info('vote %s', vote)
             res[vote.id]['vote_vote_line_ids'] = vote_lines
             for vote_line in vote_lines:
                 vote_line = vote_line[2]
@@ -400,7 +400,7 @@ class vote_vote(osv.Model):
                 vote_string = ''
                 if vote_line['vote']:
                     vote_string = vote_line['vote']
-                _logger.info('type %s, vote %s', type.name, vote_line['vote'])
+                #_logger.info('type %s, vote %s', type.name, vote_line['vote'])
                 res[vote.id]['line_string'] += type.name + ' : ' + vote_string + '\n'
                 if not vote_line['vote']:
                     res[vote.id]['is_complete'] = False
@@ -412,8 +412,8 @@ class vote_vote(osv.Model):
         return res
 
     def _set_lines(self, cr, uid, id, name, value, arg, context=None):
-        _logger.info('name : %s, value %s, arg %s', name, value, arg)
-        _logger.info('!!!!!!!!!!!')
+        #_logger.info('name : %s, value %s, arg %s', name, value, arg)
+        #_logger.info('!!!!!!!!!!!')
         """ Create or update the vote in vote.vote model when we save the record """
         vote_line_obj = self.pool.get('vote.vote.line')
 
@@ -424,7 +424,7 @@ class vote_vote(osv.Model):
             lines[line.type_id.id] = line
 
         if value and name == 'vote_vote_line_ids':
-            _logger.info('value %s', value)
+            #_logger.info('value %s', value)
             for vote_line in value:
                 vote_line = vote_line[2]
                 type_id = vote_line['type_id']
@@ -480,16 +480,16 @@ class vote_vote(osv.Model):
 
     def _update_evaluated(self, cr, uid, ids, context=None):
         for vote in self.browse(cr, uid, ids, context=context):
-            _logger.info('vote.model %s', vote.model)
+            #_logger.info('vote.model %s', vote.model)
             evaluated_ids = self.pool.get(vote.model)._get_evaluated(cr, uid, vote.res_id, vote.partner_id.id, context=context)
-            _logger.info('evaluated_ids %s', evaluated_ids)
+            #_logger.info('evaluated_ids %s', evaluated_ids)
             self.write(cr, uid, [vote.id], {'evaluated_object_ids': [(6,0,evaluated_ids)]}, context=context)
-            _logger.info('after')
-        _logger.info('_end _update_evaluated')
+            #_logger.info('after')
+        #_logger.info('_end _update_evaluated')
         return True
 
     def create(self, cr, uid, vals, context=None):
-        _logger.info('vals create %s', vals)
+        #_logger.info('vals create %s', vals)
         res = super(vote_vote, self).create(cr, uid, vals, context=context)
         self._update_evaluated(cr, uid, [res], context=context)
         return res
