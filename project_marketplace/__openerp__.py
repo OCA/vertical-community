@@ -38,7 +38,8 @@ Project Marketplace
  'data': ['project_marketplace_view.xml',
 #          'res_config_view.xml'
           ],
- 'test': ['tests/project_marketplace_offer.yml'],
+ 'test': ['tests/project_marketplace_want.yml',
+          'tests/project_marketplace_offer.yml'],
  'installable': True,
  'application': True,
 }

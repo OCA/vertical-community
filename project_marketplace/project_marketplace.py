@@ -61,6 +61,7 @@ class project_task(osv.osv):
 
     _columns = {
         #Tried to make a store with a function but it doesn't work because when we change the value we have in the function only the announcement id of the new task, we can't update the old one.
+        'announcement_creator_id': fields.many2one('res.partner', 'Who whill create the announcement?', help="If empty, the assigned partner will be used"),
         'announcement_id': fields.function(_get_marketplace, type="many2one", relation="marketplace.announcement", string="Announcement", readonly=True, multi="marketplace", store=True),
         'proposition_id': fields.function(_get_marketplace, type="many2one", relation="marketplace.proposition", string="Proposition", readonly=True, multi="marketplace", store=True),
     }
@@ -71,7 +72,7 @@ class project_task(osv.osv):
             'type': 'want',
             'description':task.description,
             'task_id': task.id,
-            'partner_id': task.assigned_partner_id.id
+            'partner_id': task.announcement_creator_id and task.announcement_creator_id.id or task.assigned_partner_id.id
         }
         return announcement_vals
 

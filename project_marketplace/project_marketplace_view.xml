@@ -34,6 +34,7 @@
                 <field name="description" position="after">
                     <group>
                         <group>
+                            <field name="announcement_creator_id" attrs="{'invisible': [('announcement_id','!=',False)]}"/>
                             <button name="create_announcement" string="Create announcement" type="object" attrs="{'invisible': [('announcement_id','!=',False)]}"/>
                         </group>
                         <group>
