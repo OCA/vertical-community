@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="base_community.user_joel" model="res.users">
+            <field name="groups_id" eval="[(4,ref('group_community_administrator'))]"/>
+        </record>
+
+        <record id="base_community.user_luc" model="res.users">
+            <field name="groups_id" eval="[(4,ref('group_community_user'))]"/>
+        </record>
+
+        <record id="base_community.user_nhomar" model="res.users">
+            <field name="groups_id" eval="[(4,ref('group_community_user')),(4,ref('base.group_website_publisher')),(4,ref('base.group_website_publisher')),(4,ref('base.group_document_user')),(4,ref('membership_users.group_membership_moderator'))]"/>
+        </record>
+
+        <record id="base_community.user_mark" model="res.users">
+            <field name="groups_id" eval="[(4,ref('group_community_user'))]"/>
+        </record>
+
+        <record id="base_community.user_roger" model="res.users">
+            <field name="groups_id" eval="[(4,ref('group_community_user'))]"/>
+        </record>
+
+        <record id="base.user_demo" model="res.users">
+            <field name="groups_id" eval="[(4,ref('group_community_user'))]"/>
+        </record>
+
+    </data>
+</openerp>

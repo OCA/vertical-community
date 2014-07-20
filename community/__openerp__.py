@@ -19,7 +19,7 @@
 #
 ##############################################################################
 
-{'name': 'OpenERP CommunityTools',
+{'name': 'Odoo Community Management',
  'version': '1.0',
  'category': 'Community',
  'depends': ['base',
@@ -40,7 +40,7 @@
  'license': 'AGPL-3',
  'website': 'https://launchpad.net/openerp-communitytools',
  'description': """
-OpenERP for Communities
+Odoo for Communities
 =================
 
 This module is the base module to allow your OpenERP to manage communities. It contains the base elements and a wizard which allow you to install another features.
@@ -51,7 +51,7 @@ This module is the base module to allow your OpenERP to manage communities. It c
           'security/community_security.xml',
           'res_config_view.xml'
           ],
- 'demo': ['community_demo.xml'],
+ 'demo': ['data/community_demo.xml'],
  'installable': True,
  'application': True,
 }
