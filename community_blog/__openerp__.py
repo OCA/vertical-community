@@ -19,7 +19,7 @@
 #
 ##############################################################################
 
-{'name': 'OpenERP CommunityTools - Website Blog',
+{'name': 'Odoo for Communities - Website Blog',
  'version': '1.0',
  'category': 'Community',
  'depends': ['community',
@@ -29,7 +29,7 @@
  'license': 'AGPL-3',
  'website': 'https://launchpad.net/openerp-communitytools',
  'description': """
-OpenERP for Communities - Blog
+Odoo for Communities - Blog
 =================
 
 """,
