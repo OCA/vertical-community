@@ -116,7 +116,7 @@
             <field name="sender_id" ref="base.res_partner_main2"/>
             <field name="quantity">5</field>
         </record>
-        <record id="proposition_demo1_line1" model="account.centralbank.currency.line">
+<!--        <record id="proposition_demo1_line1" model="account.centralbank.currency.line">
             <field name="model">account.centralbank.transaction</field>
             <field name="res_id" ref="proposition_demo1"/>
             <field name="field">currency_ids</field>
@@ -127,7 +127,7 @@
         <workflow action="proposition_open_accepted" model="marketplace.proposition" ref="proposition_demo1"/>
         <workflow action="proposition_accepted_invoiced" model="marketplace.proposition" ref="proposition_demo1"/>
         <function model="marketplace.proposition" name="pay" eval="[ref('proposition_demo1')]"/>
-
+-->
 
         <record id="announcement_demo2" model="marketplace.announcement">
             <field name="name">Need help for a little change in Odoo frontend</field>
@@ -153,7 +153,7 @@
             <field name="quantity">1</field>
         </record>
         <record id="proposition_demo2_line1" model="account.centralbank.currency.line">
-            <field name="model">account.centralbank.transaction</field>
+<!--            <field name="model">account.centralbank.transaction</field>
             <field name="res_id" ref="proposition_demo2"/>
             <field name="field">currency_ids</field>
             <field name="price_unit">50</field>
@@ -161,6 +161,6 @@
         </record>
         <workflow action="proposition_draft_open" model="marketplace.proposition" ref="proposition_demo2"/>
         <workflow action="proposition_open_accepted" model="marketplace.proposition" ref="proposition_demo2"/>
-
+-->
     </data>
 </openerp>
