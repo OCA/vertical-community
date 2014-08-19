@@ -56,6 +56,7 @@ class account_centralbank_currency_line(osv.osv):
         'price_unit': fields.float('Unit price', required=True, digits_compute= dp.get_precision('Product Price')),
         'currency_id': fields.many2one('res.currency', 'Currency', domain=[('centralbank_currency', '=', True)], required=True),
         'subtotal': fields.function(_get_subtotal, string='Subtotal', digits_compute= dp.get_precision('Account')),
+        'transaction_id': fields.many2one('account.centralbank.transaction', 'Transaction'),
     }
 
     _defaults = {
@@ -65,6 +66,11 @@ class account_centralbank_currency_line(osv.osv):
     _sql_constraints = [
         ('object_currency', 'unique(model,res_id,field,currency_id)', 'We can only have one currency per record')
     ]
+
+    def create(self, cr, uid, vals, context=None):
+        if 'transaction_id' in vals:
+            vals['res_id'] = vals['transaction_id']
+        return super(account_centralbank_currency_line, self).create(cr, uid, vals, context=context)
 
 
 class account_centralbank_transaction(osv.osv):
@@ -118,9 +124,9 @@ class account_centralbank_transaction(osv.osv):
         'total': fields.function(_get_price_name, string='Total', type="char", size=64, digits_compute= dp.get_precision('Account'), store=True, readonly=True),
         'quantity': fields.float('Exchanged quantity', digits_compute= dp.get_precision('Product Unit of Measure')),
         'uom_id': fields.many2one('product.uom', 'Unit of Measure', ondelete='set null'),
-        'currency_ids': fields.one2many('account.centralbank.currency.line', 'res_id',
-            domain=lambda self: [('model', '=', self._name),('field','=','currency_ids')],
-            auto_join=True,
+        'currency_ids': fields.one2many('account.centralbank.currency.line', 'transaction_id',
+#            domain=lambda self: [('model', '=', self._name),('field','=','currency_ids')],
+#            auto_join=True,
             string='Currencies', readonly=True, states={'draft':[('readonly',False)]}),
         'already_published': fields.boolean('Already published?'),
         'move_ids': fields.one2many('account.move', 'centralbank_transaction_id', 'Moves'),
@@ -164,13 +170,6 @@ class account_centralbank_transaction(osv.osv):
         if context is None:
             context = {}
         currency_ids = []
-        if context.get('default_announcement_id'):
-            for currency in self.pool.get('marketplace.announcement').browse(cr, uid, [context.get('default_announcement_id')], context=context)[0].currency_ids:
-                vals = {}
-                vals['price_unit'] = currency.price_unit
-                vals['currency_id'] = currency.currency_id.id
-                vals['company_commission'] = currency.company_commission
-                currency_ids.append((0, 0, vals))
         return currency_ids
 
     def _get_uom_id(self, cr, uid, *args):
@@ -196,6 +195,7 @@ class account_centralbank_transaction(osv.osv):
         'sender_id': _default_partner,
         'model_id': _default_model,
     }
+
 
     def unlink(self, cr, uid, ids, context=None):
         currency_line_obj = self.pool.get('account.centralbank.currency.line')
@@ -458,6 +458,7 @@ class account_centralbank_transaction(osv.osv):
     def prepare_move(self, cr, uid, ids, action, context=None):
         wf_service = netsvc.LocalService("workflow")
         journal_obj = self.pool.get('account.journal')
+        partner_obj = self.pool.get('res.partner')
         move_obj = self.pool.get('account.move')
         company_obj = self.pool.get('res.company')
         config = self.pool.get('ir.model.data').get_object(cr, uid, 'base_community', 'community_settings')
@@ -494,6 +495,8 @@ class account_centralbank_transaction(osv.osv):
                 self.write(cr, uid, [transaction.id], {action + '_id': move_id})
                 if transaction.reservation_id:
                     self.reconcile(cr, uid, [transaction.reservation_id.id, move_id], context=context)
+
+            partner_obj.update_centralbank_balance(cr, uid, [transaction.sender_id.id,transaction.receiver_id.id], context=context)
 
 
     def get_skip_confirm(self, cr, uid, transaction, context=None):
@@ -740,6 +743,7 @@ class res_partner(osv.osv):
 
             for currency_id in currency_ids:
                 vals = {}
+                vals['partner_id'] = partner.id
                 vals['currency_id'] = currency_id
                 vals['limit_negative'] = limits[partner.id][currency_id]['limit_negative']
                 vals['limit_negative_value'] = limits[partner.id][currency_id]['limit_negative_value']
@@ -767,37 +771,46 @@ class res_partner(osv.osv):
 
         return res_final
 
-    def _get_centralbank_balance(self, cr, uid, ids, field_names, arg, context=None):
+    def update_centralbank_balance(self, cr, uid, ids, context=None):
+        line_obj = self.pool.get('res.partner.centralbank.balance')
         import logging
         #_logger = logging.getLogger(__name__)
         balances = self.get_centralbank_balance(cr, uid, ids, context=context)
         now = datetime.now()
         proxy = self.pool.get('ir.model.data')
 
+        line_ids = line_obj.search(cr, uid, [('partner_id','in',ids)], context=context)
+        line_obj.unlink(cr, uid, line_ids, context=context)
+
         res = {}
         for partner in self.browse(cr, uid, ids, context=context):
             res[partner.id] = []
-
-            #If we do not control that the partner already exist, it trigger a bug at the account creation. I am controlling this by checking that the partner wasn't created in the last 60 second, this is crappy but it work. TOIMPROVE TODO
-#            delta = now - datetime.strptime(partner.create_date,"%Y-%m-%d %H:%M:%S")
-#            if (delta.total_seconds() < 60 or partner.id == proxy.get_object(cr, uid, 'auth_signup', 'default_template_user').partner_id.id) and partner.id not in [proxy.get_object(cr, uid, 'account_centralbank', 'partner_test1').id,proxy.get_object(cr, uid, 'account_centralbank', 'partner_test2').id] :
-#                continue
-# I seems I don't have the problem anymore
-
             for currency in balances[partner.id].values():
-                res[partner.id].append((0,0,currency))
+                line_obj.create(cr, uid, currency, context=context)
+
         #_logger.info('res_final_final: %s',res)
 
         return res
-                
+
+
+    def create(self, cr, uid, vals, context=None):
+        res = super(res_partner, self).create(cr, uid, vals, context=context)
+        self.update_centralbank_balance(cr, uid, [res], context=context)
+        return res
+
+    def write(self, cr, uid, ids, vals, context=None):
+        res = super(res_partner, self).write(cr, uid, ids, vals, context=context)
+        if 'centralbank_currency_ids' in vals:
+            self.update_centralbank_balance(cr, uid, ids, context=context)
+        return res
 
 
     _columns = {
         'centralbank_currency_ids': fields.one2many('res.partner.centralbank.currency', 'partner_id', 'Currencies'),
-        'centralbank_balance_ids': fields.function(_get_centralbank_balance, type="one2many", relation="res.partner.centralbank.balance",string='Balances'),
+        'centralbank_balance_ids': fields.one2many("res.partner.centralbank.balance", 'partner_id', 'Balances'),
         'create_date': fields.datetime('Create date'),
     }
-#TODO : make store functions
+
 
 class res_partner_centralbank_currency(osv.osv):
 

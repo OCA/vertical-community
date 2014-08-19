@@ -42,9 +42,9 @@ class community_config_settings(osv.osv):
     _inherit = 'community.config.settings'
 
     _columns = {
-        'vote_line_ids': fields.one2many('vote.config.line', 'res_id',
-            domain=lambda self: [('model', '=', self._name)],
-            auto_join=True,
+        'vote_line_ids': fields.one2many('vote.config.line', 'config_id',
+#            domain=lambda self: [('model', '=', self._name)],
+#            auto_join=True,
             string='Lines'),
     }
 
@@ -73,6 +73,7 @@ class vote_config_line(osv.osv):
     _columns = {
         'target_model': fields.many2one('ir.model', 'Target model', ondelete='cascade'),
         'name': fields.many2one('vote.type', 'Name', required=True),
+        'config_id': fields.many2one('community.config.settings', 'Config'),
     }
 
     _order = 'target_model, sequence'

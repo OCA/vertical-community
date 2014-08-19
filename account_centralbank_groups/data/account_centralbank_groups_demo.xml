@@ -37,6 +37,7 @@
             <field name="field">currency_ids</field>
             <field name="price_unit">100</field>
             <field name="currency_id" ref="account_centralbank.COM"/>
+            <field name="transaction_id" ref="transaction_demo1"/>
         </record>
         <function model="account.centralbank.transaction" name="confirm" eval="[ref('transaction_demo1')]"/>
 

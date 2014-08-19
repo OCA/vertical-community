@@ -40,7 +40,6 @@ class community_config_settings(osv.osv):
         'default_currency_id': fields.many2one('res.currency', 'Default currency', domain=[('centralbank_currency', '=', True)], required=True),
     }
 
-
 class account_centralbank_config_currency(osv.osv):
     _name = 'account.centralbank.config.currency'
 
@@ -58,14 +57,28 @@ class account_centralbank_config_currency(osv.osv):
         'external_currency': fields.boolean('External currency'),
     }
 
+    def update_all_partners(self, cr, uid, context=None):
+        partner_obj = self.pool.get('res.partner')
+        partner_ids = partner_obj.search(cr, uid, [], context=context)
+        partner_obj.update_centralbank_balance(cr, uid, partner_ids, context=context)
+
     def create(self, cr, uid, vals, context=None):
         self.pool.get('res.currency').write(cr, uid, [vals['currency_id']], {'centralbank_currency': True}, context=context)
-        return super(account_centralbank_config_currency, self).create(cr, uid, vals, context=context)
+        res = super(account_centralbank_config_currency, self).create(cr, uid, vals, context=context)
+        self.update_all_partners(cr, uid, context=context)
+        return res
+
+    def write(self, cr, uid, ids, vals, context=None):
+        res = super(account_centralbank_config_currency, self).write(cr, uid, ids, vals, context=context)
+        self.update_all_partners(cr, uid, context=context)
+        return res
 
     def unlink(self, cr, uid, ids, context=None):
         for currency in self.browse(cr, uid, ids, context=context):
             self.pool.get('res.currency').write(cr, uid, [currency.currency_id.id], {'centralbank_currency': False}, context=context)
-        return super(account_centralbank_config_currency, self).unlink(cr, uid, ids, context=context)
+        res = super(account_centralbank_config_currency, self).unlink(cr, uid, ids, context=context)
+        self.update_all_partners(cr, uid, context=context)
+        return res
 
 
 

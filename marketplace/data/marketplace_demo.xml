@@ -23,6 +23,7 @@
             <field name="model">community.config.settings</field>
             <field name="res_id" ref="base_community.community_settings"/>
             <field name="target_model" ref="model_marketplace_announcement_category"/>
+            <field name="config_id" ref="base_community.community_settings"/>
         </record>
 
         <record id="vote_config_meet_needs" model="vote.config.line">
@@ -30,6 +31,7 @@
             <field name="model">community.config.settings</field>
             <field name="res_id" ref="base_community.community_settings"/>
             <field name="target_model" ref="model_marketplace_announcement_category"/>
+            <field name="config_id" ref="base_community.community_settings"/>
         </record>
 
         <record id="vote_config_was_on_time" model="vote.config.line">
@@ -37,6 +39,7 @@
             <field name="model">community.config.settings</field>
             <field name="res_id" ref="base_community.community_settings"/>
             <field name="target_model" ref="model_marketplace_announcement_category"/>
+            <field name="config_id" ref="base_community.community_settings"/>
         </record>
 
         <record id="category_it" model="marketplace.announcement.category">
@@ -46,6 +49,7 @@
             <field name="name" ref="vote_was_on_time"/>
             <field name="model">marketplace.announcement.category</field>
             <field name="res_id" ref="category_it"/>
+            <field name="category_id" ref="category_it"/>
             <field name="action">remove</field>
         </record>
 
@@ -57,6 +61,7 @@
             <field name="name" ref="vote_code_quality"/>
             <field name="model">marketplace.announcement.category</field>
             <field name="res_id" ref="category_erp"/>
+            <field name="category_id" ref="category_erp"/>
             <field name="action">add</field>
         </record>
 
@@ -107,6 +112,7 @@
             <field name="field">currency_ids</field>
             <field name="price_unit">50</field>
             <field name="currency_id" ref="account_centralbank.COM"/>
+            <field name="announcement_id" ref="announcement_demo1"/>
         </record>
         <workflow action="announcement_draft_open" model="marketplace.announcement" ref="announcement_demo1"/>
 
@@ -116,19 +122,19 @@
             <field name="sender_id" ref="base.res_partner_main2"/>
             <field name="quantity">5</field>
         </record>
-<!--        <record id="proposition_demo1_line1" model="account.centralbank.currency.line">
+        <record id="proposition_demo1_line1" model="account.centralbank.currency.line">
             <field name="model">account.centralbank.transaction</field>
             <field name="res_id" ref="proposition_demo1"/>
             <field name="field">currency_ids</field>
             <field name="price_unit">50</field>
             <field name="currency_id" ref="account_centralbank.COM"/>
+            <field name="proposition_id" ref="proposition_demo1"/>
         </record>
         <workflow action="proposition_draft_open" model="marketplace.proposition" ref="proposition_demo1"/>
         <workflow action="proposition_open_accepted" model="marketplace.proposition" ref="proposition_demo1"/>
         <workflow action="proposition_accepted_invoiced" model="marketplace.proposition" ref="proposition_demo1"/>
         <function model="marketplace.proposition" name="pay" eval="[ref('proposition_demo1')]"/>
--->
-<!--
+
         <record id="announcement_demo2" model="marketplace.announcement">
             <field name="name">Need help for a little change in Odoo frontend</field>
             <field name="type">want</field>
@@ -144,6 +150,7 @@
             <field name="field">currency_ids</field>
             <field name="price_unit">100</field>
             <field name="currency_id" ref="account_centralbank.COM"/>
+            <field name="announcement_id" ref="announcement_demo1"/>
         </record>
         <workflow action="announcement_draft_open" model="marketplace.announcement" ref="announcement_demo2"/>
         <record id="proposition_demo2" model="marketplace.proposition">
@@ -158,9 +165,10 @@
             <field name="field">currency_ids</field>
             <field name="price_unit">50</field>
             <field name="currency_id" ref="account_centralbank.COM"/>
+            <field name="proposition_id" ref="proposition_demo2"/>
         </record>
         <workflow action="proposition_draft_open" model="marketplace.proposition" ref="proposition_demo2"/>
         <workflow action="proposition_open_accepted" model="marketplace.proposition" ref="proposition_demo2"/>
--->
+
     </data>
 </openerp>

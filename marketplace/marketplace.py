@@ -30,8 +30,16 @@ from datetime import datetime
 import base64
 
 import logging
-#_logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
+
+class vote_config_line(osv.osv):
+
+    _inherit = 'vote.config.line'
+
+    _columns = {
+        'category_id': fields.many2one('marketplace.announcement.category', 'Category'),
+    }
 
 class marketplace_announcement_category(osv.osv):
 
@@ -46,6 +54,10 @@ class marketplace_announcement_category(osv.osv):
         'tag_ids': fields.one2many('marketplace.tag', 'category_id', 'Tags'),
         'active': fields.boolean('Active', help="The active field allows you to hide the category without removing it."),
         'partner_ids': fields.many2many('res.partner', 'res_partner_marketplace_category_rel', 'category_id', 'partner_id', 'Partners'),
+        'vote_config_ids': fields.one2many('vote.config.line', 'category_id',
+#            domain=lambda self: [('model', '=', self._name),('stored','=',False)],
+#            auto_join=True,
+            string='Vote configuration'),
     }
     _defaults = {
         'active': 1,
@@ -64,6 +76,24 @@ class marketplace_tag(osv.osv):
     _order = 'category_id, name'
 
 
+
+class account_centralbank_currency_line(osv.osv):
+
+    _inherit = 'account.centralbank.currency.line'
+
+    _columns = {
+        'announcement_id': fields.many2one('marketplace.announcement', 'Announcement'),
+        'proposition_id': fields.many2one('marketplace.proposition', 'Proposition'),
+    }
+
+
+
+    def create(self, cr, uid, vals, context=None):
+        if 'announcement_id' in vals:
+            vals['res_id'] = vals['announcement_id']
+        if 'proposition_id' in vals:
+            vals['res_id'] = vals['proposition_id']
+        return super(account_centralbank_currency_line, self).create(cr, uid, vals, context=context)
 
 class marketplace_announcement(osv.osv):
 
@@ -165,9 +195,9 @@ class marketplace_announcement(osv.osv):
         'quantity_available': fields.function(_get_qty_available, type="float", string="Available", digits_compute= dp.get_precision('Product Unit of Measure'), readonly=True),
         'uom_id': fields.many2one('product.uom', 'Unit of Measure', ondelete='set null'),
         'currency_mode': fields.selection([('one','I propose one of the following currencies'),('all','I propose all the following currencies')], 'Currency mode'),
-        'currency_ids': fields.one2many('account.centralbank.currency.line', 'res_id',
-            domain=lambda self: [('model', '=', self._name),('field','=','currency_ids')],
-            auto_join=True,
+        'currency_ids': fields.one2many('account.centralbank.currency.line', 'announcement_id',
+#            domain=lambda self: [('model', '=', self._name),('field','=','currency_ids')],
+#            auto_join=True,
             string='Currencies'),
         'delivery_date': fields.date('When'),
         'create_date': fields.datetime('Create date'),
@@ -208,6 +238,7 @@ class marketplace_announcement(osv.osv):
         #_logger.info('config :  %s', config)
 
         vals = {}
+        vals['model'] = self._name
         vals['price_unit'] = 1.0
         vals['currency_id'] = config.default_currency_id.id
         return [(0, 0, vals)]
@@ -394,6 +425,10 @@ class marketplace_proposition(osv.osv):
         'type': fields.related('announcement_id', 'type', type='char', string='Type', store=True),
         'description_announcement_id': fields.many2one('marketplace.announcement', 'Link to announcement proposition'), #only the user announcement are displayed and countertype (offer if want annonce or want if offer annonce
         'category_id': fields.related('announcement_id', 'category_id', type="many2one", relation="marketplace.announcement.category", string='Category'),
+        'currency_ids': fields.one2many('account.centralbank.currency.line', 'proposition_id',
+#            domain=lambda self: [('model', '=', self._name),('field','=','currency_ids')],
+#            auto_join=True,
+            string='Currencies', readonly=True, states={'draft':[('readonly',False)]}),
         'want_cancel_user': fields.boolean('(Replyer) I want to cancel the transaction'),
         'want_cancel_announcer': fields.boolean('(Announcer) I want to cancel the transaction'),
         'call_moderator_user': fields.boolean('(Replyer) I want to call moderator?'),
@@ -429,6 +464,7 @@ class marketplace_proposition(osv.osv):
         if context.get('default_announcement_id'):
             for currency in self.pool.get('marketplace.announcement').browse(cr, uid, [context.get('default_announcement_id')], context=context)[0].currency_ids:
                 vals = {}
+                vals['model'] = self._name
                 vals['price_unit'] = currency.price_unit
                 vals['currency_id'] = currency.currency_id.id
                 currency_ids.append((0, 0, vals))
@@ -591,11 +627,19 @@ class marketplace_proposition(osv.osv):
 #            'credit': credit_object.user_id.partner_id,
 #        }
 
+
+    #Used by heriting object to update the transaction_id of the lines
+    def update_transaction_id(self, cr, uid, ids, context=None):
+        line_obj = self.pool.get('account.centralbank.currency.line')
+        for record in self.browse(cr, uid, ids, context=context):
+            line_obj.write(cr, uid, [line.id for line in record.currency_ids], {'transaction_id': record.transaction_id.id}, context=context)
+
     def create(self, cr, uid, vals, context=None):
         if 'announcement_id' in vals:
             announcement = self.pool.get('marketplace.announcement').browse(cr, uid, vals['announcement_id'], context=context)
             vals['receiver_id'] = announcement.partner_id.id
         res = super(marketplace_proposition, self).create(cr, uid, vals, context=context)
+        self.update_transaction_id(cr, uid, [res], context=context)
         return res
 
 
@@ -608,11 +652,21 @@ class marketplace_proposition(osv.osv):
                 #_logger.info('uid %s, proposition.is_announcer %s', uid, proposition.is_announcer)
                 if 'want_cancel_announcer' in vals and not proposition.is_announcer:
                     raise osv.except_osv(_('Access error!'),_("You need to have the role is_announcer to tick the cancel checkbox from announcer"))
+        self.update_transaction_id(cr, uid, ids, context=context)
         res = super(marketplace_proposition, self).write(cr, uid, ids, vals, context=context)
         for proposition in self.browse(cr, uid, ids, context=context):
             if proposition.state == 'vote':
                 self.test_vote(cr, uid, [proposition.id], context=context)
         return res
+    #
+    # def onchange_vote_partner(self, cr, uid, ids, vote_partner_id, context={}):
+    #     res = super(marketplace_proposition, self).onchange_vote_partner(cr, uid, ids, vote_partner_id, context=context)
+    #     roles = self._get_user_role(cr, uid, ids, '', '', context=context)
+    #     for proposition_id in ids:
+    #         res['value'].update(roles[proposition_id])
+    #     _logger.info('res %s', res)
+    #     return res
+
 
 
 class account_centralbank_transaction(osv.osv):

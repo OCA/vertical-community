@@ -29,7 +29,7 @@ from openerp.tools.translate import _
 from operator import itemgetter
 
 import logging
-#_logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class vote_category(osv.AbstractModel):
@@ -84,8 +84,8 @@ class vote_category(osv.AbstractModel):
 
     _columns = {
         'vote_config_ids': fields.one2many('vote.config.line', 'res_id',
-            domain=lambda self: [('model', '=', self._name),('stored','=',False)],
-            auto_join=True,
+#            domain=lambda self: [('model', '=', self._name),('stored','=',False)],
+#            auto_join=True,
             string='Vote configuration'),
         'vote_config_result_ids': fields.one2many('vote.config.line', 'res_id',
             domain=lambda self: [('model', '=', self._name),('stored','=',True)],
@@ -223,7 +223,34 @@ class vote_model(osv.AbstractModel):
             # res[record.id] = partner_id
         # return res
 
+    def generate_vote(self, cr, uid, ids, *args):
+        lastvoter_obj = self.pool.get('vote.last.voter')
+        for record in self.browse(cr, uid, ids):
+            self._generate_vote(cr, uid, [record.id], record.vote_partner_id.id)
+        return True
 
+    def _generate_vote(self, cr, uid, ids, voter_id, context=None):
+        vote_obj = self.pool.get('vote.vote')
+        vote_line_obj = self.pool.get('vote.vote.line')
+        vote_configs = self._get_vote_config(cr, uid, ids, context=context)
+
+        for record in self.browse(cr, uid, ids, context=context):
+            vote_ids = vote_obj.search(cr, uid, [('model','=',self._name),('res_id','=',record.id),('partner_id','=',voter_id)], context=context)
+            if not vote_ids:
+                vote_id = vote_obj.create(cr, uid, {'model': self._name, 'res_id': record.id, 'partner_id': voter_id}, context=context)
+            else:
+                vote_id = vote_ids[0]
+
+            vote_lines = {}
+            vote = vote_obj.browse(cr, uid, vote_id, context=context)
+            for vote_line in vote.line_ids:
+                vote_lines[vote_line.type_id.id] = vote_line
+
+            types = vote_configs[record.id]
+
+            for type in vote_configs[record.id]:
+                if not type['id'] in vote_lines:
+                    vote_line_obj.create(cr, uid, {'type_id': type['id'], 'vote_id': vote_id}, context=context)
 
 
     def _get_vote_vote(self, cr, uid, ids, fields, args, context={}):
@@ -236,20 +263,18 @@ class vote_model(osv.AbstractModel):
         lastvoter_obj = self.pool.get('vote.last.voter')
 
 #        partner_ids = self._get_partner_ids(cr, uid, ids, context=context)
-        user_obj = self.pool.get('res.users')
-        if 'vote_partner_id' in context:
-            vote_partner_id = context['vote_partner_id']
-        else:
-            user_obj = self.pool.get('res.users')
-            user = user_obj.browse(cr, uid, uid, context=context)
-            vote_partner_id = user.partner_id.id
-        lastvoter_obj._set_user_last_voter(cr, uid, vote_partner_id, context=context)
+
 
         vote_configs = self._get_vote_config(cr, uid, ids, context=context)
 
         for record in self.browse(cr, uid, ids, context=context):
+            vote_partner_id = lastvoter_obj.get_user_last_voter(cr, uid, self._name, record.id, context=context)
+            _logger.info('vote_partner_id %s', vote_partner_id)
+            lastvoter_obj._set_user_last_voter(cr, uid, self._name, record.id, vote_partner_id, context=context)
+
             res[record.id] = {}
             res[record.id]['vote_partner_id'] = vote_partner_id
+            res[record.id]['vote_id'] = False
             res[record.id]['vote_comment'] = False
             res[record.id]['vote_vote_line_ids'] = []
 
@@ -264,15 +289,17 @@ class vote_model(osv.AbstractModel):
             else:
                 vote_ids = vote_obj.search(cr, uid, [('model','=',self._name),('res_id','=',record.id),('partner_id','=',vote_partner_id)], context=context)
             for vote in vote_obj.browse(cr, uid, vote_ids, context=context):
+                res[record.id]['vote_id'] = vote.id
                 res[record.id]['vote_comment'] = vote.comment
-                for vote_line in vote.line_ids:
-                    vote_lines[vote_line.type_id.id] = vote_line
-
-            for vote in votes:
-                if vote['id'] in vote_lines:
-                    vote['value'] = vote_lines[vote['id']].vote
-                res[record.id]['vote_vote_line_ids'].append((0,0,{'type_id':vote['id'],'vote':vote['value']}))
-        #_logger.info('res _get_vote_vote : %s', res)
+                res[record.id]['vote_vote_line_ids'] = [line.id for line in vote.line_ids]
+                # for vote_line in vote.line_ids:
+                #     vote_lines[vote_line.type_id.id] = vote_line
+            #
+            # for vote in votes:
+            #    if vote['id'] in vote_lines:
+            #         vote['value'] = vote_lines[vote['id']].vote
+            #     res[record.id]['vote_vote_line_ids'].append((0,0,{'type_id':vote['id'],'vote':vote['value']}))
+        _logger.info('res _get_vote_vote : %s', res)
         return res
 
     def _set_vote_vote(self, cr, uid, id, name, value, arg, context={}):
@@ -284,53 +311,63 @@ class vote_model(osv.AbstractModel):
         lastvoter_obj = self.pool.get('vote.last.voter')
 
         #TODO Yes I used a field in res.users to retrieve the partner specified in form... Clearly not concurrent thread proof, please tell me someone has a better idea
-        if 'vote_partner_id' in context:
-            vote_partner_id = context['vote_partner_id']
-        else:
-            vote_partner_id = lastvoter_obj.get_user_last_voter(cr, uid, context=context)
+        # if 'vote_partner_id' in context:
+        #     vote_partner_id = context['vote_partner_id']
+        # else:
+        vote_partner_id = lastvoter_obj.get_user_last_voter(cr, uid, self._name, id, context=context)
 
         vote_ids = vote_obj.search(cr, uid, [('model','=',self._name),('res_id','=',id),('partner_id','=',vote_partner_id)], context=context)
-        vote_line_ids = vote_line_obj.search(cr, uid, [('vote_id','in',vote_ids)], context=context)
-        lines = {}
-        for line in vote_line_obj.browse(cr, uid, vote_line_ids, context=context):
-            lines[line.type_id.id] = line
+        # vote_line_ids = vote_line_obj.search(cr, uid, [('vote_id','in',vote_ids)], context=context)
+        # lines = {}
+        # for line in vote_line_obj.browse(cr, uid, vote_line_ids, context=context):
+        #     lines[line.type_id.id] = line
         #_logger.info('lines %s', lines)
         #_logger.info('value %s', value)
         #_logger.info('vote_ids %s', vote_ids)
 
-        if value:
+        if value and vote_ids:
             fields = {}
+            if name == 'vote_partner_id':
+                lastvoter_obj._set_user_last_voter(cr, uid, self._name, id, value, context=context)
             if name == 'vote_comment':
-                fields.update({'comment': value})
-            if not vote_ids:
-                fields.update({'model': self._name, 'res_id': id, 'partner_id': vote_partner_id})
-                #_logger.info('before create %s', fields)
-                vote_id = vote_obj.create(cr, uid, fields, context=context)
-            else:
+                # fields.update({'comment': value})
+            # if not vote_ids:
+            #     fields.update({'model': self._name, 'res_id': id, 'partner_id': vote_partner_id})
+            #     #_logger.info('before create %s', fields)
+            #     vote_id = vote_obj.create(cr, uid, fields, context=context)
+            # else:
                 #_logger.info('In write vote_ids %s, fields : %s', fields)
-                vote_obj.write(cr, uid, vote_ids, fields, context=context)
-                vote_id = vote_ids[0]
+                vote_obj.write(cr, uid, vote_ids, {'comment': value}, context=context)
+                # vote_id = vote_ids[0]
 
             if name == 'vote_vote_line_ids':
-                vote_obj._set_lines(cr, uid, vote_id, name, value, arg, context=context)
+                _logger.info('lines %s', value)
+                for vote_line in value:
+                    if vote_line[2] and 'vote' in vote_line[2]:
+                        vote_line_obj.write(cr, uid, [vote_line[1]], vote_line[2], context=context)
+
 
     def onchange_vote_partner(self, cr, uid, ids, vote_partner_id, context={}):
-        context['vote_partner_id'] = vote_partner_id
-        votes = self._get_vote_vote(cr, uid, ids, '', '', context=context)
-        #_logger.info('votes %s', votes)
-
+        # lastvoter_obj = self.pool.get('vote.last.voter')
+        # lastvoter_obj._set_user_last_voter(cr, uid, self._name, ids[0], vote_partner_id, context=context)
+        # votes = self._get_vote_vote(cr, uid, ids, '', '', context=context)
+        # lastvoter_obj._set_user_last_voter(cr, uid, self._name, ids[0], vote_partner_id, load_next_time=False, context=context)
+        #
+        # #_logger.info('votes %s', votes)
+        #
         res = {
-            'vote_partner_id': vote_partner_id,
+            # 'vote_partner_id': vote_partner_id,
+            'vote_id': False,
             'vote_comment': False,
-#            'vote_vote_line_ids': False
+            # 'vote_vote_line_ids': []
         }
-        for proposition in self.browse(cr, uid, ids, context=context):
-            res = {
-                'vote_partner_id': vote_partner_id,
-                'vote_comment': votes[proposition.id]['vote_comment'],
-#TODO
-#                'vote_vote_line_ids': votes[proposition.id]['vote_vote_line_ids']
-            }
+#         for proposition in self.browse(cr, uid, ids, context=context):
+#             res = {
+#                 'vote_partner_id': vote_partner_id,
+#                 'vote_id': votes[proposition.id]['vote_id'],
+#                 'vote_comment': votes[proposition.id]['vote_comment'],
+#                 'vote_vote_line_ids': [], #votes[proposition.id]['vote_vote_line_ids']
+#             }
         return {
             'value': res
         }
@@ -356,8 +393,13 @@ class vote_model(osv.AbstractModel):
         'vote_voters': fields.function(_get_vote_voters, type='many2many', obj='res.partner', string='Voters'),
 #        'vote_vote': fields.function(_get_vote_vote, fnct_inv=_set_vote_vote, type='char', string='Vote', multi='_get_vote_vote'),
         'vote_partner_id': fields.function(_get_vote_vote, fnct_inv=_set_vote_vote, type='many2one', relation='res.partner', string='Voter', multi='_get_vote_vote'),
+        'vote_id': fields.function(_get_vote_vote, fnct_inv=_set_vote_vote, type='integer', string='Vote ID', multi='_get_vote_vote'),
         'vote_comment': fields.function(_get_vote_vote, fnct_inv=_set_vote_vote, type='text', string='Vote comment', multi='_get_vote_vote'),
-        'vote_vote_line_ids': fields.function(_get_vote_vote, fnct_inv=_set_vote_vote, type="one2many", relation="vote.vote.line", method=True, multi='_get_vote_vote', string='Votes'),
+        'vote_vote_line_ids': fields.function(_get_vote_vote, fnct_inv=_set_vote_vote, type="one2many", relation="vote.vote.line", multi='_get_vote_vote', string='Vote Lines'),
+        # 'vote_vote_line_ids': fields.one2many('vote.vote.line', 'res_id',
+        #     domain=lambda self: [('model', '=', self._name),('vote_id', '=', 'vote_id')],
+        #     auto_join=True,
+        #     string='Votes Lines'),
         'vote_vote_ids': fields.one2many('vote.vote', 'res_id',
             domain=lambda self: [('model', '=', self._name)],
             auto_join=True,
@@ -391,18 +433,18 @@ class vote_vote(osv.Model):
 
             model_obj = self.pool.get(vote.model)
             context['vote_id'] = vote.id
-            vote_lines = model_obj._get_vote_vote(cr, uid, [vote.res_id], '', '', context=context)[vote.res_id]['vote_vote_line_ids']
+#            vote_lines = model_obj._get_vote_vote(cr, uid, [vote.res_id], '', '', context=context)[vote.res_id]['vote_vote_line_ids']
             #_logger.info('vote %s', vote)
-            res[vote.id]['vote_vote_line_ids'] = vote_lines
-            for vote_line in vote_lines:
-                vote_line = vote_line[2]
-                type = type_obj.browse(cr, uid, vote_line['type_id'], context=context)
+            #res[vote.id]['vote_vote_line_ids'] = vote_lines
+            for vote_line in vote.line_ids:
+                # vote_line = vote_line[2]
+                type = type_obj.browse(cr, uid, vote_line.type_id.id, context=context)
                 vote_string = ''
-                if vote_line['vote']:
-                    vote_string = vote_line['vote']
+                if vote_line.vote:
+                    vote_string = vote_line.vote
                 #_logger.info('type %s, vote %s', type.name, vote_line['vote'])
                 res[vote.id]['line_string'] += type.name + ' : ' + vote_string + '\n'
-                if not vote_line['vote']:
+                if not vote_line.vote:
                     res[vote.id]['is_complete'] = False
 
 #            vote_configs = model_obj._get_vote_config(cr, uid, [vote.res_id], context=context)[vote.res_id]
@@ -467,7 +509,8 @@ class vote_vote(osv.Model):
         'partner_id': fields.many2one('res.partner', 'Partner', select=1),
         'line_ids': fields.one2many('vote.vote.line', 'vote_id', 'Lines'),
         'line_string': fields.function(_get_lines, type="text", multi="_get_lines", string="Votes"),
-        'vote_vote_line_ids': fields.function(_get_lines, fnct_inv=_set_lines, type="one2many", relation="vote.vote.line", method=True, multi='_get_lines', string='Votes'),
+        'vote_vote_line_ids': fields.one2many('vote.vote.line', 'vote_id', 'Lines'),
+#        'vote_vote_line_ids': fields.function(_get_lines, fnct_inv=_set_lines, type="one2many", relation="vote.vote.line", method=True, multi='_get_lines', string='Votes'),
         'voters': fields.function(_get_voters,  type='many2many', obj='res.partner', string="Voters"),
         'comment': fields.text('Comment'),
         'is_complete': fields.function(_get_lines, type='boolean', multi="_get_lines", string='Is complete?'),
@@ -510,6 +553,9 @@ class vote_vote_line(osv.Model):
     _description = 'Vote line'
 
     _columns = {
+        'model': fields.related('vote_id', 'model', type='char', size=128, string='Model', readonly=True, select=1),
+        'res_id': fields.related('vote_id', 'res_id', type='integer',string='Related Document ID', readonly=True, select=1),
+        'partner_id': fields.related('vote_id', 'partner_id', type='many2one', relation='res.partner', string='Partner', readonly=True, select=1),
         'vote_id': fields.many2one('vote.vote', 'Vote', ondelete='cascade'),
         'type_id': fields.many2one('vote.type', 'Type'),
         'vote': fields.selection([('-2','-2'),
@@ -550,27 +596,31 @@ class vote_last_voter(osv.Model):
     _name = 'vote.last.voter'
 
     _columns = {
+        'model': fields.char('Related Document Model', size=128, select=1),
+        'res_id': fields.integer('Related Document ID', select=1),
         'user_id': fields.many2one('res.users', 'User', required=True),
-        'last_voter': fields.many2one('res.partner', 'Voted last time at the name of', required=True)
+        'last_voter': fields.many2one('res.partner', 'Voted last time at the name of', required=True),
     }
 
-    def get_user_last_voter(self, cr, uid, context=None):
-        lastvoter_ids = self.search(cr, uid, [('user_id','=',uid)], context=context)
-        for lastvoter in self.browse(cr, uid, lastvoter_ids, context=context):
-            return lastvoter.last_voter.id
-
+    def get_user_last_voter(self, cr, uid, model, res_id, context=None):
+        lastvoter_ids = self.search(cr, uid, [('model','=',model),('res_id','=',res_id),('user_id','=',uid)], context=context)
         user_obj = self.pool.get('res.users')
         user = user_obj.browse(cr, uid, uid, context=context)
-        return user.partner_id.id
+        voter_id = user.partner_id.id
+        for lastvoter in self.browse(cr, uid, lastvoter_ids, context=context):
+            voter_id = lastvoter.last_voter.id
 
-    def _set_user_last_voter(self, cr, uid, vote_partner_id, context=None):
-        lastvoter_ids = self.search(cr, uid, [('user_id','=',uid)], context=context)
+
+        return voter_id
+
+    def _set_user_last_voter(self, cr, uid, model, res_id, vote_partner_id, context=None):
+        lastvoter_ids = self.search(cr, uid, [('model','=',model),('res_id','=',res_id),('user_id','=',uid)], context=context)
         lastvoter = False
         for lastvoter_temp in self.browse(cr, uid, lastvoter_ids, context=context):
             lastvoter =  lastvoter_temp
 
         if not lastvoter:
-            self.create(cr, uid, {'user_id': uid, 'last_voter': vote_partner_id}, context=context)
+            self.create(cr, uid, {'user_id': uid, 'model': model, 'res_id': res_id, 'last_voter': vote_partner_id}, context=context)
         else:
             self.write(cr, uid, [lastvoter.id], {'last_voter': vote_partner_id}, context=context)
 
