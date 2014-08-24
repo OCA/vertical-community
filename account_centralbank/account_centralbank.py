@@ -42,9 +42,9 @@ class account_centralbank_currency_line(osv.osv):
         res = {}
         for currency in self.browse(cr, uid, ids, context=context):
             model_obj = self.pool.get(currency.model)
-            transaction = model_obj.browse(cr, uid, currency.res_id, context=context)
             res[currency.id] = 1.0
-            if transaction:
+            if model_obj.search(cr, uid, [('id','=',currency.res_id)], context=context):
+                transaction = model_obj.browse(cr, uid, currency.res_id, context=context)
                 res[currency.id] = transaction.quantity * currency.price_unit
         return res
 
@@ -56,7 +56,7 @@ class account_centralbank_currency_line(osv.osv):
         'price_unit': fields.float('Unit price', required=True, digits_compute= dp.get_precision('Product Price')),
         'currency_id': fields.many2one('res.currency', 'Currency', domain=[('centralbank_currency', '=', True)], required=True),
         'subtotal': fields.function(_get_subtotal, string='Subtotal', digits_compute= dp.get_precision('Account')),
-        'transaction_id': fields.many2one('account.centralbank.transaction', 'Transaction'),
+        'transaction_id': fields.many2one('account.centralbank.transaction', 'Transaction', ondelete='cascade'),
     }
 
     _defaults = {
@@ -64,7 +64,7 @@ class account_centralbank_currency_line(osv.osv):
     }
 
     _sql_constraints = [
-        ('object_currency', 'unique(model,res_id,field,currency_id)', 'We can only have one currency per record')
+       ('object_currency', 'unique(model,transaction_id,field,currency_id)', 'We can only have one currency per record')
     ]
 
     def create(self, cr, uid, vals, context=None):

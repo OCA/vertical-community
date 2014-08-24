@@ -82,10 +82,13 @@ class account_centralbank_currency_line(osv.osv):
     _inherit = 'account.centralbank.currency.line'
 
     _columns = {
-        'announcement_id': fields.many2one('marketplace.announcement', 'Announcement'),
-        'proposition_id': fields.many2one('marketplace.proposition', 'Proposition'),
+        'announcement_id': fields.many2one('marketplace.announcement', 'Announcement', ondelete="cascade"),
+        'proposition_id': fields.many2one('marketplace.proposition', 'Proposition', ondelete="cascade"),
     }
 
+    _sql_constraints = [
+       ('object_currency', 'unique(model,transaction_id,announcement_id,proposition_id,field,currency_id)', 'We can only have one currency per record')
+    ]
 
 
     def create(self, cr, uid, vals, context=None):

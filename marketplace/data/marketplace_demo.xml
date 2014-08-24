@@ -123,7 +123,7 @@
             <field name="quantity">5</field>
         </record>
         <record id="proposition_demo1_line1" model="account.centralbank.currency.line">
-            <field name="model">account.centralbank.transaction</field>
+            <field name="model">marketplace.proposition</field>
             <field name="res_id" ref="proposition_demo1"/>
             <field name="field">currency_ids</field>
             <field name="price_unit">50</field>
@@ -160,7 +160,7 @@
             <field name="quantity">1</field>
         </record>
         <record id="proposition_demo2_line1" model="account.centralbank.currency.line">
-            <field name="model">account.centralbank.transaction</field>
+            <field name="model">marketplace.proposition</field>
             <field name="res_id" ref="proposition_demo2"/>
             <field name="field">currency_ids</field>
             <field name="price_unit">50</field>
