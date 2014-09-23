@@ -11,7 +11,6 @@
     quantity: 5
     currency_ids:
       - model: "account.centralbank.transaction"
-        res_id: proposition_test1
         field: "currency_ids"
         price_unit: 50
         currency_id: account_centralbank.COM

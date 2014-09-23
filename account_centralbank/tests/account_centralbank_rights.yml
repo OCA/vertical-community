@@ -10,7 +10,6 @@
     description: 'Test transaction between users'
     currency_ids:
       - model: "account.centralbank.transaction"
-        res_id: transaction_test_0
         field: "currency_ids"
         price_unit: 50
         currency_id: COM

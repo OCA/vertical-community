@@ -84,8 +84,8 @@ class vote_category(osv.AbstractModel):
 
     _columns = {
         'vote_config_ids': fields.one2many('vote.config.line', 'res_id',
-#            domain=lambda self: [('model', '=', self._name),('stored','=',False)],
-#            auto_join=True,
+            domain=lambda self: [('model', '=', self._name),('stored','=',False)],
+            auto_join=True,
             string='Vote configuration'),
         'vote_config_result_ids': fields.one2many('vote.config.line', 'res_id',
             domain=lambda self: [('model', '=', self._name),('stored','=',True)],

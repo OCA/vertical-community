@@ -56,7 +56,7 @@ class account_centralbank_currency_line(osv.osv):
         'price_unit': fields.float('Unit price', required=True, digits_compute= dp.get_precision('Product Price')),
         'currency_id': fields.many2one('res.currency', 'Currency', domain=[('centralbank_currency', '=', True)], required=True),
         'subtotal': fields.function(_get_subtotal, string='Subtotal', digits_compute= dp.get_precision('Account')),
-        'transaction_id': fields.many2one('account.centralbank.transaction', 'Transaction', ondelete='cascade'),
+        # 'transaction_id': fields.many2one('account.centralbank.transaction', 'Transaction', ondelete='cascade'),
     }
 
     _defaults = {
@@ -67,10 +67,10 @@ class account_centralbank_currency_line(osv.osv):
        ('object_currency', 'unique(model,transaction_id,field,currency_id)', 'We can only have one currency per record')
     ]
 
-    def create(self, cr, uid, vals, context=None):
-        if 'transaction_id' in vals:
-            vals['res_id'] = vals['transaction_id']
-        return super(account_centralbank_currency_line, self).create(cr, uid, vals, context=context)
+    # def create(self, cr, uid, vals, context=None):
+    #     if 'transaction_id' in vals:
+    #         vals['res_id'] = vals['transaction_id']
+    #     return super(account_centralbank_currency_line, self).create(cr, uid, vals, context=context)
 
 
 class account_centralbank_transaction(osv.osv):
@@ -124,10 +124,10 @@ class account_centralbank_transaction(osv.osv):
         'total': fields.function(_get_price_name, string='Total', type="char", size=64, digits_compute= dp.get_precision('Account'), store=True, readonly=True),
         'quantity': fields.float('Exchanged quantity', digits_compute= dp.get_precision('Product Unit of Measure')),
         'uom_id': fields.many2one('product.uom', 'Unit of Measure', ondelete='set null'),
-        'currency_ids': fields.one2many('account.centralbank.currency.line', 'transaction_id',
-#            domain=lambda self: [('model', '=', self._name),('field','=','currency_ids')],
-#            auto_join=True,
-            string='Currencies', readonly=True, states={'draft':[('readonly',False)]}),
+        'currency_ids': fields.one2many('account.centralbank.currency.line', 'res_id',
+           domain=lambda self: [('model', '=', self._name),('field','=','currency_ids')],
+           auto_join=True,
+           string='Currencies', readonly=True, states={'draft':[('readonly',False)]}),
         'already_published': fields.boolean('Already published?'),
         'move_ids': fields.one2many('account.move', 'centralbank_transaction_id', 'Moves'),
         'reservation_id': fields.many2one('account.move', 'Reservation move'),

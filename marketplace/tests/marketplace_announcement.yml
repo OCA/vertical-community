@@ -18,7 +18,6 @@
     uom_id: product.product_uom_hour
     currency_ids:
       - model: "marketplace.announcement"
-        res_id: announcement_test_0
         field: "currency_ids"
         price_unit: 50
         currency_id: account_centralbank.COM
@@ -101,7 +100,6 @@
     type: want
     currency_ids:
       - model: "marketplace.announcement"
-        res_id: announcement_test1
         field: "currency_ids"
         price_unit: 100
         currency_id: account_centralbank.COM
