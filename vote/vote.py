@@ -29,7 +29,7 @@ from openerp.tools.translate import _
 from operator import itemgetter
 
 import logging
-_logger = logging.getLogger(__name__)
+# _logger = logging.getLogger(__name__)
 
 
 class vote_category(osv.AbstractModel):
@@ -269,7 +269,6 @@ class vote_model(osv.AbstractModel):
 
         for record in self.browse(cr, uid, ids, context=context):
             vote_partner_id = lastvoter_obj.get_user_last_voter(cr, uid, self._name, record.id, context=context)
-            _logger.info('vote_partner_id %s', vote_partner_id)
             lastvoter_obj._set_user_last_voter(cr, uid, self._name, record.id, vote_partner_id, context=context)
 
             res[record.id] = {}
@@ -299,7 +298,6 @@ class vote_model(osv.AbstractModel):
             #    if vote['id'] in vote_lines:
             #         vote['value'] = vote_lines[vote['id']].vote
             #     res[record.id]['vote_vote_line_ids'].append((0,0,{'type_id':vote['id'],'vote':vote['value']}))
-        _logger.info('res _get_vote_vote : %s', res)
         return res
 
     def _set_vote_vote(self, cr, uid, id, name, value, arg, context={}):
@@ -341,7 +339,6 @@ class vote_model(osv.AbstractModel):
                 # vote_id = vote_ids[0]
 
             if name == 'vote_vote_line_ids':
-                _logger.info('lines %s', value)
                 for vote_line in value:
                     if vote_line[2] and 'vote' in vote_line[2]:
                         vote_line_obj.write(cr, uid, [vote_line[1]], vote_line[2], context=context)

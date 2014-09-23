@@ -323,26 +323,36 @@
   !context
     uid: 'base_community.user_luc'
 -
-  !python {model: marketplace.proposition}: |
-    proxy = self.pool.get('ir.model.data')
-    vote_meet_needs = proxy.get_object(cr, uid, 'marketplace', 'vote_meet_needs')
-    vote_cordial = proxy.get_object(cr, uid, 'marketplace', 'vote_cordial')
-    vote_code_quality = proxy.get_object(cr, uid, 'marketplace', 'vote_code_quality')
-    self.onchange_vote_partner(cr, uid, [ref('proposition_test_1')], ref('base.res_partner_12'))
-    self.write(cr, uid, [ref('proposition_test_1')], {'vote_comment': 'VoteRightsPartner1', 'vote_vote_line_ids': [(0,0,{'type_id': vote_cordial.id, 'vote': '1'}),(0,0,{'type_id': vote_meet_needs.id, 'vote': '2'}),(0,0,{'type_id': vote_code_quality.id, 'vote': '1'})]}, context=context)
+  !record {model: marketplace.proposition, id: proposition_test_1}:
+    vote_vote_ids:
+      - model: "marketplace.proposition"
+        partner_id: base.res_partner_12
+        comment: VoteRightsPartner1
+        vote_vote_line_ids:
+          - type_id: marketplace.vote_cordial
+            vote: '1'
+          - type_id: marketplace.vote_meet_needs
+            vote: '2'
+          - type_id: marketplace.vote_code_quality
+            vote: '1'
 -
   I write the vote from Mark
 -
   !context
     uid: 'base_community.user_mark'
 -
-  !python {model: marketplace.proposition}: |
-    proxy = self.pool.get('ir.model.data')
-    vote_meet_needs = proxy.get_object(cr, uid, 'marketplace', 'vote_meet_needs')
-    vote_cordial = proxy.get_object(cr, uid, 'marketplace', 'vote_cordial')
-    vote_code_quality = proxy.get_object(cr, uid, 'marketplace', 'vote_code_quality')
-    self.onchange_vote_partner(cr, uid, [ref('proposition_test_1')], ref('base.main_partner'))
-    self.write(cr, uid, [ref('proposition_test_1')], {'vote_comment': 'VoteRightsPartner2', 'vote_vote_line_ids': [(0,0,{'type_id': vote_cordial.id, 'vote': '1'}),(0,0,{'type_id': vote_meet_needs.id, 'vote': '2'}),(0,0,{'type_id': vote_code_quality.id, 'vote': '1'})]}, context=context)
+  !record {model: marketplace.proposition, id: proposition_test_1}:
+    vote_vote_ids:
+      - model: "marketplace.proposition"
+        partner_id: base.main_partner
+        comment: VoteRightsPartner2
+        vote_vote_line_ids:
+          - type_id: marketplace.vote_cordial
+            vote: '1'
+          - type_id: marketplace.vote_meet_needs
+            vote: '2'
+          - type_id: marketplace.vote_code_quality
+            vote: '1'
 -
   I check that votes are complete and the proposition went in the final stage
 -

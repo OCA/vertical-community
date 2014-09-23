@@ -20,7 +20,7 @@
 ##############################################################################
 
 
-from openerp import netsvc
+from openerp import workflow
 from openerp import pooler
 from openerp import SUPERUSER_ID
 from openerp.osv import fields, osv, orm
@@ -48,7 +48,6 @@ class account_centralbank_transaction(osv.osv):
 
     def _get_user_role(self, cr, uid, ids, prop, unknow_none, context=None):
         res = super(account_centralbank_transaction, self)._get_user_role(cr, uid, ids, prop, unknow_none, context=context)
-        wf_service = netsvc.LocalService("workflow")
         partner_id = self.pool.get('res.users').browse(cr, uid, uid, context=context).partner_id.id
         #_logger.info('res init %s', res)
         #_logger.info('partner_id %s', partner_id)

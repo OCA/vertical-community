@@ -27,7 +27,7 @@ from openerp.osv import fields, osv, orm
 from openerp.tools.translate import _
 
 import logging
-#_logger = logging.getLogger(__name__)
+# _logger = logging.getLogger(__name__)
 
 class mail_group_right(osv.osv):
 
@@ -57,6 +57,10 @@ class mail_group(osv.osv):
         'partner_group_management_ids': fields.many2many('res.partner', 'mail_group_partner_group_management', 'group_id', 'partner_id', 'Partners group management', readonly=True),
     }
 
+    _defaults = {
+        'type': 'normal'
+    }
+
     def create_partner(self, cr, uid, ids, *args):
         partner_obj = self.pool.get('res.partner')
 
@@ -74,7 +78,7 @@ class mail_group(osv.osv):
         if 'parent_id' in vals and vals['parent_id']:
             self.update_followers(cr, uid, [vals['parent_id']], context=context)
         if 'partner_id' in  vals:
-            partner_obj.write(cr, uid, [vals['partner_id']], {}, context=context)
+            partner_obj.write(cr, uid, [vals['partner_id']], {'group_id': False}, context=context)
         return res
 
     def write(self, cr, uid, ids, vals, context=None):
@@ -100,9 +104,9 @@ class mail_group(osv.osv):
         #Update function fields in partner
         if 'partner_id' in vals:
             if vals['partner_id']:
-                partner_obj.write(cr, uid, [vals['partner_id']], {}, context=context)
+                partner_obj.write(cr, uid, [vals['partner_id']], {'group_id': False}, context=context)
             if old_partner_ids:
-                partner_obj.write(cr, uid, old_partner_ids, {}, context=context)
+                partner_obj.write(cr, uid, old_partner_ids, {'group_id': False}, context=context)
 
         if 'name' in vals:
             for group in self.browse(cr, uid, ids, context=context):

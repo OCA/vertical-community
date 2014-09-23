@@ -100,6 +100,7 @@
             <field name="tag_ids" eval="[(6,0,[ref('tag_odoo_python'),ref('tag_odoo_formation'),ref('tag_odoo_helpdesk')])]"/>
             <field name="infinite_qty" eval="True"/>
             <field name="uom_id" ref="product.product_uom_hour"/>
+            <field name="currency_ids"/>
         </record>
         <record id="announcement_demo1_line1" model="account.centralbank.currency.line">
             <field name="model">marketplace.announcement</field>
@@ -109,16 +110,20 @@
             <field name="currency_id" ref="account_centralbank.COM"/>
         </record>
         <workflow action="announcement_draft_open" model="marketplace.announcement" ref="announcement_demo1"/>
-
-        <record id="proposition_demo1" model="marketplace.proposition">
-            <field name="announcement_id" ref="announcement_demo1"/>
+        <record id="proposition_transaction_demo1" model="account.centralbank.transaction">
             <field name="description">We need your services for the project X</field>
             <field name="sender_id" ref="base.res_partner_main2"/>
+            <field name="receiver_id" ref="base.res_partner_main1"/>
             <field name="quantity">5</field>
+            <field name="currency_ids"/>
+        </record>
+        <record id="proposition_demo1" model="marketplace.proposition">
+            <field name="transaction_id" ref="proposition_transaction_demo1"/>
+            <field name="announcement_id" ref="announcement_demo1"/>
         </record>
         <record id="proposition_demo1_line1" model="account.centralbank.currency.line">
-            <field name="model">marketplace.proposition</field>
-            <field name="res_id" ref="proposition_demo1"/>
+            <field name="model">account.centralbank.transaction</field>
+            <field name="res_id" ref="proposition_transaction_demo1"/>
             <field name="field">currency_ids</field>
             <field name="price_unit">50</field>
             <field name="currency_id" ref="account_centralbank.COM"/>
@@ -126,7 +131,7 @@
         <workflow action="proposition_draft_open" model="marketplace.proposition" ref="proposition_demo1"/>
         <workflow action="proposition_open_accepted" model="marketplace.proposition" ref="proposition_demo1"/>
         <workflow action="proposition_accepted_invoiced" model="marketplace.proposition" ref="proposition_demo1"/>
-        <function model="marketplace.proposition" name="pay" eval="[ref('proposition_demo1')]"/>
+        <function model="marketplace.proposition" name="pay" eval="[ref('proposition_demo1')]"/>-->
 
         <record id="announcement_demo2" model="marketplace.announcement">
             <field name="name">Need help for a little change in Odoo frontend</field>
@@ -136,6 +141,7 @@
             <field name="category_id" ref="category_odoo"/>
             <field name="tag_ids" eval="[(6,0,[ref('tag_odoo_frontend')])]"/>
             <field name="quantity">1</field>
+            <field name="currency_ids"/>
         </record>
         <record id="announcement_demo2_line1" model="account.centralbank.currency.line">
             <field name="model">marketplace.announcement</field>
@@ -145,15 +151,21 @@
             <field name="currency_id" ref="account_centralbank.COM"/>
         </record>
         <workflow action="announcement_draft_open" model="marketplace.announcement" ref="announcement_demo2"/>
-        <record id="proposition_demo2" model="marketplace.proposition">
+        <record id="proposition_transaction_demo2" model="account.centralbank.transaction">
             <field name="announcement_id" ref="announcement_demo2"/>
             <field name="description">We have the skills you needs, please find below our proposition</field>
             <field name="sender_id" ref="base.res_partner_main2"/>
+            <field name="receiver_id" ref="base.res_partner_main1"/>
             <field name="quantity">1</field>
+            <field name="currency_ids"/>
+        </record>
+        <record id="proposition_demo2" model="marketplace.proposition">
+            <field name="transaction_id" ref="proposition_transaction_demo2"/>
+            <field name="announcement_id" ref="announcement_demo2"/>
         </record>
         <record id="proposition_demo2_line1" model="account.centralbank.currency.line">
-            <field name="model">marketplace.proposition</field>
-            <field name="res_id" ref="proposition_demo2"/>
+            <field name="model">account.centralbank.transaction</field>
+            <field name="res_id" ref="proposition_transaction_demo2"/>
             <field name="field">currency_ids</field>
             <field name="price_unit">50</field>
             <field name="currency_id" ref="account_centralbank.COM"/>

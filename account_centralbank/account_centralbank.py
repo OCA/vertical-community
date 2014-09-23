@@ -23,6 +23,7 @@ import openerp.addons.decimal_precision as dp
 
 from openerp import netsvc
 from openerp import pooler
+from openerp import workflow
 from openerp import SUPERUSER_ID
 from openerp.osv import fields, osv, orm
 from openerp.tools.translate import _
@@ -30,7 +31,7 @@ from datetime import datetime
 import base64
 
 import logging
-#_logger = logging.getLogger(__name__)
+# _logger = logging.getLogger(__name__)
 
 
 class account_centralbank_currency_line(osv.osv):
@@ -64,7 +65,7 @@ class account_centralbank_currency_line(osv.osv):
     }
 
     _sql_constraints = [
-       ('object_currency', 'unique(model,transaction_id,field,currency_id)', 'We can only have one currency per record')
+       ('object_currency', 'unique(model,res_id,field,currency_id)', 'We can only have one currency per record')
     ]
 
     # def create(self, cr, uid, vals, context=None):
@@ -77,7 +78,6 @@ class account_centralbank_transaction(osv.osv):
 
     def _get_price_name(self, cr, uid, ids, prop, unknow_none, context=None):
         res = {}
-        wf_service = netsvc.LocalService("workflow")
         company_obj = self.pool.get('res.company')
         company_ids = company_obj.search(cr, uid, [], context=context)
         company_name = company_obj.browse(cr, uid, company_ids, context=context)[0].name
@@ -91,7 +91,6 @@ class account_centralbank_transaction(osv.osv):
 
 
     def _get_user_role(self, cr, uid, ids, prop, unknow_none, context=None):
-        wf_service = netsvc.LocalService("workflow")
         res = {}
         #_logger.info('In regular get_user_role, uid %s', uid)
         partner_id = self.pool.get('res.users').browse(cr, uid, uid, context=context).partner_id.id 
@@ -252,7 +251,7 @@ class account_centralbank_transaction(osv.osv):
                 #_logger = logging.getLogger(__name__)
                 #_logger.info('res_partner: %s, reconcile %s', res_partner, account.reconcile)
                 if res_partner['total_debit'] == res_partner['total_credit'] and account.reconcile:
-                     move_line_obj.reconcile(cr, uid, res_partner['line_ids'], context=context)
+                     move_line_obj.reconcile(cr, SUPERUSER_ID, res_partner['line_ids'], context=context)
 
     def refund(self, cr, uid, ids, fields, context=None):
 
@@ -456,8 +455,6 @@ class account_centralbank_transaction(osv.osv):
 
 
     def prepare_move(self, cr, uid, ids, action, context=None):
-        wf_service = netsvc.LocalService("workflow")
-        journal_obj = self.pool.get('account.journal')
         partner_obj = self.pool.get('res.partner')
         move_obj = self.pool.get('account.move')
         company_obj = self.pool.get('res.company')
@@ -468,7 +465,6 @@ class account_centralbank_transaction(osv.osv):
         context = {}
         company_id = company_obj._company_default_get(cr, uid)
         context['company_currency'] = company_obj.browse(cr, uid, [company_id])[0].currency_id.id
-
         for transaction in self.browse(cr, uid, ids, context=context):
 
             lines = self.get_account_line(cr, uid, transaction, action, 'base', context=context)
@@ -519,7 +515,6 @@ class account_centralbank_transaction(osv.osv):
         return skip_confirm
 
     def confirm(self, cr, uid, ids, *args):
-        wf_service = netsvc.LocalService("workflow")
         self.test_access_role(cr, uid, ids, 'is_sender', *args)
 
         self.write(cr, uid, ids, {'already_published': True})
@@ -530,13 +525,12 @@ class account_centralbank_transaction(osv.osv):
             skip_confirm = self.get_skip_confirm(cr, uid, transaction)
             #_logger.info('skip_confirm %s', skip_confirm)
             if not skip_confirm:
-                wf_service.trg_validate(uid, 'account.centralbank.transaction', transaction.id, 'transaction_draft_confirm', cr)
+                workflow.trg_validate(uid, 'account.centralbank.transaction', transaction.id, 'transaction_draft_confirm', cr)
             else:
-                wf_service.trg_validate(uid, 'account.centralbank.transaction', transaction.id, 'transaction_draft_done', cr)
+                workflow.trg_validate(uid, 'account.centralbank.transaction', transaction.id, 'transaction_draft_done', cr)
         return True
 
     def change_state(self, cr, uid, ids, new_state, *args):
-        wf_service = netsvc.LocalService("workflow")
         partner_obj = self.pool.get('res.partner')
         for transaction in self.browse(cr, uid, ids):
             fields = {'state':new_state}
@@ -555,7 +549,6 @@ class account_centralbank_transaction(osv.osv):
         #_logger = logging.getLogger(__name__)
         #_logger.info('test reset')
 
-        wf_service = netsvc.LocalService("workflow")
         for transaction in self.browse(cr, uid, ids):
             state = transaction.state
             role_to_test = 'is_sender'
@@ -563,16 +556,16 @@ class account_centralbank_transaction(osv.osv):
                 role_to_test = 'is_receiver'
             self.test_access_role(cr, uid, ids, role_to_test, *args)
 
-            wf_service.trg_delete(uid, 'account.centralbank.transaction', transaction.id, cr)
-            wf_service.trg_create(uid, 'account.centralbank.transaction', transaction.id, cr)
+            workflow.trg_delete(uid, 'account.centralbank.transaction', transaction.id, cr)
+            workflow.trg_create(uid, 'account.centralbank.transaction', transaction.id, cr)
 
             if state == 'done':
                 skip_confirm = self.get_skip_confirm(cr, uid, transaction)
                 #_logger.info('skip_confirm %s', skip_confirm)
                 if not skip_confirm:
-                    wf_service.trg_validate(uid, 'account.centralbank.transaction', transaction.id, 'transaction_draft_confirm_refund', cr)
+                    workflow.trg_validate(uid, 'account.centralbank.transaction', transaction.id, 'transaction_draft_confirm_refund', cr)
                 else:
-                    wf_service.trg_validate(uid, 'account.centralbank.transaction', transaction.id, 'transaction_done_cancel_through_draft', cr)
+                    workflow.trg_validate(uid, 'account.centralbank.transaction', transaction.id, 'transaction_done_cancel_through_draft', cr)
         return True
 
 
@@ -779,14 +772,25 @@ class res_partner(osv.osv):
         now = datetime.now()
         proxy = self.pool.get('ir.model.data')
 
+        lines = {}
         line_ids = line_obj.search(cr, uid, [('partner_id','in',ids)], context=context)
-        line_obj.unlink(cr, uid, line_ids, context=context)
+        for line in line_obj.browse(cr, uid, line_ids, context=context):
+            if line.partner_id.id not in lines:
+                lines[line.partner_id.id] = {}
+            lines[line.partner_id.id][line.currency_id.id] = line.id
 
         res = {}
         for partner in self.browse(cr, uid, ids, context=context):
             res[partner.id] = []
             for currency in balances[partner.id].values():
-                line_obj.create(cr, uid, currency, context=context)
+                if partner.id in lines and currency['currency_id'] in lines[partner.id]:
+                    line_id = lines[partner.id][currency['currency_id']]
+                    del currency['partner_id']
+                    del currency['currency_id']
+                    line_obj.write(cr, uid, [line_id], currency, context=context)
+                else:
+                    line_ids = line_obj.search(cr, uid, [('partner_id','=',partner.id)], context=context)
+                    line_obj.create(cr, uid, currency, context=context)
 
         #_logger.info('res_final_final: %s',res)
 
@@ -846,6 +850,10 @@ class res_partner_centralbank_balance(osv.osv_memory):
         'reserved': fields.float('Reserved', digits_compute= dp.get_precision('Product Price'))
     }
 
+    # I can't activate this constraint because it cause bugs with tests
+    # _sql_constraints = [
+    #    ('balance', 'unique(partner_id,currency_id)', 'There was an error when computing the partner balance, tried to create a line while another already exist')
+    # ]
 
 class res_currency(osv.osv):
 

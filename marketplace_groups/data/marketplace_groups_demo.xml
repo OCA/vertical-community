@@ -11,6 +11,7 @@
             <field name="tag_ids" eval="[(6,0,[ref('marketplace.tag_odoo_python'),ref('marketplace.tag_odoo_formation'),ref('marketplace.tag_odoo_helpdesk')])]"/>
             <field name="infinite_qty" eval="True"/>
             <field name="uom_id" ref="product.product_uom_hour"/>
+            <field name="currency_ids"/>
         </record>
         <record id="announcement_demo1_line1" model="account.centralbank.currency.line">
             <field name="model">marketplace.announcement</field>
@@ -19,17 +20,22 @@
             <field name="price_unit">50</field>
             <field name="currency_id" ref="account_centralbank.COM"/>
         </record>
-<!--        <workflow action="announcement_draft_open" model="marketplace.announcement" ref="announcement_demo1"/>-->
+        <workflow action="announcement_draft_open" model="marketplace.announcement" ref="announcement_demo1"/>
 
-        <record id="proposition_demo1" model="marketplace.proposition">
-            <field name="announcement_id" ref="announcement_demo1"/>
+        <record id="proposition_transaction_demo1" model="account.centralbank.transaction">
             <field name="description">We need your services for the project X</field>
             <field name="sender_id" ref="base.main_partner"/>
+            <field name="receiver_id" ref="base.res_partner_12"/>
             <field name="quantity">5</field>
+            <field name="currency_ids"/>
+        </record>
+        <record id="proposition_demo1" model="marketplace.proposition">
+            <field name="transaction_id" ref="proposition_transaction_demo1"/>
+            <field name="announcement_id" ref="announcement_demo1"/>
         </record>
         <record id="proposition_demo1_line1" model="account.centralbank.currency.line">
             <field name="model">account.centralbank.transaction</field>
-            <field name="res_id" ref="proposition_demo1"/>
+            <field name="res_id" ref="proposition_transaction_demo1"/>
             <field name="field">currency_ids</field>
             <field name="price_unit">50</field>
             <field name="currency_id" ref="account_centralbank.COM"/>

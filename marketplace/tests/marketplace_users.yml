@@ -20,7 +20,7 @@
     name: "Test2"
 -
   !record {model: res.users, id: user_test2, view: False}:
-    name: "Test1"
+    name: "Test2"
     partner_id: partner_test2
     login: "test2"
     password: "test2"

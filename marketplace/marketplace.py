@@ -21,7 +21,7 @@
 
 import openerp.addons.decimal_precision as dp
 
-from openerp import netsvc
+from openerp import workflow
 from openerp import pooler
 from openerp import SUPERUSER_ID
 from openerp.osv import fields, osv, orm
@@ -30,7 +30,7 @@ from datetime import datetime
 import base64
 
 import logging
-_logger = logging.getLogger(__name__)
+# _logger = logging.getLogger(__name__)
 
 
 
@@ -70,7 +70,6 @@ class marketplace_tag(osv.osv):
 class marketplace_announcement(osv.osv):
 
     def _get_user_role(self, cr, uid, ids, prop, unknow_none, context=None):
-        wf_service = netsvc.LocalService("workflow")
         res = {}
         partner_id = self.pool.get('res.users').browse(cr, uid, uid, context=context).partner_id.id
         for transaction in self.browse(cr, uid, ids, context=context):
@@ -233,13 +232,12 @@ class marketplace_announcement(osv.osv):
     }
 
     def test_close(self, cr, uid, ids, context=None):
-        wf_service = netsvc.LocalService("workflow")
         for announcement in self.browse(cr, uid, ids, context=context):
             #_logger.info('==============================================')
             #_logger.info('announcement.state %s, announcement.quantity_available %s, announcement.infinite_qty %s', announcement.state, announcement.quantity_available, announcement.infinite_qty)
             if announcement.state == 'open' and announcement.quantity_available == 0 and not announcement.infinite_qty:
                 #_logger.info('Condition validated')
-                wf_service.trg_validate(SUPERUSER_ID, 'marketplace.announcement', announcement.id, 'announcement_open_done', cr)
+                workflow.trg_validate(SUPERUSER_ID, 'marketplace.announcement', announcement.id, 'announcement_open_done', cr)
             #_logger.info('==============================================')
 
 
@@ -269,7 +267,6 @@ class marketplace_announcement(osv.osv):
         return True
 
     def change_state(self, cr, uid, ids, new_state, *args):
-        wf_service = netsvc.LocalService("workflow")
         partner_obj = self.pool.get('res.partner')
         for announcement in self.browse(cr, uid, ids):
             #_logger.info('uid %s, new_state %s', uid, new_state)
@@ -287,15 +284,14 @@ class marketplace_announcement(osv.osv):
     def reset_workflow(self, cr, uid, ids, *args):
 
         self.test_access_role(cr, uid, ids, 'is_user', *args)
- 
-        wf_service = netsvc.LocalService("workflow")
+
         for announcement in self.browse(cr, uid, ids):
             state = announcement.state
             self.write(cr, uid, [announcement.id], {'state':'draft'})
-            wf_service.trg_delete(uid, 'marketplace.announcement', announcement.id, cr)
-            wf_service.trg_create(uid, 'marketplace.announcement', announcement.id, cr)
+            workflow.trg_delete(uid, 'marketplace.announcement', announcement.id, cr)
+            workflow.trg_create(uid, 'marketplace.announcement', announcement.id, cr)
             if state == 'done':
-                wf_service.trg_validate(uid, 'marketplace.announcement', announcement.id, 'announcement_draft_open', cr)
+                workflow.trg_validate(uid, 'marketplace.announcement', announcement.id, 'announcement_draft_open', cr)
         return True
 
     def add_proposition(self, cr, uid, ids, context):
@@ -392,15 +388,16 @@ class marketplace_proposition(osv.osv):
     _vote_category_model = 'marketplace.announcement.category'
 #    _order = "create_date desc" TODO reference to create date ambiguous because of centralbank.transaction
     _columns = {
+        'transaction_id': fields.many2one('account.centralbank.transaction', 'Transaction', ondelete="cascade", required=True, auto_join=True),
         'announcement_id': fields.many2one('marketplace.announcement', 'What', required=True),
         'name': fields.related('announcement_id', 'name', type='char', string='Name', store=True),
         'type': fields.related('announcement_id', 'type', type='char', string='Type', store=True),
         'description_announcement_id': fields.many2one('marketplace.announcement', 'Link to announcement proposition'), #only the user announcement are displayed and countertype (offer if want annonce or want if offer annonce
         'category_id': fields.related('announcement_id', 'category_id', type="many2one", relation="marketplace.announcement.category", string='Category'),
-        'currency_ids': fields.one2many('account.centralbank.currency.line', 'res_id',
-            domain=lambda self: [('model', '=', self._name),('field','=','currency_ids')],
-            auto_join=True,
-            string='Currencies', readonly=True, states={'draft':[('readonly',False)]}),
+        # 'currency_ids': fields.one2many('account.centralbank.currency.line', 'res_id',
+        #     domain=lambda self: [('model', '=', self._name),('field','=','currency_ids')],
+        #     auto_join=True,
+        #     string='Currencies', readonly=True, states={'draft':[('readonly',False)]}),
         'want_cancel_user': fields.boolean('(Replyer) I want to cancel the transaction'),
         'want_cancel_announcer': fields.boolean('(Announcer) I want to cancel the transaction'),
         'call_moderator_user': fields.boolean('(Replyer) I want to call moderator?'),
@@ -481,7 +478,6 @@ class marketplace_proposition(osv.osv):
 
 
     def test_vote(self, cr, uid, ids, context=None):
-        wf_service = netsvc.LocalService("workflow")
         transaction_obj = self.pool.get('account.centralbank.transaction')
         vote_obj = self.pool.get('vote.vote')
 
@@ -498,14 +494,13 @@ class marketplace_proposition(osv.osv):
                     vote_announcer = vote
 
             if vote_user and vote_user.is_complete and vote_announcer and vote_announcer.is_complete:
-                wf_service.trg_validate(uid, 'marketplace.proposition', proposition.id, 'proposition_vote_paid', cr)
+                workflow.trg_validate(uid, 'marketplace.proposition', proposition.id, 'proposition_vote_paid', cr)
                 transaction_obj.write(cr, uid, [proposition.transaction_id.id], {'state': 'done'}, context=context)
-                wf_service.trg_delete(uid, 'account.centralbank.transaction', proposition.transaction_id.id, cr)
+                workflow.trg_delete(uid, 'account.centralbank.transaction', proposition.transaction_id.id, cr)
 
 
 
     def change_state(self, cr, uid, ids, new_state, *args):
-        wf_service = netsvc.LocalService("workflow")
         announcement_obj = self.pool.get('marketplace.announcement')
         transaction_obj = self.pool.get('account.centralbank.transaction')
         partner_obj = self.pool.get('res.partner')
@@ -515,7 +510,7 @@ class marketplace_proposition(osv.osv):
                 if proposition.quantity > proposition.announcement_id.quantity_available and not proposition.announcement_id.infinite_qty:
                     raise osv.except_osv(_('Access error!'),_("There is not enough quantity available!"))
                 transaction_obj.write(cr, uid, [proposition.transaction_id.id], {'state': 'draft'})
-                wf_service.trg_delete(uid, 'account.centralbank.transaction', proposition.transaction_id.id, cr)
+                workflow.trg_delete(uid, 'account.centralbank.transaction', proposition.transaction_id.id, cr)
                 fields['already_published'] = True
             if new_state == 'accepted':
                 transaction_obj.prepare_move(cr, uid, [proposition.transaction_id.id], 'reservation')
@@ -526,7 +521,7 @@ class marketplace_proposition(osv.osv):
             if new_state == 'cancel':
                 transaction_obj.refund(cr, uid, [proposition.transaction_id.id], ['reservation','invoice','payment','confirm'])
                 transaction_obj.write(cr, uid, [proposition.transaction_id.id], {'state': 'cancel'})
-                wf_service.trg_delete(uid, 'account.centralbank.transaction', proposition.transaction_id.id, cr)
+                workflow.trg_delete(uid, 'account.centralbank.transaction', proposition.transaction_id.id, cr)
 
             import logging
             #_logger = logging.getLogger(__name__)
@@ -538,7 +533,6 @@ class marketplace_proposition(osv.osv):
 
     def pay(self, cr, uid, ids, *args):
 
-        wf_service = netsvc.LocalService("workflow")
         transaction_obj = self.pool.get('account.centralbank.transaction')
         self.test_access_role(cr, uid, ids, 'is_sender', *args)
 
@@ -548,19 +542,18 @@ class marketplace_proposition(osv.osv):
             skip_confirm = transaction_obj.get_skip_confirm(cr, uid, proposition.transaction_id)
             #_logger.info('skip_confirm %s', skip_confirm)
             if not skip_confirm:
-                wf_service.trg_validate(uid, 'marketplace.proposition', proposition.id, 'proposition_invoiced_confirm', cr)
+                workflow.trg_validate(uid, 'marketplace.proposition', proposition.id, 'proposition_invoiced_confirm', cr)
             else:
-                wf_service.trg_validate(uid, 'marketplace.proposition', proposition.id, 'proposition_invoiced_vote', cr)
+                workflow.trg_validate(uid, 'marketplace.proposition', proposition.id, 'proposition_invoiced_vote', cr)
                 self.test_vote(cr, uid, [proposition.id])
         return True
 
     def confirm(self, cr, uid, ids, *args):
-        wf_service = netsvc.LocalService("workflow")
         transaction_obj = self.pool.get('account.centralbank.transaction')
         self.test_access_role(cr, uid, ids, 'is_receiver', *args)
 
         for proposition in self.browse(cr, uid, ids):
-            wf_service.trg_validate(uid, 'marketplace.proposition', proposition.id, 'proposition_confirm_vote', cr)
+            workflow.trg_validate(uid, 'marketplace.proposition', proposition.id, 'proposition_confirm_vote', cr)
             transaction_obj.prepare_move(cr, uid, [proposition.transaction_id.id], 'confirm')
 
         self.test_vote(cr, uid, ids)
@@ -569,7 +562,6 @@ class marketplace_proposition(osv.osv):
 
     def reset_workflow(self, cr, uid, ids, *args):
 
-        wf_service = netsvc.LocalService("workflow")
         transaction_obj = self.pool.get('account.centralbank.transaction')
         for proposition in self.browse(cr, uid, ids):
             state = proposition.state
@@ -581,16 +573,16 @@ class marketplace_proposition(osv.osv):
             #_logger.info('reset workflow state %s, role to test %s', state, role_to_test)
             self.test_access_role(cr, uid, ids, role_to_test, *args)
 
-            wf_service.trg_delete(uid, 'marketplace.proposition', proposition.id, cr)
-            wf_service.trg_create(uid, 'marketplace.proposition', proposition.id, cr)
+            workflow.trg_delete(uid, 'marketplace.proposition', proposition.id, cr)
+            workflow.trg_create(uid, 'marketplace.proposition', proposition.id, cr)
 
             if state == 'paid':
                 skip_confirm = transaction_obj.get_skip_confirm(cr, uid, proposition.transaction_id)
                 #_logger.info('skip_confirm %s', skip_confirm)
                 if not skip_confirm:
-                    wf_service.trg_validate(uid, 'marketplace.proposition', proposition.id, 'proposition_draft_confirm_refund', cr)
+                    workflow.trg_validate(uid, 'marketplace.proposition', proposition.id, 'proposition_draft_confirm_refund', cr)
                 else:
-                    wf_service.trg_validate(uid, 'marketplace.proposition', proposition.id, 'proposition_paid_cancel_through_draft', cr)
+                    workflow.trg_validate(uid, 'marketplace.proposition', proposition.id, 'proposition_paid_cancel_through_draft', cr)
         return True
 
 #    def get_debit_credit_partner(self, cr, uid, debit_object, credit_object, context=None):

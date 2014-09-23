@@ -10,6 +10,7 @@
     proxy = self.pool.get('ir.model.data')
     partner = proxy.get_object(cr, uid, 'account_centralbank', 'partner_test1')
     currency = proxy.get_object(cr, uid, 'account_centralbank', 'COM')
+    self.write(cr, uid, [partner.id], {'centralbank_currency_ids': []})
     balance_com = False
     for balance in partner.centralbank_balance_ids:
         if balance.currency_id.id == currency.id:
@@ -24,6 +25,7 @@
     proxy = self.pool.get('ir.model.data')
     partner = proxy.get_object(cr, uid, 'account_centralbank', 'partner_test2')
     currency = proxy.get_object(cr, uid, 'account_centralbank', 'COM')
+    self.write(cr, uid, [partner.id], {'centralbank_currency_ids': []})
     balance_com = False
     for balance in partner.centralbank_balance_ids:
         if balance.currency_id.id == currency.id:

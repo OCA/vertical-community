@@ -40,6 +40,12 @@ class community_config_settings(osv.osv):
         'default_currency_id': fields.many2one('res.currency', 'Default currency', domain=[('centralbank_currency', '=', True)], required=True),
     }
 
+    #Try to remove warning at module loading, but not working since xml is loaded after the table modification
+    # _defaults = {
+    #     'journal_id': lambda s,cr,uid,c: s.pool.get('ir.model.data').get_object(cr, uid, 'account_centralbank', 'community_journal').id,
+    #     'default_currency_id': lambda s,cr,uid,c: s.pool.get('ir.model.data').get_object(cr, uid, 'account_centralbank', 'COM').id
+    # }
+
 class account_centralbank_config_currency(osv.osv):
     _name = 'account.centralbank.config.currency'
 
