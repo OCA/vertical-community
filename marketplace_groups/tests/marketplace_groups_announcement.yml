@@ -20,7 +20,7 @@
       - model: "marketplace.announcement"
         field: "currency_ids"
         price_unit: 50
-        currency_id: account_centralbank.COM
+        currency_id: account_wallet.COM
 -
   I check that nitially the announcement is in the "Draft" state
 -

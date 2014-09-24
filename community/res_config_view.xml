@@ -42,8 +42,8 @@
                                 <label for="module_community_marketplace"/>
                             </div>
                             <div attrs="{'invisible': [('module_community_marketplace','!=',True)]}">
-                                <field name="centralbank_chart" attrs="{'required': [('module_community_marketplace','=',True)]}" class="oe_inline"/>
-                                <label for="centralbank_chart"/>
+                                <field name="wallet_chart" attrs="{'required': [('module_community_marketplace','=',True)]}" class="oe_inline"/>
+                                <label for="wallet_chart"/>
                             </div>
                             <div>
                                 <field name="module_community_project" class="oe_inline"/>

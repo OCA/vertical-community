@@ -1,0 +1,50 @@
+-
+  In order to test account transaction I create a new transaction
+-
+  !context
+    uid: 'user_test1'
+-
+  !record {model: account.wallet.transaction, id: transaction_test_3}:
+    sender_id: partner_test1
+    receiver_id: partner_test2
+    description: 'Test transaction between users'
+    currency_ids:
+      - model: "account.wallet.transaction"
+        field: "currency_ids"
+        price_unit: 5000
+        currency_id: COM
+-
+  I check that test1, the sender, can't confirm it because of the limit
+-
+  !python {model: account.wallet.transaction}: |
+    from openerp.osv import osv
+    try:
+      self.confirm(cr, uid, [ref('transaction_test_3')])
+      assert False, "Test1 was able to confirm the transaction before changing the limit!"
+    except osv.except_osv:
+      pass
+-
+  I change the limit to make the transaction pass
+-
+  !context
+    uid: 'base.user_root'
+-
+  !record {model: res.partner.wallet.currency, id: currency_partner_test1}:
+    partner_id: partner_test1
+    currency_id: COM
+    limit_negative: True
+    limit_negative_value: -10000
+-
+  !record {model: res.partner.wallet.currency, id: currency_partner_test2}:
+    partner_id: partner_test2
+    currency_id: COM
+    limit_positive: False
+-
+  !context
+    uid: 'user_test1'
+-
+  !python {model: account.wallet.transaction}: |
+    self.confirm(cr, uid, [ref('transaction_test_3')])
+-
+  !assert {model: account.wallet.transaction, id: transaction_test_3, string: "Test1 wasn't able to confirm the transaction, or the confirm state wasn't skipped!"}:
+    - state == 'done'

@@ -1,0 +1,117 @@
+-
+  In order to test account transaction I create a new transaction
+-
+  !context
+    uid: 'user_test1'
+-
+  !record {model: account.wallet.transaction, id: transaction_test_0}:
+    sender_id: partner_test1
+    receiver_id: partner_test2
+    description: 'Test transaction between users'
+    currency_ids:
+      - model: "account.wallet.transaction"
+        field: "currency_ids"
+        price_unit: 50
+        currency_id: COM
+-
+  I check that Initially customer invoice is in the "Draft" state
+-
+  !assert {model: account.wallet.transaction, id: transaction_test_0}:
+    - state == 'draft'
+-
+  I check that test2, the receiver, can't confirm it
+-
+  !context
+    uid: 'user_test2'
+-
+  !python {model: account.wallet.transaction}: |
+    from openerp.osv import osv
+    try:
+      self.confirm(cr, uid, [ref('transaction_test_0')])
+      assert False, "Test2 was able to confirm the transaction!"
+    except osv.except_osv:
+      pass
+-
+  I check that test1, the sender, can confirm it
+-
+  !context
+    uid: 'user_test1'
+-
+  !python {model: account.wallet.transaction}: |
+    self.confirm(cr, uid, [ref('transaction_test_0')])
+-
+  !assert {model: account.wallet.transaction, id: transaction_test_0, string: "Test1 wasn't able to confirm the transaction, or the confirm state wasn't skipped!"}:
+    - state == 'done'
+-
+  I check that a reservation transaction was made
+-
+  !assert {model: account.wallet.transaction, id: transaction_test_0, string: "No reservation transaction was made"}:
+    - reservation_id.id != False
+-
+  I check that a payment transaction was made
+-
+  !assert {model: account.wallet.transaction, id: transaction_test_0, string: "No payment transaction was made"}:
+    - payment_id.id != False
+#########################################################
+-
+  I check that test1, the sender, can't cancel it
+-
+  !context
+    uid: 'user_test1'
+-
+  !python {model: account.wallet.transaction}: |
+    from openerp.osv import osv
+    try:
+      self.reset_workflow(cr, uid, [ref('transaction_test_0')])
+      assert False, "Test1 was able to cancel the transaction!"
+    except osv.except_osv:
+      pass
+-
+  I check that test2, the receiver, can cancel it
+-
+  !context
+    uid: 'user_test2'
+-
+  !python {model: account.wallet.transaction}: |
+    self.reset_workflow(cr, uid, [ref('transaction_test_0')])
+-
+  !assert {model: account.wallet.transaction, id: transaction_test_0, string: "Test2 wasn't able to cancel the transaction, or the confirm refund state wasn't skipped!"}:
+    - state == 'cancel'
+-
+  I check that the reservation transaction is cancelled
+-
+  !assert {model: account.wallet.transaction, id: transaction_test_0, string: "The reservation transaction is still here!"}:
+    - reservation_id.id == False
+-
+  I check that a payment transaction is cancelled
+-
+  !assert {model: account.wallet.transaction, id: transaction_test_0, string: "The payment transaction is still here!"}:
+    - payment_id.id == False
+#########################################################
+-
+  !context
+    uid: 'user_test1'
+-
+  !python {model: account.wallet.transaction}: |
+    self.reset_workflow(cr, uid, [ref('transaction_test_0')])
+-
+  I check that transaction is correctly reset to draft
+-
+  !assert {model: account.wallet.transaction, id: transaction_test_0, string: "The transaction wasn't reset to draft!"}:
+    - state == 'draft'
+-
+  !python {model: account.wallet.transaction}: |
+    self.confirm(cr, uid, [ref('transaction_test_0')])
+-
+  !assert {model: account.wallet.transaction, id: transaction_test_0, string: "Test1 wasn't able to confirm the transaction at the final test, or the confirm state wasn't skipped!"}:
+    - state == 'done'
+-
+  I check that a reservation transaction was made
+-
+  !assert {model: account.wallet.transaction, id: transaction_test_0, string: "No reservation transaction was made"}:
+    - reservation_id.id != False
+-
+  I check that a payment transaction was made
+-
+  !assert {model: account.wallet.transaction, id: transaction_test_0, string: "No payment transaction was made"}:
+    - payment_id.id != False

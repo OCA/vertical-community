@@ -40,37 +40,37 @@ class community_module_configuration(osv.osv_memory):
         'module_community_event': fields.boolean('Install event'),
         'module_community_forum': fields.boolean('Install forum'),
         'module_community_marketplace': fields.boolean('Install marketplace'),
-        'centralbank_chart': fields.selection([('l10n_fr_centralbank','French chart of account')],string="Centralbank Chart"),
+        'wallet_chart': fields.selection([('l10n_fr_wallet','French chart of account')],string="Centralbank Chart"),
         'module_community_project': fields.boolean('Install project'),
     }
 
     def onchange_marketplace(self, cr, uid, ids, marketplace, context=None):
-        res = {'value': {'centralbank_chart': False}}
-        default = self.get_default_centralbank_chart(cr, uid, '', context=None)
-        if default['centralbank_chart'] and marketplace:
-            res['value']['centralbank_chart'] = default['centralbank_chart']
+        res = {'value': {'wallet_chart': False}}
+        default = self.get_default_wallet_chart(cr, uid, '', context=None)
+        if default['wallet_chart'] and marketplace:
+            res['value']['wallet_chart'] = default['wallet_chart']
         return res
 
-    def get_default_centralbank_chart(self, cr, uid, fields, context=None):
+    def get_default_wallet_chart(self, cr, uid, fields, context=None):
         module_obj = self.pool.get('ir.module.module')
         installed_module_ids = module_obj.search(cr, uid, [('state','in',['installed', 'to upgrade'])], context=context)
         installed_modules = []
         for module in module_obj.browse(cr, uid, installed_module_ids, context=context):
             installed_modules.append(module.name)
-        res = {'centralbank_chart': False}
-        if 'l10n_fr_centralbank' in installed_modules:
-            res = {'centralbank_chart': 'l10n_fr_centralbank'}
+        res = {'wallet_chart': False}
+        if 'l10n_fr_wallet' in installed_modules:
+            res = {'wallet_chart': 'l10n_fr_wallet'}
         #_logger.info('res %s', res)
         return res
 
 
-    def set_centralbank_chart(self, cr, uid, ids, context=None):
+    def set_wallet_chart(self, cr, uid, ids, context=None):
         #_logger.info('test set')
         ir_module = self.pool['ir.module.module']
         config = self.browse(cr, uid, ids[0], context)
-        #_logger.info('centralbank %s', config.centralbank_chart)
-        if config.centralbank_chart:
-            module_ids = ir_module.search(cr, uid, [('name','=',config.centralbank_chart)], context=context)
+        #_logger.info('wallet %s', config.wallet_chart)
+        if config.wallet_chart:
+            module_ids = ir_module.search(cr, uid, [('name','=',config.wallet_chart)], context=context)
             #_logger.info('module_ids %s', module_ids)
             if module_ids:
                 ir_module.button_immediate_install(cr, uid, module_ids, context=context)
@@ -132,7 +132,7 @@ class community_module_configuration(osv.osv_memory):
         if 'community_forum' in modules:
             to_uninstall_dependencies.append('website_forum')
         if 'community_marketplace' in modules:
-            to_uninstall_dependencies.append('account_centralbank')
+            to_uninstall_dependencies.append('account_wallet')
         if 'community_project' in modules:
             to_uninstall_dependencies.append('project')
 

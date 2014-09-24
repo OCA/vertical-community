@@ -32,7 +32,7 @@
             <field name="name">marketplace.announcement.form.admin.groups</field>
             <field name="model">marketplace.announcement</field>
             <field name="inherit_id" ref="marketplace.view_marketplace_announcement_form"/>
-            <field name="groups_id" eval="[(6, 0, [ref('account_centralbank.group_account_centralbank_moderator')])]"/>
+            <field name="groups_id" eval="[(6, 0, [ref('account_wallet.group_account_wallet_moderator')])]"/>
             <field name="priority">99</field>
             <field name="arch" type="xml">
                 <field name="partner_id" position="attributes">
@@ -67,7 +67,7 @@
             <field name="name">marketplace.proposition.form.admin.groups</field>
             <field name="model">marketplace.proposition</field>
             <field name="inherit_id" ref="marketplace.view_marketplace_proposition_form"/>
-            <field name="groups_id" eval="[(6, 0, [ref('account_centralbank.group_account_centralbank_moderator')])]"/>
+            <field name="groups_id" eval="[(6, 0, [ref('account_wallet.group_account_wallet_moderator')])]"/>
             <field name="priority">99</field>
             <field name="arch" type="xml">
                 <field name="sender_id" position="attributes">

@@ -26,7 +26,7 @@
              'base_recursive_model',
              'account',
              'account_accountant',
-             'account_centralbank',
+             'account_wallet',
              'account_reversal',
              'vote',
              ],

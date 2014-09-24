@@ -102,7 +102,7 @@
                         <tree string="Moves">
                             <field name="name"/>
                             <field name="date"/>
-                            <field name="centralbank_action"/>
+                            <field name="wallet_action"/>
                             <field name="state"/>
                         </tree>
                     </field>

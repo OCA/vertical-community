@@ -101,7 +101,7 @@
             <field name="name">marketplace.announcement.form.admin</field>
             <field name="model">marketplace.announcement</field>
             <field name="inherit_id" ref="view_marketplace_announcement_form"/>
-            <field name="groups_id" eval="[(6, 0, [ref('account_centralbank.group_account_centralbank_moderator')])]"/>
+            <field name="groups_id" eval="[(6, 0, [ref('account_wallet.group_account_wallet_moderator')])]"/>
             <field name="arch" type="xml">
                 <field name="partner_id" position="attributes">
                     <attribute name="domain">[('user_ids','!=',False)]</attribute>
@@ -213,7 +213,7 @@
                             <field name="want_cancel_announcer" states="accepted,invoiced,confirm" attrs="{'readonly':[('is_announcer', '!=', True),('is_moderator','!=',True)]}"/>
                             <field name="want_cancel_user" states="accepted,invoiced,confirm" attrs="{'readonly':[('is_user', '!=', True),('is_moderator','!=',True)]}"/>
                     </group>
-                    <field name="currency_ids" context="{'default_model': 'account.centralbank.transaction','default_res_id': active_id}"/>
+                    <field name="currency_ids" context="{'default_model': 'account.wallet.transaction','default_res_id': active_id}"/>
                     <field name="vote_vote_ids"/>
                     <group>
                         <field name="call_moderator_user" attrs="{'readonly':[('is_user', '!=', True)], 'invisible':[('is_user', '!=', True),('call_moderator_user', '!=', True)]}"/>
@@ -236,7 +236,7 @@
             <field name="name">marketplace.proposition.form.admin</field>
             <field name="model">marketplace.proposition</field>
             <field name="inherit_id" ref="view_marketplace_proposition_form"/>
-            <field name="groups_id" eval="[(6, 0, [ref('account_centralbank.group_account_centralbank_moderator')])]"/>
+            <field name="groups_id" eval="[(6, 0, [ref('account_wallet.group_account_wallet_moderator')])]"/>
             <field name="arch" type="xml">
                 <field name="sender_id" position="attributes">
                     <attribute name="domain">[('user_ids','!=',False)]</attribute>
@@ -320,12 +320,12 @@
 
         <!-- Partner -->
 
-        <record id="view_partner_form_centralbank_marketplace" model="ir.ui.view">
-            <field name="name">partner.form.centralbank.marketplace</field>
+        <record id="view_partner_form_wallet_marketplace" model="ir.ui.view">
+            <field name="name">partner.form.wallet.marketplace</field>
             <field name="model">res.partner</field>
-            <field name="inherit_id" ref="account_centralbank.view_partner_form_centralbank"/>
+            <field name="inherit_id" ref="account_wallet.view_partner_form_wallet"/>
             <field name="arch" type="xml">
-                <field name="centralbank_balance_ids" position="before">
+                <field name="wallet_balance_ids" position="before">
                     <group>
                         <group>
                             <field name="skill_category_ids"/>

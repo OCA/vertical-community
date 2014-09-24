@@ -22,7 +22,7 @@
 {'name': 'Crowdfunding',
  'version': '1.0',
  'category': 'Community',
- 'depends': ['account_centralbank',
+ 'depends': ['account_wallet',
              ],
  'author': 'Yannick Buron',
  'license': 'AGPL-3',

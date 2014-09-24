@@ -14,7 +14,7 @@
 -
   !record {model: res.users, id: user_test1}:
     groups_id:
-      - account_centralbank.group_account_centralbank_user
+      - account_wallet.group_account_wallet_user
 -
   !record {model: res.partner, id: partner_test2}:
     name: "Test2"
@@ -29,4 +29,4 @@
 -
   !record {model: res.users, id: user_test2}:
     groups_id:
-      - account_centralbank.group_account_centralbank_user
+      - account_wallet.group_account_wallet_user

@@ -4,8 +4,8 @@
 
 
 
-        <record id="view_community_configuration_centralbank" model="ir.ui.view">
-            <field name="name">community.configuration.centralbank</field>
+        <record id="view_community_configuration_wallet" model="ir.ui.view">
+            <field name="name">community.configuration.wallet</field>
             <field name="model">community.config.settings</field>
             <field name="inherit_id" ref="base_community.view_community_configuration"/>
             <field name="arch" type="xml">

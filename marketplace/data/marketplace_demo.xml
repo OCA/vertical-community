@@ -102,15 +102,15 @@
             <field name="uom_id" ref="product.product_uom_hour"/>
             <field name="currency_ids"/>
         </record>
-        <record id="announcement_demo1_line1" model="account.centralbank.currency.line">
+        <record id="announcement_demo1_line1" model="account.wallet.currency.line">
             <field name="model">marketplace.announcement</field>
             <field name="res_id" ref="announcement_demo1"/>
             <field name="field">currency_ids</field>
             <field name="price_unit">50</field>
-            <field name="currency_id" ref="account_centralbank.COM"/>
+            <field name="currency_id" ref="account_wallet.COM"/>
         </record>
         <workflow action="announcement_draft_open" model="marketplace.announcement" ref="announcement_demo1"/>
-        <record id="proposition_transaction_demo1" model="account.centralbank.transaction">
+        <record id="proposition_transaction_demo1" model="account.wallet.transaction">
             <field name="description">We need your services for the project X</field>
             <field name="sender_id" ref="base.res_partner_main2"/>
             <field name="receiver_id" ref="base.res_partner_main1"/>
@@ -121,12 +121,12 @@
             <field name="transaction_id" ref="proposition_transaction_demo1"/>
             <field name="announcement_id" ref="announcement_demo1"/>
         </record>
-        <record id="proposition_demo1_line1" model="account.centralbank.currency.line">
-            <field name="model">account.centralbank.transaction</field>
+        <record id="proposition_demo1_line1" model="account.wallet.currency.line">
+            <field name="model">account.wallet.transaction</field>
             <field name="res_id" ref="proposition_transaction_demo1"/>
             <field name="field">currency_ids</field>
             <field name="price_unit">50</field>
-            <field name="currency_id" ref="account_centralbank.COM"/>
+            <field name="currency_id" ref="account_wallet.COM"/>
         </record>
         <workflow action="proposition_draft_open" model="marketplace.proposition" ref="proposition_demo1"/>
         <workflow action="proposition_open_accepted" model="marketplace.proposition" ref="proposition_demo1"/>
@@ -143,16 +143,15 @@
             <field name="quantity">1</field>
             <field name="currency_ids"/>
         </record>
-        <record id="announcement_demo2_line1" model="account.centralbank.currency.line">
+        <record id="announcement_demo2_line1" model="account.wallet.currency.line">
             <field name="model">marketplace.announcement</field>
             <field name="res_id" ref="announcement_demo2"/>
             <field name="field">currency_ids</field>
             <field name="price_unit">100</field>
-            <field name="currency_id" ref="account_centralbank.COM"/>
+            <field name="currency_id" ref="account_wallet.COM"/>
         </record>
         <workflow action="announcement_draft_open" model="marketplace.announcement" ref="announcement_demo2"/>
-        <record id="proposition_transaction_demo2" model="account.centralbank.transaction">
-            <field name="announcement_id" ref="announcement_demo2"/>
+        <record id="proposition_transaction_demo2" model="account.wallet.transaction">
             <field name="description">We have the skills you needs, please find below our proposition</field>
             <field name="sender_id" ref="base.res_partner_main2"/>
             <field name="receiver_id" ref="base.res_partner_main1"/>
@@ -163,12 +162,12 @@
             <field name="transaction_id" ref="proposition_transaction_demo2"/>
             <field name="announcement_id" ref="announcement_demo2"/>
         </record>
-        <record id="proposition_demo2_line1" model="account.centralbank.currency.line">
-            <field name="model">account.centralbank.transaction</field>
+        <record id="proposition_demo2_line1" model="account.wallet.currency.line">
+            <field name="model">account.wallet.transaction</field>
             <field name="res_id" ref="proposition_transaction_demo2"/>
             <field name="field">currency_ids</field>
             <field name="price_unit">50</field>
-            <field name="currency_id" ref="account_centralbank.COM"/>
+            <field name="currency_id" ref="account_wallet.COM"/>
         </record>
         <workflow action="proposition_draft_open" model="marketplace.proposition" ref="proposition_demo2"/>
         <workflow action="proposition_open_accepted" model="marketplace.proposition" ref="proposition_demo2"/>

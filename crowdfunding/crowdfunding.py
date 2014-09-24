@@ -59,7 +59,7 @@ class crowdfunding_campaign(osv.AbstractModel):
         'crowdfunding_currency_mode': fields.selection([('one','Only one currency'),('all','All currency')], 'Currency mode', required=True, help="Specify the currency mode, if you select one then you'll get the currency when a goal for one currency if attein but you'll lose all other currency. If you select all, you must atteign each goal for each currency but you'll win all the currency"),
         'crowdfunding_date_limit': fields.datetime('Limit date'),
         'crowdfunding_total': fields.function(_get_price_name, string='Total', type="char", size=64, digits_compute= dp.get_precision('Account'), store=True, readonly=True),
-        'crowdfunding_currency_ids': fields.one2many('account.centralbank.currency.line', 'res_id',
+        'crowdfunding_currency_ids': fields.one2many('account.wallet.currency.line', 'res_id',
             domain=lambda self: [('model', '=', self._name),('field','=','crowdfunding_currency_ids')],
             auto_join=True,
             string='Currencies'),
@@ -110,7 +110,7 @@ class crowdfunding_reward(osv.osv):
         'name': fields.char('Name', size=128, required=True),
         'description': fields.text('Description'),
         'total': fields.function(_get_price_name, string='Total', type="char", size=64, digits_compute= dp.get_precision('Account'), store=True, readonly=True),
-        'currency_ids': fields.one2many('account.centralbank.currency.line', 'res_id',
+        'currency_ids': fields.one2many('account.wallet.currency.line', 'res_id',
             domain=lambda self: [('model', '=', self._name),('field','=','currency_ids')],
             auto_join=True,
             string='Currencies'),
@@ -123,7 +123,7 @@ class crowdfunding_transaction(osv.osv):
 
     _name = 'crowdfunding.transaction'
     _description = 'Transaction'
-    _inherits = {'account.centralbank.transaction': "transaction_id"}
+    _inherits = {'account.wallet.transaction': "transaction_id"}
     _order = "create_date desc"
     _columns = {
         'model': fields.char('Related Document Model', size=128, select=1),

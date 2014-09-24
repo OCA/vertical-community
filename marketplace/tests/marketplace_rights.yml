@@ -10,10 +10,10 @@
     sender_id: partner_test2
     quantity: 5
     currency_ids:
-      - model: "account.centralbank.transaction"
+      - model: "account.wallet.transaction"
         field: "currency_ids"
         price_unit: 50
-        currency_id: account_centralbank.COM
+        currency_id: account_wallet.COM
 -
   I check that Initially marketplace proposition is in the "Draft" state
 -

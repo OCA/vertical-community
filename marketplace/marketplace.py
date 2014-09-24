@@ -78,7 +78,7 @@ class marketplace_announcement(osv.osv):
             res[transaction.id]['is_moderator'] = False
             if transaction.partner_id.id == partner_id:
                 res[transaction.id]['is_user'] = True
-            if self.pool.get('res.users').has_group(cr, uid, 'account_centralbank.group_account_centralbank_moderator'):
+            if self.pool.get('res.users').has_group(cr, uid, 'account_wallet.group_account_wallet_moderator'):
                 res[transaction.id]['is_user'] = True
                 res[transaction.id]['is_moderator'] = True
             #_logger.info('uid %s, role %s', uid, res[transaction.id])
@@ -166,7 +166,7 @@ class marketplace_announcement(osv.osv):
         'quantity_available': fields.function(_get_qty_available, type="float", string="Available", digits_compute= dp.get_precision('Product Unit of Measure'), readonly=True),
         'uom_id': fields.many2one('product.uom', 'Unit of Measure', ondelete='set null'),
         'currency_mode': fields.selection([('one','I propose one of the following currencies'),('all','I propose all the following currencies')], 'Currency mode'),
-        'currency_ids': fields.one2many('account.centralbank.currency.line', 'res_id',
+        'currency_ids': fields.one2many('account.wallet.currency.line', 'res_id',
            domain=lambda self: [('model', '=', self._name),('field','=','currency_ids')],
            auto_join=True,
            string='Currencies'),
@@ -337,7 +337,7 @@ class marketplace_proposition(osv.osv):
         for proposition in self.browse(cr, uid, ids, context=context):
             transaction_ids.append(proposition.transaction_id.id)
 
-        res = self.pool.get('account.centralbank.transaction')._get_user_role(cr, uid, transaction_ids, prop, unknow_none, context=context)
+        res = self.pool.get('account.wallet.transaction')._get_user_role(cr, uid, transaction_ids, prop, unknow_none, context=context)
         for proposition in self.browse(cr, uid, ids, context=context):
             values = res[proposition.transaction_id.id]
             #_logger.info('values %s', values)
@@ -382,19 +382,19 @@ class marketplace_proposition(osv.osv):
 
     _name = 'marketplace.proposition'
     _description = 'Proposition'
-    _inherits = {'account.centralbank.transaction': "transaction_id"}
+    _inherits = {'account.wallet.transaction': "transaction_id"}
     _inherit = ['mail.thread','vote.model']
     _vote_category_field = 'category_id'
     _vote_category_model = 'marketplace.announcement.category'
-#    _order = "create_date desc" TODO reference to create date ambiguous because of centralbank.transaction
+#    _order = "create_date desc" TODO reference to create date ambiguous because of wallet.transaction
     _columns = {
-        'transaction_id': fields.many2one('account.centralbank.transaction', 'Transaction', ondelete="cascade", required=True, auto_join=True),
+        'transaction_id': fields.many2one('account.wallet.transaction', 'Transaction', ondelete="cascade", required=True, auto_join=True),
         'announcement_id': fields.many2one('marketplace.announcement', 'What', required=True),
         'name': fields.related('announcement_id', 'name', type='char', string='Name', store=True),
         'type': fields.related('announcement_id', 'type', type='char', string='Type', store=True),
         'description_announcement_id': fields.many2one('marketplace.announcement', 'Link to announcement proposition'), #only the user announcement are displayed and countertype (offer if want annonce or want if offer annonce
         'category_id': fields.related('announcement_id', 'category_id', type="many2one", relation="marketplace.announcement.category", string='Category'),
-        # 'currency_ids': fields.one2many('account.centralbank.currency.line', 'res_id',
+        # 'currency_ids': fields.one2many('account.wallet.currency.line', 'res_id',
         #     domain=lambda self: [('model', '=', self._name),('field','=','currency_ids')],
         #     auto_join=True,
         #     string='Currencies', readonly=True, states={'draft':[('readonly',False)]}),
@@ -478,7 +478,7 @@ class marketplace_proposition(osv.osv):
 
 
     def test_vote(self, cr, uid, ids, context=None):
-        transaction_obj = self.pool.get('account.centralbank.transaction')
+        transaction_obj = self.pool.get('account.wallet.transaction')
         vote_obj = self.pool.get('vote.vote')
 
         for proposition in self.browse(cr, uid, ids, context=context):
@@ -496,13 +496,13 @@ class marketplace_proposition(osv.osv):
             if vote_user and vote_user.is_complete and vote_announcer and vote_announcer.is_complete:
                 workflow.trg_validate(uid, 'marketplace.proposition', proposition.id, 'proposition_vote_paid', cr)
                 transaction_obj.write(cr, uid, [proposition.transaction_id.id], {'state': 'done'}, context=context)
-                workflow.trg_delete(uid, 'account.centralbank.transaction', proposition.transaction_id.id, cr)
+                workflow.trg_delete(uid, 'account.wallet.transaction', proposition.transaction_id.id, cr)
 
 
 
     def change_state(self, cr, uid, ids, new_state, *args):
         announcement_obj = self.pool.get('marketplace.announcement')
-        transaction_obj = self.pool.get('account.centralbank.transaction')
+        transaction_obj = self.pool.get('account.wallet.transaction')
         partner_obj = self.pool.get('res.partner')
         for proposition in self.browse(cr, uid, ids):
             fields = {'state':new_state}
@@ -510,7 +510,7 @@ class marketplace_proposition(osv.osv):
                 if proposition.quantity > proposition.announcement_id.quantity_available and not proposition.announcement_id.infinite_qty:
                     raise osv.except_osv(_('Access error!'),_("There is not enough quantity available!"))
                 transaction_obj.write(cr, uid, [proposition.transaction_id.id], {'state': 'draft'})
-                workflow.trg_delete(uid, 'account.centralbank.transaction', proposition.transaction_id.id, cr)
+                workflow.trg_delete(uid, 'account.wallet.transaction', proposition.transaction_id.id, cr)
                 fields['already_published'] = True
             if new_state == 'accepted':
                 transaction_obj.prepare_move(cr, uid, [proposition.transaction_id.id], 'reservation')
@@ -521,7 +521,7 @@ class marketplace_proposition(osv.osv):
             if new_state == 'cancel':
                 transaction_obj.refund(cr, uid, [proposition.transaction_id.id], ['reservation','invoice','payment','confirm'])
                 transaction_obj.write(cr, uid, [proposition.transaction_id.id], {'state': 'cancel'})
-                workflow.trg_delete(uid, 'account.centralbank.transaction', proposition.transaction_id.id, cr)
+                workflow.trg_delete(uid, 'account.wallet.transaction', proposition.transaction_id.id, cr)
 
             import logging
             #_logger = logging.getLogger(__name__)
@@ -533,7 +533,7 @@ class marketplace_proposition(osv.osv):
 
     def pay(self, cr, uid, ids, *args):
 
-        transaction_obj = self.pool.get('account.centralbank.transaction')
+        transaction_obj = self.pool.get('account.wallet.transaction')
         self.test_access_role(cr, uid, ids, 'is_sender', *args)
 
         for proposition in self.browse(cr, uid, ids):
@@ -549,7 +549,7 @@ class marketplace_proposition(osv.osv):
         return True
 
     def confirm(self, cr, uid, ids, *args):
-        transaction_obj = self.pool.get('account.centralbank.transaction')
+        transaction_obj = self.pool.get('account.wallet.transaction')
         self.test_access_role(cr, uid, ids, 'is_receiver', *args)
 
         for proposition in self.browse(cr, uid, ids):
@@ -562,7 +562,7 @@ class marketplace_proposition(osv.osv):
 
     def reset_workflow(self, cr, uid, ids, *args):
 
-        transaction_obj = self.pool.get('account.centralbank.transaction')
+        transaction_obj = self.pool.get('account.wallet.transaction')
         for proposition in self.browse(cr, uid, ids):
             state = proposition.state
             role_to_test = 'is_user'
@@ -619,11 +619,11 @@ class marketplace_proposition(osv.osv):
 
 
 
-class account_centralbank_transaction(osv.osv):
+class account_wallet_transaction(osv.osv):
 
-    _inherit = 'account.centralbank.transaction'
+    _inherit = 'account.wallet.transaction'
 
-    def get_account_line(self, cr, uid, transaction, action, action2, inv=False, name='Transaction', context=None):
+    def get_account_line(self, cr, uid, transaction, action, inv=False, name='Transaction', context=None):
 
         proposition_obj = self.pool.get('marketplace.proposition')
         proposition_ids = proposition_obj.search(cr, uid, [('transaction_id', '=', transaction.id)], context=context)
@@ -631,7 +631,8 @@ class account_centralbank_transaction(osv.osv):
             if proposition.type == 'want':
                 inv=True
 
-        res = super(account_centralbank_transaction, self).get_account_line(cr, uid, transaction, action, action2, inv=inv, name=name, context=context)
+        res = super(account_wallet_transaction, self).get_account_line(cr, uid, transaction, action, inv=inv, name=name,
+                                                                       context=context)
         return res
 
 
@@ -657,3 +658,11 @@ class res_partner(osv.osv):
         'skill_tag_ids': fields.many2many('marketplace.tag', 'res_partner_marketplace_tag_rel', 'partner_id', 'tag_id', 'My skills (tags)'),
     }
 
+
+class IrAttachment(osv.osv):
+
+    _inherit = 'ir.attachment'
+
+    _columns = {
+        'binary_field': fields.char('Binary field', size=128)
+    }

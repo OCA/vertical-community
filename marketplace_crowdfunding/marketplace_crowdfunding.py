@@ -40,7 +40,7 @@ class marketplace_announcement(osv.osv):
     _inherit = ['marketplace.announcement','crowdfunding.campaign']
 
     _columns = {
-        'crowdfunding_use_funds': fields.boolean('The reserved funds will be recovered when a propasal is accepted', groups="account_centralbank.group_account_centralbank_moderator"),
+        'crowdfunding_use_funds': fields.boolean('The reserved funds will be recovered when a propasal is accepted', groups="account_wallet.group_account_wallet_moderator"),
     }
 
     _defaults = {

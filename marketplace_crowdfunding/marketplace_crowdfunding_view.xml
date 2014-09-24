@@ -27,7 +27,7 @@
                                     </group>
                                     <group>
                                         <button name="crowdfunding_cancel_campaign" string="Cancel Campaign" type="object" attrs="{'invisible': [('crowdfunding_state','in',['open','done'])]}"/>
-                                        <button name="crowdfunding_draft_campaign" string="Put in draft" type="object" attrs="{'invisible': [('crowdfunding_state','!=','cancel')]}" groups="account_centralbank.group_account_centralbank_moderator"/>
+                                        <button name="crowdfunding_draft_campaign" string="Put in draft" type="object" attrs="{'invisible': [('crowdfunding_state','!=','cancel')]}" groups="account_wallet.group_account_wallet_moderator"/>
                                         <button name="crowdfunding_start_campaign" string="Start Campaign!" attrs="{'invisible': [('crowdfunding_state','!=','draft')]}" type="object"/>
                                         <field name="crowdfunding_funded" invisible="1"/>
                                         <button name="crowdfunding_get_funds" string="Get the fund" attrs="{'invisible': ['|',('crowdfunding_state','!=','open'),('crowdfunding_funded','!=',True)]}" type="object"/>

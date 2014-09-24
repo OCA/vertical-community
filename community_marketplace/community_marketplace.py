@@ -46,10 +46,10 @@ class groups_view(osv.osv):
 
         #We need to catch the exception for the community module installation, the records are not created at this point
         try:
-            category = model.get_object(cr, uid, 'account_centralbank', 'module_centralbank_category')
-            group_account_centralbank_user = model.get_object(cr, uid, 'account_centralbank', 'group_account_centralbank_user')
-            group_account_centralbank_moderator = model.get_object(cr, uid, 'account_centralbank', 'group_account_centralbank_moderator')
-            res.append((category, 'selection', [group_account_centralbank_user,group_account_centralbank_moderator]))
+            category = model.get_object(cr, uid, 'account_wallet', 'module_wallet_category')
+            group_account_wallet_user = model.get_object(cr, uid, 'account_wallet', 'group_account_wallet_user')
+            group_account_wallet_moderator = model.get_object(cr, uid, 'account_wallet', 'group_account_wallet_moderator')
+            res.append((category, 'selection', [group_account_wallet_user,group_account_wallet_moderator]))
 
         except ValueError:
             pass

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        
+        <!-- Config -->
+
+        <record id="view_account_wallet_config_currency_tree" model="ir.ui.view">
+            <field name="name">account.wallet.config.currency.tree</field>
+            <field name="model">account.wallet.config.currency</field>
+            <field name="arch" type="xml">
+                <tree string="Currencies">
+                    <field name="currency_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_account_wallet_config_currency_form" model="ir.ui.view">
+            <field name="name">account.wallet.config.currency.form</field>
+            <field name="model">account.wallet.config.currency</field>
+            <field name="arch" type="xml">
+                <form string="Currency">
+                    <field name="currency_id"/>
+                    <field name="limit_negative"/>
+                    <field name="limit_negative_value" attrs="{'invisible': [('limit_negative','=',False)]}"/>
+                    <field name="limit_positive"/>
+                    <field name="limit_positive_value" attrs="{'invisible': [('limit_positive','=',False)]}"/>
+                    <field name="partner_availability_account_id"/>
+                    <field name="partner_reserved_account_id"/>
+                    <field name="partner_expense_account_id"/>
+                    <field name="partner_income_account_id"/>
+                    <field name="external_currency"/>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_community_configuration_wallet" model="ir.ui.view">
+            <field name="name">community.configuration.wallet</field>
+            <field name="model">community.config.settings</field>
+            <field name="inherit_id" ref="base_community.view_community_configuration"/>
+            <field name="arch" type="xml">
+                <form position="inside">
+                    <separator string="Central Bank"/>
+                    <group name="marketplace_grp">
+                        <label for="id" string="Currencies"/>
+                        <div name="currencies">
+                            <div>
+                                <field name="journal_id" class="oe_inline"/>
+                                <label for="journal_id"/>
+                            </div>
+                            <field name="currency_ids"/>
+                            <div>
+                                <field name="default_currency_id" class="oe_inline"/>
+                                <label for="default_currency_id"/>
+                            </div>
+                        </div>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</openerp>

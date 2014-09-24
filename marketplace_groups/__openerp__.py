@@ -22,7 +22,7 @@
 {'name': 'Marketplace Groups',
  'version': '1.0',
  'category': 'Association',
- 'depends': ['account_centralbank_groups',
+ 'depends': ['account_wallet_groups',
              'marketplace',
              ],
  'author': 'Yannick Buron',
