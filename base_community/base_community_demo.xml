@@ -2,6 +2,8 @@
 <openerp>
    <data>
 
+       <!-- Users -->
+
         <record id="partner_joel" model="res.partner">
             <field name="name">Joel Grand-Guillaume</field>
             <field name="parent_id" ref="base.res_partner_12"/>

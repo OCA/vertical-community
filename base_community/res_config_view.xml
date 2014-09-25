@@ -2,6 +2,8 @@
 <openerp>
     <data>
 
+        <!-- Community Config -->
+
         <record id="community_settings" model='community.config.settings'/>
 
         <record id="view_community_configuration" model="ir.ui.view">
