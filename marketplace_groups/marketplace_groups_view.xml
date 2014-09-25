@@ -2,6 +2,8 @@
 <openerp>
     <data>
 
+        <!-- Announcement -->
+
         <record id="view_marketplace_announcement_tree_groups" model="ir.ui.view">
             <field name="name">marketplace.announcement.tree.groups</field>
             <field name="model">marketplace.announcement</field>
@@ -12,7 +14,6 @@
                 </field>
             </field>
         </record>
-
 
         <record id="view_marketplace_announcement_form_groups" model="ir.ui.view">
             <field name="name">marketplace.announcement.form.groups</field>
@@ -52,6 +53,9 @@
             </field>
         </record>
 
+
+        <!-- Proposition -->
+
         <record id="view_marketplace_proposition_form_groups" model="ir.ui.view">
             <field name="name">marketplace.proposition.form.groups</field>
             <field name="model">marketplace.proposition</field>
@@ -76,6 +80,8 @@
             </field>
         </record>
 
+
+        <!-- Menu -->
 
         <record id="action_marketplace_announcement_the_market_the_offers_per_group" model="ir.actions.act_window">
             <field name="name">Per group</field>

@@ -2,6 +2,8 @@
 <openerp>
     <data>
 
+        <!-- Annoucenement / Proposition -->
+
         <record id="announcement_demo1" model="marketplace.announcement">
             <field name="name">I'm offering services about Odoo Customization</field>
             <field name="type">offer</field>
