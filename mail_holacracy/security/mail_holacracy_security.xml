@@ -2,6 +2,8 @@
 <openerp>
     <data>
 
+        <!-- Rules -->
+
         <record id="mail.mail_group_public_and_joined" model="ir.rule">
             <field name="groups"  eval="[(6,0,[ref('base.group_user')])]"/>
             <field name="perm_read" eval="True"/>

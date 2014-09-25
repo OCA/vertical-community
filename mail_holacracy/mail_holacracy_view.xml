@@ -2,6 +2,8 @@
 <openerp>
     <data>
 
+        <!-- Group -->
+
         <record id="view_mail_group_form_holacracy" model="ir.ui.view">
             <field name="name">mail.group.form.holacracy</field>
             <field name="model">mail.group</field>
@@ -43,10 +45,7 @@
                 </tree>
             </field>
         </record>
-<!--
-                                        <button t-if="record.message_is_follower.raw_value" name="action_unfollow" type="object" class="oe_group_join">Unfollow</button>
-                                        <button t-if="! record.message_is_follower.raw_value" name="action_follow" type="object">Join Group</button>
--->
+
         <record id="action_mail_group_tree" model="ir.actions.act_window">
             <field name="name">Groups list</field>
             <field name="type">ir.actions.act_window</field>
@@ -61,7 +60,7 @@
             parent="mail.mail_group_root"
             sequence="30"/>
 
-<!-- TODO Return in the message list of the group, not in the group form -->
+        <!-- TODO Return in the message list of the group, not in the group form -->
         <record id="mail_group_action_tree" model="ir.actions.server">
             <field name="name">Group</field>
             <field name="model_id" ref="model_mail_group"/>
@@ -100,11 +99,10 @@ action = {
     'res_model': 'mail.group',
     'res_id': context['active_id']
 }
-
             </field>
         </record>
 
-        <record id="ir_product_category_open" model="ir.values">
+        <record id="ir_mail_group_list" model="ir.values">
             <field eval="'tree_but_open'" name="key2"/>
             <field eval="'mail.group'" name="model"/>
             <field name="name">Groups list</field>
@@ -112,8 +110,8 @@ action = {
         </record>
 
 
-        <record id="view_group_tree_extention" model="ir.ui.view">
-            <field name="name">mail.group.tree.extention</field>
+        <record id="view_group_tree_extension" model="ir.ui.view">
+            <field name="name">mail.group.tree.extension</field>
             <field name="model">mail.group</field>
             <field name="inherit_id" ref="mail.view_group_tree"/>
             <field name="arch" type="xml">
@@ -122,6 +120,13 @@ action = {
                 </field>
             </field>
         </record>
+
+        <record id="mail.action_view_groups" model="ir.actions.act_window">
+            <field name="view_mode">tree,kanban,form</field>
+        </record>
+
+
+        <!-- Partner -->
 
         <record id="view_partner_form_holacracy" model="ir.ui.view">
             <field name="name">partner.form.holacracy</field>
@@ -138,10 +143,7 @@ action = {
         </record>
 
 
-        <record id="mail.action_view_groups" model="ir.actions.act_window">
-            <field name="view_mode">tree,kanban,form</field>
-        </record>
-
+        <!-- Rights -->
 
         <record id="mail_group_right_invitation" model="mail.group.right">
             <field name="name">Invitation</field>
