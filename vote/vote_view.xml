@@ -2,6 +2,8 @@
 <openerp>
     <data>
 
+        <!-- Vote -->
+
         <record id="view_vote_vote_tree" model="ir.ui.view">
             <field name="name">vote.vote.tree</field>
             <field name="model">vote.vote</field>
@@ -67,6 +69,8 @@
         </record>
 
 
+        <!-- Vote line -->
+
         <record id="view_vote_vote_line_tree" model="ir.ui.view">
             <field name="name">vote.vote.line.tree</field>
             <field name="model">vote.vote.line</field>
@@ -77,6 +81,9 @@
                 </tree>
             </field>
         </record>
+
+
+        <!-- Partner -->
 
         <record id="view_partner_form_vote" model="ir.ui.view">
             <field name="name">partner.form.vote</field>

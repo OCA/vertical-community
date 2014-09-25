@@ -2,6 +2,10 @@
 <openerp>
     <data>
 
+        <menuitem id="menu_vote_configuration" name="Vote" parent="base.menu_administration" sequence="10" />
+
+        <!-- Vote type -->
+
         <record id="view_vote_type_tree" model="ir.ui.view">
             <field name="name">vote.type.tree</field>
             <field name="model">vote.type</field>
@@ -22,6 +26,17 @@
             </field>
         </record>
 
+        <record id="action_vote_type" model="ir.actions.act_window">
+            <field name="name">Vote types</field>
+            <field name="res_model">vote.type</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_vote_type" parent="menu_vote_configuration"
+            sequence="15" action="action_vote_type"/>
+
+
+        <!-- Config -->
 
         <record id="view_vote_config_line_tree" model="ir.ui.view">
             <field name="name">vote.config.line.tree</field>
@@ -47,8 +62,6 @@
                 </form>
             </field>
         </record>
-
-
 
         <record id="view_community_configuration_vote" model="ir.ui.view">
             <field name="name">community.configuration.vote</field>
@@ -78,19 +91,6 @@
                 </form>
             </field>
         </record>
-
-        <menuitem id="menu_vote_configuration" name="Vote" parent="base.menu_administration" sequence="10" />
-
-
-        <record id="action_vote_type" model="ir.actions.act_window">
-            <field name="name">Vote types</field>
-            <field name="res_model">vote.type</field>
-            <field name="view_mode">tree,form</field>
-        </record>
-
-        <menuitem id="menu_vote_type" parent="menu_vote_configuration"
-            sequence="15" action="action_vote_type"/>
-
 
     </data>
 </openerp>
