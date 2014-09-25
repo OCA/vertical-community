@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    Author: Yannick Buron
-#    Copyright 2013 Yannick Buron
+#    Author: Yannick Buron. Copyright Yannick Buron
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -11,27 +10,30 @@
 #
 #    This program is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 
+import logging
+
 from lxml import etree
 from lxml.builder import E
-
-from openerp import netsvc
-from openerp import pooler
+from openerp.osv import fields, osv, ormworkflow
 from openerp import SUPERUSER_ID
-from openerp.osv import fields, osv, orm
 from openerp.tools.translate import _
 
-import logging
-#_logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
-class res_partner(osv.osv):
+
+class ResPartner(osv.osv):
+
+    """
+    Add some field in partner to use as a member presentation page
+    """
 
     _inherit = 'res.partner'
 
@@ -39,11 +41,25 @@ class res_partner(osv.osv):
         'presentation': fields.text('Presentation'),
     }
 
-def name_boolean_group(id): return 'in_group_' + str(id)
-def name_boolean_groups(ids): return 'in_groups_' + '_'.join(map(str, ids))
-def name_selection_groups(ids): return 'sel_groups_' + '_'.join(map(str, ids))
 
-class groups_view(osv.osv):
+def name_boolean_group(id):
+    return 'in_group_' + str(id)
+
+
+def name_boolean_groups(ids):
+    return 'in_groups_' + '_'.join(map(str, ids))
+
+
+def name_selection_groups(ids):
+    return 'sel_groups_' + '_'.join(map(str, ids))
+
+
+class GroupsView(osv.osv):
+
+    """
+    Copy some function we find in base module in order to manage groups from the simplied user form
+    """
+
     _inherit = 'res.groups'
 
     def get_simplified_groups_by_application(self, cr, uid, context=None):
@@ -55,12 +71,13 @@ class groups_view(osv.osv):
         """
         return []
 
-#TODO For now we have to disable the xml_check constraint in server/openerp/addons/base/ir/ir_ui_view.py because the generated view doesn't pass the check. How the base module do it?
     def update_user_groups_view(self, cr, uid, context=None):
-        res = super(groups_view, self).update_user_groups_view(cr, uid, context=context)
+        res = super(GroupsView, self).update_user_groups_view(cr, uid, context=context)
 
-        #_logger.info('In update_user_groups_view')
-        view = self.pool['ir.model.data'].xmlid_to_object(cr, SUPERUSER_ID, 'membership_users.user_groups_view_simple_form', context=context)
+        view = self.pool['ir.model.data'].xmlid_to_object(
+            cr, SUPERUSER_ID,
+            'membership_users.user_groups_view_simple_form', context=context
+        )
         if view and view.exists() and view._name == 'ir.ui.view':
             xml1, xml2 = [], []
             xml1.append(E.separator(string=_('Access rights'), colspan="4"))
@@ -82,7 +99,5 @@ class groups_view(osv.osv):
             xml = E.group(*(xml1 + xml2), name="group_groups_id", position="inside")
             xml.addprevious(etree.Comment("GENERATED AUTOMATICALLY BY GROUPS"))
             xml_content = etree.tostring(xml, pretty_print=True, xml_declaration=True, encoding="utf-8")
-            #_logger.info('xml_content %s', xml_content)
             view.write({'arch': xml_content})
         return res
-

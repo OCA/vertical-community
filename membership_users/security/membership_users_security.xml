@@ -2,6 +2,8 @@
 <openerp>
     <data>
 
+        <!-- Groups -->
+
         <record id="group_membership_moderator" model="res.groups">
             <field name="name">Membership / Manage Users</field>
         </record>
@@ -18,46 +20,8 @@
             <field name="groups_id" eval="[(6, 0, [ref('group_membership_moderator')])]"/>
         </record>
 
-        <record id="view_partner_form_membership_users" model="ir.ui.view">
-            <field name="name">partner.form.membership.users</field>
-            <field name="model">res.partner</field>
-            <field name="inherit_id" ref="base.view_partner_form"/>
-            <field name="arch" type="xml">
-                <page string="Internal Notes" position="before">
-                    <page string="Presentation">
-                        <field name="presentation"/>
-                    </page>
-                </page>
-                <page string="Internal Notes" position="attributes">
-                    <attribute name="groups">membership_users.group_membership_moderator</attribute>
-                </page>
-                <page string="Sales &amp; Purchases" position="attributes">
-                    <attribute name="groups">account.group_account_user</attribute>
-                </page>
-            </field>
-        </record>
 
-        <record id="membership_view_partner_form_membership_users" model="ir.ui.view">
-            <field name="name">membership.partner.form.membership.users</field>
-            <field name="model">res.partner</field>
-            <field name="inherit_id" ref="membership.view_partner_form"/>
-            <field name="arch" type="xml">
-                <page string="Membership" position="attributes">
-                    <attribute name="groups">membership_users.group_membership_moderator</attribute>
-                </page>
-            </field>
-        </record>
-
-        <record id="account_view_partner_form_membership_users" model="ir.ui.view">
-            <field name="name">account.partner.form.membership.users</field>
-            <field name="model">res.partner</field>
-            <field name="inherit_id" ref="account.view_partner_property_form"/>
-            <field name="arch" type="xml">
-                <page string="Accounting" position="attributes">
-                    <attribute name="groups">account.group_account_user</attribute>
-                </page>
-            </field>
-        </record>
+        <!-- Rules -->
 
         <record id="base.res_partner_rule" model="ir.rule">
             <field name="groups"  eval="[(6,0,[ref('base.group_user')])]"/>
@@ -118,7 +82,6 @@
             <field name="perm_create" eval="True"/>
             <field name="perm_unlink" eval="True"/>
         </record>
-
 
     </data>
 </openerp>

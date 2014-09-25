@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    Author: Yannick Buron
-#    Copyright 2013 Yannick Buron
+#    Author: Yannick Buron. Copyright Yannick Buron
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -11,34 +10,37 @@
 #
 #    This program is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 
-{'name': 'Membership Users',
- 'version': '1.0',
- 'category': 'Association',
- 'depends': ['membership',
-             ],
- 'author': 'Yannick Buron',
- 'license': 'AGPL-3',
- 'website': 'https://launchpad.net/openerp-communitytools',
- 'description': """
+{
+    'name': 'Membership Users',
+    'version': '1.0',
+    'category': 'Association',
+    'author': 'Yannick Buron',
+    'license': 'AGPL-3',
+    'description': """
 Membership Users
-=================
+================
 
-This module allow users to manage their account from association page, and moderators to manage users from the association configuration.
-It also defines a membership moderator group.
+Add users management in the association part of Odoo
+----------------------------------------------------
+    * Add users list with simplified form
+    * Modify and improve members list
+    * Add "My account"
+    * Add a membership moderator group
 """,
- 'demo': [],
- 'data': ['security/membership_users_security.xml',
-          'security/ir.model.access.csv',
-          'membership_users_view.xml'
-          ],
+    'website': 'https://github.com/YannickB/community-management',
+    'depends': ['membership'],
+    'data': [
+        'security/membership_users_security.xml',
+        'security/ir.model.access.csv',
+        'membership_users_view.xml'
+    ],
  'installable': True,
- 'application': True,
 }
