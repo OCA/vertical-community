@@ -2,6 +2,8 @@
 <openerp>
     <data>
 
+        <!-- Users -->
+
         <record id="base_community.user_joel" model="res.users">
             <field name="groups_id" eval="[(4,ref('group_community_administrator'))]"/>
         </record>

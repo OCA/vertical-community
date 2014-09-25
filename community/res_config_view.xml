@@ -2,6 +2,8 @@
 <openerp>
     <data>
 
+        <!-- Configuration -->
+
         <record id="view_config_settings" model="ir.ui.view">
             <field name="name">community module settings</field>
             <field name="model">community.module.config.settings</field>
@@ -63,12 +65,9 @@
             <field name="target">inline</field>
         </record>
 
-
         <menuitem action="action_config_settings" id="menu_action_config_settings_association" parent="base.menu_marketing_config_association"/>
         <menuitem action="action_config_settings" id="menu_action_config_settings_configuration" parent="base.menu_config"/>
         <menuitem id="menu_community_admin_configuration" parent="base.menu_marketing_config_association" action="base_community.action_community_configuration"/>
-
-
 
     </data>
 </openerp>

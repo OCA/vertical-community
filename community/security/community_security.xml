@@ -2,6 +2,8 @@
 <openerp>
     <data>
 
+        <!-- Groups -->
+
         <record id="group_community_user" model="res.groups">
             <field name="name">Community / User</field>
             <field name="implied_ids" eval="[(6, 0, [ref('base.group_user')])]"/>

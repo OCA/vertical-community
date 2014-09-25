@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    Author: Yannick Buron
-#    Copyright 2013 Yannick Buron
+#    Author: Yannick Buron. Copyright Yannick Buron
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -11,47 +10,53 @@
 #
 #    This program is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 
-{'name': 'Odoo Community Management',
- 'version': '1.0',
- 'category': 'Community',
- 'depends': ['base',
-             'base_community',
-             'calendar',
-             'document',
-             'gamification',
-             'im_chat',
-             'im_livechat',
-             'mail_groups_holacracy',
-             'membership',
-             'membership_users',
-             'portal',
-             'website',
-             'website_mail_group',
-             ],
- 'author': 'Yannick Buron',
- 'license': 'AGPL-3',
- 'website': 'https://launchpad.net/openerp-communitytools',
- 'description': """
+{
+    'name': 'Odoo Community Management',
+    'version': '1.0',
+    'category': 'Community',
+    'author': 'Yannick Buron',
+    'license': 'AGPL-3',
+    'description': """
 Odoo for Communities
-=================
+====================
 
-This module is the base module to allow your OpenERP to manage communities. It contains the base elements and a wizard which allow you to install another features.
-
+Use your Odoo to manage communities.
+------------------------------------
+    * Install official module useful for communities
+    * Manage community access from user simplified form
+    * Add a custom form to install module for managing community
 """,
- 'data': ['community_data.xml',
-          'community_view.xml',
-          'security/community_security.xml',
-          'res_config_view.xml'
-          ],
- 'demo': ['data/community_demo.xml'],
- 'installable': True,
- 'application': True,
+    'website': 'https://github.com/YannickB/community-management',
+    'depends': [
+        'base',
+        'base_community',
+        'calendar',
+        'document',
+        'gamification',
+        'im_chat',
+        'im_livechat',
+        'mail_holacracy',
+        'membership',
+        'membership_users',
+        'portal',
+        'website',
+        'website_mail_group',
+    ],
+    'data': [
+        'data/community_data.xml',
+        'community_view.xml',
+        'security/community_security.xml',
+        'res_config_view.xml'
+    ],
+    'demo': ['data/community_demo.xml'],
+    'installable': True,
+    'application': True,
 }
