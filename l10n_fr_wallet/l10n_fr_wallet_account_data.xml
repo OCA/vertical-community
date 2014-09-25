@@ -2,6 +2,8 @@
 <openerp>
     <data noupdate="1">
 
+        <!-- Accounts -->
+
         <record id="pcg_Classe_8" model="account.account">
           <field name="name">Comptes annexes</field>
           <field name="code">Classes 8</field>
@@ -59,6 +61,9 @@
             <field name="type">other</field>
             <field name="user_type" ref="account.data_account_type_cash"/>
         </record>
+
+
+        <!-- Currency -->
 
         <record id="wallet_currency_EUR" model="account.wallet.config.currency">
             <field name="config_id" ref="base_community.community_settings"/>

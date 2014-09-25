@@ -19,23 +19,24 @@
 #
 ##############################################################################
 
-{'name': 'Wallet French localization',
- 'version': '1.0',
- 'category': 'Association',
- 'depends': ['account_wallet',
-             'l10n_fr',
-             ],
- 'author': 'Yannick Buron',
- 'license': 'AGPL-3',
- 'website': 'https://launchpad.net/marketplace',
- 'description': """
-Wallet french localisation
-=================
+{
+    'name': 'Wallet French localization',
+    'version': '1.0',
+    'category': 'Accounting',
+    'author': 'Yannick Buron',
+    'license': 'AGPL-3',
+    'description': """
+Wallet french localization
+==========================
 
+Add accounts to manage wallet inside french chart account
+---------------------------------------------------------
 """,
- 'demo': [],
- 'data': ['l10n_fr_wallet_account_data.xml',
-          ],
- 'installable': True,
- 'application': True,
+    'website': 'https://github.com/YannickB/community-management',
+    'depends': [
+        'account_wallet',
+        'l10n_fr',
+    ],
+    'data': ['l10n_fr_wallet_account_data.xml'],
+    'installable': True,
 }
