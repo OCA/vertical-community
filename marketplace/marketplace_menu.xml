@@ -350,6 +350,7 @@
 
         <menuitem id="account_wallet.menu_account_wallet" name="Transactions" parent="menu_marketplace" sequence="7"/>
 
+
         <!-- Moderation -->
         <menuitem id="menu_marketplace_moderation" name="Moderation" parent="menu_marketplace" sequence="8"/>
 
@@ -364,7 +365,6 @@
         </record>
 
         <menuitem action="action_marketplace_moderation_dispute" id="menu_action_marketplace_moderation_dispute" parent="menu_marketplace_moderation" groups="account_wallet.group_account_wallet_moderator"/>
-
 
 
         <!-- Configuration -->

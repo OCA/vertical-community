@@ -2,6 +2,8 @@
 <openerp>
     <data>
 
+        <!-- Vote -->
+
         <record id="vote_cordial" model="vote.type">
             <field name="name">Cordial</field>
         </record>
@@ -39,6 +41,9 @@
             <field name="target_model" ref="model_marketplace_announcement_category"/>
         </record>
 
+
+        <!-- Category -->
+
         <record id="category_it" model="marketplace.announcement.category">
             <field name="name">IT</field>
         </record>
@@ -69,7 +74,6 @@
             <field name="sequence">1</field>
         </record>
 
-
         <record id="tag_odoo_python" model="marketplace.tag">
             <field name="name">Python Development</field>
             <field name="category_id" ref="category_odoo"/>
@@ -90,6 +94,8 @@
             <field name="category_id" ref="category_odoo"/>
         </record>
 
+
+        <!-- Announcement / Proposition -->
 
         <record id="announcement_demo1" model="marketplace.announcement">
             <field name="name">I'm offering services about Odoo Customization</field>
