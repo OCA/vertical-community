@@ -21,7 +21,7 @@
 {
     'name': 'Wallet and Transaction',
     'version': '1.0',
-    'category': 'Association',
+    'category': 'Accounting',
     'author': 'Yannick Buron',
     'license': 'AGPL-3',
     'description': """

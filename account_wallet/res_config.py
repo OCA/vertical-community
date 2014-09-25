@@ -81,26 +81,26 @@ class AccountWalletConfigCurrency(osv.osv):
     ]
 
     def update_all_partners(self, cr, uid, context=None):
-        #Update balances on all partners
+        # Update balances on all partners
         partner_obj = self.pool.get('res.partner')
         partner_ids = partner_obj.search(cr, uid, [], context=context)
         partner_obj.update_wallet_balance(cr, uid, partner_ids, context=context)
 
     def create(self, cr, uid, vals, context=None):
-        #Mark the currency as wallet and then update balance on all partners at creation
+        # Mark the currency as wallet and then update balance on all partners at creation
         self.pool.get('res.currency').write(cr, uid, [vals['currency_id']], {'wallet_currency': True}, context=context)
         res = super(AccountWalletConfigCurrency, self).create(cr, uid, vals, context=context)
         self.update_all_partners(cr, uid, context=context)
         return res
 
     def write(self, cr, uid, ids, vals, context=None):
-        #Update balance on all partners when modified
+        # Update balance on all partners when modified
         res = super(AccountWalletConfigCurrency, self).write(cr, uid, ids, vals, context=context)
         self.update_all_partners(cr, uid, context=context)
         return res
 
     def unlink(self, cr, uid, ids, context=None):
-        #Remove the wallet flag on the currency and then update balance on all partners
+        # Remove the wallet flag on the currency and then update balance on all partners
         for currency in self.browse(cr, uid, ids, context=context):
             self.pool.get('res.currency').write(cr, uid, [currency.currency_id.id],
                                                 {'wallet_currency': False}, context=context)

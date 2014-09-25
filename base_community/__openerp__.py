@@ -37,7 +37,7 @@ Create configuration menu and demo users for community modules
         'mail'
     ],
     'data': [
-         'res_config_view.xml',
+        'res_config_view.xml',
         'security/ir.model.access.csv'
     ],
     'demo': ['base_community_demo.xml'],

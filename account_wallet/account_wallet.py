@@ -77,11 +77,11 @@ class AccountWalletTransaction(osv.osv):
     Main object used for transferring currencies, from sender_id to receiver_id.
     It has his own workflow, from draft to done and can be refund.
     The confirm state, used only when there is an external currency (currency whose wallet isn't managed in odoo),
-    is used so the receiver can confirm that the send gave his the money.
+     is used so the receiver can confirm that the send gave his the money.
     """
 
     def _get_price_char(self, cr, uid, ids, prop, unknow_none, context=None):
-        #Compute a char from the currency lines, so we can easily display the transaction value in tree view
+        # Compute a char from the currency lines, so we can easily display the transaction value in tree view
         res = {}
         for transaction in self.browse(cr, uid, ids, context=context):
             res[transaction.id] = ''
@@ -92,7 +92,7 @@ class AccountWalletTransaction(osv.osv):
         return res
 
     def _get_user_role(self, cr, uid, ids, prop, unknow_none, context=None):
-        #Control the access rights of the current user
+        # Control the access rights of the current user
         user_obj = self.pool.get('res.users')
         res = {}
         partner_id = self.pool.get('res.users').browse(cr, uid, uid, context=context).partner_id.id
@@ -151,13 +151,13 @@ class AccountWalletTransaction(osv.osv):
     }
 
     def _default_partner(self, cr, uid, context=None):
-        #By default, use the partner linked to the current user
+        # By default, use the partner linked to the current user
         user_obj = self.pool.get('res.users')
         user = user_obj.browse(cr, uid, uid, context=context)
         return user.partner_id.id
 
     def _default_currency_ids(self, cr, uid, context=None):
-        #When create the transaction, it already contain one line with the default currency
+        # When create the transaction, it already contain one line with the default currency
         proxy = self.pool.get('ir.model.data')
         config = proxy.get_object(cr, uid, 'base_community', 'community_settings')
         return [(0, 0, {
@@ -167,7 +167,7 @@ class AccountWalletTransaction(osv.osv):
         })]
 
     def _get_uom_id(self, cr, uid, *args):
-        #Return the uom_id by default
+        # Return the uom_id by default
         try:
             proxy = self.pool.get('ir.model.data')
             result = proxy.get_object_reference(cr, uid, 'product', 'product_uom_unit')
@@ -176,7 +176,7 @@ class AccountWalletTransaction(osv.osv):
             return False
 
     def _default_model(self, cr, uid, context=None):
-        #Return the model by default, which is account.wallet.transaction. Otherwise, the workflow will be disabled
+        # Return the model by default, which is account.wallet.transaction. Otherwise, the workflow will be disabled
         proxy = self.pool.get('ir.model.data')
         result = proxy.get_object_reference(cr, uid, 'account_wallet', 'model_account_wallet_transaction')
         return result[1]
@@ -192,7 +192,7 @@ class AccountWalletTransaction(osv.osv):
     _order = "create_date desc"
 
     def _check_same_partner(self, cr, uid, ids, context=None):
-        #Check if the sender and the receiver are same
+        # Check if the sender and the receiver are same
         for t in self.browse(cr, uid, ids, context=context):
             if t.sender_id.id == t.receiver_id.id:
                 return False
@@ -203,7 +203,7 @@ class AccountWalletTransaction(osv.osv):
     ]
 
     def unlink(self, cr, uid, ids, context=None):
-        #When we remove the transaction, we also remove all linked lines
+        # When we remove the transaction, we also remove all linked lines
         currency_line_obj = self.pool.get('account.wallet.currency.line')
         for transaction in self.browse(cr, uid, ids, context=context):
             currency_line_ids = [c.id for c in transaction.currency_ids]
@@ -211,7 +211,7 @@ class AccountWalletTransaction(osv.osv):
         return super(AccountWalletTransaction, self).unlink(cr, uid, ids, context=context)
 
     def test_access_role(self, cr, uid, ids, role_to_test, *args):
-        #Raise an exception if we try to make an action denied for the current user
+        # Raise an exception if we try to make an action denied for the current user
         res = self._get_user_role(cr, uid, ids, {}, {})
         for transaction in self.browse(cr, uid, ids):
             role = res[transaction.id]
@@ -221,7 +221,7 @@ class AccountWalletTransaction(osv.osv):
         return True
 
     def reconcile(self, cr, uid, move_ids, context=None):
-        #Reconcile all lines with same account and partner in specified moves
+        # Reconcile all lines with same account and partner in specified moves
         account_obj = self.pool.get('account.account')
         move_obj = self.pool.get('account.move')
         move_line_obj = self.pool.get('account.move.line')
@@ -247,7 +247,7 @@ class AccountWalletTransaction(osv.osv):
                     move_line_obj.reconcile(cr, SUPERUSER_ID, res_partner['line_ids'], context=context)
 
     def refund(self, cr, uid, ids, fields, context=None):
-        #Reverse all moves linked to the transaction
+        # Reverse all moves linked to the transaction
         move_obj = self.pool.get('account.move')
         date = datetime.now().strftime("%Y-%m-%d")
         for transaction in self.browse(cr, uid, ids, context=context):
@@ -266,7 +266,7 @@ class AccountWalletTransaction(osv.osv):
                     self.reconcile(cr, uid, [move.id, reversal_move_id], context=context)
 
     def control_amount(self, cr, uid, transaction, sender, receiver, inv=False, context=None):
-        #Raise error if the balance after transaction isn't within limits
+        # Raise error if the balance after transaction isn't within limits
         partner_obj = self.pool.get('res.partner')
 
         if inv:
@@ -300,7 +300,7 @@ class AccountWalletTransaction(osv.osv):
 
     def get_account_line(self, cr, uid, transaction, action, deduction=0.0, inv=False, name='Transaction',
                          context=None):
-        #Main function which generate the accounting entries
+        # Main function which generate the accounting entries
 
         if not inv:
             partner_credit = transaction.sender_id
@@ -405,7 +405,7 @@ class AccountWalletTransaction(osv.osv):
         return lines
 
     def prepare_move(self, cr, uid, ids, action, context=None):
-        #Generate the specified accounting move
+        # Generate the specified accounting move
         partner_obj = self.pool.get('res.partner')
         move_obj = self.pool.get('account.move')
         company_obj = self.pool.get('res.company')
@@ -440,7 +440,7 @@ class AccountWalletTransaction(osv.osv):
             )
 
     def get_skip_confirm(self, cr, uid, transaction, context=None):
-        #Check is there is an external currency, to determine whether we should go to confirm or paid state
+        # Check is there is an external currency, to determine whether we should go to confirm or paid state
         config_currency_obj = self.pool.get('account.wallet.config.currency')
 
         currency_ids = []
@@ -455,8 +455,8 @@ class AccountWalletTransaction(osv.osv):
         return skip_confirm
 
     def confirm(self, cr, uid, ids, *args):
-        #Workflow action which confirm the transaction and make the payment for currency managed inside Odoo,
-        # it goes to confirm or paid state whether there is or not an external currency
+        # Workflow action which confirm the transaction and make the payment for currency managed inside Odoo,
+        #  it goes to confirm or paid state whether there is or not an external currency
         self.test_access_role(cr, uid, ids, 'is_sender', *args)
 
         self.write(cr, uid, ids, {'already_published': True})
@@ -473,7 +473,7 @@ class AccountWalletTransaction(osv.osv):
         return True
 
     def change_state(self, cr, uid, ids, new_state, *args):
-        #Called by workflow, launch needed action depending of the next state
+        # Called by workflow, launch needed action depending of the next state
         for transaction in self.browse(cr, uid, ids):
             fields = {'state': new_state}
             if new_state == 'done':
@@ -484,7 +484,7 @@ class AccountWalletTransaction(osv.osv):
         return True
 
     def reset_workflow(self, cr, uid, ids, *args):
-        #Called by workflow, launch needed action depending of the next state and reset the workflow
+        # Called by workflow, launch needed action depending of the next state and reset the workflow
         for transaction in self.browse(cr, uid, ids):
             state = transaction.state
             role_to_test = 'is_sender'
@@ -538,7 +538,7 @@ class ResPartner(osv.osv):
     _inherit = 'res.partner'
 
     def get_wallet_limits(self, cr, uid, ids, currency_ids, context=None):
-        #Get the wallet limits for specified partners from general and partner config
+        # Get the wallet limits for specified partners from general and partner config
 
         partner_currency_obj = self.pool.get('res.partner.wallet.currency')
         config_currency_obj = self.pool.get('account.wallet.config.currency')
@@ -584,7 +584,7 @@ class ResPartner(osv.osv):
         return res
 
     def get_wallet_balance(self, cr, uid, ids, context=None):
-        #Compute balances for specified partner
+        # Compute balances for specified partner
         if not context:
             context = {}
         ctx = context.copy()
@@ -700,7 +700,7 @@ class ResPartner(osv.osv):
         return res_final
 
     def update_wallet_balance(self, cr, uid, ids, context=None):
-        #Update the balance on specified partner
+        # Update the balance on specified partner
         line_obj = self.pool.get('res.partner.wallet.balance')
         balances = self.get_wallet_balance(cr, uid, ids, context=context)
 
@@ -726,13 +726,13 @@ class ResPartner(osv.osv):
         return res
 
     def create(self, cr, uid, vals, context=None):
-        #Trigger an update balance at creation
+        # Trigger an update balance at creation
         res = super(ResPartner, self).create(cr, uid, vals, context=context)
         self.update_wallet_balance(cr, uid, [res], context=context)
         return res
 
     def write(self, cr, uid, ids, vals, context=None):
-        #Trigger an update balance when we make change in currency configuration in partner
+        # Trigger an update balance when we make change in currency configuration in partner
         res = super(ResPartner, self).write(cr, uid, ids, vals, context=context)
         if 'wallet_currency_ids' in vals:
             self.update_wallet_balance(cr, uid, ids, context=context)

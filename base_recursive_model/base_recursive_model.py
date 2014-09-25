@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    Author: Yannick Buron
-#    Copyright 2013 Yannick Buron
+#    Author: Yannick Buron. Copyright Yannick Buron
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -11,46 +10,37 @@
 #
 #    This program is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 
-import openerp.addons.decimal_precision as dp
-
-from openerp import netsvc
-from openerp import pooler
-from openerp import SUPERUSER_ID
-from openerp.osv import fields, osv, orm
-from openerp.tools.translate import _
-from operator import itemgetter
-
 import logging
-#_logger = logging.getLogger(__name__)
+
+from openerp.osv import fields, osv, ormworkflow
+from openerp.tools.translate import _
+
+_logger = logging.getLogger(__name__)
 
 
+class BaseRecursiveModel(osv.AbstractModel):
 
-class base_recursive_model(osv.AbstractModel):
+    """
+    Abstract model which can be inherited for model which need a parent-children relation
+    """
 
     def name_get(self, cr, uid, ids, context=None):
-        """Return the categories' display name, including their direct
-           parent by default.
-
-        :param dict context: the ``announcement_category_display`` key can be
-                             used to select the short version of the
-                             category name (without the direct parent),
-                             when set to ``'short'``. The default is
-                             the long version."""
+        # Return the categories' display name, including their direct parent by default.
         if context is None:
             context = {}
-        if context.get('annoucement_category_display') == 'short':
-            return super(marketplace_announcement_category, self).name_get(cr, uid, ids, context=context)
+        if context.get('category_display') == 'short':
+            return super(BaseRecursiveModel, self).name_get(cr, uid, ids, context=context)
         if isinstance(ids, (int, long)):
             ids = [ids]
-        reads = self.read(cr, uid, ids, ['name', 'parent_id','sequence'], context=context)
+        reads = self.read(cr, uid, ids, ['name', 'parent_id', 'sequence'], context=context)
         res = []
         for record in reads:
             name = str(record['sequence']) + ' ' + record['name']
@@ -60,12 +50,12 @@ class base_recursive_model(osv.AbstractModel):
         return res
 
     def name_search(self, cr, uid, name, args=None, operator='ilike', context=None, limit=100):
+        # Search all category which contain name in their own name or in their parents
         if not args:
             args = []
         if not context:
             context = {}
         if name:
-            # Be sure name_search is symetric to name_get
             name = name.split(' / ')[-1]
             ids = self.search(cr, uid, [('name', operator, name)] + args, limit=limit, context=context)
         else:
@@ -75,7 +65,6 @@ class base_recursive_model(osv.AbstractModel):
     def _name_get_fnc(self, cr, uid, ids, prop, unknow_none, context=None):
         res = self.name_get(cr, uid, ids, context=context)
         return dict(res)
-
 
     _name = 'base.recursive.model'
 
