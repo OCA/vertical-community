@@ -2,6 +2,8 @@
 <openerp>
     <data>
 
+        <!-- Configuration line -->
+
         <record id="view_project_assigned_partner_config_tree" model="ir.ui.view">
             <field name="name">project.assigned.partner.config.tree</field>
             <field name="model">project.assigned.partner.config</field>
@@ -29,6 +31,8 @@
         </record>
 
 
+        <!-- Project -->
+
         <record id="view_project_project_form_assignpartner" model="ir.ui.view">
             <field name="name">project.project.form.assignpartner</field>
             <field name="model">project.project</field>
@@ -42,6 +46,9 @@
                 </field>
             </field>
         </record>
+
+
+        <!-- Task -->
 
         <record id="view_project_task_form_assignpartner" model="ir.ui.view">
             <field name="name">project.task.form.assignpartner</field>
@@ -93,6 +100,9 @@
                 </filter>
             </field>
         </record>
+
+
+        <!-- Stage -->
 
         <record id="view_project_task_type_form_assignpartner" model="ir.ui.view">
             <field name="name">project.task.type.form.assignpartner</field>
