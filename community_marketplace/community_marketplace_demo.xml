@@ -2,6 +2,8 @@
 <openerp>
     <data>
 
+        <!-- Category -->
+
         <record id="category_music" model="marketplace.announcement.category">
             <field name="name">Music</field>
         </record>
@@ -16,6 +18,8 @@
             <field name="category_id" ref="category_guitar_teacher"/>
         </record>
 
+
+        <!-- Announcement / Proposition -->
 
         <record id="announcement_guitar_children" model="marketplace.announcement">
             <field name="name">Guitar lesson for children</field>

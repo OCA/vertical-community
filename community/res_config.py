@@ -37,7 +37,7 @@ class CommunityModuleConfiguration(osv.osv_memory):
 
     _columns = {
         'module_community_blog': fields.boolean('Install blog'),
-        'module_community_crowdfunding': fields.boolean('Install crowdfunding'),
+        # 'module_community_crowdfunding': fields.boolean('Install crowdfunding'),
         'module_community_crm': fields.boolean('Install CRM'),
         'module_community_event': fields.boolean('Install event'),
         'module_community_forum': fields.boolean('Install forum'),
@@ -107,13 +107,13 @@ class CommunityModuleConfiguration(osv.osv_memory):
             installed_modules.append(module.name)
         if 'community_marketplace' in modules and 'community_project' in installed_modules \
                 or 'community_project' in modules and 'community_marketplace' in installed_modules:
-            to_install_dependencies.append('project_marketplace_groups')
-        if 'community_crowdfunding' in modules and 'community_project' in installed_modules \
-                or 'community_project' in modules and 'community_crowdfunding' in installed_modules:
-            to_install_dependencies.append('project_crowdfunding')
-        if 'community_crowdfunding' in modules and 'community_marketplace' in installed_modules \
-                or 'community_marketplace' in modules and 'community_marketplace' in installed_modules:
-            to_install_dependencies.append('marketplace_crowdfunding')
+            to_install_dependencies.append('project_marketplace')
+        # if 'community_crowdfunding' in modules and 'community_project' in installed_modules \
+        #         or 'community_project' in modules and 'community_crowdfunding' in installed_modules:
+        #     to_install_dependencies.append('project_crowdfunding')
+        # if 'community_crowdfunding' in modules and 'community_marketplace' in installed_modules \
+        #         or 'community_marketplace' in modules and 'community_marketplace' in installed_modules:
+        #     to_install_dependencies.append('marketplace_crowdfunding')
 
         to_install_final = []
         module_ids = ir_module.search(cr, uid, [('name', 'in', to_install_dependencies)], context=context)
@@ -126,8 +126,8 @@ class CommunityModuleConfiguration(osv.osv_memory):
             modules.append(module.name)
         if 'community_blog' in modules:
             to_uninstall_dependencies.append('website_blog')
-        if 'community_crowdfunding' in modules:
-            to_uninstall_dependencies.append('crowdfunding')
+        # if 'community_crowdfunding' in modules:
+        #     to_uninstall_dependencies.append('crowdfunding')
         if 'community_crm' in modules:
             to_uninstall_dependencies.append('crm')
         if 'community_event' in modules:

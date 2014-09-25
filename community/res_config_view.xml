@@ -23,10 +23,10 @@
                                 <field name="module_community_blog" class="oe_inline"/>
                                 <label for="module_community_blog"/>
                             </div>
-                            <div>
+<!--                            <div>
                                 <field name="module_community_crowdfunding" class="oe_inline"/>
                                 <label for="module_community_crowdfunding"/>
-                            </div>
+                            </div>-->
                             <div>
                                 <field name="module_community_crm" class="oe_inline"/>
                                 <label for="module_community_crm"/>

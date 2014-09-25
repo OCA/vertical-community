@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    Author: Yannick Buron
-#    Copyright 2013 Yannick Buron
+#    Author: Yannick Buron. Copyright Yannick Buron
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -11,31 +10,30 @@
 #
 #    This program is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 
-{'name': 'OpenERP CommunityTools - Project',
- 'version': '1.0',
- 'category': 'Community',
- 'depends': ['community',
-             'mail_groups_project',
-             'website_project',
-             ],
- 'author': 'Yannick Buron',
- 'license': 'AGPL-3',
- 'website': 'https://launchpad.net/openerp-communitytools',
- 'description': """
-OpenERP for Communities - Project
-=================
-
+{
+    'name': 'Odoo for Communities - Project',
+    'version': '1.0',
+    'category': 'Community',
+    'author': 'Yannick Buron',
+    'license': 'AGPL-3',
+    'description': """
+Odoo for Communities - Project
+=================================
 """,
- 'data': ['security/community_project_security.xml'],
- 'demo': [],
- 'installable': True,
- 'application': True,
+    'website': 'https://github.com/YannickB/community-management',
+    'depends': [
+        'community',
+        'project_groups',
+        'website_project',
+    ],
+    'data': ['security/community_project_security.xml'],
+    'installable': True,
 }

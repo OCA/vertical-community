@@ -46,6 +46,7 @@ class GroupsView(osv.osv):
     """
     Add group specific to community in user simplified form
     """
+
     _inherit = 'res.groups'
 
     def get_simplified_groups_by_application(self, cr, uid, context=None):
