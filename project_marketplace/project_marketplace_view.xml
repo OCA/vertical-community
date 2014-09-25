@@ -2,6 +2,8 @@
 <openerp>
     <data>
 
+        <!-- Announcement / Proposition -->
+
         <record id="view_marketplace_announcement_form_project" model="ir.ui.view">
             <field name="name">marketplace.announcement.form.project</field>
             <field name="model">marketplace.announcement</field>
@@ -25,6 +27,9 @@
                 </field>
             </field>
         </record>
+
+
+        <!-- Task -->
 
         <record id="view_project_task_form_marketplace" model="ir.ui.view">
             <field name="name">project.task.form.marketplace</field>
@@ -68,10 +73,5 @@
             </field>
         </record>
 
-<!--
-        <record id="base_community.community_settings" model='community.config.settings'>
-            <field name="project_marketplace_stage_id" ref="project.project_tt_deployment"/>
-        </record>
--->
     </data>
 </openerp>

@@ -2,6 +2,8 @@
 <openerp>
     <data>
 
+        <!-- Project -->
+
         <record id="project.project_tt_specification" model="project.task.type">
             <field name="marketplace_assignment">payer</field>
         </record>
