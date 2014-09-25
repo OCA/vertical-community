@@ -2,6 +2,8 @@
 <openerp>
     <data>
 
+        <!-- Transaction -->
+
         <record id="view_account_wallet_transaction_form_groups" model="ir.ui.view">
             <field name="name">account.wallet.transaction.form.groups</field>
             <field name="model">account.wallet.transaction</field>
@@ -16,7 +18,6 @@
             </field>
         </record>
 
-
         <record id="view_account_wallet_transaction_form_admin_groups" model="ir.ui.view">
             <field name="name">account.wallet.transaction.form.admin.groups</field>
             <field name="model">account.wallet.transaction</field>
@@ -29,6 +30,9 @@
                 </field>
             </field>
         </record>
+
+
+        <!-- Group -->
 
         <record id="view_mail_group_form_holacracy_wallet" model="ir.ui.view">
             <field name="name">mail.group.form.holacracy.wallet</field>
@@ -45,7 +49,6 @@
             <field name="name">Wallet</field>
             <field name="code">wallet</field>
         </record>
-
 
     </data>
 </openerp>

@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    Author: Yannick Buron
-#    Copyright 2013 Yannick Buron
+#    Author: Yannick Buron. Copyright Yannick Buron
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -11,32 +10,37 @@
 #
 #    This program is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 
-{'name': 'Account Wallet Groups',
- 'version': '1.0',
- 'category': 'Association',
- 'depends': ['account_wallet',
-             'mail_groups_holacracy',
-             ],
- 'author': 'Yannick Buron',
- 'license': 'AGPL-3',
- 'website': 'https://launchpad.net/openerp-communitytools',
- 'description': """
-Account Wallet Groups
+{
+    'name': 'Wallet for Groups',
+    'version': '1.0',
+    'category': 'Accounting',
+    'author': 'Yannick Buron',
+    'license': 'AGPL-3',
+    'description': """
+Wallet for Groups
 =================
+
+Allow transactions between groups
+---------------------------------
 """,
- 'demo': ['data/account_wallet_groups_demo.xml'],
- 'data': ['account_wallet_groups_view.xml',
-          'security/account_wallet_groups_security.xml',
-          ],
- 'test': ['tests/account_wallet_groups.yml'],
- 'installable': True,
- 'application': True,
+    'website': 'https://launchpad.net/openerp-communitytools',
+    'depends': [
+        'account_wallet',
+        'mail_groups_holacracy',
+    ],
+    'data': [
+        'account_wallet_groups_view.xml',
+        'security/account_wallet_groups_security.xml',
+    ],
+    'demo': ['data/account_wallet_groups_demo.xml'],
+    'test': ['tests/account_wallet_groups.yml'],
+    'installable': True,
 }
