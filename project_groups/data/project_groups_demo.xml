@@ -2,6 +2,7 @@
 <openerp>
     <data>
 
+        <!-- Project -->
         <record id="assigned_config_project_test" model="project.assigned.partner.config">
             <field name="model">project.project</field>
             <field name="res_id" ref="project.project_project_1"/>
@@ -22,6 +23,9 @@
         <record id="project.project_project_1" model="project.project">
             <field name="team_id" ref="mail_groups_holacracy.group_organisations_camptocamp"/>
         </record>
+
+
+        <!-- Users -->
 
         <record id="base_community.user_joel" model="res.users">
             <field name="groups_id" eval="[(4,ref('project.group_project_manager'))]"/>

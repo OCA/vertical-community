@@ -2,6 +2,8 @@
 <openerp>
     <data>
 
+        <!-- Projects -->
+
         <record id="view_project_project_search_groups" model="ir.ui.view">
             <field name="name">project.project.search.groups</field>
             <field name="model">project.project</field>
@@ -12,7 +14,6 @@
                 </filter>
             </field>
         </record>
-
 
         <record id="view_project_project_form_groups" model="ir.ui.view">
             <field name="name">project.project.form.groups</field>
@@ -25,6 +26,9 @@
                 </field>
             </field>
         </record>
+
+
+        <!-- Task -->
 
         <record id="view_project_task_search_groups" model="ir.ui.view">
             <field name="name">project.task.search.groups</field>
@@ -39,6 +43,9 @@
                 </filter>
             </field>
         </record>
+
+
+        <!-- Group -->
 
         <record id="view_mail_group_form_holacracy_project" model="ir.ui.view">
             <field name="name">mail.group.form.holacracy.project</field>
@@ -55,7 +62,6 @@
             <field name="name">Project</field>
             <field name="code">project</field>
         </record>
-
 
     </data>
 </openerp>
