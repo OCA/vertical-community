@@ -27,7 +27,7 @@
 -
   !assert {model: project.task, id: project.project_task_4}:
     - stage_id.id == ref('project.project_tt_design')
-    - assigned_partner_id.id == ref('mail_groups_holacracy.partner_organisations_camptocamp_director')
+    - assigned_partner_id.id == ref('mail_holacracy.partner_organisations_camptocamp_director')
     - user_id.id == False
 -
   I check that luc is in the follower of the task
@@ -54,7 +54,7 @@
 -
   !assert {model: project.task, id: project.project_task_4}:
     - stage_id.id == ref('project.project_tt_testing')
-    - assigned_partner_id.id == ref('mail_groups_holacracy.partner_organisations_camptocamp_projectmanagers')
+    - assigned_partner_id.id == ref('mail_holacracy.partner_organisations_camptocamp_projectmanagers')
     - user_id.id == False
 -
   I check that joel is in the follower of the task
@@ -76,13 +76,13 @@
     in_recursivity: False
 -
   !python {model: mail.group}: |
-    self.message_subscribe(cr, uid, [ref('mail_groups_holacracy.group_organisations_camptocamp_projectmanagers')], [ref('base.res_partner_main1')], context={'in_recursivity':False})
+    self.message_subscribe(cr, uid, [ref('mail_holacracy.group_organisations_camptocamp_projectmanagers')], [ref('base.res_partner_main1')], context={'in_recursivity':False})
 -
   I check that mark is in the group followers
 -
   !python {model: project.project}: |
     proxy = self.pool.get('ir.model.data')
-    group = proxy.get_object(cr, uid, 'mail_groups_holacracy', 'group_organisations_camptocamp_projectmanagers')
+    group = proxy.get_object(cr, uid, 'mail_holacracy', 'group_organisations_camptocamp_projectmanagers')
     mark_partner = proxy.get_object(cr, uid, 'base', 'res_partner_main1')
     mark = False
     for partner in group.message_follower_ids:

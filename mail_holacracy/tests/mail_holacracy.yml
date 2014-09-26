@@ -2,14 +2,14 @@
   I check that demo is consider as a member of the root group OCA community
 -
   !python {model: mail.group}: |
-    group=self.browse(cr, uid, ref("mail_groups_holacracy.group_oca"))
+    group=self.browse(cr, uid, ref("mail_holacracy.group_oca"))
     partner=self.pool.get('res.partner').browse(cr, uid, ref("base.partner_demo"))
     assert (partner in group.message_follower_ids), "Demo isn't within the OCA community"
 -
   I check that Joel, which has group management right on the OCA group, is considered group manager of one of the deepest group within the OCA community
 -
   !python {model: mail.group}: |
-    group=self.browse(cr, uid, ref("mail_groups_holacracy.group_organisations_yourcompany_director"))
+    group=self.browse(cr, uid, ref("mail_holacracy.group_organisations_yourcompany_director"))
     partner=self.pool.get('res.partner').browse(cr, uid, ref("base_community.partner_joel"))
     assert (partner in group.partner_group_management_ids), "Joel hasn't group management rights on Your Company"
 -
@@ -20,7 +20,7 @@
     eval: "[obj(ref('group_teams_localizations_swiss')).id]"
 -
   !python {model: mail.group}: |
-    group=self.browse(cr, uid, ref("mail_groups_holacracy.group_teams_localizations_swiss"))
+    group=self.browse(cr, uid, ref("mail_holacracy.group_teams_localizations_swiss"))
     partner=group.partner_id
     assert (partner.group_id.id == group.id), "Something went wrong when creating the partner for Swiss localizations team"
 -
@@ -33,6 +33,6 @@
 #  I test that Luc, a board member, is also automatically put inside the Members group
 #-
   # !python {model: mail.group}: |
-    # group=self.browse(cr, uid, ref("mail_groups_holacracy.group_members"))
+    # group=self.browse(cr, uid, ref("mail_holacracy.group_members"))
     # partner=self.pool.get('res.partner').browse(cr, uid, ref("base.res_partner_address_21"))
     # assert (partner in group.partner_group_management_ids), "Luc, from the board, isn't in the member group"

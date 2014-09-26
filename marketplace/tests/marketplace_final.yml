@@ -52,7 +52,9 @@
         assert False, "VoteExternalPartner2 not in vote_evaluated_ids for partner1"
     if not VoteModeratorPartner2:
         assert False, "VoteModeratorPartner2 not in vote_evaluated_ids for partner1"
-
+-
+  !context
+    uid: 'user_test2'
 -
   I check the balance information of test2
 -

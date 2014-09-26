@@ -7,7 +7,7 @@
             <field name="model">project.project</field>
             <field name="res_id" ref="project.project_project_1"/>
             <field name="stage_id" ref="project.project_tt_design"/>
-            <field name="partner_id" ref="mail_groups_holacracy.partner_organisations_camptocamp_director"/>
+            <field name="partner_id" ref="mail_holacracy.partner_organisations_camptocamp_director"/>
             <field name="action">add</field>
         </record>
 
@@ -15,13 +15,13 @@
             <field name="model">project.project</field>
             <field name="res_id" ref="project.project_project_1"/>
             <field name="stage_id" ref="project.project_tt_testing"/>
-            <field name="partner_id" ref="mail_groups_holacracy.partner_organisations_camptocamp_projectmanagers"/>
+            <field name="partner_id" ref="mail_holacracy.partner_organisations_camptocamp_projectmanagers"/>
             <field name="action">add</field>
         </record>
 
         <!-- We trigger a write on project to recomputed the assigned partner-->
         <record id="project.project_project_1" model="project.project">
-            <field name="team_id" ref="mail_groups_holacracy.group_organisations_camptocamp"/>
+            <field name="team_id" ref="mail_holacracy.group_organisations_camptocamp"/>
         </record>
 
 

@@ -19,6 +19,9 @@
     assert (balance_com.available == -5050), "The available balance for test1 isn't correct"
     assert (balance_com.limit_negative_value == -10000), "The limit negative value for test1 isn't correct"
 -
+  !context
+    uid: 'user_test2'
+-
   I check the balance information of test2
 -
   !python {model: res.partner}: |

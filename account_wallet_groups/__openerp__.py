@@ -34,7 +34,7 @@ Allow transactions between groups
     'website': 'https://launchpad.net/openerp-communitytools',
     'depends': [
         'account_wallet',
-        'mail_groups_holacracy',
+        'mail_holacracy',
     ],
     'data': [
         'account_wallet_groups_view.xml',

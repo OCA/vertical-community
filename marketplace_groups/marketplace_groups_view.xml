@@ -83,7 +83,7 @@
 
         <!-- Menu -->
 
-        <record id="action_marketplace_announcement_the_market_the_offers_per_group" model="ir.actions.act_window">
+        <record id="action_mkp_announ_the_market_the_offers_per_group" model="ir.actions.act_window">
             <field name="name">Per group</field>
             <field name="res_model">marketplace.announcement</field>
             <field name="view_type">form</field>
@@ -94,9 +94,9 @@
             <field name="search_view_id" ref="marketplace.view_marketplace_announcement_search"/>
         </record>
 
-        <menuitem action="action_marketplace_announcement_the_market_the_offers_per_group" id="menu_action_marketplace_announcement_the_market_the_offers_per_group" parent="marketplace.menu_marketplace_the_market_the_offers" sequence="10"/>
+        <menuitem action="action_mkp_announ_the_market_the_offers_per_group" id="menu_action_mkp_announ_the_market_the_offers_per_group" parent="marketplace.menu_marketplace_the_market_the_offers" sequence="10"/>
 
-        <record id="action_marketplace_announcement_the_market_the_wants_per_group" model="ir.actions.act_window">
+        <record id="action_mkp_announ_the_market_the_wants_per_group" model="ir.actions.act_window">
             <field name="name">Per group</field>
             <field name="res_model">marketplace.announcement</field>
             <field name="view_type">form</field>
@@ -107,7 +107,7 @@
             <field name="search_view_id" ref="marketplace.view_marketplace_announcement_search"/>
         </record>
 
-        <menuitem action="action_marketplace_announcement_the_market_the_wants_per_group" id="menu_action_marketplace_announcement_the_market_the_wants_per_group" parent="marketplace.menu_marketplace_the_market_the_wants" sequence="10"/>
+        <menuitem action="action_mkp_announ_the_market_the_wants_per_group" id="menu_action_mkp_announ_the_market_the_wants_per_group" parent="marketplace.menu_marketplace_the_market_the_wants" sequence="10"/>
 
         <record id="action_marketplace_the_market_transactions_per_group" model="ir.actions.act_window">
             <field name="name">Per group</field>
@@ -125,7 +125,7 @@
             <!-- My groups -->
         <menuitem id="menu_marketplace_my_market_my_groups" name="My groups" parent="marketplace.menu_marketplace_my_market" sequence="4"/>
 
-        <record id="action_marketplace_announcement_my_market_my_groups_offers" model="ir.actions.act_window">
+        <record id="action_mkp_announ_my_market_my_groups_offers" model="ir.actions.act_window">
             <field name="name">Offers</field>
             <field name="res_model">marketplace.announcement</field>
             <field name="view_type">form</field>
@@ -136,9 +136,9 @@
             <field name="search_view_id" ref="marketplace.view_marketplace_announcement_search"/>
         </record>
 
-        <menuitem action="action_marketplace_announcement_my_market_my_groups_offers" id="menu_action_marketplace_announcement_my_market_my_groups_offers" parent="menu_marketplace_my_market_my_groups" sequence="10"/>
+        <menuitem action="action_mkp_announ_my_market_my_groups_offers" id="menu_action_mkp_announ_my_market_my_groups_offers" parent="menu_marketplace_my_market_my_groups" sequence="10"/>
 
-        <record id="action_marketplace_announcement_my_market_my_groups_wants" model="ir.actions.act_window">
+        <record id="action_mkp_announ_my_market_my_groups_wants" model="ir.actions.act_window">
             <field name="name">Wants</field>
             <field name="res_model">marketplace.announcement</field>
             <field name="view_type">form</field>
@@ -149,9 +149,9 @@
             <field name="search_view_id" ref="marketplace.view_marketplace_announcement_search"/>
         </record>
 
-        <menuitem action="action_marketplace_announcement_my_market_my_groups_wants" id="menu_action_marketplace_announcement_my_market_my_groups_wants" parent="menu_marketplace_my_market_my_groups" sequence="11"/>
+        <menuitem action="action_mkp_announ_my_market_my_groups_wants" id="menu_action_mkp_announ_my_market_my_groups_wants" parent="menu_marketplace_my_market_my_groups" sequence="11"/>
 
-        <record id="action_marketplace_proposition_my_market_my_groups_transactions" model="ir.actions.act_window">
+        <record id="action_mkp_prop_my_market_my_groups_transactions" model="ir.actions.act_window">
             <field name="name">Transactions</field>
             <field name="res_model">marketplace.proposition</field>
             <field name="view_type">form</field>
@@ -162,7 +162,7 @@
             <field name="search_view_id" ref="marketplace.view_marketplace_proposition_search"/>
         </record>
 
-        <menuitem action="action_marketplace_proposition_my_market_my_groups_transactions" id="menu_action_marketplace_proposition_my_market_my_groups_transactions" parent="menu_marketplace_my_market_my_groups" sequence="13"/>
+        <menuitem action="action_mkp_prop_my_market_my_groups_transactions" id="menu_action_mkp_prop_my_market_my_groups_transactions" parent="menu_marketplace_my_market_my_groups" sequence="13"/>
 
 
     </data>

@@ -6,7 +6,7 @@
 
         <record id="group_community_user" model="res.groups">
             <field name="name">Community / User</field>
-            <field name="implied_ids" eval="[(6, 0, [ref('base.group_user')])]"/>
+            <field name="implied_ids" eval="[(6, 0, [ref('base.group_user'), ref('base.group_public')])]"/>
             <field name="category_id" ref="community.module_category_community"/>
             <field name="users" eval="[(4,ref('auth_signup.default_template_user'))]"/>
         </record>

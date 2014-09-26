@@ -19,7 +19,7 @@
 ##############################################################################
 
 {
-    'name': 'Odoo Community Management',
+    'name': 'Odoo for Communities',
     'version': '1.0',
     'category': 'Community',
     'author': 'Yannick Buron',

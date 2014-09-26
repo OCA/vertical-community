@@ -4,27 +4,27 @@
 
         <!-- Groups -->
 
-        <record model="mail.group" id="mail_groups_holacracy.group_oca_treasurer">
+        <record model="mail.group" id="mail_holacracy.group_oca_treasurer">
             <field name="right_ids" eval="[(4,ref('mail_group_right_wallet'))]"/>
         </record>
 
-        <record model="mail.group" id="mail_groups_holacracy.group_organisations_camptocamp_director">
+        <record model="mail.group" id="mail_holacracy.group_organisations_camptocamp_director">
             <field name="right_ids" eval="[(4,ref('mail_group_right_wallet'))]"/>
         </record>
 
-        <record model="mail.group" id="mail_groups_holacracy.group_organisations_vauxoo_director">
+        <record model="mail.group" id="mail_holacracy.group_organisations_vauxoo_director">
             <field name="right_ids" eval="[(4,ref('mail_group_right_wallet'))]"/>
         </record>
 
-        <record model="mail.group" id="mail_groups_holacracy.group_organisations_yourcompany_director">
+        <record model="mail.group" id="mail_holacracy.group_organisations_yourcompany_director">
             <field name="right_ids" eval="[(4,ref('mail_group_right_wallet'))]"/>
         </record>
 
-        <record model="mail.group" id="mail_groups_holacracy.group_teams_localizations_swiss_committers">
+        <record model="mail.group" id="mail_holacracy.group_teams_localizations_swiss_committers">
             <field name="right_ids" eval="[(4,ref('mail_group_right_wallet'))]"/>
         </record>
 
-        <record model="mail.group" id="mail_groups_holacracy.group_teams_ocaprojects_maintainerstools_committers">
+        <record model="mail.group" id="mail_holacracy.group_teams_ocaprojects_maintainerstools_committers">
             <field name="right_ids" eval="[(4,ref('mail_group_right_wallet'))]"/>
         </record>
 

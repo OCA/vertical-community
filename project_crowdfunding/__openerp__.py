@@ -23,7 +23,7 @@
  'version': '1.0',
  'category': 'Community',
  'depends': ['crowdfunding',
-             'mail_groups_project',
+             'project_groups',
              'project',
              ],
  'author': 'Yannick Buron',

@@ -22,7 +22,7 @@ import logging
 
 from lxml import etree
 from lxml.builder import E
-from openerp.osv import fields, osv, ormworkflow
+from openerp.osv import fields, osv, orm
 from openerp import SUPERUSER_ID
 from openerp.tools.translate import _
 

@@ -37,7 +37,7 @@
         <record id="view_mail_group_form_holacracy_wallet" model="ir.ui.view">
             <field name="name">mail.group.form.holacracy.wallet</field>
             <field name="model">mail.group</field>
-            <field name="inherit_id" ref="mail_groups_holacracy.view_mail_group_form_holacracy"/>
+            <field name="inherit_id" ref="mail_holacracy.view_mail_group_form_holacracy"/>
             <field name="arch" type="xml">
                 <field name="partner_group_management_ids" position="after">
                        <field name="partner_wallet_ids" widget="many2many_tags"/>

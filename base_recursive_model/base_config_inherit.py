@@ -20,7 +20,7 @@
 
 import logging
 
-from openerp.osv import fields, osv, ormworkflow
+from openerp.osv import fields, osv, orm
 from openerp.tools.translate import _
 
 _logger = logging.getLogger(__name__)
@@ -49,6 +49,7 @@ class BaseConfigInheritModel(osv.AbstractModel):
     }
 
     def _prepare_config(self, cr, uid, id, record, vals={}, context=None):
+        # This function can be overridden by inheriting model to specify the field contains in the configuration
         res = {}
         for key, value in vals.iteritems():
             res[key] = value
