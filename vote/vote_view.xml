@@ -40,7 +40,7 @@
             <field name="name">vote.vote.form.admin</field>
             <field name="model">vote.vote</field>
             <field name="inherit_id" ref="view_vote_vote_form"/>
-            <field name="groups_id" eval="[(6, 0, [ref('account_wallet.group_account_wallet_moderator')])]"/>
+            <field name="groups_id" eval="[(6, 0, [ref('membership_users.group_membership_moderator')])]"/>
             <field name="arch" type="xml">
                 <field name="partner_id" position="attributes">
                     <attribute name="domain">[('user_ids','!=',False)]</attribute>

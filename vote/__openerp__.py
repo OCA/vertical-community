@@ -40,6 +40,7 @@ Framework module for managing vote inside Odoo
         'base',
         'base_community',
         'base_recursive_model',
+        'membership_users'
     ],
     'data': [
         'security/ir.model.access.csv',
