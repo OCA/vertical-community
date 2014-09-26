@@ -12,6 +12,7 @@
                     <field name="partner_id"/>
                     <field name="line_string"/>
                     <field name="comment"/>
+                    <field name="model" invisible="1"/>
                 </tree>
             </field>
         </record>
@@ -24,14 +25,26 @@
                 <sheet string="Vote">
                     <group>
                         <group>
-                            <field name="partner_id" domain="[('id','in',voters and voters[0][2])]"/>
+                            <field name="partner_id" domain="[('user_ids','in',uid)]"/>
                             <field name="comment"/>
                         </group>
                     </group>
-                    <field name="vote_vote_line_ids"/>
-                    <field name="voters" invisible="1"/>
+                    <field name="line_ids"/>
+                    <field name="model" invisible="1"/>
                 </sheet>
                 </form>
+            </field>
+        </record>
+        
+        <record id="view_vote_vote_form_admin" model="ir.ui.view">
+            <field name="name">vote.vote.form.admin</field>
+            <field name="model">vote.vote</field>
+            <field name="inherit_id" ref="view_vote_vote_form"/>
+            <field name="groups_id" eval="[(6, 0, [ref('account_wallet.group_account_wallet_moderator')])]"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="attributes">
+                    <attribute name="domain">[('user_ids','!=',False)]</attribute>
+                </field>
             </field>
         </record>
 
@@ -45,6 +58,7 @@
                     <field name="partner_id"/>
                     <field name="line_string"/>
                     <field name="comment"/>
+                    <field name="model" invisible="1"/>
                 </tree>
             </field>
         </record>
@@ -57,12 +71,12 @@
                 <sheet string="Vote">
                     <group>
                         <group>
-                            <field name="partner_id" domain="[('id','in',voters and voters[0][2])]"/>
-                            <field name="comment"/>
+                            <field name="partner_id" readonly="0"/>
+                            <field name="comment" readonly="0"/>
                         </group>
                     </group>
-                    <field name="vote_vote_line_ids"/>
-                    <field name="voters" invisible="1"/>
+                    <field name="line_ids" readonly="0"/>
+                    <field name="model" invisible="1"/>
                 </sheet>
                 </form>
             </field>

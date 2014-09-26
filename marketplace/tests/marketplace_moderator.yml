@@ -67,7 +67,7 @@
       - model: "marketplace.proposition"
         partner_id: partner_test1
         comment: VoteModeratorPartner1
-        vote_vote_line_ids:
+        line_ids:
           - type_id: vote_cordial
             vote: '1'
           - type_id: vote_meet_needs
@@ -77,7 +77,7 @@
       - model: "marketplace.proposition"
         partner_id: partner_test2
         comment: VoteModeratorPartner2
-        vote_vote_line_ids:
+        line_ids:
           - type_id: vote_cordial
             vote: '1'
           - type_id: vote_meet_needs

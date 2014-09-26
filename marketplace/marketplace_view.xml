@@ -187,18 +187,12 @@
                             <field name="quantity" attrs="{'readonly':[('state','!=','draft')]}"/>
                             <field name="uom_id"/>
                             <field name="description_announcement_id" domain="[('user_id','=',uid)]" attrs="{'readonly':[('state','!=','draft')]}"/>
-                            <field name="vote_partner_id" on_change="onchange_vote_partner(vote_partner_id)" domain="[('user_ids','in',uid)]" attrs="{'invisible': ['|',('already_accepted','!=',True),'&amp;',('is_user','!=',True),('is_announcer','!=',True)]}"/>
-                            <field name="vote_id" invisible="1"/>
-                            <button name="generate_vote" string="Let a vote" type="object" attrs="{'invisible': ['|',('vote_id','!=',0),'|',('already_accepted','!=',True),'&amp;',('is_user','!=',True),('is_announcer','!=',True)]}"/>
-                            <newline/>
-                            <field name="vote_vote_line_ids" readonly="0" attrs="{'invisible': ['|',('vote_id','=',0),'|',('already_accepted','!=',True),'&amp;',('is_user','!=',True),('is_announcer','!=',True)]}"/>
-                            <field name="vote_comment" attrs="{'invisible': ['|',('vote_id','=',0),'|',('already_accepted','!=',True),'&amp;',('is_user','!=',True),('is_announcer','!=',True)]}"/>
                         </group>
                             <field name="want_cancel_announcer" states="accepted,invoiced,confirm" attrs="{'readonly':[('is_announcer', '!=', True),('is_moderator','!=',True)]}"/>
                             <field name="want_cancel_user" states="accepted,invoiced,confirm" attrs="{'readonly':[('is_user', '!=', True),('is_moderator','!=',True)]}"/>
                     </group>
                     <field name="currency_ids" context="{'default_model': 'account.wallet.transaction','default_res_id': active_id}"/>
-                    <field name="vote_vote_ids"/>
+                    <field name="vote_vote_ids" context="{'default_model': 'marketplace.proposition','default_res_id': active_id, 'form_view_ref' : 'vote.view_vote_vote_form', 'tree_view_ref' : 'vote.view_vote_vote_tree'}"/>
                     <group>
                         <field name="call_moderator_user" attrs="{'readonly':[('is_user', '!=', True)], 'invisible':[('is_user', '!=', True),('call_moderator_user', '!=', True)]}"/>
                         <field name="call_moderator_announcer" attrs="{'readonly':[('is_announcer', '!=', True)], 'invisible':[('is_announcer', '!=', True),('call_moderator_announcer', '!=', True)]}"/>
@@ -223,9 +217,6 @@
             <field name="groups_id" eval="[(6, 0, [ref('account_wallet.group_account_wallet_moderator')])]"/>
             <field name="arch" type="xml">
                 <field name="sender_id" position="attributes">
-                    <attribute name="domain">[('user_ids','!=',False)]</attribute>
-                </field>
-                <field name="vote_partner_id" position="attributes">
                     <attribute name="domain">[('user_ids','!=',False)]</attribute>
                 </field>
             </field>

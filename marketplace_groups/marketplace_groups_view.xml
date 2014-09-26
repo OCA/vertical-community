@@ -2,6 +2,33 @@
 <openerp>
     <data>
 
+        <!-- Vote -->
+
+        <record id="view_vote_vote_form_groups" model="ir.ui.view">
+            <field name="name">vote.vote.form.groups</field>
+            <field name="model">vote.vote</field>
+            <field name="inherit_id" ref="vote.view_vote_vote_form"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="attributes">
+                    <attribute name="domain">['|',('user_ids','in',uid),('group_id.partner_wallet_ids.user_ids','in',uid)]</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_vote_vote_form_groups" model="ir.ui.view">
+            <field name="name">vote.vote.form.admin.groups</field>
+            <field name="model">vote.vote</field>
+            <field name="inherit_id" ref="vote.view_vote_vote_form"/>
+            <field name="groups_id" eval="[(6, 0, [ref('account_wallet.group_account_wallet_moderator')])]"/>
+            <field name="priority">99</field>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="attributes">
+                    <attribute name="domain">['|',('user_ids','!=',False),('group_id','!=',False)]</attribute>
+                </field>
+            </field>
+        </record>
+
+
         <!-- Announcement -->
 
         <record id="view_marketplace_announcement_tree_groups" model="ir.ui.view">
@@ -163,7 +190,6 @@
         </record>
 
         <menuitem action="action_mkp_prop_my_market_my_groups_transactions" id="menu_action_mkp_prop_my_market_my_groups_transactions" parent="menu_marketplace_my_market_my_groups" sequence="13"/>
-
 
     </data>
 </openerp>
