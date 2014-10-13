@@ -76,9 +76,9 @@
                             <field name="proposition_ids" context="{'default_announcement_id': id}"/>
                             <button name='add_proposition' string='Make a reply / proposal' type='object' attrs="{'invisible':['|',('state','!=','open'),('is_user', '=', True),('is_moderator','!=',True)]}"/>
                         </page>
-                        <page string="Votes">
+<!--                        <page string="Votes">
                             <field name="vote_evaluated_ids"/>
-                        </page>
+                        </page>-->
                     </notebook>
                     <field name="type" invisible="1"/>
                     <field name="is_user" invisible="1"/>

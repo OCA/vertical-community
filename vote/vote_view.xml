@@ -106,7 +106,7 @@
             <field name="arch" type="xml">
                 <page string="Internal Notes" position="after">
                     <page string="Votes">
-                        <field name="vote_evaluated_ids" context="{'form_view_ref' : 'vote.view_vote_vote_evaluated_form', 'tree_view_ref' : 'vote.view_vote_vote_evaluated_tree'}"/>
+<!--                        <field name="vote_evaluated_ids" context="{'form_view_ref' : 'vote.view_vote_vote_evaluated_form', 'tree_view_ref' : 'vote.view_vote_vote_evaluated_tree'}"/>-->
                         <field name="vote_ids" context="{'form_view_ref' : 'vote.view_vote_vote_evaluated_form', 'tree_view_ref' : 'vote.view_vote_vote_evaluated_tree'}"/>
                     </page>
                 </page>

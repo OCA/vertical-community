@@ -338,11 +338,11 @@ class VoteEvaluated(osv.Model):
 
     _name = 'vote.evaluated'
 
-    _columns = {
-        'vote_evaluated_ids': fields.many2many(
-            'vote.vote', 'vote_vote_evaluated_rel', 'evaluated_id', 'vote_id', 'Votes'
-        )
-    }
+#    _columns = {
+#        'vote_evaluated_ids': fields.many2many(
+#            'vote.vote', 'vote_vote_evaluated_rel', 'evaluated_id', 'vote_id', 'Votes'
+#        )
+#    }
 
 
 class ResPartner(osv.Model):
