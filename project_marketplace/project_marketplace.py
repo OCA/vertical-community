@@ -106,7 +106,7 @@ class MarketplaceAnnouncement(osv.osv):
         task_obj = self.pool.get('project.task')
         res = super(MarketplaceAnnouncement, self).create(cr, uid, vals, context=context)
 
-        if 'task_id' in vals:
+        if 'task_id' in vals and vals['task_id']:
             task_obj.write(cr, uid, [vals['task_id']], {'assigned_partner_id': vals['partner_id']}, context=context)
         return res
 
