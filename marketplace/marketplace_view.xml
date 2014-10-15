@@ -40,8 +40,11 @@
                 <sheet string="Offer">
                     <field name="picture" widget="image" class="oe_left oe_avatar" options="{&quot;preview_image&quot;: &quot;image_medium&quot;, &quot;size&quot;: [90, 90]}"/>
                     <div class="oe_title">
-                        <label for="name" class="oe_edit_only"/>
-                        <h1><field name="name" placeholder="Title..."/></h1>
+                        <h1>
+                        <span attrs="{'invisible': [('type','=','want')]}">I offer</span>
+                        <span attrs="{'invisible': [('type','!=','want')]}">I want</span>
+                        </h1>
+                        <h2><field name="name" placeholder="Title..."/></h2>
                     </div>
                     <group>
                         <group>

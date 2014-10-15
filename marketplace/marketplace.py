@@ -173,8 +173,8 @@ class MarketplaceAnnouncement(osv.osv):
     _columns = {
         'name': fields.char('What', size=64, required=True),
         'type': fields.selection([
-            ('offer', 'Offer'),
-            ('want', 'Want'),
+            ('offer', 'I offer'),
+            ('want', 'I want'),
         ], 'Type', required=True),
         'description': fields.text('Description'),
         'picture': fields.function(
@@ -240,7 +240,8 @@ class MarketplaceAnnouncement(osv.osv):
         return [(0, 0, {
             'model': self._name,
             'price_unit': 1.0,
-            'currency_id': config.default_currency_id.id
+            'currency_id': config.default_currency_id.id,
+            'field': 'currency_ids'
         })]
 
     def _default_partner(self, cr, uid, context=None):
@@ -461,7 +462,8 @@ class MarketplaceProposition(osv.osv):
                 currency_ids.append((0, 0, {
                     'model': self._name,
                     'price_unit': currency.price_unit,
-                    'currency_id': currency.currency_id.id
+                    'currency_id': currency.currency_id.id,
+                    'field': 'currency_ids'
                 }))
         return currency_ids
 
