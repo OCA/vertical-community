@@ -123,6 +123,10 @@ class ProjectProject(osv.osv):
     _name = 'project.project'
     _inherit = ['project.project', 'project.assigned.partner.model']
 
+    _columns = {
+        'manager_partner_id': fields.many2one('res.partner', 'Manager'),
+    }
+
     def _get_external_config(self, cr, uid, record, context=None):
         # Get configuration from stages
         res = {}
