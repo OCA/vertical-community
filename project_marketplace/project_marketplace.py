@@ -68,6 +68,13 @@ class ProjectTask(osv.osv):
 
     def _prepare_announcement_values(self, cr, uid, task, context=None):
         # Prepare values for the announcement which will be created
+
+        if not task.announcement_creator_id or not task.assigned_partner_id:
+            raise osv.except_osv(
+                _('Data error!'),
+                _("You need to specify the creator of the announcement!")
+            )
+
         announcement_vals = {
             'name': task.name,
             'type': 'want',
