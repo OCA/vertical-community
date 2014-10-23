@@ -755,7 +755,7 @@ class ResPartnerWalletCurrency(osv.osv):
     _description = "Currency"
 
     _columns = {
-        'partner_id': fields.many2one('res.partner', 'Partner', required=True),
+        'partner_id': fields.many2one('res.partner', 'Partner', required=True, ondelete='cascade'),
         'currency_id': fields.many2one('res.currency', 'Currency',
                                        domain=[('wallet_currency', '=', True)], required=True),
         'limit_negative': fields.boolean('Limit - ?'),
@@ -779,7 +779,7 @@ class ResPartnerWalletBalance(osv.osv_memory):
     _description = "Balance"
 
     _columns = {
-        'partner_id': fields.many2one('res.partner', 'Partner', required=True),
+        'partner_id': fields.many2one('res.partner', 'Partner', required=True, ondelete='cascade'),
         'currency_id': fields.many2one('res.currency', 'Currency',
                                        domain=[('wallet_currency', '=', True)], required=True),
         'limit_negative': fields.boolean('Limit - ?'),
