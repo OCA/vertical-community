@@ -1,0 +1,291 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* vote
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-10-28 12:32+0000\n"
+"PO-Revision-Date: 2014-10-28 12:32+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: vote
+#: selection:vote.vote.line,vote:0
+msgid "-1"
+msgstr ""
+
+#. module: vote
+#: selection:vote.vote.line,vote:0
+msgid "-2"
+msgstr ""
+
+#. module: vote
+#: field:vote.config.line,action:0
+msgid "Action"
+msgstr ""
+
+#. module: vote
+#: selection:vote.config.line,action:0
+msgid "Add"
+msgstr ""
+
+#. module: vote
+#: field:vote.model,vote_average:0
+msgid "Average vote"
+msgstr ""
+
+#. module: vote
+#: field:vote.vote,comment:0
+msgid "Comment"
+msgstr ""
+
+#. module: vote
+#: model:ir.model,name:vote.model_community_config_settings
+msgid "Community configuration"
+msgstr ""
+
+#. module: vote
+#: field:vote.category,base_config_inherit_line_del_ids:0
+msgid "Configuration line deleted"
+msgstr ""
+
+#. module: vote
+#: field:vote.vote,create_date:0
+msgid "Create date"
+msgstr ""
+
+#. module: vote
+#: field:vote.config.line,create_uid:0
+#: field:vote.evaluated,create_uid:0
+#: field:vote.type,create_uid:0
+#: field:vote.vote,create_uid:0
+#: field:vote.vote.line,create_uid:0
+msgid "Created by"
+msgstr ""
+
+#. module: vote
+#: field:vote.config.line,create_date:0
+#: field:vote.evaluated,create_date:0
+#: field:vote.type,create_date:0
+#: field:vote.vote.line,create_date:0
+msgid "Created on"
+msgstr ""
+
+#. module: vote
+#: field:res.partner,vote_evaluated_id:0
+#: field:vote.vote,evaluated_object_ids:0
+msgid "Evaluated"
+msgstr ""
+
+#. module: vote
+#: field:vote.category,id:0
+#: field:vote.config.line,id:0
+#: field:vote.evaluated,id:0
+#: field:vote.model,id:0
+#: field:vote.type,id:0
+#: field:vote.vote,id:0
+#: field:vote.vote.line,id:0
+msgid "ID"
+msgstr ""
+
+#. module: vote
+#: view:res.partner:vote.view_partner_form_vote
+msgid "Internal Notes"
+msgstr ""
+
+#. module: vote
+#: field:vote.vote,is_complete:0
+msgid "Is complete?"
+msgstr ""
+
+#. module: vote
+#: field:vote.config.line,write_uid:0
+#: field:vote.evaluated,write_uid:0
+#: field:vote.type,write_uid:0
+#: field:vote.vote,write_uid:0
+#: field:vote.vote.line,write_uid:0
+msgid "Last Updated by"
+msgstr ""
+
+#. module: vote
+#: field:vote.config.line,write_date:0
+#: field:vote.evaluated,write_date:0
+#: field:vote.type,write_date:0
+#: field:vote.vote,write_date:0
+#: field:vote.vote.line,write_date:0
+msgid "Last Updated on"
+msgstr ""
+
+#. module: vote
+#: view:community.config.settings:vote.view_community_configuration_vote
+#: view:vote.config.line:vote.view_vote_config_line_form
+msgid "Line"
+msgstr ""
+
+#. module: vote
+#: view:community.config.settings:vote.view_community_configuration_vote
+#: field:community.config.settings,vote_line_ids:0
+#: field:vote.vote,line_ids:0
+msgid "Lines"
+msgstr ""
+
+#. module: vote
+#: field:vote.vote.line,model:0
+msgid "Model"
+msgstr ""
+
+#. module: vote
+#: field:vote.config.line,name:0
+#: field:vote.type,name:0
+#: field:vote.vote,res_name:0
+msgid "Name"
+msgstr ""
+
+#. module: vote
+#: field:vote.vote,model_name:0
+msgid "Object"
+msgstr ""
+
+#. module: vote
+#: model:ir.model,name:vote.model_res_partner
+#: field:vote.vote,partner_id:0
+#: field:vote.vote.line,partner_id:0
+msgid "Partner"
+msgstr ""
+
+#. module: vote
+#: field:vote.config.line,res_id:0
+#: field:vote.vote,res_id:0
+#: field:vote.vote.line,res_id:0
+msgid "Related Document ID"
+msgstr ""
+
+#. module: vote
+#: field:vote.config.line,model:0
+#: field:vote.vote,model:0
+msgid "Related Document Model"
+msgstr ""
+
+#. module: vote
+#: selection:vote.config.line,action:0
+msgid "Remove"
+msgstr ""
+
+#. module: vote
+#: field:vote.config.line,sequence:0
+msgid "Sequence"
+msgstr ""
+
+#. module: vote
+#: field:vote.config.line,stored:0
+msgid "Stored?"
+msgstr ""
+
+#. module: vote
+#: field:vote.config.line,target_model:0
+msgid "Target model"
+msgstr ""
+
+#. module: vote
+#: field:vote.model,vote_total:0
+msgid "Total vote"
+msgstr ""
+
+#. module: vote
+#: view:vote.type:vote.view_vote_type_form
+#: field:vote.vote.line,type_id:0
+msgid "Type"
+msgstr ""
+
+#. module: vote
+#: view:vote.type:vote.view_vote_type_tree
+msgid "Types"
+msgstr ""
+
+#. module: vote
+#: view:community.config.settings:vote.view_community_configuration_vote
+#: model:ir.model,name:vote.model_vote_vote
+#: model:ir.ui.menu,name:vote.menu_vote_configuration
+#: view:vote.vote:vote.view_vote_vote_evaluated_form
+#: view:vote.vote:vote.view_vote_vote_form
+#: field:vote.vote.line,vote:0
+#: field:vote.vote.line,vote_id:0
+msgid "Vote"
+msgstr ""
+
+#. module: vote
+#: model:ir.model,name:vote.model_vote_category
+msgid "Vote Category"
+msgstr ""
+
+#. module: vote
+#: model:ir.model,name:vote.model_vote_model
+msgid "Vote Model"
+msgstr ""
+
+#. module: vote
+#: field:vote.category,vote_config_result_ids:0
+msgid "Vote Types"
+msgstr ""
+
+#. module: vote
+#: field:vote.category,vote_config_ids:0
+msgid "Vote configuration"
+msgstr ""
+
+#. module: vote
+#: model:ir.model,name:vote.model_vote_vote_line
+msgid "Vote line"
+msgstr ""
+
+#. module: vote
+#: model:ir.actions.act_window,name:vote.action_vote_type
+#: model:ir.ui.menu,name:vote.menu_vote_type
+#: view:vote.config.line:vote.view_vote_config_line_tree
+msgid "Vote types"
+msgstr ""
+
+#. module: vote
+#: field:vote.model,vote_user_ids:0
+msgid "Vote users"
+msgstr ""
+
+#. module: vote
+#: field:vote.model,vote_voters:0
+msgid "Voters"
+msgstr ""
+
+#. module: vote
+#: view:res.partner:vote.view_partner_form_vote
+#: field:res.partner,vote_ids:0
+#: field:vote.model,vote_vote_ids:0
+#: view:vote.vote:vote.view_vote_vote_evaluated_form
+#: view:vote.vote:vote.view_vote_vote_evaluated_tree
+#: view:vote.vote:vote.view_vote_vote_form
+#: view:vote.vote:vote.view_vote_vote_tree
+#: field:vote.vote,line_string:0
+#: view:vote.vote.line:vote.view_vote_vote_line_tree
+msgid "Votes"
+msgstr ""
+
+#. module: vote
+#: sql_constraint:vote.vote:0
+msgid "We can only have one vote per record per partner"
+msgstr ""
+
+#. module: vote
+#: sql_constraint:vote.vote.line:0
+msgid "We can only have one vote per vote per type"
+msgstr ""
+
+#. module: vote
+#: view:vote.vote:vote.view_vote_vote_form_admin
+msgid "[('user_ids','!=',False)]"
+msgstr ""
+
