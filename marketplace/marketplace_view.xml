@@ -234,6 +234,7 @@
                     <field name="announcement_id"/>
                     <field name="sender_id"/>
                     <separator/>
+                    <filter name="draft" string="Draft" domain="[('state','=','draft')]" icon="terp-camera_test"/>
                     <filter name="open" string="In Progress" domain="[('state','=','open')]" help="Open offers" icon="terp-camera_test"/>
                     <separator/>
                     <filter name="my_offers" string="My offers" domain="[('sender_id.user_ids','in',uid)]" icon="terp-check"/>
