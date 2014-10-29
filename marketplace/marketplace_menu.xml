@@ -164,7 +164,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field eval="False" name="view_id"/>
-            <field name="domain">[('type','=','offer'),('user_id','=',uid),('state','=','open')]</field>
+            <field name="domain">[('type','=','offer'),('sender_id.user_ids','in',uid),('state','=','open')]</field>
             <field name="context">{}</field>
             <field name="search_view_id" ref="view_marketplace_proposition_search"/>
         </record>
@@ -177,7 +177,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field eval="False" name="view_id"/>
-            <field name="domain">[('type','=','want'),('user_id','=',uid),('state','=','open')]</field>
+            <field name="domain">[('type','=','want'),('sender_id.user_ids','in',uid),('state','=','open')]</field>
             <field name="context">{}</field>
             <field name="search_view_id" ref="view_marketplace_proposition_search"/>
         </record>
@@ -190,7 +190,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field eval="False" name="view_id"/>
-            <field name="domain">[('state','in',['accepted','invoiced','confirm']), '|',('user_id','=',uid),('announcement_id.user_id','=',uid)]</field>
+            <field name="domain">[('state','in',['accepted','invoiced','confirm']), '|',('sender_id.user_ids','in',uid),('announcement_id.partner_id.user_ids','in',uid)]</field>
             <field name="context">{}</field>
             <field name="search_view_id" ref="view_marketplace_proposition_search"/>
         </record>
@@ -203,7 +203,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field eval="False" name="view_id"/>
-            <field name="domain">[('state','in',['accepted','invoiced','confirm']),'|',('call_moderation_user','=',True),('call_moderation_announcer','=',True),'|',('user_id','=',uid),('announcement_id.user_id','=',uid)]</field>
+            <field name="domain">[('state','in',['accepted','invoiced','confirm']),'|',('call_moderator_user','=',True),('call_moderator_announcer','=',True),'|',('sender_id.user_ids','in',uid),('announcement_id.partner_id.user_ids','in',uid)]</field>
             <field name="context">{}</field>
             <field name="search_view_id" ref="view_marketplace_proposition_search"/>
         </record>
@@ -220,7 +220,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field eval="False" name="view_id"/>
-            <field name="domain">[('type','=','offer'),('user_id','=',uid)]</field>
+            <field name="domain">[('type','=','offer'),('partner_id.user_ids','in',uid)]</field>
             <field name="context">{}</field>
             <field name="search_view_id" ref="view_marketplace_announcement_search"/>
         </record>
@@ -233,7 +233,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field eval="False" name="view_id"/>
-            <field name="domain">[('type','=','offer'),('announcement_id.user_id','=',uid)]</field>
+            <field name="domain">[('type','=','offer'),('announcement_id.partner_id.user_ids','in',uid)]</field>
             <field name="context">{}</field>
             <field name="search_view_id" ref="view_marketplace_proposition_search"/>
         </record>
@@ -259,7 +259,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field eval="False" name="view_id"/>
-            <field name="domain">[('type','=','want'),('user_id','=',uid)]</field>
+            <field name="domain">[('type','=','want'),('sender_id.user_ids','in',uid)]</field>
             <field name="context">{}</field>
             <field name="search_view_id" ref="view_marketplace_proposition_search"/>
         </record>
@@ -272,7 +272,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field eval="False" name="view_id"/>
-            <field name="domain">[('state','=',['accepted','invoiced','confirm']),('type','=','offer'),('announcement_id.user_id','=',uid)]</field>
+            <field name="domain">[('state','=',['accepted','invoiced','confirm']),('type','=','offer'),('announcement_id.partner_id.user_ids','in',uid)]</field>
             <field name="context">{}</field>
             <field name="search_view_id" ref="view_marketplace_proposition_search"/>
         </record>
@@ -289,7 +289,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field eval="False" name="view_id"/>
-            <field name="domain">[('type','=','want'),('user_id','=',uid)]</field>
+            <field name="domain">[('type','=','want'),('partner_id.user_ids','in',uid)]</field>
             <field name="context">{}</field>
             <field name="search_view_id" ref="view_marketplace_announcement_search"/>
         </record>
@@ -302,7 +302,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field eval="False" name="view_id"/>
-            <field name="domain">[('type','=','want'),('announcement_id.user_id','=',uid)]</field>
+            <field name="domain">[('type','=','want'),('announcement_id.partner_id.user_ids','in',uid)]</field>
             <field name="context">{}</field>
             <field name="search_view_id" ref="view_marketplace_proposition_search"/>
         </record>
@@ -328,7 +328,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field eval="False" name="view_id"/>
-            <field name="domain">[('type','=','offer'),('user_id','=',uid)]</field>
+            <field name="domain">[('type','=','offer'),('sender_id.user_ids','in',uid)]</field>
             <field name="context">{}</field>
             <field name="search_view_id" ref="view_marketplace_proposition_search"/>
         </record>
@@ -341,7 +341,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field eval="False" name="view_id"/>
-            <field name="domain">[('state','=',['accepted','invoiced','confirm']),('type','=','want'),('announcement_id.user_id','=',uid)]</field>
+            <field name="domain">[('state','=',['accepted','invoiced','confirm']),('type','=','want'),('announcement_id.partner_id.user_ids','in',uid)]</field>
             <field name="context">{}</field>
             <field name="search_view_id" ref="view_marketplace_proposition_search"/>
         </record>
