@@ -43,7 +43,10 @@ class BaseRecursiveModel(osv.AbstractModel):
         reads = self.read(cr, uid, ids, ['name', 'parent_id', 'sequence'], context=context)
         res = []
         for record in reads:
-            name = str(record['sequence']) + ' ' + record['name']
+            if context.get('path_with_sequence') == True:
+                name = str(record['sequence']) + ' ' + record['name']
+            else:
+                name = record['name']
             if record['parent_id']:
                 name = record['parent_id'][1] + ' / ' + name
             res.append((record['id'], name))
