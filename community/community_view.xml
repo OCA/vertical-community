@@ -4,7 +4,5 @@
 
         <menuitem id="gamification.gamification_menu" name="Gamification Tools" parent="base.menu_marketing_config_association"/>
 
-        <menuitem name="Settings" id="base.menu_administration" sequence="500" groups="base.group_no_one"/>
-
     </data>
 </openerp>
