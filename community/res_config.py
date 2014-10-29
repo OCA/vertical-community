@@ -21,6 +21,7 @@
 import logging
 
 from openerp.osv import fields, osv, orm
+from openerp import SUPERUSER_ID
 from openerp.tools.translate import _
 
 _logger = logging.getLogger(__name__)
@@ -93,7 +94,7 @@ class CommunityModuleConfiguration(osv.osv_memory):
                 if module and module.state in ('installed', 'to upgrade'):
                     to_uninstall_ids.append(module.id)
 
-        res = super(CommunityModuleConfiguration, self).execute(cr, uid, ids, context=context)
+        res = super(CommunityModuleConfiguration, self).execute(cr, SUPERUSER_ID, ids, context=context)
 
         to_install_dependencies = []
         modules = []
@@ -145,8 +146,8 @@ class CommunityModuleConfiguration(osv.osv_memory):
             to_uninstall_final_ids.append(module.id)
 
         if to_uninstall_ids:
-            ir_module.button_immediate_uninstall(cr, uid, to_uninstall_final_ids, context=context)
-        self._install_modules(cr, uid, to_install_final, context=context)
+            ir_module.button_immediate_uninstall(cr, SUPERUSER_ID, to_uninstall_final_ids, context=context)
+        self._install_modules(cr, SUPERUSER_ID, to_install_final, context=context)
 
         return res
 

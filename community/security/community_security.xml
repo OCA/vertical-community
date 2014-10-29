@@ -20,7 +20,7 @@
                 ref('gamification.group_goal_manager')
             ])]"/>
         </record>
-<!--ref('base.group_erp_manager')-->
+
         <record id="base.group_erp_manager" model="res.groups">
             <field name="implied_ids" eval="[(4, ref('group_community_administrator'))]"/>
         </record>
