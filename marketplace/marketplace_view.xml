@@ -190,7 +190,7 @@
                             <field name="sender_id" domain="[('user_ids','in',uid)]"/>
                             <field name="quantity" attrs="{'readonly':[('state','!=','draft')]}"/>
                             <field name="uom_id"/>
-                            <field name="description_announcement_id" domain="[('user_id','=',uid)]" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="description_announcement_id" domain="[('partner_id.user_ids','in',uid)]" attrs="{'readonly':[('state','!=','draft')]}"/>
                         </group>
                             <field name="want_cancel_announcer" states="accepted,invoiced,confirm" attrs="{'readonly':[('is_announcer', '!=', True),('is_moderator','!=',True)]}"/>
                             <field name="want_cancel_user" states="accepted,invoiced,confirm" attrs="{'readonly':[('is_user', '!=', True),('is_moderator','!=',True)]}"/>
