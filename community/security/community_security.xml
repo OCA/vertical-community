@@ -14,9 +14,13 @@
         <record id="group_community_administrator" model="res.groups">
             <field name="name">Community / Administrator</field>
             <field name="category_id" ref="community.module_category_community"/>
-            <field name="implied_ids" eval="[(6, 0, [ref('group_community_user'),ref('membership_users.group_membership_moderator'),ref('base.group_website_publisher'),ref('base.group_website_designer'),ref('base.group_document_user'),ref('gamification.group_goal_manager')])]"/>
+            <field name="implied_ids" eval="[(6, 0, [
+                ref('group_community_user'),ref('membership_users.group_membership_moderator'),
+                ref('base.group_website_publisher'),ref('base.group_website_designer'),ref('base.group_document_user'),
+                ref('gamification.group_goal_manager')
+            ])]"/>
         </record>
-
+<!--ref('base.group_erp_manager')-->
         <record id="base.group_erp_manager" model="res.groups">
             <field name="implied_ids" eval="[(4, ref('group_community_administrator'))]"/>
         </record>

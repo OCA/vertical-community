@@ -14,7 +14,8 @@
                     <field name="publish_date"/>
                     <field name="expiration_date"/>
                     <field name="partner_id"/>
-                    <field name="quantity"/>
+                    <field name="infinite_qty" invisible="1"/>
+                    <field name="quantity" attrs="{'invisible':[('infinite_qty', '=', True)]}"/>
                     <field name="uom_id"/>
                     <field name="tag_ids"/>
                     <field name="vote_average"/>
