@@ -250,10 +250,52 @@ class MarketplaceAnnouncement(osv.osv):
         user = user_obj.browse(cr, uid, uid, context=context)
         return user.partner_id.id
 
+    def _default_street(self, cr, uid, context=None):
+        # Get the partner linked to the user
+        user_obj = self.pool.get('res.users')
+        user = user_obj.browse(cr, uid, uid, context=context)
+        return self.onchange_author(cr, uid, [], user.partner_id.id, context=context)['value']['street']
+
+    def _default_street2(self, cr, uid, context=None):
+        # Get the partner linked to the user
+        user_obj = self.pool.get('res.users')
+        user = user_obj.browse(cr, uid, uid, context=context)
+        return self.onchange_author(cr, uid, [], user.partner_id.id, context=context)['value']['street2']
+
+    def _default_zip(self, cr, uid, context=None):
+        # Get the partner linked to the user
+        user_obj = self.pool.get('res.users')
+        user = user_obj.browse(cr, uid, uid, context=context)
+        return self.onchange_author(cr, uid, [], user.partner_id.id, context=context)['value']['zip']
+
+    def _default_city(self, cr, uid, context=None):
+        # Get the partner linked to the user
+        user_obj = self.pool.get('res.users')
+        user = user_obj.browse(cr, uid, uid, context=context)
+        return self.onchange_author(cr, uid, [], user.partner_id.id, context=context)['value']['city']
+
+    def _default_state_id(self, cr, uid, context=None):
+        # Get the partner linked to the user
+        user_obj = self.pool.get('res.users')
+        user = user_obj.browse(cr, uid, uid, context=context)
+        return self.onchange_author(cr, uid, [], user.partner_id.id, context=context)['value']['state_id']
+
+    def _default_country_id(self, cr, uid, context=None):
+        # Get the partner linked to the user
+        user_obj = self.pool.get('res.users')
+        user = user_obj.browse(cr, uid, uid, context=context)
+        return self.onchange_author(cr, uid, [], user.partner_id.id, context=context)['value']['country_id']
+
     _defaults = {
         'type': 'offer',
         'currency_mode': 'one',
         'partner_id': _default_partner,
+        'street': _default_street,
+        'street2': _default_street2,
+        'zip': _default_zip,
+        'city': _default_city,
+        'state_id': _default_state_id,
+        'country_id': _default_country_id,
         'currency_ids': _default_currency_ids,
         'quantity': 1.0,
         'uom_id': _get_uom_id,
