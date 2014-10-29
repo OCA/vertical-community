@@ -769,7 +769,7 @@ class ResPartnerWalletCurrency(osv.osv):
     }
 
 
-class ResPartnerWalletBalance(osv.osv_memory):
+class ResPartnerWalletBalance(osv.osv):
 
     """
     Lines for displaying balances in partner
