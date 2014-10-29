@@ -10,7 +10,7 @@
             <field name="inherit_id" ref="marketplace.view_marketplace_announcement_form"/>
             <field name="arch" type="xml">
                 <field name="description" position="before">
-                    <field name="task_id" context="{'name': name, 'description': description', 'assigned_partner_id': partner_id}" attrs="{'invisible':[('type','!=','want')]}"/><!--attrs="{'invisible':[('task_id','=',False)], 'readonly': [('is_moderator','!=',True)]}"/>-->
+                    <field name="task_id" context="{'name': name, 'description': description, 'assigned_partner_id': partner_id}" attrs="{'invisible':[('type','!=','want')]}"/><!--attrs="{'invisible':[('task_id','=',False)], 'readonly': [('is_moderator','!=',True)]}"/>-->
                 </field>
             </field>
         </record>

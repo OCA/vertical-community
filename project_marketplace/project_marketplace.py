@@ -54,7 +54,7 @@ class ProjectTask(osv.osv):
 
     _columns = {
         'announcement_creator_id': fields.many2one(
-            'res.partner', 'Who whill create the announcement?', help="If empty, the assigned partner will be used"
+            'res.partner', 'Who will create the announcement?', help="If empty, the assigned partner will be used"
         ),
         'announcement_id': fields.function(
             _get_marketplace, type="many2one", relation="marketplace.announcement",
