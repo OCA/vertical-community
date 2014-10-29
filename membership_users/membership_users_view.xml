@@ -38,6 +38,20 @@
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="base.view_partner_form"/>
             <field name="arch" type="xml">
+                <field name="function" position="after">
+                    <field name="show_phone" attrs="{'invisible': [('is_user','!=',True),('is_moderator','!=',True)]}"/>
+                    <field name="is_user" invisible="1"/>
+                    <field name="is_moderator" invisible="1"/>
+                </field>
+                <field name="phone" position="attributes">
+                    <attribute name="attrs">{'invisible': [('is_user','!=',True),('is_moderator','!=',True),('show_phone', '!=', True)]}</attribute>
+                </field>
+                <field name="mobile" position="attributes">
+                    <attribute name="attrs">{'invisible': [('is_user','!=',True),('is_moderator','!=',True),('show_phone', '!=', True)]}</attribute>
+                </field>
+                <field name="email" position="attributes">
+                    <attribute name="attrs">{'invisible': [('is_user','!=',True),('is_moderator','!=',True)], 'required': [('user_ids','!=', [])]}</attribute>
+                </field>
                 <page string="Internal Notes" position="before">
                     <page string="Presentation">
                         <field name="presentation"/>

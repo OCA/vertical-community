@@ -37,8 +37,24 @@ class ResPartner(osv.osv):
 
     _inherit = 'res.partner'
 
+    def _get_user_role(self, cr, uid, ids, prop, unknow_none, context=None):
+        # Control the access rights of the current user
+        res = {}
+        for partner in self.browse(cr, uid, ids, context=context):
+            res[partner.id] = {}
+            res[partner.id]['is_user'] = False
+            res[partner.id]['is_moderator'] = False
+            if uid in [u.id for u in partner.user_ids]:
+                res[partner.id]['is_user'] = True
+            if self.pool.get('res.users').has_group(cr, uid, 'membership_users.group_membership_moderator'):
+                res[partner.id]['is_moderator'] = True
+        return res
+
     _columns = {
         'presentation': fields.text('Presentation'),
+        'show_phone': fields.boolean('Show phone to others members?'),
+        'is_user': fields.function(_get_user_role, type="boolean", string="Is user?", multi='role'),
+        'is_moderator': fields.function(_get_user_role, type="boolean", string="Is moderator?", multi='role'),
     }
 
 
