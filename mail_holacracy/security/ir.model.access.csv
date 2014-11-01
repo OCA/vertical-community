@@ -1,3 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-mail.access_mail_group_user,mail.group.user,mail.model_mail_group,base.group_user,1,0,0,0
-access_mail_group_right_user,mail.group.right user,model_mail_group_right,base.group_user,1,0,0,0

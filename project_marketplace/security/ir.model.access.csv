@@ -1,3 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_account_wallet_transaction_base_user,account_wallet_transaction user,model_account_wallet_transaction,group_account_wallet_user,1,1,1,1
-access_account_wallet_currency_line_base_user,account_wallet_currency_line user,model_account_wallet_currency_line,group_account_wallet_user,1,1,1,1
