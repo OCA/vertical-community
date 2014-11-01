@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- Announcement / Proposition -->
+
+        <record id="view_marketplace_announcement_form_project" model="ir.ui.view">
+            <field name="name">marketplace.announcement.form.project</field>
+            <field name="model">marketplace.announcement</field>
+            <field name="inherit_id" ref="marketplace.view_marketplace_announcement_form"/>
+            <field name="arch" type="xml">
+                <field name="description" position="before">
+                    <field name="task_id" context="{'name': name, 'description': description, 'assigned_partner_id': partner_id}" attrs="{'invisible':[('type','!=','want')]}"/><!--attrs="{'invisible':[('task_id','=',False)], 'readonly': [('is_moderator','!=',True)]}"/>-->
+                </field>
+            </field>
+        </record>
+
+        <record id="view_marketplace_proposition_form_project" model="ir.ui.view">
+            <field name="name">marketplace.proposition.form.project</field>
+            <field name="model">marketplace.proposition</field>
+            <field name="inherit_id" ref="marketplace.view_marketplace_proposition_form"/>
+            <field name="arch" type="xml">
+                <field name="announcement_id" position="after">
+                    <field name="task_id" attrs="{'invisible':[('task_id','=',False)], 'readonly': [('is_moderator','!=',True)]}"/>
+                    <field name="task_want_id" attrs="{'invisible':[('type','!=','offer')]}"/>
+                    <field name="planned_hours"/>
+                </field>
+            </field>
+        </record>
+
+
+        <!-- Task -->
+
+        <record id="view_project_task_form_marketplace" model="ir.ui.view">
+            <field name="name">project.task.form.marketplace</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <field name="description" position="after">
+                    <group>
+                        <group>
+                            <field name="announcement_creator_id" attrs="{'invisible': [('announcement_id','!=',False)]}"/>
+                            <button name="create_announcement" string="Create announcement" type="object" attrs="{'invisible': [('announcement_id','!=',False)]}"/>
+                        </group>
+                        <group>
+                            <field name="announcement_id" attrs="{'invisible':[('announcement_id','=',False)]}"/>
+                            <field name="proposition_id" attrs="{'invisible':[('proposition_id','=',False)]}"/>
+                        </group>
+                    </group>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_project_assigned_partner_config_tree_marketplace" model="ir.ui.view">
+            <field name="name">project.assigned.partner.config.tree.marketplace</field>
+            <field name="model">project.assigned.partner.config</field>
+            <field name="inherit_id" ref="project_assignment.view_project_assigned_partner_config_tree"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                    <field name="marketplace_assignment"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_project_task_type_form_marketplace" model="ir.ui.view">
+            <field name="name">project.task.type.form.marketplace</field>
+            <field name="model">project.task.type</field>
+            <field name="inherit_id" ref="project.task_type_edit"/>
+            <field name="arch" type="xml">
+                <field name="sequence" position="after">
+                    <field name="marketplace_assignment"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>

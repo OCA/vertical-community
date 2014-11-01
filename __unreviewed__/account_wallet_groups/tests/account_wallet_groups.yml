@@ -1,0 +1,90 @@
+-
+  In order to test account transaction I create a new transaction
+-
+  !context
+    uid: 'base_community.user_luc'
+-
+  !record {model: account.wallet.transaction, id: transaction_test_0}:
+    sender_id: base.res_partner_12
+    receiver_id: base.main_partner
+    description: 'Test transaction between groups'
+    currency_ids:
+      - model: "account.wallet.transaction"
+        field: "currency_ids"
+        price_unit: 50
+        currency_id: account_wallet.COM
+-
+  I check that roger, which isn't a moderator and isn't even implicated in the transaction can't confirm it
+-
+  !context
+    uid: 'base_community.user_roger'
+-
+  !python {model: account.wallet.transaction}: |
+    from openerp.osv import osv
+    try:
+      self.confirm(cr, uid, [ref('transaction_test_0')])
+      assert False, "Roger was able to confirm the transaction!"
+    except osv.except_osv:
+      pass
+-
+  I check that mark, which isn't a moderator and has wallet right on the receiver group can't confirm it
+-
+  !context
+    uid: 'base_community.user_mark'
+-
+  !python {model: account.wallet.transaction}: |
+    from openerp.osv import osv
+    try:
+      self.confirm(cr, uid, [ref('transaction_test_0')])
+      assert False, "Mark was able to confirm the transaction!"
+    except osv.except_osv:
+      pass
+-
+  I check that luc, wich isn't a moderator and has wallet right on the sender group can confirm it
+-
+  !context
+    uid: 'base_community.user_luc'
+-
+  !python {model: account.wallet.transaction}: |
+    self.confirm(cr, uid, [ref('transaction_test_0')])
+-
+  !assert {model: account.wallet.transaction, id: transaction_test_0, string: "Luc wasn't able to confirm the transaction, or the confirm state wasn't skipped!"}:
+    - state == 'done'
+#########################################################
+-
+  I check that roger, which isn't a moderator and isn't even implicated in the transaction can't cancel it
+-
+  !context
+    uid: 'base_community.user_roger'
+-
+  !python {model: account.wallet.transaction}: |
+    from openerp.osv import osv
+    try:
+      self.reset_workflow(cr, uid, [ref('transaction_test_0')])
+      assert False, "Roger was able to cancel the transaction!"
+    except osv.except_osv:
+      pass
+-
+  I check that luc, which isn't a moderator and has wallet right on the sender group can't cancel it
+-
+  !context
+    uid: 'base.user_demo'
+-
+  !python {model: account.wallet.transaction}: |
+    from openerp.osv import osv
+    try:
+      self.reset_workflow(cr, uid, [ref('transaction_test_0')])
+      assert False, "Demo was able to cancel the transaction!"
+    except osv.except_osv:
+      pass
+-
+  I check that mark, which isn't a moderator and has wallet right on the receiver group can cancel it
+-
+  !context
+    uid: 'base_community.user_mark'
+-
+  !python {model: account.wallet.transaction}: |
+    self.reset_workflow(cr, uid, [ref('transaction_test_0')])
+-
+  !assert {model: account.wallet.transaction, id: transaction_test_0, string: "Mark wasn't able to cancel the transaction, or the confirm refund state wasn't skipped!"}:
+    - state == 'cancel'

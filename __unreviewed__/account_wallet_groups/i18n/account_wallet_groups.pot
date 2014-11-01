@@ -1,0 +1,43 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* account_wallet_groups
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-10-28 12:13+0000\n"
+"PO-Revision-Date: 2014-10-28 12:13+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_wallet_groups
+#: model:ir.model,name:account_wallet_groups.model_mail_group
+msgid "Discussion group"
+msgstr ""
+
+#. module: account_wallet_groups
+#: field:mail.group,partner_wallet_ids:0
+msgid "Partners Wallet"
+msgstr ""
+
+#. module: account_wallet_groups
+#: model:ir.model,name:account_wallet_groups.model_account_wallet_transaction
+msgid "Transaction"
+msgstr ""
+
+#. module: account_wallet_groups
+#: view:account.wallet.transaction:account_wallet_groups.view_account_wallet_transaction_form_admin_groups
+#: view:account.wallet.transaction:account_wallet_groups.view_account_wallet_transaction_form_groups
+msgid "['|',('user_ids','!=',False),('group_id','!=',False)]"
+msgstr ""
+
+#. module: account_wallet_groups
+#: view:account.wallet.transaction:account_wallet_groups.view_account_wallet_transaction_form_groups
+msgid "['|',('user_ids','in',uid),('group_id.partner_wallet_ids.user_ids','in',uid)]"
+msgstr ""
+

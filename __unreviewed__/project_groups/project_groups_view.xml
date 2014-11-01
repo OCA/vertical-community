@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- Projects -->
+
+        <record id="view_project_project_search_groups" model="ir.ui.view">
+            <field name="name">project.project.search.groups</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.view_project_project_filter"/>
+            <field name="arch" type="xml">
+                <filter string="Member" position="after">
+                    <filter string="Managed by my teams" domain="[('team_id.message_followers_ids.user_ids','in',uid)]"/>
+                </filter>
+            </field>
+        </record>
+
+        <record id="view_project_project_form_groups" model="ir.ui.view">
+            <field name="name">project.project.form.groups</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="arch" type="xml">
+                <field name="user_id" position="after">
+                    <newline/>
+                    <field name="team_id"/>
+                </field>
+            </field>
+        </record>
+
+
+        <!-- Task -->
+
+        <record id="view_project_task_search_groups" model="ir.ui.view">
+            <field name="name">project.task.search.groups</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_search_form"/>
+            <field name="arch" type="xml">
+                <filter string="My Tasks" position="replace">
+                    <filter string="My Tasks" domain="['|',('assigned_partner_id.user_ids','in',uid),('assigned_partner_id.group_id.message_follower_ids.user_ids','in',uid)]"/>
+                </filter>
+                <filter string="My Reviews" position="replace">
+                    <filter string="My Reviews" domain="['|',('reviewer_partner_id.user_ids','in',uid),('reviewer_partner_id.group_id.message_follower_ids.user_ids','in',uid)]"/>
+                </filter>
+            </field>
+        </record>
+
+
+        <!-- Group -->
+
+        <record id="view_mail_group_form_holacracy_project" model="ir.ui.view">
+            <field name="name">mail.group.form.holacracy.project</field>
+            <field name="model">mail.group</field>
+            <field name="inherit_id" ref="mail_holacracy.view_mail_group_form_holacracy"/>
+            <field name="arch" type="xml">
+                <field name="partner_group_management_ids" position="after">
+                       <field name="partner_project_ids" widget="many2many_tags"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="mail_group_right_project" model="mail.group.right">
+            <field name="name">Project</field>
+            <field name="code">project</field>
+        </record>
+
+    </data>
+</openerp>

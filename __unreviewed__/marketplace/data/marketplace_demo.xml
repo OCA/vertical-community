@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- Vote -->
+
+        <record id="vote_cordial" model="vote.type">
+            <field name="name">Cordial</field>
+        </record>
+
+        <record id="vote_meet_needs" model="vote.type">
+            <field name="name">Meet the needs</field>
+        </record>
+
+        <record id="vote_was_on_time" model="vote.type">
+            <field name="name">Was on time</field>
+        </record>
+
+        <record id="vote_code_quality" model="vote.type">
+            <field name="name">Code Quality</field>
+        </record>
+
+        <record id="vote_config_cordial" model="vote.config.line">
+            <field name="name" ref="vote_cordial"/>
+            <field name="model">community.config.settings</field>
+            <field name="res_id" ref="base_community.community_settings"/>
+            <field name="target_model" ref="model_marketplace_announcement_category"/>
+        </record>
+
+        <record id="vote_config_meet_needs" model="vote.config.line">
+            <field name="name" ref="vote_meet_needs"/>
+            <field name="model">community.config.settings</field>
+            <field name="res_id" ref="base_community.community_settings"/>
+            <field name="target_model" ref="model_marketplace_announcement_category"/>
+        </record>
+
+        <record id="vote_config_was_on_time" model="vote.config.line">
+            <field name="name" ref="vote_was_on_time"/>
+            <field name="model">community.config.settings</field>
+            <field name="res_id" ref="base_community.community_settings"/>
+            <field name="target_model" ref="model_marketplace_announcement_category"/>
+        </record>
+
+
+        <!-- Category -->
+
+        <record id="category_it" model="marketplace.announcement.category">
+            <field name="name">IT</field>
+        </record>
+        <record id="vote_config_was_on_time_category_it" model="vote.config.line">
+            <field name="name" ref="vote_was_on_time"/>
+            <field name="model">marketplace.announcement.category</field>
+            <field name="res_id" ref="category_it"/>
+            <field name="action">remove</field>
+        </record>
+
+        <record id="category_erp" model="marketplace.announcement.category">
+            <field name="name">ERP</field>
+            <field name="parent_id" ref="category_it"/>
+        </record>
+        <record id="vote_config_code_quality_category_erp" model="vote.config.line">
+            <field name="name" ref="vote_code_quality"/>
+            <field name="model">marketplace.announcement.category</field>
+            <field name="res_id" ref="category_erp"/>
+            <field name="action">add</field>
+        </record>
+
+        <record id="category_odoo" model="marketplace.announcement.category">
+            <field name="name">Odoo</field>
+            <field name="parent_id" ref="category_erp"/>
+        </record>
+        <!-- Make a call to write so all vote configuration are correctly recomputed -->
+        <record id="category_it" model="marketplace.announcement.category">
+            <field name="sequence">1</field>
+        </record>
+
+        <record id="tag_odoo_python" model="marketplace.tag">
+            <field name="name">Python Development</field>
+            <field name="category_id" ref="category_odoo"/>
+        </record>
+
+        <record id="tag_odoo_formation" model="marketplace.tag">
+            <field name="name">Formation</field>
+            <field name="category_id" ref="category_odoo"/>
+        </record>
+
+        <record id="tag_odoo_helpdesk" model="marketplace.tag">
+            <field name="name">Helpdesk</field>
+            <field name="category_id" ref="category_odoo"/>
+        </record>
+
+        <record id="tag_odoo_frontend" model="marketplace.tag">
+            <field name="name">Frontend</field>
+            <field name="category_id" ref="category_odoo"/>
+        </record>
+
+
+        <!-- Announcement / Proposition -->
+
+        <record id="announcement_demo1" model="marketplace.announcement">
+            <field name="name">I'm offering services about Odoo Customization</field>
+            <field name="type">offer</field>
+            <field name="description">This include python development, formation, helpdesk, but not frontend development on Odoo CMS</field>
+            <field name="partner_id" ref="base.res_partner_main1"/>
+            <field name="category_id" ref="category_odoo"/>
+            <field name="tag_ids" eval="[(6,0,[ref('tag_odoo_python'),ref('tag_odoo_formation'),ref('tag_odoo_helpdesk')])]"/>
+            <field name="infinite_qty" eval="True"/>
+            <field name="uom_id" ref="product.product_uom_hour"/>
+            <field name="currency_ids"/>
+        </record>
+        <record id="announcement_demo1_line1" model="account.wallet.currency.line">
+            <field name="model">marketplace.announcement</field>
+            <field name="res_id" ref="announcement_demo1"/>
+            <field name="field">currency_ids</field>
+            <field name="price_unit">50</field>
+            <field name="currency_id" ref="account_wallet.COM"/>
+        </record>
+        <workflow action="announcement_draft_open" model="marketplace.announcement" ref="announcement_demo1"/>
+        <record id="proposition_transaction_demo1" model="account.wallet.transaction">
+            <field name="description">We need your services for the project X</field>
+            <field name="sender_id" ref="base.res_partner_main2"/>
+            <field name="receiver_id" ref="base.res_partner_main1"/>
+            <field name="quantity">5</field>
+            <field name="currency_ids"/>
+        </record>
+        <record id="proposition_demo1" model="marketplace.proposition">
+            <field name="transaction_id" ref="proposition_transaction_demo1"/>
+            <field name="announcement_id" ref="announcement_demo1"/>
+        </record>
+        <record id="proposition_demo1_line1" model="account.wallet.currency.line">
+            <field name="model">account.wallet.transaction</field>
+            <field name="res_id" ref="proposition_transaction_demo1"/>
+            <field name="field">currency_ids</field>
+            <field name="price_unit">50</field>
+            <field name="currency_id" ref="account_wallet.COM"/>
+        </record>
+        <workflow action="proposition_draft_open" model="marketplace.proposition" ref="proposition_demo1"/>
+        <workflow action="proposition_open_accepted" model="marketplace.proposition" ref="proposition_demo1"/>
+        <workflow action="proposition_accepted_invoiced" model="marketplace.proposition" ref="proposition_demo1"/>
+        <function model="marketplace.proposition" name="pay" eval="[ref('proposition_demo1')]"/>-->
+
+        <record id="announcement_demo2" model="marketplace.announcement">
+            <field name="name">Need help for a little change in Odoo frontend</field>
+            <field name="type">want</field>
+            <field name="description">I need to make some HTML change in an home page</field>
+            <field name="partner_id" ref="base.res_partner_main1"/>
+            <field name="category_id" ref="category_odoo"/>
+            <field name="tag_ids" eval="[(6,0,[ref('tag_odoo_frontend')])]"/>
+            <field name="quantity">1</field>
+            <field name="currency_ids"/>
+        </record>
+        <record id="announcement_demo2_line1" model="account.wallet.currency.line">
+            <field name="model">marketplace.announcement</field>
+            <field name="res_id" ref="announcement_demo2"/>
+            <field name="field">currency_ids</field>
+            <field name="price_unit">100</field>
+            <field name="currency_id" ref="account_wallet.COM"/>
+        </record>
+        <workflow action="announcement_draft_open" model="marketplace.announcement" ref="announcement_demo2"/>
+        <record id="proposition_transaction_demo2" model="account.wallet.transaction">
+            <field name="description">We have the skills you needs, please find below our proposition</field>
+            <field name="sender_id" ref="base.res_partner_main2"/>
+            <field name="receiver_id" ref="base.res_partner_main1"/>
+            <field name="quantity">1</field>
+            <field name="currency_ids"/>
+        </record>
+        <record id="proposition_demo2" model="marketplace.proposition">
+            <field name="transaction_id" ref="proposition_transaction_demo2"/>
+            <field name="announcement_id" ref="announcement_demo2"/>
+        </record>
+        <record id="proposition_demo2_line1" model="account.wallet.currency.line">
+            <field name="model">account.wallet.transaction</field>
+            <field name="res_id" ref="proposition_transaction_demo2"/>
+            <field name="field">currency_ids</field>
+            <field name="price_unit">50</field>
+            <field name="currency_id" ref="account_wallet.COM"/>
+        </record>
+        <workflow action="proposition_draft_open" model="marketplace.proposition" ref="proposition_demo2"/>
+        <workflow action="proposition_open_accepted" model="marketplace.proposition" ref="proposition_demo2"/>
+
+    </data>
+</openerp>

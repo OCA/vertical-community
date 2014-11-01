@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- Membership -->
+
+        <!-- https://bugs.launchpad.net/openobject-server/+bug/1263401 .... -->
+        <record id="membership.action_membership_members" model="ir.actions.act_window">
+            <field name="domain">[('user_ids','!=',False)]</field>
+            <field name="context">{}</field>
+        </record>
+
+        <record id="action_membership_my_account" model="ir.actions.server">
+            <field name="name">My account</field>
+            <field name="model_id" ref="base.model_res_users"/>
+            <field name="state">code</field>
+            <field name="code">
+                action = {
+                    'type': 'ir.actions.act_window',
+                    'name': 'My account',
+                    'view_mode': 'form',
+                    'view_type': 'form',
+                    'res_model': 'res.users',
+                    'nodestroy': 'true',
+                    'res_id': uid,
+                    'views': [(False, 'form')],
+                }
+            </field>
+       </record>
+
+        <menuitem action="action_membership_my_account" id="menu_action_membership_my_account" parent="membership.menu_membership"/>
+
+
+        <!-- Partner -->
+
+        <record id="view_partner_form_membership_users" model="ir.ui.view">
+            <field name="name">partner.form.membership.users</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <field name="function" position="after">
+                    <field name="show_phone" attrs="{'invisible': [('is_user','!=',True),('is_moderator','!=',True)]}"/>
+                    <field name="is_user" invisible="1"/>
+                    <field name="is_moderator" invisible="1"/>
+                </field>
+                <field name="phone" position="attributes">
+                    <attribute name="attrs">{'invisible': [('is_user','!=',True),('is_moderator','!=',True),('show_phone', '!=', True)]}</attribute>
+                </field>
+                <field name="mobile" position="attributes">
+                    <attribute name="attrs">{'invisible': [('is_user','!=',True),('is_moderator','!=',True),('show_phone', '!=', True)]}</attribute>
+                </field>
+                <field name="email" position="attributes">
+                    <attribute name="attrs">{'invisible': [('is_user','!=',True),('is_moderator','!=',True)], 'required': [('user_ids','!=', [])]}</attribute>
+                </field>
+                <page string="Internal Notes" position="before">
+                    <page string="Presentation">
+                        <field name="presentation"/>
+                    </page>
+                </page>
+                <page string="Internal Notes" position="attributes">
+                    <attribute name="groups">membership_users.group_membership_moderator</attribute>
+                </page>
+                <page string="Sales &amp; Purchases" position="attributes">
+                    <attribute name="groups">account.group_account_user</attribute>
+                </page>
+            </field>
+        </record>
+
+        <record id="membership_view_partner_form_membership_users" model="ir.ui.view">
+            <field name="name">membership.partner.form.membership.users</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="membership.view_partner_form"/>
+            <field name="arch" type="xml">
+                <page string="Membership" position="attributes">
+                    <attribute name="groups">membership_users.group_membership_moderator</attribute>
+                </page>
+            </field>
+        </record>
+
+        <record id="account_view_partner_form_membership_users" model="ir.ui.view">
+            <field name="name">account.partner.form.membership.users</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="account.view_partner_property_form"/>
+            <field name="arch" type="xml">
+                <page string="Accounting" position="attributes">
+                    <attribute name="groups">account.group_account_user</attribute>
+                </page>
+            </field>
+        </record>
+
+
+        <!-- Users -->
+
+        <record id="view_users_simple_form_membership_users" model="ir.ui.view">
+            <field name="name">users.simple.form.membership.users</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_simple_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet" position="before">
+                    <header groups="membership_users.group_membership_moderator"> 
+                        <field name="state" widget="statusbar"/>
+                    </header> 
+                    <div class="oe_form_box_info oe_text_center" attrs="{'invisible': [('signup_valid', '!=', True)]}" groups="membership_users.group_membership_moderator"> 
+                        <p attrs="{'invisible': [('state', '!=', 'active')]}"> <b>A password reset has been requested for this user. An email containing the following link has been sent:</b> </p> 
+                        <p attrs="{'invisible': [('state', '!=', 'new')]}"> <b>An invitation email containing the following subscription link has been sent:</b> </p>
+                        <p><field class="oe_inline" name="signup_url" widget="url"/></p> 
+                        <field name="signup_valid" invisible="1"/> 
+                    </div> 
+                </xpath>
+                <xpath expr="//sheet/div/h1" position="after">
+                    <label for="login" class="oe_edit_only"/>
+                    <h2><field name="login"/></h2>
+                </xpath>
+                <sheet position="inside">
+                    <group>
+                        <field name="presentation"/>
+                        <field name="signature"/>
+                        <field name="notify_email"/>
+                        <field name="lang"/>
+                        <field name="active" groups="membership_users.group_membership_moderator"/>
+                    </group>
+                    <group name="group_groups_id" col="4"/>
+                    <div groups="membership_users.group_membership_moderator">
+                        <button string="Send reset password link by email" type="object" name="action_reset_password" attrs="{'invisible': [('state', '!=', 'active')]}"/>
+                        <button string="Send an invitation email" type="object" name="action_reset_password" context="{'create_user': 1}" attrs="{'invisible': [('state', '!=', 'new')]}"/>
+                    </div>
+
+                </sheet>
+            </field>
+        </record>
+
+        <record id="user_groups_view_simple_form" model="ir.ui.view">
+            <field name="name">res.users.groups.simple.form</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="membership_users.view_users_simple_form_membership_users"/>
+            <field name="arch" type="xml">
+                <!-- dummy, will be modified by groups -->
+                <group name="group_groups_id" position="after"/>
+            </field>
+        </record>
+
+        <record id="action_membership_users" model="ir.actions.act_window">
+            <field name="name">Users</field>
+            <field name="res_model">res.users</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field eval="False" name="view_id"/>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+
+        <menuitem action="action_membership_users" id="menu_action_membership_users" parent="base.menu_marketing_config_association"/>
+
+    </data>
+</openerp>

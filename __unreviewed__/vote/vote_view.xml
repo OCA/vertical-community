@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- Vote -->
+
+        <record id="view_vote_vote_tree" model="ir.ui.view">
+            <field name="name">vote.vote.tree</field>
+            <field name="model">vote.vote</field>
+            <field name="arch" type="xml">
+                <tree string="Votes">
+                    <field name="partner_id"/>
+                    <field name="line_string"/>
+                    <field name="comment"/>
+                    <field name="model" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_vote_vote_form" model="ir.ui.view">
+            <field name="name">vote.vote.form</field>
+            <field name="model">vote.vote</field>
+            <field name="arch" type="xml">
+                <form string="Votes" version="7.0">
+                <sheet string="Vote">
+                    <group>
+                        <group>
+                            <field name="partner_id" domain="[('user_ids','in',uid)]"/>
+                            <field name="comment"/>
+                        </group>
+                    </group>
+                    <field name="line_ids"/>
+                    <field name="model" invisible="1"/>
+                </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <record id="view_vote_vote_form_admin" model="ir.ui.view">
+            <field name="name">vote.vote.form.admin</field>
+            <field name="model">vote.vote</field>
+            <field name="inherit_id" ref="view_vote_vote_form"/>
+            <field name="groups_id" eval="[(6, 0, [ref('membership_users.group_membership_moderator')])]"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="attributes">
+                    <attribute name="domain">[('user_ids','!=',False)]</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_vote_vote_evaluated_tree" model="ir.ui.view">
+            <field name="name">vote.vote.evaluated.tree</field>
+            <field name="model">vote.vote</field>
+            <field name="arch" type="xml">
+                <tree string="Votes">
+                    <field name="model_name"/>
+                    <field name="res_name"/>
+                    <field name="partner_id"/>
+                    <field name="line_string"/>
+                    <field name="comment"/>
+                    <field name="model" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_vote_vote_evaluated_form" model="ir.ui.view">
+            <field name="name">vote.vote.evaluated.form</field>
+            <field name="model">vote.vote</field>
+            <field name="arch" type="xml">
+                <form string="Votes" version="7.0">
+                <sheet string="Vote">
+                    <group>
+                        <group>
+                            <field name="partner_id" readonly="0"/>
+                            <field name="comment" readonly="0"/>
+                        </group>
+                    </group>
+                    <field name="line_ids" readonly="0"/>
+                    <field name="model" invisible="1"/>
+                </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <!-- Vote line -->
+
+        <record id="view_vote_vote_line_tree" model="ir.ui.view">
+            <field name="name">vote.vote.line.tree</field>
+            <field name="model">vote.vote.line</field>
+            <field name="arch" type="xml">
+                <tree string="Votes" editable="top" delete="false" create="false">
+                    <field name="type_id" readonly="1"/>
+                    <field name="vote"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <!-- Partner -->
+
+        <record id="view_partner_form_vote" model="ir.ui.view">
+            <field name="name">partner.form.vote</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <page string="Internal Notes" position="after">
+                    <page string="Votes">
+<!--                        <field name="vote_evaluated_ids" context="{'form_view_ref' : 'vote.view_vote_vote_evaluated_form', 'tree_view_ref' : 'vote.view_vote_vote_evaluated_tree'}"/>-->
+                        <field name="vote_ids" context="{'form_view_ref' : 'vote.view_vote_vote_evaluated_form', 'tree_view_ref' : 'vote.view_vote_vote_evaluated_tree'}"/>
+                    </page>
+                </page>
+            </field>
+        </record>
+
+    </data>
+</openerp>

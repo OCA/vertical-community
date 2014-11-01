@@ -1,0 +1,472 @@
+-
+  In order to test marketplace.proposition I create a new proposition
+-
+  !context
+    uid: 'base_community.user_mark'
+-
+  !record {model: marketplace.proposition, id: proposition_test_1}:
+    announcement_id: announcement_test_0
+    description: We need your services for the project X
+    sender_id: base.main_partner
+    quantity: 5
+    currency_ids:
+      - model: "account.wallet.transaction"
+        field: "currency_ids"
+        price_unit: 50
+        currency_id: account_wallet.COM
+-
+  I check that Initially marketplace proposition is in the "Draft" state
+-
+  !assert {model: marketplace.proposition, id: proposition_test_1}:
+    - state == 'draft'
+-
+  I check that Luc, the announcer, can't publish it
+-
+  !context
+    uid: 'base_community.user_luc'
+-
+  !python {model: marketplace.proposition}: |
+    from openerp.osv import osv
+    from openerp import workflow
+    try:
+      workflow.trg_validate(uid, 'marketplace.proposition', ref('proposition_test_1'), 'proposition_draft_open', cr)
+      assert False, "Luc was able to publish the proposition!"
+    except osv.except_osv:
+      pass
+-
+  I check that Mark, the proposer, can publish it
+-
+  !context
+    uid: 'base_community.user_mark'
+-
+  !python {model: marketplace.proposition}: |
+    from openerp import workflow
+    workflow.trg_validate(uid, 'marketplace.proposition', ref('proposition_test_1'), 'proposition_draft_open', cr)
+-
+  !assert {model: marketplace.proposition, id: proposition_test_1, string: "Mark wasn't able to publish the proposition!"}:
+    - state == 'open'
+-
+  I check that Mark, the proposer, can't refuse it
+-
+  !context
+    uid: 'base_community.user_mark'
+-
+  !python {model: marketplace.proposition}: |
+    from openerp.osv import osv
+    from openerp import workflow
+    try:
+      workflow.trg_validate(uid, 'marketplace.proposition', ref('proposition_test_1'), 'proposition_open_rejected', cr)
+      assert False, "Mark was able to refused the proposition!"
+    except osv.except_osv:
+      pass
+-
+  I check that Luc, the announcer, can refuse it
+-
+  !context
+    uid: 'base_community.user_luc'
+-
+  !python {model: marketplace.proposition}: |
+    from openerp import workflow
+    workflow.trg_validate(uid, 'marketplace.proposition', ref('proposition_test_1'), 'proposition_open_rejected', cr)
+-
+  !assert {model: marketplace.proposition, id: proposition_test_1, string: "Luc wasn't able to refuse the proposition!"}:
+    - state == 'rejected'
+-
+  I check that Mark, the proposer, can't reset it
+-
+  !context
+    uid: 'base_community.user_mark'
+-
+  !python {model: marketplace.proposition}: |
+    from openerp.osv import osv
+    try:
+      self.reset_workflow(cr, uid, [ref('proposition_test_1')])
+      assert False, "Mark was able to reset the proposition!"
+    except osv.except_osv:
+      pass
+-
+  I check that Luc, the announcer, can reset it
+-
+  !context
+    uid: 'base_community.user_luc'
+-
+  !python {model: marketplace.proposition}: |
+    self.reset_workflow(cr, uid, [ref('proposition_test_1')])
+-
+  !assert {model: marketplace.proposition, id: proposition_test_1, string: "Luc wasn't able to reset the proposition!"}:
+    - state == 'draft'
+##########################################
+-
+  I check that Mark, the proposer, can publish it
+-
+  !context
+    uid: 'base_community.user_mark'
+-
+  !python {model: marketplace.proposition}: |
+    from openerp import workflow
+    workflow.trg_validate(uid, 'marketplace.proposition', ref('proposition_test_1'), 'proposition_draft_open', cr)
+-
+  !assert {model: marketplace.proposition, id: proposition_test_1, string: "Mark wasn't able to publish the proposition!"}:
+    - state == 'open'
+-
+  I check that Mark, the proposer, can't accept it
+-
+  !context
+    uid: 'base_community.user_mark'
+-
+  !python {model: marketplace.proposition}: |
+    from openerp.osv import osv
+    from openerp import workflow
+    try:
+      workflow.trg_validate(uid, 'marketplace.proposition', ref('proposition_test_1'), 'proposition_open_accepted', cr)
+      assert False, "Mark was able to accept the proposition!"
+    except osv.except_osv:
+      pass
+-
+  I check that Luc, the announcer, can accept it
+-
+  !context
+    uid: 'base_community.user_luc'
+-
+  !python {model: marketplace.proposition}: |
+    from openerp import workflow
+    workflow.trg_validate(uid, 'marketplace.proposition', ref('proposition_test_1'), 'proposition_open_accepted', cr)
+-
+  !assert {model: marketplace.proposition, id: proposition_test_1, string: "Test1 wasn't able to accept the proposition!"}:
+    - state == 'accepted'
+-
+  I check that a reservation transaction was made
+-
+  !assert {model: marketplace.proposition, id: proposition_test_1, string: "No reservation transaction was made"}:
+    - reservation_id.id != False
+-
+  I check that Luc, the announcer, can't cancel the proposition on his own
+-
+  !context
+    uid: 'base_community.user_luc'
+-
+  !python {model: marketplace.proposition}: |
+    from openerp.osv import osv
+    from openerp import workflow
+    try:
+      workflow.trg_validate(uid, 'marketplace.proposition', ref('proposition_test_1'), 'proposition_accepted_cancel', cr)
+      assert False, "Luc was able to cancel the proposition on his own!"
+    except osv.except_osv:
+      pass
+-
+  I check that Luc, the announcer, can't tick the cancel proposer chekbox
+-
+  !context
+    uid: 'base_community.user_luc'
+-
+  !python {model: marketplace.proposition}: |
+    from openerp.osv import osv
+    from openerp import workflow
+    try:
+      self.write(cr, uid, [ref('proposition_test_1')], {'want_cancel_user': True}, context=context)
+      assert False, "Luc was able to tick the cancel proposer chekbox!"
+    except osv.except_osv:
+      pass
+-
+  I check that Mark, the proposer, can't tick the cancel announcer chekbox
+-
+  !context
+    uid: 'base_community.user_mark'
+-
+  !python {model: marketplace.proposition}: |
+    from openerp.osv import osv
+    from openerp import workflow
+    try:
+      self.write(cr, uid, [ref('proposition_test_1')], {'want_cancel_announcer': True}, context=context)
+      assert False, "Luc was able to tick the cancel announcer chekbox!"
+    except osv.except_osv:
+      pass
+-
+  I let Luc give his aggreement
+-
+  !context
+    uid: 'base_community.user_luc'
+-
+  !python {model: marketplace.proposition}: |
+    self.write(cr, uid, [ref('proposition_test_1')], {'want_cancel_announcer': True}, context=context)
+-
+  I let mark give his aggreement
+-
+  !context
+    uid: 'base_community.user_mark'
+-
+  !python {model: marketplace.proposition}: |
+    self.write(cr, uid, [ref('proposition_test_1')], {'want_cancel_user': True}, context=context)
+-
+  I check that luc, the announcer, can cancel the transaction after aggreement
+-
+  !context
+    uid: 'base_community.user_luc'
+-
+  !python {model: marketplace.proposition}: |
+    from openerp import workflow
+    workflow.trg_validate(uid, 'marketplace.proposition', ref('proposition_test_1'), 'proposition_accepted_cancel', cr)
+-
+  !assert {model: marketplace.proposition, id: proposition_test_1, string: "Luc wasn't able to cancel the proposition!"}:
+    - state == 'cancel'
+-
+  I check that a reservation transaction was made
+-
+  !assert {model: marketplace.proposition, id: proposition_test_1, string: "The reservation transaction wasn't cancelled!"}:
+    - reservation_id.id == False
+-
+  I check that Mark, the proposer, can reset it
+-
+  !context
+    uid: 'base_community.user_mark'
+-
+  !python {model: marketplace.proposition}: |
+    self.reset_workflow(cr, uid, [ref('proposition_test_1')])
+-
+  !assert {model: marketplace.proposition, id: proposition_test_1, string: "Mark wasn't able to reset the proposition!"}:
+    - state == 'draft'
+################################################
+-
+  I check that Mark, the proposer, can publish it
+-
+  !context
+    uid: 'base_community.user_mark'
+-
+  !python {model: marketplace.proposition}: |
+    from openerp import workflow
+    workflow.trg_validate(uid, 'marketplace.proposition', ref('proposition_test_1'), 'proposition_draft_open', cr)
+-
+  !assert {model: marketplace.proposition, id: proposition_test_1, string: "Mark wasn't able to publish the proposition!"}:
+    - state == 'open'
+-
+  I check that Luc, the announcer, can accept it
+-
+  !context
+    uid: 'base_community.user_luc'
+-
+  !python {model: marketplace.proposition}: |
+    from openerp import workflow
+    workflow.trg_validate(uid, 'marketplace.proposition', ref('proposition_test_1'), 'proposition_open_accepted', cr)
+-
+  !assert {model: marketplace.proposition, id: proposition_test_1, string: "Luc wasn't able to accept the proposition!"}:
+    - state == 'accepted'
+-
+  I check that a reservation transaction was made
+-
+  !assert {model: marketplace.proposition, id: proposition_test_1, string: "No reservation transaction was made"}:
+    - reservation_id.id != False
+-
+  I check that Mark, the payer, can't invoice it
+-
+  !context
+    uid: 'base_community.user_mark'
+-
+  !python {model: marketplace.proposition}: |
+    from openerp.osv import osv
+    from openerp import workflow
+    try:
+      workflow.trg_validate(uid, 'marketplace.proposition', ref('proposition_test_1'), 'proposition_accepted_invoiced', cr)
+      assert False, "Mark was able to invoice the proposition!"
+    except osv.except_osv:
+      pass
+-
+  I check that Luc, the invoicer, can accept it
+-
+  !context
+    uid: 'base_community.user_luc'
+-
+  !python {model: marketplace.proposition}: |
+    from openerp import workflow
+    workflow.trg_validate(uid, 'marketplace.proposition', ref('proposition_test_1'), 'proposition_accepted_invoiced', cr)
+-
+  !assert {model: marketplace.proposition, id: proposition_test_1, string: "Luc wasn't able to invoice the proposition!"}:
+    - state == 'invoiced'
+-
+  I check that a invoice transaction was made
+-
+  !assert {model: marketplace.proposition, id: proposition_test_1, string: "No invoice transaction was made"}:
+    - invoice_id.id != False
+-
+  I check that Luc, the invoicer, can't pay it
+-
+  !context
+    uid: 'base_community.user_luc'
+-
+  !python {model: marketplace.proposition}: |
+    from openerp.osv import osv
+    from openerp import workflow
+    try:
+      self.pay(cr, uid, [ref('proposition_test_1')])
+      assert False, "Test1 was able to pay the proposition!"
+    except osv.except_osv:
+      pass
+-
+  I check that Mark, the payer, can pay it
+-
+  !context
+    uid: 'base_community.user_mark'
+-
+  !python {model: marketplace.proposition}: |
+    from openerp import workflow
+    self.pay(cr, uid, [ref('proposition_test_1')])
+-
+  !assert {model: marketplace.proposition, id: proposition_test_1, string: "Mark wasn't able to pay the proposition or confirm state wasn't skipped!"}:
+    - state == 'vote'
+-
+  I check that a payment transaction was made
+-
+  !assert {model: marketplace.proposition, id: proposition_test_1, string: "No payment transaction was made"}:
+    - payment_id.id != False
+-
+  I write the vote from Luc
+-
+  !context
+    uid: 'base_community.user_luc'
+-
+  !record {model: marketplace.proposition, id: proposition_test_1}:
+    vote_vote_ids:
+      - model: "marketplace.proposition"
+        partner_id: base.res_partner_12
+        comment: VoteRightsPartner1
+        line_ids:
+          - type_id: marketplace.vote_cordial
+            vote: '1'
+          - type_id: marketplace.vote_meet_needs
+            vote: '2'
+          - type_id: marketplace.vote_code_quality
+            vote: '1'
+-
+  I write the vote from Mark
+-
+  !context
+    uid: 'base_community.user_mark'
+-
+  !record {model: marketplace.proposition, id: proposition_test_1}:
+    vote_vote_ids:
+      - model: "marketplace.proposition"
+        partner_id: base.main_partner
+        comment: VoteRightsPartner2
+        line_ids:
+          - type_id: marketplace.vote_cordial
+            vote: '1'
+          - type_id: marketplace.vote_meet_needs
+            vote: '2'
+          - type_id: marketplace.vote_code_quality
+            vote: '1'
+-
+  I check that votes are complete and the proposition went in the final stage
+-
+  !assert {model: marketplace.proposition, id: proposition_test_1, string: "The votes wasn't enough to move the proposition in his final stage!"}:
+    - state == 'paid'
+#######################################################
+-
+  I check that Mark, the payer, can't cancel it
+-
+  !context
+    uid: 'base_community.user_mark'
+-
+  !python {model: marketplace.proposition}: |
+    from openerp.osv import osv
+    try:
+      self.reset_workflow(cr, uid, [ref('proposition_test_1')])
+      assert False, "Mark was able to cancel the proposition!"
+    except osv.except_osv:
+      pass
+-
+  I check that Luc, the invoicer, can cancel it
+-
+  !context
+    uid: 'base_community.user_luc'
+-
+  !python {model: marketplace.proposition}: |
+    self.reset_workflow(cr, uid, [ref('proposition_test_1')])
+-
+  !assert {model: marketplace.proposition, id: proposition_test_1, string: "Test1 wasn't able to cancel the proposition, or the confirm refund state wasn't skipped!"}:
+    - state == 'cancel'
+-
+  I check that the reservation transaction is cancelled
+-
+  !assert {model: marketplace.proposition, id: proposition_test_1, string: "The reservation transaction is still here!"}:
+    - reservation_id.id == False
+-
+  I check that the invoice transaction is cancelled
+-
+  !assert {model: marketplace.proposition, id: proposition_test_1, string: "The invoice transaction is still here!"}:
+    - invoice_id.id == False
+-
+  I check that a payment transaction is cancelled
+-
+  !assert {model: marketplace.proposition, id: proposition_test_1, string: "The payment transaction is still here!"}:
+    - payment_id.id == False
+-
+      I check that Mark, the proposer, can reset it
+-
+  !context
+    uid: 'base_community.user_mark'
+-
+  !python {model: marketplace.proposition}: |
+    self.reset_workflow(cr, uid, [ref('proposition_test_1')])
+#####################################################
+-
+  I check that Mark, the proposer, can publish it
+-
+  !context
+    uid: 'base_community.user_mark'
+-
+  !python {model: marketplace.proposition}: |
+    from openerp import workflow
+    workflow.trg_validate(uid, 'marketplace.proposition', ref('proposition_test_1'), 'proposition_draft_open', cr)
+-
+  !assert {model: marketplace.proposition, id: proposition_test_1, string: "Mark wasn't able to publish the proposition!"}:
+    - state == 'open'
+-
+  I check that Luc, the announcer, can accept it
+-
+  !context
+    uid: 'base_community.user_luc'
+-
+  !python {model: marketplace.proposition}: |
+    from openerp import workflow
+    workflow.trg_validate(uid, 'marketplace.proposition', ref('proposition_test_1'), 'proposition_open_accepted', cr)
+-
+  !assert {model: marketplace.proposition, id: proposition_test_1, string: "Test1 wasn't able to accept the proposition!"}:
+    - state == 'accepted'
+-
+  I check that a reservation transaction was made
+-
+  !assert {model: marketplace.proposition, id: proposition_test_1, string: "No reservation transaction was made"}:
+    - reservation_id.id != False
+-
+  I check that Luc, the invoicer, can accept it
+-
+  !context
+    uid: 'base_community.user_luc'
+-
+  !python {model: marketplace.proposition}: |
+    from openerp import workflow
+    workflow.trg_validate(uid, 'marketplace.proposition', ref('proposition_test_1'), 'proposition_accepted_invoiced', cr)
+-
+  !assert {model: marketplace.proposition, id: proposition_test_1, string: "Test1 wasn't able to invoice the proposition!"}:
+    - state == 'invoiced'
+-
+  I check that a invoice transaction was made
+-
+  !assert {model: marketplace.proposition, id: proposition_test_1, string: "No invoice transaction was made"}:
+    - invoice_id.id != False
+-
+  I check that Mark, the payer, can pay it
+-
+  !context
+    uid: 'base_community.user_mark'
+-
+  !python {model: marketplace.proposition}: |
+    from openerp import workflow
+    self.pay(cr, uid, [ref('proposition_test_1')])
+-
+  !assert {model: marketplace.proposition, id: proposition_test_1, string: "Mark wasn't able to pay the proposition or confirm state wasn't skipped or the vote state wasn't skipped!"}:
+    - state == 'paid'
+-
+  I check that a payment transaction was made
+-
+  !assert {model: marketplace.proposition, id: proposition_test_1, string: "No payment transaction was made"}:
+    - payment_id.id != False

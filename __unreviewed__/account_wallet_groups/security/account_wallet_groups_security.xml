@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- Rules -->
+
+        <record id="account_wallet_transaction_group_own_rule" model="ir.rule">
+            <field name="name">wallet transaction group own</field>
+            <field name="model_id" ref="model_account_wallet_transaction"/>
+            <field name="domain_force">[('sender_id.group_id.partner_wallet_ids.user_ids','in',user.id)]</field>
+            <field name="groups"  eval="[(6,0,[ref('account_wallet.group_account_wallet_user')])]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+
+        <record id="account_wallet_transaction_receiver_group_rule" model="ir.rule">
+            <field name="name">wallet transaction receiver group</field>
+            <field name="model_id" ref="model_account_wallet_transaction"/>
+            <field name="domain_force">[('receiver_id.group_id.partner_wallet_ids.user_ids','in',user.id)]</field>
+            <field name="groups"  eval="[(6,0,[ref('account_wallet.group_account_wallet_user')])]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+
+    </data>
+</openerp>

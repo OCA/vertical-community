@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <menuitem id="menu_vote_configuration" name="Vote" parent="base.menu_administration" sequence="10" />
+
+        <!-- Vote type -->
+
+        <record id="view_vote_type_tree" model="ir.ui.view">
+            <field name="name">vote.type.tree</field>
+            <field name="model">vote.type</field>
+            <field name="arch" type="xml">
+                <tree string="Types">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_vote_type_form" model="ir.ui.view">
+            <field name="name">vote.type.form</field>
+            <field name="model">vote.type</field>
+            <field name="arch" type="xml">
+                <form string="Type">
+                    <field name="name"/>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_vote_type" model="ir.actions.act_window">
+            <field name="name">Vote types</field>
+            <field name="res_model">vote.type</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_vote_type" parent="menu_vote_configuration"
+            sequence="15" action="action_vote_type"/>
+
+
+        <!-- Config -->
+
+        <record id="view_vote_config_line_tree" model="ir.ui.view">
+            <field name="name">vote.config.line.tree</field>
+            <field name="model">vote.config.line</field>
+            <field name="arch" type="xml">
+                <tree string="Vote types">
+                    <field name="name"/>
+                    <field name="sequence"/>
+                    <field name="action"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_vote_config_line_form" model="ir.ui.view">
+            <field name="name">vote.config.line.form</field>
+            <field name="model">vote.config.line</field>
+            <field name="arch" type="xml">
+                <form string="Line">
+                    <field name="name"/>
+                    <field name="sequence"/>
+                    <field name="action" required="1"/>
+                    <field name="model" invisible="1"/>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_community_configuration_vote" model="ir.ui.view">
+            <field name="name">community.configuration.vote</field>
+            <field name="model">community.config.settings</field>
+            <field name="inherit_id" ref="base_community.view_community_configuration"/>
+            <field name="arch" type="xml">
+                <form position="inside">
+                    <separator string="Vote"/>
+                    <group name="vote_grp">
+                        <label for="id" string="Vote"/>
+                        <div>
+                            <field name="vote_line_ids" context="{'default_model': 'community.config.settings'}">
+                                <form string="Line">
+                                    <field name="target_model" required="1"/>
+                                    <field name="name"/>
+                                    <field name="sequence"/>
+                                    <field name="model" invisible="1"/>
+                                </form>
+                                <tree string="Lines">
+                                    <field name="target_model"/>
+                                    <field name="name"/>
+                                    <field name="sequence"/>
+                                </tree>
+                            </field>
+                        </div>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</openerp>
