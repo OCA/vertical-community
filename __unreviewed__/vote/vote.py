@@ -242,7 +242,7 @@ class VoteVote(osv.Model):
     }
 
     def _default_line_ids(self, cr, uid, context={}):
-        # By default, fill with the currencies of the announcement
+        # Get the vote line from model config
         _logger.info('context %s', context)
         model = context.get('default_model')
         res_id = context.get('default_res_id')
