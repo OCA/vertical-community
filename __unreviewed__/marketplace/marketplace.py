@@ -478,6 +478,7 @@ class MarketplaceProposition(osv.osv):
             _get_user_role, type="boolean", string="Is moderator or aggree?", multi='role'
         ),
         'skip_confirm': fields.boolean('Skip confirm'),
+        'skip_vote': fields.boolean('Skip vote?'),
         'state': fields.selection([
             ('draft', 'Draft'),
             ('open', 'Open'),
@@ -518,7 +519,8 @@ class MarketplaceProposition(osv.osv):
     _defaults = {
         'currency_ids': _default_currency_ids,
         'model_id': _default_model,
-        'state': 'draft'
+        'state': 'draft',
+        'skip_vote': True
     }
 
 #    _order = "create_date desc" TODO reference to create date ambiguous because of wallet.transaction
@@ -570,7 +572,8 @@ class MarketplaceProposition(osv.osv):
                 if vote.partner_id.id == announcer_partner_id:
                     vote_announcer = vote
 
-            if vote_user and vote_user.is_complete and vote_announcer and vote_announcer.is_complete:
+            if (vote_user and vote_user.is_complete and vote_announcer and vote_announcer.is_complete)\
+                    or proposition.skip_vote:
                 workflow.trg_validate(uid, 'marketplace.proposition', proposition.id, 'proposition_vote_paid', cr)
                 transaction_obj.write(cr, uid, [proposition.transaction_id.id], {'state': 'done'}, context=context)
                 workflow.trg_delete(uid, 'account.wallet.transaction', proposition.transaction_id.id, cr)
