@@ -35,7 +35,7 @@ class VoteType(osv.osv):
     _name = 'vote.type'
 
     _columns = {
-        'name': fields.char('Name', size=128, required=True),
+        'name': fields.char('Title', size=128, required=True),
     }
 
 

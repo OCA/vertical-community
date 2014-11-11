@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-28 12:32+0000\n"
-"PO-Revision-Date: 2014-10-28 12:32+0000\n"
+"POT-Creation-Date: 2014-11-11 10:00+0000\n"
+"PO-Revision-Date: 2014-11-11 10:00+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -84,6 +84,15 @@ msgid "Evaluated"
 msgstr ""
 
 #. module: vote
+#: view:res.partner:vote.view_partner_form_vote
+#: view:vote.vote:vote.view_vote_vote_evaluated_form
+#: view:vote.vote:vote.view_vote_vote_evaluated_tree
+#: view:vote.vote:vote.view_vote_vote_form
+#: view:vote.vote:vote.view_vote_vote_tree
+msgid "Feedback"
+msgstr ""
+
+#. module: vote
 #: field:vote.category,id:0
 #: field:vote.config.line,id:0
 #: field:vote.evaluated,id:0
@@ -142,7 +151,6 @@ msgstr ""
 
 #. module: vote
 #: field:vote.config.line,name:0
-#: field:vote.type,name:0
 #: field:vote.vote,res_name:0
 msgid "Name"
 msgstr ""
@@ -193,8 +201,13 @@ msgid "Target model"
 msgstr ""
 
 #. module: vote
+#: field:vote.type,name:0
+msgid "Title"
+msgstr ""
+
+#. module: vote
 #: field:vote.model,vote_total:0
-msgid "Total vote"
+msgid "Total feedback"
 msgstr ""
 
 #. module: vote
@@ -212,8 +225,6 @@ msgstr ""
 #: view:community.config.settings:vote.view_community_configuration_vote
 #: model:ir.model,name:vote.model_vote_vote
 #: model:ir.ui.menu,name:vote.menu_vote_configuration
-#: view:vote.vote:vote.view_vote_vote_evaluated_form
-#: view:vote.vote:vote.view_vote_vote_form
 #: field:vote.vote.line,vote:0
 #: field:vote.vote.line,vote_id:0
 msgid "Vote"
@@ -262,13 +273,8 @@ msgid "Voters"
 msgstr ""
 
 #. module: vote
-#: view:res.partner:vote.view_partner_form_vote
 #: field:res.partner,vote_ids:0
 #: field:vote.model,vote_vote_ids:0
-#: view:vote.vote:vote.view_vote_vote_evaluated_form
-#: view:vote.vote:vote.view_vote_vote_evaluated_tree
-#: view:vote.vote:vote.view_vote_vote_form
-#: view:vote.vote:vote.view_vote_vote_tree
 #: field:vote.vote,line_string:0
 #: view:vote.vote.line:vote.view_vote_vote_line_tree
 msgid "Votes"
@@ -276,12 +282,12 @@ msgstr ""
 
 #. module: vote
 #: sql_constraint:vote.vote:0
-msgid "We can only have one vote per record per partner"
+msgid "We can only have one feedback per record per partner"
 msgstr ""
 
 #. module: vote
 #: sql_constraint:vote.vote.line:0
-msgid "We can only have one vote per vote per type"
+msgid "You can only have one feedback per type"
 msgstr ""
 
 #. module: vote

@@ -62,7 +62,7 @@ class MailGroup(osv.osv):
         'child_ids': fields.one2many('mail.group', 'parent_id', 'Childs'),
         'sequence': fields.integer(
             'Sequence', select=True,
-            help="Gives the sequence order when displaying a list of group."
+            help="Sets the displaying sequence order for a group list."
         ),
         'right_ids': fields.many2many('mail.group.right', 'mail_group_rights', 'group_id', 'right_id', 'Rights'),
         'partner_invitation_ids': fields.many2many(

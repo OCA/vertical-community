@@ -458,26 +458,27 @@ class MarketplaceProposition(osv.osv):
         'announcement_id': fields.many2one('marketplace.announcement', 'What', required=True),
         'name': fields.related('announcement_id', 'name', type='char', string='Name', store=True),
         'type': fields.related('announcement_id', 'type', type='char', string='Type', store=True),
-        'description_announcement_id': fields.many2one('marketplace.announcement', 'Link to announcement proposition'),
+        'description_announcement_id': fields.many2one('marketplace.announcement', 'Link to announcement description'),
         'category_id': fields.related(
             'announcement_id', 'category_id', type="many2one",
             relation="marketplace.announcement.category", string='Category'
         ),
-        'want_cancel_user': fields.boolean('(Replyer) I want to cancel the transaction'),
-        'want_cancel_announcer': fields.boolean('(Announcer) I want to cancel the transaction'),
-        'call_moderator_user': fields.boolean('(Replyer) I want to call moderator?'),
-        'call_moderator_announcer': fields.boolean('(Announcer) I want to Call moderator?'),
+        'want_cancel_user': fields.boolean('(Replyer) Cancel the transaction'),
+        'want_cancel_announcer': fields.boolean('(Announcer) Cancel the transaction'),
+        'call_moderator_user': fields.boolean('(Replyer) Call moderator?'),
+        'call_moderator_announcer': fields.boolean('(Announcer) Call moderator?'),
         'already_published': fields.boolean('Already published?'),
         'already_accepted': fields.boolean('Already accepted?'),
         'vote_voters': fields.function(_get_vote_voters, type='many2many', obj='res.partner', string='Voters'),
         'is_user': fields.function(_get_user_role, type="boolean", string="Is user?", multi='role'),
         'is_announcer': fields.function(_get_user_role, type="boolean", string="Is announcer?", multi='role'),
-        'is_dispute': fields.function(_get_user_role, type="boolean", string="Is dispute?", multi='role'),
+        'is_dispute': fields.function(_get_user_role, type="boolean", string="Is in dispute?", multi='role'),
         'is_moderator': fields.function(_get_user_role, type="boolean", string="Is moderator?", multi='role'),
         'is_moderator_or_aggree': fields.function(
-            _get_user_role, type="boolean", string="Is moderator or aggree?", multi='role'
+            _get_user_role, type="boolean", string="Is moderator or aggreed?", multi='role'
         ),
         'skip_confirm': fields.boolean('Skip confirm'),
+        'skip_vote': fields.boolean('Skip vote?'),
         'state': fields.selection([
             ('draft', 'Draft'),
             ('open', 'Open'),
@@ -518,7 +519,8 @@ class MarketplaceProposition(osv.osv):
     _defaults = {
         'currency_ids': _default_currency_ids,
         'model_id': _default_model,
-        'state': 'draft'
+        'state': 'draft',
+        'skip_vote': True
     }
 
 #    _order = "create_date desc" TODO reference to create date ambiguous because of wallet.transaction
@@ -570,7 +572,8 @@ class MarketplaceProposition(osv.osv):
                 if vote.partner_id.id == announcer_partner_id:
                     vote_announcer = vote
 
-            if vote_user and vote_user.is_complete and vote_announcer and vote_announcer.is_complete:
+            if (vote_user and vote_user.is_complete and vote_announcer and vote_announcer.is_complete)\
+                    or proposition.skip_vote:
                 workflow.trg_validate(uid, 'marketplace.proposition', proposition.id, 'proposition_vote_paid', cr)
                 transaction_obj.write(cr, uid, [proposition.transaction_id.id], {'state': 'done'}, context=context)
                 workflow.trg_delete(uid, 'account.wallet.transaction', proposition.transaction_id.id, cr)
@@ -728,7 +731,7 @@ class ResPartner(osv.osv):
     _columns = {
         'skill_category_ids': fields.many2many(
             'marketplace.announcement.category', 'res_partner_marketplace_category_rel',
-            'partner_id', 'category_id', 'My skills (category)'
+            'partner_id', 'category_id', 'My skills (categories)'
         ),
         'skill_tag_ids': fields.many2many(
             'marketplace.tag', 'res_partner_marketplace_tag_rel', 'partner_id', 'tag_id', 'My skills (tags)'

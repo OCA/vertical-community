@@ -172,10 +172,10 @@
                     <button name="proposition_accepted_invoiced" states="accepted" class="oe_highlight" string="Invoice"/>
                     <button name="proposition_invoiced_cancel" string="Cancel" attrs="{'invisible':['|','|',('want_cancel_announcer', '!=', True),('want_cancel_user', '!=', True), ('state', '!=', 'invoiced')]}"/>
                     <button name="pay" states="invoiced" class="oe_highlight" string="Pay" type="object"/>
-                    <button name="confirm" states="confirm" class="oe_highlight" string="Confirm that you received the payment" type="object"/>
+                    <button name="confirm" states="confirm" class="oe_highlight" string="Confirm payment reception" type="object"/>
                     <button name="reset_workflow" states="paid" string="Refund" type="object"/>
                     <button name="proposition_confirm_refund_paid" states="confirm_refund" string="Return to paid"/>
-                    <button name="proposition_confirm_refund_cancel" states="confirm_refund" class="oe_highlight" string="Confirm that you received the payment for the refund"/>
+                    <button name="proposition_confirm_refund_cancel" states="confirm_refund" class="oe_highlight" string="Confirm refund payment reception"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,open,accepted,invoiced,paid"/>
                 </header>
                 <sheet string="Offer">
