@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-28 12:31+0000\n"
-"PO-Revision-Date: 2014-10-28 12:31+0000\n"
+"POT-Creation-Date: 2014-11-11 10:00+0000\n"
+"PO-Revision-Date: 2014-11-11 10:00+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -93,7 +93,7 @@ msgstr ""
 
 #. module: project_marketplace
 #: field:project.task,announcement_creator_id:0
-msgid "Who whill create the announcement?"
+msgid "Who will create the announcement?"
 msgstr ""
 
 #. module: project_marketplace
@@ -104,6 +104,6 @@ msgstr ""
 #. module: project_marketplace
 #: code:addons/project_marketplace/project_marketplace.py:75
 #, python-format
-msgid "You need to specify the creator of the announcement!"
+msgid "You need to specify the author of the announcement!"
 msgstr ""
 

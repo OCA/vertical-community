@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-28 12:24+0000\n"
-"PO-Revision-Date: 2014-10-28 12:24+0000\n"
+"POT-Creation-Date: 2014-11-11 09:56+0000\n"
+"PO-Revision-Date: 2014-11-11 09:56+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -28,11 +28,6 @@ msgstr ""
 #. module: community
 #: view:community.module.config.settings:community.view_config_settings
 msgid "Cancel"
-msgstr ""
-
-#. module: community
-#: field:community.module.config.settings,wallet_chart:0
-msgid "Centralbank Chart"
 msgstr ""
 
 #. module: community
@@ -93,33 +88,33 @@ msgid "ID"
 msgstr ""
 
 #. module: community
-#: field:community.module.config.settings,module_community_crm:0
-msgid "Install CRM"
+#: field:community.module.config.settings,module_community_blog:0
+msgid "Install Blog module"
 msgstr ""
 
 #. module: community
-#: field:community.module.config.settings,module_community_blog:0
-msgid "Install blog"
+#: field:community.module.config.settings,module_community_crm:0
+msgid "Install CRM module"
 msgstr ""
 
 #. module: community
 #: field:community.module.config.settings,module_community_event:0
-msgid "Install event"
+msgid "Install Event module"
 msgstr ""
 
 #. module: community
 #: field:community.module.config.settings,module_community_forum:0
-msgid "Install forum"
+msgid "Install Forum module"
 msgstr ""
 
 #. module: community
 #: field:community.module.config.settings,module_community_marketplace:0
-msgid "Install marketplace"
+msgid "Install Marketplace module"
 msgstr ""
 
 #. module: community
 #: field:community.module.config.settings,module_community_project:0
-msgid "Install project"
+msgid "Install Project module"
 msgstr ""
 
 #. module: community
@@ -137,5 +132,10 @@ msgstr ""
 #. module: community
 #: model:ir.module.category,description:community.module_category_community
 msgid "Transform Odoo into a powerfull community management tool."
+msgstr ""
+
+#. module: community
+#: field:community.module.config.settings,wallet_chart:0
+msgid "Wallet Chart"
 msgstr ""
 
