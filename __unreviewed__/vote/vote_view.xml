@@ -8,7 +8,7 @@
             <field name="name">vote.vote.tree</field>
             <field name="model">vote.vote</field>
             <field name="arch" type="xml">
-                <tree string="Votes">
+                <tree string="Feedback">
                     <field name="partner_id"/>
                     <field name="line_string"/>
                     <field name="comment"/>
@@ -21,8 +21,8 @@
             <field name="name">vote.vote.form</field>
             <field name="model">vote.vote</field>
             <field name="arch" type="xml">
-                <form string="Votes" version="7.0">
-                <sheet string="Vote">
+                <form string="Feedback" version="7.0">
+                <sheet string="Feedback">
                     <group>
                         <group>
                             <field name="partner_id" domain="[('user_ids','in',uid)]"/>
@@ -52,7 +52,7 @@
             <field name="name">vote.vote.evaluated.tree</field>
             <field name="model">vote.vote</field>
             <field name="arch" type="xml">
-                <tree string="Votes">
+                <tree string="Feedback">
                     <field name="model_name"/>
                     <field name="res_name"/>
                     <field name="partner_id"/>
@@ -67,8 +67,8 @@
             <field name="name">vote.vote.evaluated.form</field>
             <field name="model">vote.vote</field>
             <field name="arch" type="xml">
-                <form string="Votes" version="7.0">
-                <sheet string="Vote">
+                <form string="Feedback" version="7.0">
+                <sheet string="Feedback">
                     <group>
                         <group>
                             <field name="partner_id" readonly="0"/>
@@ -105,7 +105,7 @@
             <field name="inherit_id" ref="base.view_partner_form"/>
             <field name="arch" type="xml">
                 <page string="Internal Notes" position="after">
-                    <page string="Votes">
+                    <page string="Feedback">
 <!--                        <field name="vote_evaluated_ids" context="{'form_view_ref' : 'vote.view_vote_vote_evaluated_form', 'tree_view_ref' : 'vote.view_vote_vote_evaluated_tree'}"/>-->
                         <field name="vote_ids" context="{'form_view_ref' : 'vote.view_vote_vote_evaluated_form', 'tree_view_ref' : 'vote.view_vote_vote_evaluated_tree'}"/>
                     </page>

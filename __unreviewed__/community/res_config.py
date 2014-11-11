@@ -37,14 +37,14 @@ class CommunityModuleConfiguration(osv.osv_memory):
     _inherit = 'res.config.settings'
 
     _columns = {
-        'module_community_blog': fields.boolean('Install blog'),
+        'module_community_blog': fields.boolean('Install Blog module'),
         # 'module_community_crowdfunding': fields.boolean('Install crowdfunding'),
-        'module_community_crm': fields.boolean('Install CRM'),
-        'module_community_event': fields.boolean('Install event'),
-        'module_community_forum': fields.boolean('Install forum'),
-        'module_community_marketplace': fields.boolean('Install marketplace'),
-        'wallet_chart': fields.selection([('l10n_fr_wallet', 'French chart of account')], string="Centralbank Chart"),
-        'module_community_project': fields.boolean('Install project'),
+        'module_community_crm': fields.boolean('Install CRM module'),
+        'module_community_event': fields.boolean('Install Event module'),
+        'module_community_forum': fields.boolean('Install Forum module'),
+        'module_community_marketplace': fields.boolean('Install Marketplace module'),
+        'wallet_chart': fields.selection([('l10n_fr_wallet', 'French chart of account')], string="Wallet Chart"),
+        'module_community_project': fields.boolean('Install Project module'),
     }
 
     def onchange_marketplace(self, cr, uid, ids, marketplace, context=None):

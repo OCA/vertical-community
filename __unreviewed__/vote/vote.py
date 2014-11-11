@@ -33,7 +33,7 @@ class VoteCategory(osv.AbstractModel):
     """
 
     _name = 'vote.category'
-    _description = 'Vote Category'
+    _description = 'Feedback Category'
 
     _inherit = 'base.config.inherit.model'
     _base_config_inherit_model = 'vote.config.line'
@@ -161,7 +161,7 @@ class VoteModel(osv.AbstractModel):
 
     _columns = {
         'vote_average': fields.function(_get_vote_stats, type='float', string='Average vote', multi='_get_vote_stats'),
-        'vote_total': fields.function(_get_vote_stats, type='integer', string='Total vote', multi='_get_vote_stats'),
+        'vote_total': fields.function(_get_vote_stats, type='integer', string='Total feedback', multi='_get_vote_stats'),
         'vote_user_ids': fields.function(
             _get_vote_stats, type='many2many', obj='res.users', string='Vote users', multi='_get_vote_stats'
         ),
@@ -181,7 +181,7 @@ class VoteVote(osv.Model):
     """
 
     _name = 'vote.vote'
-    _description = 'Vote'
+    _description = 'Feedback'
 
     def _get_lines(self, cr, uid, ids, name, value, arg, context={}):
         # Compute some field linked the lines of the vote
@@ -272,7 +272,7 @@ class VoteVote(osv.Model):
     }
 
     _sql_constraints = [
-        ('user_vote', 'unique(model,res_id,partner_id)', 'We can only have one vote per record per partner')
+        ('user_vote', 'unique(model,res_id,partner_id)', 'We can only have one feedback per record per partner')
     ]
 
     def _update_evaluated(self, cr, uid, ids, context=None):
@@ -326,7 +326,7 @@ class VoteVoteLine(osv.Model):
     }
 
     _sql_constraints = [
-        ('user_vote', 'unique(vote_id,type_id)', 'We can only have one vote per vote per type')
+        ('user_vote', 'unique(vote_id,type_id)', 'You can only have one feedback per type')
     ]
 
 

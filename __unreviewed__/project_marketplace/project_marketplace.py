@@ -72,7 +72,7 @@ class ProjectTask(osv.osv):
         if not task.announcement_creator_id or not task.assigned_partner_id:
             raise osv.except_osv(
                 _('Data error!'),
-                _("You need to specify the creator of the announcement!")
+                _("You need to specify the author of the announcement!")
             )
 
         announcement_vals = {
