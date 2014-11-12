@@ -202,7 +202,8 @@ class MarketplaceAnnouncement(osv.osv):
             domain=lambda self: [('model', '=', self._name), ('field', '=', 'currency_ids')],
             auto_join=True, string='Currencies'
         ),
-        'delivery_date': fields.date('When'),
+        'date_from': fields.date('From'),
+        'date_to': fields.date('To'),
         'create_date': fields.datetime('Create date'),
         'publish_date': fields.datetime('Published on'),
         'proposition_ids': fields.one2many('marketplace.proposition', 'announcement_id', 'Propositions'),
