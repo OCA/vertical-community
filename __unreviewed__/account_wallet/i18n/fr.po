@@ -1,0 +1,623 @@
+# French translation for odoo-vertical-community
+# Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
+# This file is distributed under the same license as the odoo-vertical-community package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: odoo-vertical-community\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2014-11-11 10:31+0000\n"
+"PO-Revision-Date: 2014-11-14 00:24+0000\n"
+"Last-Translator: Sybille Saint Girons <sybille@valeureux.org>\n"
+"Language-Team: French <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2014-11-14 11:48+0000\n"
+"X-Generator: Launchpad (build 17241)\n"
+
+#. module: account_wallet
+#: code:addons/account_wallet/account_wallet.py:219
+#, python-format
+msgid "Access error!"
+msgstr "Erreur d'accès"
+
+#. module: account_wallet
+#: model:ir.model,name:account_wallet.model_account_move
+msgid "Account Entry"
+msgstr "Écriture comptable"
+
+#. module: account_wallet
+#: model:ir.actions.act_window,name:account_wallet.act_account_wallet_transactions_all
+#: model:ir.ui.menu,name:account_wallet.menu_act_account_wallet_transactions_all
+msgid "All"
+msgstr "Tous"
+
+#. module: account_wallet
+#: field:account.wallet.transaction,already_published:0
+msgid "Already published?"
+msgstr "Déjà publié?"
+
+#. module: account_wallet
+#: field:res.partner.wallet.balance,available:0
+msgid "Available"
+msgstr "Disponible"
+
+#. module: account_wallet
+#: field:res.partner.wallet.currency,available_account:0
+msgid "Available account"
+msgstr "Compte de disponibilité"
+
+#. module: account_wallet
+#: model:ir.model,name:account_wallet.model_res_partner_wallet_balance
+#: view:res.partner:account_wallet.view_partner_form_wallet
+msgid "Balance"
+msgstr "Solde"
+
+#. module: account_wallet
+#: field:res.partner,wallet_balance_ids:0
+msgid "Balances"
+msgstr "Soldes"
+
+#. module: account_wallet
+#: view:account.wallet.transaction:account_wallet.view_account_wallet_transaction_form
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: account_wallet
+#: selection:account.wallet.transaction,state:0
+msgid "Cancelled"
+msgstr "Annulé"
+
+#. module: account_wallet
+#: view:community.config.settings:account_wallet.view_community_configuration_wallet
+msgid "Central Bank"
+msgstr "Banque Centrale"
+
+#. module: account_wallet
+#: selection:account.wallet.transaction,state:0
+msgid "Closed"
+msgstr "Cloturé"
+
+#. module: account_wallet
+#: model:account.account.type,name:account_wallet.account_wallet_account_type_community
+#: view:res.partner:account_wallet.view_partner_form_wallet
+msgid "Community"
+msgstr "Communauté"
+
+#. module: account_wallet
+#: field:community.config.settings,journal_id:0
+msgid "Community Journal"
+msgstr "Journal de la Communauté"
+
+#. module: account_wallet
+#: model:ir.model,name:account_wallet.model_community_config_settings
+msgid "Community configuration"
+msgstr "Configuration de la Communauté"
+
+#. module: account_wallet
+#: field:account.wallet.config.currency,config_id:0
+msgid "Config"
+msgstr "Configuration"
+
+#. module: account_wallet
+#: code:addons/account_wallet/account_wallet.py:330
+#, python-format
+msgid "Config error!"
+msgstr "Erreur de configuation !"
+
+#. module: account_wallet
+#: view:account.wallet.transaction:account_wallet.view_account_wallet_transaction_form
+#: selection:account.wallet.transaction,state:0
+msgid "Confirm"
+msgstr "Confirmer"
+
+#. module: account_wallet
+#: selection:account.wallet.transaction,state:0
+msgid "Confirm Refund"
+msgstr "Confirmer l'Avoir"
+
+#. module: account_wallet
+#: view:account.wallet.transaction:account_wallet.view_account_wallet_transaction_form
+msgid "Confirm that you received the payment for the refund"
+msgstr "Veuillez confirmer que vous avez reçu le paiement de l'Avoir"
+
+#. module: account_wallet
+#: view:account.wallet.transaction:account_wallet.view_account_wallet_transaction_form
+msgid "Confirm that your have received the payment"
+msgstr "Confirmez la réception du paiment"
+
+#. module: account_wallet
+#: field:account.wallet.transaction,confirm_id:0
+msgid "Confirmation move"
+msgstr "Mouvement de confirmation"
+
+#. module: account_wallet
+#: field:account.wallet.config.currency,create_uid:0
+#: field:account.wallet.currency.line,create_uid:0
+#: field:account.wallet.transaction,create_uid:0
+#: field:res.partner.wallet.balance,create_uid:0
+#: field:res.partner.wallet.currency,create_uid:0
+msgid "Created by"
+msgstr "Créée par"
+
+#. module: account_wallet
+#: field:account.wallet.config.currency,create_date:0
+#: field:account.wallet.currency.line,create_date:0
+#: field:account.wallet.transaction,create_date:0
+#: field:res.partner.wallet.balance,create_date:0
+#: field:res.partner.wallet.currency,create_date:0
+msgid "Created on"
+msgstr "Créée le"
+
+#. module: account_wallet
+#: view:account.wallet.config.currency:account_wallet.view_account_wallet_config_currency_tree
+#: view:account.wallet.currency.line:account_wallet.view_account_wallet_currency_line_tree
+#: field:account.wallet.transaction,currency_ids:0
+#: view:community.config.settings:account_wallet.view_community_configuration_wallet
+#: field:community.config.settings,currency_ids:0
+#: field:res.partner,wallet_currency_ids:0
+#: view:res.partner.wallet.currency:account_wallet.view_res_partner_wallet_currency_tree
+msgid "Currencies"
+msgstr "Devises"
+
+#. module: account_wallet
+#: view:account.wallet.config.currency:account_wallet.view_account_wallet_config_currency_form
+#: field:account.wallet.config.currency,currency_id:0
+#: field:account.wallet.currency.line,currency_id:0
+#: model:ir.model,name:account_wallet.model_res_currency
+#: model:ir.model,name:account_wallet.model_res_partner_wallet_currency
+#: field:res.partner.wallet.balance,currency_id:0
+#: view:res.partner.wallet.currency:account_wallet.view_res_partner_wallet_currency_form
+#: field:res.partner.wallet.currency,currency_id:0
+msgid "Currency"
+msgstr "Devise"
+
+#. module: account_wallet
+#: model:ir.model,name:account_wallet.model_account_wallet_currency_line
+msgid "Currency line"
+msgstr "Ligne de Devise"
+
+#. module: account_wallet
+#: help:account.wallet.transaction,message_last_post:0
+msgid "Date of the last message posted on the record."
+msgstr "Date du dernier message posté sur cet enregistrement"
+
+#. module: account_wallet
+#: field:community.config.settings,default_currency_id:0
+msgid "Default currency"
+msgstr "Devise par défaut"
+
+#. module: account_wallet
+#: field:account.wallet.transaction,description:0
+msgid "Detail"
+msgstr "Détail"
+
+#. module: account_wallet
+#: selection:account.wallet.transaction,state:0
+msgid "Draft"
+msgstr "Brouillon"
+
+#. module: account_wallet
+#: field:account.wallet.transaction,quantity:0
+msgid "Exchanged quantity"
+msgstr "Quantité échangée"
+
+#. module: account_wallet
+#: field:res.partner.wallet.currency,expense_account:0
+msgid "Expense account"
+msgstr "Compte de charge"
+
+#. module: account_wallet
+#: field:account.wallet.config.currency,external_currency:0
+msgid "External currency"
+msgstr "Devise externe"
+
+#. module: account_wallet
+#: field:account.wallet.currency.line,field:0
+msgid "Field"
+msgstr "Champ"
+
+#. module: account_wallet
+#: field:account.wallet.transaction,message_follower_ids:0
+msgid "Followers"
+msgstr "Abonnés"
+
+#. module: account_wallet
+#: help:account.wallet.transaction,message_summary:0
+msgid ""
+"Holds the Chatter summary (number of messages, ...). This summary is "
+"directly in html format in order to be inserted in kanban views."
+msgstr ""
+"Contient le résumé de la discussion (nombre de messages, ...). Ce résumé est "
+"au format HTML pour permettre son utilisation dans la vue kanban"
+
+#. module: account_wallet
+#: field:account.wallet.config.currency,id:0
+#: field:account.wallet.currency.line,id:0
+#: field:account.wallet.transaction,id:0
+#: field:res.partner.wallet.balance,id:0
+#: field:res.partner.wallet.currency,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: account_wallet
+#: help:account.wallet.transaction,message_unread:0
+msgid "If checked new messages require your attention."
+msgstr "Si coché, de nouveaux messages demandent votre attention."
+
+#. module: account_wallet
+#: field:res.partner.wallet.currency,income_account:0
+msgid "Income account"
+msgstr "Compte de produit"
+
+#. module: account_wallet
+#: view:res.partner:account_wallet.view_partner_form_wallet
+msgid "Internal Notes"
+msgstr "Notes Internes"
+
+#. module: account_wallet
+#: selection:account.move,wallet_action:0
+msgid "Invoice"
+msgstr "Facture"
+
+#. module: account_wallet
+#: field:account.wallet.transaction,invoice_id:0
+msgid "Invoice move"
+msgstr "Mouvement de facturation"
+
+#. module: account_wallet
+#: field:account.wallet.transaction,message_is_follower:0
+msgid "Is a Follower"
+msgstr "Est un Abonné"
+
+#. module: account_wallet
+#: field:account.wallet.transaction,is_moderator:0
+msgid "Is moderator?"
+msgstr "Est modérateur?"
+
+#. module: account_wallet
+#: field:account.wallet.transaction,is_receiver:0
+msgid "Is receiver?"
+msgstr "Est le receveur ?"
+
+#. module: account_wallet
+#: field:account.wallet.transaction,is_sender:0
+msgid "Is sender?"
+msgstr "Est l'envoyeur ?"
+
+#. module: account_wallet
+#: field:account.wallet.transaction,message_last_post:0
+msgid "Last Message Date"
+msgstr "Date du dernier message"
+
+#. module: account_wallet
+#: field:account.wallet.config.currency,write_uid:0
+#: field:account.wallet.currency.line,write_uid:0
+#: field:account.wallet.transaction,write_uid:0
+#: field:res.partner.wallet.balance,write_uid:0
+#: field:res.partner.wallet.currency,write_uid:0
+msgid "Last Updated by"
+msgstr "Modifiée par"
+
+#. module: account_wallet
+#: field:account.wallet.config.currency,write_date:0
+#: field:account.wallet.currency.line,write_date:0
+#: field:account.wallet.transaction,write_date:0
+#: field:res.partner.wallet.balance,write_date:0
+#: field:res.partner.wallet.currency,write_date:0
+msgid "Last Updated on"
+msgstr "Modifiée le"
+
+#. module: account_wallet
+#: field:account.wallet.config.currency,limit_positive:0
+#: field:res.partner.wallet.balance,limit_positive:0
+#: field:res.partner.wallet.currency,limit_positive:0
+msgid "Limit + ?"
+msgstr "Limite + ?"
+
+#. module: account_wallet
+#: field:account.wallet.config.currency,limit_negative:0
+#: field:res.partner.wallet.balance,limit_negative:0
+#: field:res.partner.wallet.currency,limit_negative:0
+msgid "Limit - ?"
+msgstr "Limite - ?"
+
+#. module: account_wallet
+#: code:addons/account_wallet/account_wallet.py:283
+#: code:addons/account_wallet/account_wallet.py:295
+#, python-format
+msgid "Limit error!"
+msgstr "Erreur de limite !"
+
+#. module: account_wallet
+#: model:ir.module.category,name:account_wallet.module_wallet_category
+msgid "Marketplace"
+msgstr "Place de marché"
+
+#. module: account_wallet
+#: model:res.groups,name:account_wallet.group_account_wallet_moderator
+msgid "Marketplace / Moderator"
+msgstr "Place de marché / Modérateur"
+
+#. module: account_wallet
+#: model:res.groups,name:account_wallet.group_account_wallet_user
+msgid "Marketplace / User"
+msgstr "Place de marché / Utilisateur"
+
+#. module: account_wallet
+#: field:account.wallet.transaction,message_ids:0
+msgid "Messages"
+msgstr "Messages"
+
+#. module: account_wallet
+#: help:account.wallet.transaction,message_ids:0
+msgid "Messages and communication history"
+msgstr "Historique des messages et des communications"
+
+#. module: account_wallet
+#: field:account.wallet.transaction,model_id:0
+#: field:account.wallet.transaction,model_name:0
+msgid "Model"
+msgstr "Modèle"
+
+#. module: account_wallet
+#: view:account.wallet.transaction:account_wallet.view_account_wallet_transaction_form
+#: field:account.wallet.transaction,move_ids:0
+msgid "Moves"
+msgstr "Mouvements"
+
+#. module: account_wallet
+#: view:account.wallet.transaction:account_wallet.view_account_wallet_transaction_search
+#: model:ir.actions.act_window,name:account_wallet.act_account_wallet_transactions_my
+#: model:ir.ui.menu,name:account_wallet.menu_act_account_wallet_transactions_my
+msgid "My transactions"
+msgstr "Mes transactions"
+
+#. module: account_wallet
+#: code:addons/account_wallet/account_wallet.py:284
+#, python-format
+msgid ""
+"Not enough amount available for %s. Currency : %s, Current : %s, Needed : "
+"%s, Limit : %s"
+msgstr ""
+
+#. module: account_wallet
+#: code:addons/account_wallet/account_wallet.py:330
+#, python-format
+msgid "One of the currency is missing in the configuration!"
+msgstr "Une des devises manque dans la configuration"
+
+#. module: account_wallet
+#: model:ir.model,name:account_wallet.model_res_partner
+#: field:res.partner.wallet.balance,partner_id:0
+#: field:res.partner.wallet.currency,partner_id:0
+msgid "Partner"
+msgstr "Partenaire"
+
+#. module: account_wallet
+#: field:account.wallet.config.currency,partner_availability_account_id:0
+msgid "Partner Availability account"
+msgstr "Compte disponibilité du Partenaire"
+
+#. module: account_wallet
+#: field:account.wallet.config.currency,partner_expense_account_id:0
+msgid "Partner Expense account"
+msgstr "Compte d'achat du Partenaire"
+
+#. module: account_wallet
+#: field:account.wallet.config.currency,partner_income_account_id:0
+msgid "Partner Income account"
+msgstr "Compte de vente du Partenaire"
+
+#. module: account_wallet
+#: field:account.wallet.config.currency,partner_reserved_account_id:0
+msgid "Partner Reserved account"
+msgstr "Compte de réserve du Partenaire"
+
+#. module: account_wallet
+#: selection:account.move,wallet_action:0
+msgid "Payment"
+msgstr "Paiement"
+
+#. module: account_wallet
+#: selection:account.move,wallet_action:0
+msgid "Payment confirmation"
+msgstr "Confirmation du paiement"
+
+#. module: account_wallet
+#: selection:account.move,wallet_action:0
+msgid "Payment confirmation cancellation"
+msgstr "Annulation de la confirmation du paiement"
+
+#. module: account_wallet
+#: field:account.wallet.transaction,payment_id:0
+msgid "Payment move"
+msgstr "Mouvement de paiement"
+
+#. module: account_wallet
+#: view:account.wallet.transaction:account_wallet.view_account_wallet_transaction_form
+msgid "Put in draft"
+msgstr "Mettre en brouillon"
+
+#. module: account_wallet
+#: field:account.wallet.transaction,receiver_id:0
+msgid "Receiver"
+msgstr "Receveur"
+
+#. module: account_wallet
+#: selection:account.move,wallet_action:0
+#: view:account.wallet.transaction:account_wallet.view_account_wallet_transaction_form
+msgid "Refund"
+msgstr "Avoir"
+
+#. module: account_wallet
+#: selection:account.move,wallet_action:0
+msgid "Refund Payment"
+msgstr "Paiement de l'Avoir"
+
+#. module: account_wallet
+#: field:account.wallet.currency.line,res_id:0
+msgid "Related Document ID"
+msgstr "Id. du document associé"
+
+#. module: account_wallet
+#: field:account.wallet.currency.line,model:0
+msgid "Related Document Model"
+msgstr "Modèle de document associé"
+
+#. module: account_wallet
+#: selection:account.move,wallet_action:0
+msgid "Reservation"
+msgstr "Réservation"
+
+#. module: account_wallet
+#: selection:account.move,wallet_action:0
+msgid "Reservation Cancellation"
+msgstr "Annulation de la réservation"
+
+#. module: account_wallet
+#: field:account.wallet.transaction,reservation_id:0
+msgid "Reservation move"
+msgstr "Mouvement de réservation"
+
+#. module: account_wallet
+#: field:res.partner.wallet.balance,reserved:0
+msgid "Reserved"
+msgstr "Réservé"
+
+#. module: account_wallet
+#: field:res.partner.wallet.currency,reserved_account:0
+msgid "Reserved account"
+msgstr "Compte de réservation"
+
+#. module: account_wallet
+#: view:account.wallet.transaction:account_wallet.view_account_wallet_transaction_form
+msgid "Return to done"
+msgstr "Revenir à Terminé"
+
+#. module: account_wallet
+#: field:account.wallet.transaction,sender_id:0
+msgid "Sender"
+msgstr "Émetteur"
+
+#. module: account_wallet
+#: field:account.wallet.transaction,state:0
+msgid "Status"
+msgstr "Statut"
+
+#. module: account_wallet
+#: field:account.wallet.currency.line,subtotal:0
+msgid "Subtotal"
+msgstr "Sous-total"
+
+#. module: account_wallet
+#: field:account.wallet.transaction,message_summary:0
+msgid "Summary"
+msgstr "Résumé"
+
+#. module: account_wallet
+#: code:addons/account_wallet/account_wallet.py:296
+#, python-format
+msgid ""
+"Too much amount available for %s. Currency : %s, Current %s, Needed : %s, "
+"Limit : %s"
+msgstr ""
+"Montant disponible trop élevé pour %s. Devise : %s, Courant %s, Nécessaire : "
+"%s, Limite : %s"
+
+#. module: account_wallet
+#: field:account.wallet.transaction,total:0
+msgid "Total"
+msgstr "Total"
+
+#. module: account_wallet
+#: field:account.move,wallet_transaction_id:0
+#: view:account.wallet.transaction:account_wallet.view_account_wallet_transaction_form
+#: model:ir.model,name:account_wallet.model_account_wallet_transaction
+msgid "Transaction"
+msgstr "Transaction"
+
+#. module: account_wallet
+#: view:account.wallet.transaction:account_wallet.view_account_wallet_transaction_search
+#: view:account.wallet.transaction:account_wallet.view_account_wallet_transaction_tree
+#: model:ir.ui.menu,name:account_wallet.menu_account_wallet
+msgid "Transactions"
+msgstr "Transactions"
+
+#. module: account_wallet
+#: field:account.move,wallet_action:0
+msgid "Type"
+msgstr "Type"
+
+#. module: account_wallet
+#: field:account.wallet.transaction,uom_id:0
+msgid "Unit of Measure"
+msgstr "Unité de mesure"
+
+#. module: account_wallet
+#: field:account.wallet.currency.line,price_unit:0
+msgid "Unit price"
+msgstr "Prix unitaire"
+
+#. module: account_wallet
+#: field:account.wallet.transaction,message_unread:0
+msgid "Unread Messages"
+msgstr "Messages non-lus"
+
+#. module: account_wallet
+#: field:account.wallet.config.currency,limit_positive_value:0
+#: field:res.partner.wallet.balance,limit_positive_value:0
+#: field:res.partner.wallet.currency,limit_positive_value:0
+msgid "Value Limit +"
+msgstr "Valeur de la Limite +"
+
+#. module: account_wallet
+#: field:account.wallet.config.currency,limit_negative_value:0
+#: field:res.partner.wallet.balance,limit_negative_value:0
+#: field:res.partner.wallet.currency,limit_negative_value:0
+msgid "ValueLimit -"
+msgstr "Valeur de la Limite -"
+
+#. module: account_wallet
+#: field:res.currency,wallet_currency:0
+msgid "Wallet currency?"
+msgstr "Devise du Porte-monnaie ?"
+
+#. module: account_wallet
+#: sql_constraint:account.wallet.currency.line:0
+msgid "We can only have one currency per record"
+msgstr "Nous pouvons avoir seulement une devise par enregistrement"
+
+#. module: account_wallet
+#: sql_constraint:account.wallet.config.currency:0
+msgid "We can only have one line per currency"
+msgstr "Nous pouvons avoir seulement une seule ligne par devise"
+
+#. module: account_wallet
+#: field:account.wallet.transaction,website_message_ids:0
+msgid "Website Messages"
+msgstr "Messages du site web"
+
+#. module: account_wallet
+#: help:account.wallet.transaction,website_message_ids:0
+msgid "Website communication history"
+msgstr "Historique de communication du site web"
+
+#. module: account_wallet
+#: constraint:account.wallet.transaction:0
+msgid "You cannot make a transaction between the same partner."
+msgstr ""
+"Vous ne pouvez pas faire de transactions avec le partenaire identique"
+
+#. module: account_wallet
+#: code:addons/account_wallet/account_wallet.py:220
+#, python-format
+msgid "You need to have the role  to perform this action!"
+msgstr "Vous devez avoir le rôle pour faire cette action !"
+
+#. module: account_wallet
+#: view:account.wallet.transaction:account_wallet.view_account_wallet_transaction_form_admin
+msgid "[('user_ids','!=',False)]"
+msgstr ""

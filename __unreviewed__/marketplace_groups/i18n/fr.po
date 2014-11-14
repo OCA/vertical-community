@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: openerp-marketplace\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-04-16 07:26+0000\n"
-"PO-Revision-Date: 2014-04-19 04:33+0000\n"
-"Last-Translator: YannickB (EmpowerUs) <yannick.buron@gmail.com>\n"
+"PO-Revision-Date: 2014-11-14 00:49+0000\n"
+"Last-Translator: Sybille Saint Girons <sybille@valeureux.org>\n"
 "Language-Team: French <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-07-02 07:17+0000\n"
-"X-Generator: Launchpad (build 17082)\n"
+"X-Launchpad-Export-Date: 2014-11-14 12:00+0000\n"
+"X-Generator: Launchpad (build 17241)\n"
 
 #. module: marketplace_groups
 #: field:mail.group,community_percent:0
@@ -30,22 +30,22 @@ msgstr "% Réel"
 #. module: marketplace_groups
 #: field:marketplace.announcement,community_group_commission:0
 msgid "% group commission community"
-msgstr "% group commission community"
+msgstr "% de Commission pour la monnaie communautaire"
 
 #. module: marketplace_groups
 #: field:marketplace.announcement,real_group_commission:0
 msgid "% group commission real"
-msgstr "% group commission real"
+msgstr "% de Commission pour la monnaie conventionnelle"
 
 #. module: marketplace_groups
 #: field:mail.group,marketplace:0
 msgid "Can be used in marketplace?"
-msgstr "Peut être utilisé dans la place de marché?"
+msgstr "Peut échanger sur la Place de marché ?"
 
 #. module: marketplace_groups
 #: field:mail.group,can_have_commission:0
 msgid "Can have commission?"
-msgstr "Peut avoir des commissions?"
+msgstr "Peut recevoir des commissions ?"
 
 #. module: marketplace_groups
 #: model:ir.model,name:marketplace_groups.model_mail_group
@@ -56,7 +56,7 @@ msgstr "Groupe de discussion"
 #: field:marketplace.announcement,from_group:0
 #: field:marketplace.proposition,from_group:0
 msgid "From group?"
-msgstr "Depuis un groupe?"
+msgstr "Au nom du groupe"
 
 #. module: marketplace_groups
 #: field:marketplace.announcement,group_id:0
@@ -77,7 +77,7 @@ msgstr "Groupes"
 #. module: marketplace_groups
 #: field:res.partner,is_group:0
 msgid "Is a group"
-msgstr "Est un group"
+msgstr "Est un groupe"
 
 #. module: marketplace_groups
 #: model:ir.ui.menu,name:marketplace_groups.menu_marketplace_my_market_my_groups
@@ -94,7 +94,7 @@ msgstr "Offre/Demande"
 #: model:ir.actions.act_window,name:marketplace_groups.action_marketplace_announcement_my_market_my_groups_offers
 #: model:ir.ui.menu,name:marketplace_groups.menu_action_marketplace_announcement_my_market_my_groups_offers
 msgid "Offers"
-msgstr ""
+msgstr "Offres"
 
 #. module: marketplace_groups
 #: model:ir.model,name:marketplace_groups.model_res_partner
@@ -110,7 +110,7 @@ msgstr "Partenaire"
 #: model:ir.ui.menu,name:marketplace_groups.menu_action_marketplace_announcement_the_market_the_wants_per_group
 #: model:ir.ui.menu,name:marketplace_groups.menu_action_marketplace_the_market_transactions_per_group
 msgid "Per group"
-msgstr ""
+msgstr "Par groupe"
 
 #. module: marketplace_groups
 #: model:ir.model,name:marketplace_groups.model_marketplace_proposition
@@ -121,13 +121,13 @@ msgstr "Proposition"
 #: model:ir.actions.act_window,name:marketplace_groups.action_marketplace_proposition_my_market_my_groups_transactions
 #: model:ir.ui.menu,name:marketplace_groups.menu_action_marketplace_proposition_my_market_my_groups_transactions
 msgid "Transactions"
-msgstr ""
+msgstr "Transactions"
 
 #. module: marketplace_groups
 #: model:ir.actions.act_window,name:marketplace_groups.action_marketplace_announcement_my_market_my_groups_wants
 #: model:ir.ui.menu,name:marketplace_groups.menu_action_marketplace_announcement_my_market_my_groups_wants
 msgid "Wants"
-msgstr ""
+msgstr "Demandes"
 
 #. module: marketplace_groups
 #: view:marketplace.announcement:0

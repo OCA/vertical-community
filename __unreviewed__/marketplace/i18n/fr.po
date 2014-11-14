@@ -7,159 +7,106 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openerp-marketplace\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-04-16 07:24+0000\n"
-"PO-Revision-Date: 2014-04-19 04:32+0000\n"
-"Last-Translator: YannickB (EmpowerUs) <yannick.buron@gmail.com>\n"
+"POT-Creation-Date: 2014-11-11 09:58+0000\n"
+"PO-Revision-Date: 2014-11-14 00:36+0000\n"
+"Last-Translator: Sybille Saint Girons <sybille@valeureux.org>\n"
 "Language-Team: French <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-07-02 07:17+0000\n"
-"X-Generator: Launchpad (build 17082)\n"
-
-#. module: marketplace
-#: field:marketplace.announcement.currency,company_commission:0
-msgid "% company commission"
-msgstr "% commission pour la société"
-
-#. module: marketplace
-#: field:marketplace.config.currency,percent_company:0
-msgid "% for company"
-msgstr "% pour la société"
+"X-Launchpad-Export-Date: 2014-11-14 12:00+0000\n"
+"X-Generator: Launchpad (build 17241)\n"
 
 #. module: marketplace
 #: field:marketplace.proposition,call_moderator_announcer:0
-msgid "(Announcer) I want to Call moderator?"
-msgstr ""
+msgid "(Announcer) Call moderator?"
+msgstr "(Annonceur) Appeler le modérateur ?"
 
 #. module: marketplace
 #: field:marketplace.proposition,want_cancel_announcer:0
-msgid "(Announcer) I want to cancel the transaction"
-msgstr "(Annonceur) Je veux annuler la transaction"
+msgid "(Announcer) Cancel the transaction"
+msgstr "(Annonceur) Annuler la transaction"
 
 #. module: marketplace
 #: field:marketplace.proposition,call_moderator_user:0
-msgid "(Replyer) I want to call moderator?"
-msgstr ""
+msgid "(Replyer) Call moderator?"
+msgstr "(Répondeur) Appeler le modérateur ?"
 
 #. module: marketplace
 #: field:marketplace.proposition,want_cancel_user:0
-msgid "(Replyer) I want to cancel the transaction"
-msgstr ""
+msgid "(Replyer) Cancel the transaction"
+msgstr "(Répondeur) Annuler la transaction"
 
 #. module: marketplace
-#: view:marketplace.proposition:0
+#: view:marketplace.proposition:marketplace.view_marketplace_proposition_form
 msgid "Accept"
 msgstr "Accepter"
 
 #. module: marketplace
 #: selection:marketplace.proposition,state:0
 msgid "Accepted"
-msgstr "Accepté"
+msgstr "Acceptée"
 
 #. module: marketplace
-#: code:addons/marketplace/marketplace.py:340
-#: code:addons/marketplace/marketplace.py:870
-#: code:addons/marketplace/marketplace.py:882
+#: code:addons/marketplace/marketplace.py:337
+#: code:addons/marketplace/marketplace.py:535
+#: code:addons/marketplace/marketplace.py:590
+#: code:addons/marketplace/marketplace.py:685
+#: code:addons/marketplace/marketplace.py:691
 #, python-format
 msgid "Access error!"
-msgstr ""
-
-#. module: marketplace
-#: model:ir.model,name:marketplace.model_account_move
-msgid "Account Entry"
-msgstr "Écriture comptable"
+msgstr "Erreur d'accès"
 
 #. module: marketplace
 #: field:marketplace.announcement.category,active:0
 msgid "Active"
-msgstr "Actif"
+msgstr "Active"
 
 #. module: marketplace
-#: model:ir.actions.act_window,name:marketplace.action_marketplace_announcement_the_market_the_offers_all
-#: model:ir.actions.act_window,name:marketplace.action_marketplace_announcement_the_market_the_wants_all
+#: model:ir.actions.act_window,name:marketplace.act_mkp_announ_the_market_the_offers_all
+#: model:ir.actions.act_window,name:marketplace.act_mkp_announ_the_market_the_wants_all
 #: model:ir.actions.act_window,name:marketplace.action_marketplace_the_market_transactions_all
-#: model:ir.ui.menu,name:marketplace.menu_action_marketplace_announcement_the_market_the_offers_all
-#: model:ir.ui.menu,name:marketplace.menu_action_marketplace_announcement_the_market_the_wants_all
+#: model:ir.ui.menu,name:marketplace.menu_act_mkp_announ_the_market_the_offers_all
+#: model:ir.ui.menu,name:marketplace.menu_act_mkp_announ_the_market_the_wants_all
 #: model:ir.ui.menu,name:marketplace.menu_action_marketplace_the_market_transactions_all
 msgid "All"
-msgstr ""
+msgstr "Tous"
 
 #. module: marketplace
 #: field:marketplace.proposition,already_accepted:0
 msgid "Already accepted?"
-msgstr "Déjà accepté?"
+msgstr "Déjà acceptée ?"
 
 #. module: marketplace
 #: field:marketplace.proposition,already_published:0
 msgid "Already published?"
-msgstr "Déjà publié?"
+msgstr "Déjà publiée ?"
 
 #. module: marketplace
-#: field:marketplace.announcement.currency,announcement_id:0
-msgid "Announcement"
-msgstr "Annonce"
-
-#. module: marketplace
-#: model:ir.actions.act_window,name:marketplace.action_marketplace_proposition_my_market_as_bringer_answers_from_other
-#: model:ir.ui.menu,name:marketplace.menu_action_marketplace_proposition_my_market_as_bringer_answers_from_other
-msgid "Answers from others"
-msgstr ""
-
-#. module: marketplace
-#: model:ir.actions.act_window,name:marketplace.action_marketplace_proposition_my_market_ongoing_answers_to_accept
-#: model:ir.ui.menu,name:marketplace.menu_action_marketplace_proposition_my_market_ongoing_answers_to_accept
-msgid "Answers to accept"
-msgstr ""
+#: model:ir.ui.menu,name:marketplace.menu_marketplace_my_market_as_asker
+msgid "As Asker"
+msgstr "Comme Demandeur"
 
 #. module: marketplace
 #: model:ir.ui.menu,name:marketplace.menu_marketplace_my_market_as_bringer
 msgid "As Bringer"
-msgstr ""
+msgstr "Comme Apporteur"
 
 #. module: marketplace
-#: model:ir.ui.menu,name:marketplace.menu_marketplace_my_market_as_receiver
-msgid "As Receiver"
-msgstr ""
-
-#. module: marketplace
-#: view:marketplace.announcement:0
+#: view:marketplace.announcement:marketplace.view_marketplace_announcement_search
 msgid "Author"
 msgstr "Auteur"
 
 #. module: marketplace
-#: field:marketplace.proposition,transaction_id:0
-msgid "Automatically created field to link to parent marketplace.transaction"
-msgstr ""
-"Automatically created field to link to parent marketplace.transaction"
-
-#. module: marketplace
 #: field:marketplace.announcement,quantity_available:0
-#: field:res.partner.marketplace.balance,available:0
 msgid "Available"
 msgstr "Disponible"
-
-#. module: marketplace
-#: field:res.partner.marketplace.currency,available_account:0
-msgid "Available account"
-msgstr "Compte de disponibilité"
 
 #. module: marketplace
 #: field:marketplace.announcement,vote_average:0
 #: field:marketplace.proposition,vote_average:0
 msgid "Average vote"
-msgstr "Moyenne des votes"
-
-#. module: marketplace
-#: model:ir.model,name:marketplace.model_res_partner_marketplace_balance
-#: view:res.partner:0
-msgid "Balance"
-msgstr "Solde"
-
-#. module: marketplace
-#: field:res.partner,marketplace_balance_ids:0
-msgid "Balances"
-msgstr "Soldes"
+msgstr "Moyenne des Avis"
 
 #. module: marketplace
 #: field:ir.attachment,binary_field:0
@@ -167,8 +114,8 @@ msgid "Binary field"
 msgstr "Champ binaire"
 
 #. module: marketplace
-#: view:marketplace.announcement:0
-#: view:marketplace.proposition:0
+#: view:marketplace.announcement:marketplace.view_marketplace_announcement_form
+#: view:marketplace.proposition:marketplace.view_marketplace_proposition_form
 msgid "Cancel"
 msgstr "Annuler"
 
@@ -176,10 +123,10 @@ msgstr "Annuler"
 #: selection:marketplace.announcement,state:0
 #: selection:marketplace.proposition,state:0
 msgid "Cancelled"
-msgstr "Annulé"
+msgstr "Annulée"
 
 #. module: marketplace
-#: view:marketplace.announcement:0
+#: view:marketplace.announcement:marketplace.view_marketplace_announcement_search
 #: field:marketplace.announcement,category_id:0
 #: field:marketplace.proposition,category_id:0
 #: field:marketplace.tag,category_id:0
@@ -193,17 +140,17 @@ msgstr "Nom de la catégorie"
 
 #. module: marketplace
 #: field:marketplace.announcement.category,child_ids:0
-msgid "Child Categories"
-msgstr "Catégories enfants"
+msgid "Childs"
+msgstr "Enfants"
 
 #. module: marketplace
-#: view:marketplace.announcement:0
+#: view:marketplace.announcement:marketplace.view_marketplace_announcement_search
 #: field:marketplace.announcement,city:0
 msgid "City"
 msgstr "Ville"
 
 #. module: marketplace
-#: view:marketplace.announcement:0
+#: view:marketplace.announcement:marketplace.view_marketplace_announcement_form
 msgid "Close"
 msgstr "Clôturer"
 
@@ -213,100 +160,72 @@ msgid "Closed"
 msgstr "Cloturé"
 
 #. module: marketplace
-#: model:account.account.type,name:marketplace.marketplace_account_type_community
-msgid "Community"
-msgstr "Communauté"
-
-#. module: marketplace
-#: field:marketplace.config.currency,config_id:0
-msgid "Config"
-msgstr "Config"
-
-#. module: marketplace
-#: code:addons/marketplace/marketplace.py:574
-#, python-format
-msgid "Config error!"
-msgstr ""
-
-#. module: marketplace
 #: model:ir.ui.menu,name:marketplace.menu_marketplace_configuration
 msgid "Configuration"
 msgstr "Configuration"
 
 #. module: marketplace
-#: model:ir.actions.act_window,name:marketplace.action_marketplace_configuration
-#: view:marketplace.config.settings:0
-msgid "Configure Marketplace"
-msgstr "Configurer place de marché"
+#: field:marketplace.announcement.category,base_config_inherit_line_del_ids:0
+msgid "Configuration line deleted"
+msgstr "Ligne de configuration supprimée"
 
 #. module: marketplace
-#: view:marketplace.proposition:0
-msgid "Confirm that you received the payment"
-msgstr "Veuillez confirmer que vous avez reçu le paiement"
+#: view:marketplace.proposition:marketplace.view_marketplace_proposition_form
+msgid "Confirm payment reception"
+msgstr "Confirmer la réception du paiement"
 
 #. module: marketplace
-#: view:marketplace.proposition:0
-msgid "Confirm that you received the payment for the refund"
-msgstr "Veuillez confirmer que vous avez reçu le paiement de l'avoir"
+#: view:marketplace.proposition:marketplace.view_marketplace_proposition_form
+msgid "Confirm refund payment reception"
+msgstr "Confirmer la réception du paiement de l'Avoir"
 
 #. module: marketplace
-#: field:marketplace.proposition,confirm_id:0
-msgid "Confirmation move"
-msgstr "Mouvement de confirmation"
-
-#. module: marketplace
-#: model:ir.actions.act_window,name:marketplace.action_marketplace_announcement_the_market_the_wants_my_skills
-#: model:ir.ui.menu,name:marketplace.menu_action_marketplace_announcement_the_market_the_wants_my_skills
+#: model:ir.actions.act_window,name:marketplace.act_mkp_announ_the_market_the_wants_my_skills
+#: model:ir.ui.menu,name:marketplace.menu_act_mkp_announ_the_market_the_wants_my_skills
 msgid "Corresponding to my skills"
 msgstr "Correspondant à mes compétences"
 
 #. module: marketplace
-#: view:marketplace.announcement:0
+#: view:marketplace.announcement:marketplace.view_marketplace_announcement_search
 #: field:marketplace.announcement,country_id:0
 msgid "Country"
 msgstr "Pays"
 
 #. module: marketplace
 #: field:marketplace.announcement,create_date:0
-#: field:res.partner,create_date:0
 msgid "Create date"
 msgstr "Date de création"
 
 #. module: marketplace
-#: view:marketplace.announcement:0
+#: field:marketplace.announcement,create_uid:0
+#: field:marketplace.announcement.category,create_uid:0
+#: field:marketplace.proposition,create_uid:0
+#: field:marketplace.tag,create_uid:0
+msgid "Created by"
+msgstr "Créée par"
+
+#. module: marketplace
+#: field:marketplace.announcement.category,create_date:0
+#: field:marketplace.proposition,create_date:0
+#: field:marketplace.tag,create_date:0
+msgid "Created on"
+msgstr "Créée le"
+
+#. module: marketplace
 #: field:marketplace.announcement,currency_ids:0
-#: view:marketplace.config.currency:0
-#: view:marketplace.config.settings:0
-#: field:marketplace.config.settings,currency_ids:0
-#: view:marketplace.proposition:0
-#: field:marketplace.transaction,currency_ids:0
-#: field:res.partner,marketplace_currency_ids:0
-#: view:res.partner.marketplace.currency:0
 msgid "Currencies"
 msgstr "Devises"
 
 #. module: marketplace
-#: model:ir.model,name:marketplace.model_marketplace_announcement_currency
-#: model:ir.model,name:marketplace.model_res_currency
-#: model:ir.model,name:marketplace.model_res_partner_marketplace_currency
-#: field:marketplace.announcement.currency,currency_id:0
-#: view:marketplace.config.currency:0
-#: field:res.partner.marketplace.balance,currency_id:0
-#: view:res.partner.marketplace.currency:0
-#: field:res.partner.marketplace.currency,currency_id:0
-msgid "Currency"
-msgstr "Monnaie"
+#: field:marketplace.announcement,currency_mode:0
+msgid "Currency mode"
+msgstr "Mode de Devise"
 
 #. module: marketplace
 #: help:marketplace.announcement,message_last_post:0
 #: help:marketplace.proposition,message_last_post:0
 msgid "Date of the last message posted on the record."
-msgstr ""
-
-#. module: marketplace
-#: field:marketplace.config.settings,default_currency_id:0
-msgid "Default currency"
-msgstr "Monnaie par défaut"
+msgstr "Date du dernier message posté sur cet enregistrement"
 
 #. module: marketplace
 #: field:marketplace.announcement,description:0
@@ -314,40 +233,26 @@ msgid "Description"
 msgstr "Description"
 
 #. module: marketplace
-#: field:marketplace.proposition,description:0
-msgid "Detail"
-msgstr ""
-
-#. module: marketplace
 #: selection:marketplace.announcement,state:0
+#: view:marketplace.proposition:marketplace.view_marketplace_proposition_search
 #: selection:marketplace.proposition,state:0
 msgid "Draft"
 msgstr "Brouillon"
 
 #. module: marketplace
-#: constraint:marketplace.announcement.category:0
-msgid "Error ! You can not create recursive categories."
-msgstr "Erreur ! Vous ne pouvez pas créer de catégories récursives"
+#: model:marketplace.announcement.category,name:marketplace.category_erp
+msgid "ERP"
+msgstr "ERP"
 
 #. module: marketplace
-#: field:marketplace.transaction,quantity:0
-msgid "Exchanged quantity"
-msgstr ""
-
-#. module: marketplace
-#: field:res.partner.marketplace.currency,expense_account:0
-msgid "Expense account"
-msgstr "Compte de charge"
+#: field:marketplace.announcement,vote_evaluated_id:0
+msgid "Evaluated"
+msgstr "Avisée"
 
 #. module: marketplace
 #: field:marketplace.announcement,expiration_date:0
 msgid "Expiry on"
-msgstr ""
-
-#. module: marketplace
-#: field:marketplace.config.currency,external_currency:0
-msgid "External currency"
-msgstr "Monnaie externe"
+msgstr "Expire le"
 
 #. module: marketplace
 #: field:marketplace.announcement,message_follower_ids:0
@@ -356,10 +261,14 @@ msgid "Followers"
 msgstr "Abonnés"
 
 #. module: marketplace
-#: field:marketplace.announcement,from_company:0
-#: field:marketplace.transaction,from_company:0
-msgid "From company?"
-msgstr "De la part de la société?"
+#: model:marketplace.tag,name:marketplace.tag_odoo_formation
+msgid "Formation"
+msgstr "Formation"
+
+#. module: marketplace
+#: model:marketplace.tag,name:marketplace.tag_odoo_frontend
+msgid "Frontend"
+msgstr "Interface"
 
 #. module: marketplace
 #: field:marketplace.announcement.category,complete_name:0
@@ -367,14 +276,19 @@ msgid "Full Name"
 msgstr "Nom complet"
 
 #. module: marketplace
-#: view:marketplace.announcement:0
+#: view:marketplace.announcement:marketplace.view_marketplace_announcement_form
+msgid "General"
+msgstr "Général"
+
+#. module: marketplace
+#: view:marketplace.announcement:marketplace.view_marketplace_announcement_search
 msgid "Group By..."
 msgstr "Grouper par..."
 
 #. module: marketplace
-#: field:marketplace.config.settings,group_commission:0
-msgid "Group can define commission"
-msgstr "Groupes peuvent avoir des commissions"
+#: model:marketplace.tag,name:marketplace.tag_odoo_helpdesk
+msgid "Helpdesk"
+msgstr "Support"
 
 #. module: marketplace
 #: help:marketplace.announcement,message_summary:0
@@ -383,8 +297,43 @@ msgid ""
 "Holds the Chatter summary (number of messages, ...). This summary is "
 "directly in html format in order to be inserted in kanban views."
 msgstr ""
-"Gère l'historique de \"Chatter\" (nombre de messages, ...). Cet historique "
+"Gère l'historique de la Discussion (nombre de messages, ...). Cet historique "
 "est au format HTML pour permettre son utilisation dans la vue kanban"
+
+#. module: marketplace
+#: view:marketplace.announcement:marketplace.view_marketplace_announcement_form
+#: selection:marketplace.announcement,type:0
+msgid "I offer"
+msgstr "J'offre"
+
+#. module: marketplace
+#: selection:marketplace.announcement,currency_mode:0
+msgid "I propose all the following currencies"
+msgstr "Je propose toutes les devises suivantes"
+
+#. module: marketplace
+#: selection:marketplace.announcement,currency_mode:0
+msgid "I propose one of the following currencies"
+msgstr "Je propose une de ces devises"
+
+#. module: marketplace
+#: view:marketplace.announcement:marketplace.view_marketplace_announcement_form
+#: selection:marketplace.announcement,type:0
+msgid "I want"
+msgstr "Je souhaite"
+
+#. module: marketplace
+#: field:marketplace.announcement,id:0
+#: field:marketplace.announcement.category,id:0
+#: field:marketplace.proposition,id:0
+#: field:marketplace.tag,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: marketplace
+#: model:marketplace.announcement.category,name:marketplace.category_it
+msgid "IT"
+msgstr "Informatique"
 
 #. module: marketplace
 #: help:marketplace.announcement,message_unread:0
@@ -393,31 +342,15 @@ msgid "If checked new messages require your attention."
 msgstr "Si coché, de nouveaux messages nécessitent votre attention."
 
 #. module: marketplace
-#: view:marketplace.announcement:0
-#: view:marketplace.proposition:0
+#: view:marketplace.announcement:marketplace.view_marketplace_announcement_search
+#: view:marketplace.proposition:marketplace.view_marketplace_proposition_search
 msgid "In Progress"
 msgstr "En cours"
 
 #. module: marketplace
-#: field:res.partner.marketplace.currency,income_account:0
-msgid "Income account"
-msgstr "Compte de produit"
-
-#. module: marketplace
-#: view:res.partner:0
-msgid "Internal Notes"
-msgstr "Notes internes"
-
-#. module: marketplace
-#: selection:account.move,marketplace_action:0
-#: view:marketplace.proposition:0
+#: view:marketplace.proposition:marketplace.view_marketplace_proposition_form
 msgid "Invoice"
 msgstr "Facture"
-
-#. module: marketplace
-#: field:marketplace.proposition,invoice_id:0
-msgid "Invoice move"
-msgstr "Mouvement de facturation"
 
 #. module: marketplace
 #: selection:marketplace.proposition,state:0
@@ -437,29 +370,19 @@ msgstr "Est annonceur?"
 
 #. module: marketplace
 #: field:marketplace.proposition,is_dispute:0
-msgid "Is dispute?"
-msgstr "Est en dispute?"
-
-#. module: marketplace
-#: field:marketplace.proposition,is_invoicer:0
-msgid "Is invoicer?"
-msgstr "Est le factureur?"
+msgid "Is in dispute?"
+msgstr "Est en négociation ?"
 
 #. module: marketplace
 #: field:marketplace.proposition,is_moderator_or_aggree:0
-msgid "Is moderator or aggree?"
-msgstr "Est modérateur ou accord?"
+msgid "Is moderator or aggreed?"
+msgstr "Est modérateur ou acceptée ?"
 
 #. module: marketplace
 #: field:marketplace.announcement,is_moderator:0
 #: field:marketplace.proposition,is_moderator:0
 msgid "Is moderator?"
-msgstr "Est modérateur?"
-
-#. module: marketplace
-#: field:marketplace.proposition,is_payer:0
-msgid "Is payer?"
-msgstr "Est le payeur?"
+msgstr "Est modérateur ?"
 
 #. module: marketplace
 #: field:marketplace.announcement,is_user:0
@@ -474,104 +397,40 @@ msgid "Last Message Date"
 msgstr ""
 
 #. module: marketplace
+#: field:marketplace.announcement,write_uid:0
+#: field:marketplace.announcement.category,write_uid:0
+#: field:marketplace.proposition,write_uid:0
+#: field:marketplace.tag,write_uid:0
+msgid "Last Updated by"
+msgstr "Modifié par"
+
+#. module: marketplace
+#: field:marketplace.announcement,write_date:0
+#: field:marketplace.announcement.category,write_date:0
+#: field:marketplace.proposition,write_date:0
+#: field:marketplace.tag,write_date:0
+msgid "Last Updated on"
+msgstr "Modifié le"
+
+#. module: marketplace
 #: field:marketplace.announcement.category,parent_left:0
 msgid "Left parent"
 msgstr "Parent de gauche"
 
 #. module: marketplace
-#: field:marketplace.config.currency,limit:0
-#: field:res.partner.marketplace.balance,limit:0
-msgid "Limit"
-msgstr "Limite"
-
-#. module: marketplace
-#: code:addons/marketplace/marketplace.py:895
-#, python-format
-msgid "Limit error!"
-msgstr ""
-
-#. module: marketplace
 #: field:marketplace.proposition,description_announcement_id:0
-msgid "Link to announcement proposition"
-msgstr "Lien vers une annonce descriptive"
+msgid "Link to announcement description"
+msgstr "Lien vers la description de l'annonce"
 
 #. module: marketplace
-#: view:marketplace.announcement:0
+#: view:marketplace.announcement:marketplace.view_marketplace_announcement_form
 msgid "Make a reply / proposal"
-msgstr ""
+msgstr "Faire une Réponse / Proposition"
 
 #. module: marketplace
 #: model:ir.ui.menu,name:marketplace.menu_marketplace
-#: model:ir.ui.menu,name:marketplace.menu_marketplace_admin_configuration
-#: view:marketplace.config.settings:0
-#: view:res.partner:0
 msgid "Marketplace"
 msgstr "Place de marché"
-
-#. module: marketplace
-#: model:res.groups,name:marketplace.group_marketplace_moderator
-msgid "Marketplace / Moderator"
-msgstr "Place de marché / Modérateur"
-
-#. module: marketplace
-#: model:res.groups,name:marketplace.group_marketplace_user
-msgid "Marketplace / User"
-msgstr "Place de marché / Utilisateur"
-
-#. module: marketplace
-#: field:marketplace.config.settings,journal_id:0
-msgid "Marketplace Journal"
-msgstr "Journal de la place de marché"
-
-#. module: marketplace
-#: field:marketplace.config.currency,company_availability_account_id:0
-msgid "Marketplace company availability account"
-msgstr "Place de marché compte de disponibilité société"
-
-#. module: marketplace
-#: field:marketplace.config.currency,company_expense_account_id:0
-msgid "Marketplace company expense account"
-msgstr "Place de marché compte de charge société"
-
-#. module: marketplace
-#: field:marketplace.config.currency,company_income_account_id:0
-msgid "Marketplace company income account"
-msgstr "Place de marché compte de produit société"
-
-#. module: marketplace
-#: field:marketplace.config.currency,company_reserved_account_id:0
-msgid "Marketplace company reserved account"
-msgstr "Place de marché compte de réservation société"
-
-#. module: marketplace
-#: model:ir.model,name:marketplace.model_marketplace_config_settings
-msgid "Marketplace configuration"
-msgstr "Configuration de la place de marché"
-
-#. module: marketplace
-#: field:res.currency,marketplace_currency:0
-msgid "Marketplace currency?"
-msgstr "Monnaie pour la place de marché?"
-
-#. module: marketplace
-#: field:marketplace.config.currency,partner_availability_account_id:0
-msgid "Marketplace partner availability account"
-msgstr "Place de marché compte de disponibilité partenaire"
-
-#. module: marketplace
-#: field:marketplace.config.currency,partner_expense_account_id:0
-msgid "Marketplace partner expense account"
-msgstr "Place de marché compte de charge partenaire"
-
-#. module: marketplace
-#: field:marketplace.config.currency,partner_income_account_id:0
-msgid "Marketplace partner income account"
-msgstr "Place de marché compte de produit partenaire"
-
-#. module: marketplace
-#: field:marketplace.config.currency,partner_reserved_account_id:0
-msgid "Marketplace partner reserved account"
-msgstr "Place de marché compte de réservation partenaire"
 
 #. module: marketplace
 #: field:marketplace.announcement,message_ids:0
@@ -591,90 +450,86 @@ msgid "Moderation"
 msgstr "Modération"
 
 #. module: marketplace
-#: view:marketplace.proposition:0
-#: field:marketplace.transaction,move_ids:0
-msgid "Moves"
-msgstr "Mouvements"
-
-#. module: marketplace
 #: model:ir.ui.menu,name:marketplace.menu_marketplace_my_market
 msgid "My Market"
-msgstr ""
+msgstr "Mon marché"
 
 #. module: marketplace
-#: model:ir.actions.act_window,name:marketplace.action_marketplace_announcement_my_market_as_bringer_my_offers
-#: model:ir.ui.menu,name:marketplace.menu_action_marketplace_announcement_my_market_as_bringer_my_offers
+#: model:ir.actions.act_window,name:marketplace.act_mkp_announ_my_market_as_bringer_my_offers
+#: model:ir.ui.menu,name:marketplace.menu_act_mkp_announ_my_market_as_bringer_my_offers
 msgid "My Offers"
-msgstr ""
+msgstr "Mes offres"
 
 #. module: marketplace
-#: model:ir.actions.act_window,name:marketplace.action_marketplace_proposition_my_market_as_receiver_my_answers
-#: model:ir.ui.menu,name:marketplace.menu_action_marketplace_proposition_my_market_as_receiver_my_answers
-msgid "My answers to others"
-msgstr ""
-
-#. module: marketplace
-#: model:ir.actions.act_window,name:marketplace.action_marketplace_proposition_my_market_as_bringer_my_cashing
-#: model:ir.ui.menu,name:marketplace.menu_action_marketplace_proposition_my_market_as_bringer_my_cashing
+#: model:ir.actions.act_window,name:marketplace.act_mkp_prop_my_market_as_bringer_my_cashing
+#: model:ir.ui.menu,name:marketplace.menu_act_mkp_prop_my_market_as_bringer_my_cashing
 msgid "My cashing"
-msgstr ""
+msgstr "Mes réglements"
 
 #. module: marketplace
-#: view:marketplace.announcement:0
-#: view:marketplace.proposition:0
+#: view:marketplace.announcement:marketplace.view_marketplace_announcement_search
+#: view:marketplace.proposition:marketplace.view_marketplace_proposition_search
 msgid "My offers"
 msgstr "Mes offres"
 
 #. module: marketplace
-#: model:ir.actions.act_window,name:marketplace.action_marketplace_proposition_my_market_as_receiver_my_payments
-#: model:ir.ui.menu,name:marketplace.menu_action_marketplace_proposition_my_market_as_receiver_my_payments
+#: model:ir.actions.act_window,name:marketplace.act_mkp_prop_my_market_as_asker_my_payments
+#: model:ir.ui.menu,name:marketplace.menu_act_mkp_prop_my_market_as_asker_my_payments
 msgid "My payments"
-msgstr ""
+msgstr "Mes paiments"
 
 #. module: marketplace
-#: model:ir.actions.act_window,name:marketplace.action_marketplace_proposition_my_market_as_bringer_my_propositions
-#: model:ir.ui.menu,name:marketplace.menu_action_marketplace_proposition_my_market_as_bringer_my_propositions
+#: model:ir.actions.act_window,name:marketplace.act_mkp_prop_my_market_as_bringer_my_propositions
+#: model:ir.ui.menu,name:marketplace.menu_act_mkp_prop_my_market_as_bringer_my_propositions
 msgid "My propositions to others"
-msgstr ""
+msgstr "Mes propositions aux autres"
 
 #. module: marketplace
-#: view:marketplace.announcement:0
+#: model:ir.actions.act_window,name:marketplace.act_mkp_prop_my_market_as_asker_my_replies
+#: model:ir.ui.menu,name:marketplace.menu_act_mkp_prop_my_market_as_asker_my_replies
+msgid "My replies to others"
+msgstr "Mes réponses aux autres"
+
+#. module: marketplace
+#: view:marketplace.announcement:marketplace.view_marketplace_announcement_search
 msgid "My skills"
 msgstr "Mes compétences"
 
 #. module: marketplace
 #: field:res.partner,skill_category_ids:0
-msgid "My skills (category)"
-msgstr "Mes compétences (catégorie)"
+msgid "My skills (categories)"
+msgstr "Mes compétences (catégories)"
 
 #. module: marketplace
 #: field:res.partner,skill_tag_ids:0
 msgid "My skills (tags)"
-msgstr "Mes compétences (tags)"
+msgstr "Mes compétences (mots clés)"
 
 #. module: marketplace
-#: model:ir.actions.act_window,name:marketplace.action_marketplace_proposition_my_market_ongoing_moderation
-#: model:ir.ui.menu,name:marketplace.menu_action_marketplace_proposition_my_market_ongoing_moderation
+#: model:ir.actions.act_window,name:marketplace.act_mkp_prop_my_market_ongoing_moderation
+#: model:ir.ui.menu,name:marketplace.menu_act_mkp_prop_my_market_ongoing_moderation
 msgid "My transactions in moderation"
-msgstr ""
+msgstr "Mes transactions en modération"
 
 #. module: marketplace
-#: model:ir.actions.act_window,name:marketplace.action_marketplace_announcement_my_market_as_receiver_my_wants
-#: model:ir.ui.menu,name:marketplace.menu_action_marketplace_announcement_my_market_as_receiver_my_wants
+#: model:ir.actions.act_window,name:marketplace.act_mkp_announ_my_market_as_asker_my_wants
+#: model:ir.ui.menu,name:marketplace.menu_act_mkp_announ_my_market_as_asker_my_wants
 msgid "My wants"
 msgstr "Mes demandes"
 
 #. module: marketplace
-#: code:addons/marketplace/marketplace.py:895
-#, python-format
-msgid ""
-"Not enough amount available. Currency : %s, Amount needed : %s, Limit : %s"
-msgstr ""
+#: field:marketplace.proposition,name:0
+msgid "Name"
+msgstr "Nom"
 
 #. module: marketplace
-#: view:marketplace.announcement:0
-#: selection:marketplace.announcement,type:0
-#: view:marketplace.proposition:0
+#: model:marketplace.announcement.category,name:marketplace.category_odoo
+msgid "Odoo"
+msgstr "Odoo"
+
+#. module: marketplace
+#: view:marketplace.announcement:marketplace.view_marketplace_announcement_form
+#: view:marketplace.proposition:marketplace.view_marketplace_proposition_form
 msgid "Offer"
 msgstr "Offre"
 
@@ -685,60 +540,46 @@ msgstr "Offre/Demande"
 
 #. module: marketplace
 #: model:ir.ui.menu,name:marketplace.menu_marketplace_the_market_the_offers
-#: view:marketplace.announcement:0
+#: view:marketplace.announcement:marketplace.view_marketplace_announcement_search
+#: view:marketplace.announcement:marketplace.view_marketplace_announcement_tree
 msgid "Offers"
 msgstr "Offres"
 
 #. module: marketplace
-#: model:ir.actions.act_window,name:marketplace.action_marketplace_announcement_my_market_as_receiver_offers_to_follow
-#: model:ir.ui.menu,name:marketplace.menu_action_marketplace_announcement_my_market_as_receiver_offers_to_follow
+#: model:ir.actions.act_window,name:marketplace.act_mkp_announ_my_market_as_asker_offers_to_follow
+#: model:ir.ui.menu,name:marketplace.menu_act_mkp_announ_my_market_as_asker_offers_to_follow
 msgid "Offers to follow"
-msgstr ""
+msgstr "Offres à suivre"
 
 #. module: marketplace
-#: model:ir.actions.act_window,name:marketplace.action_marketplace_announcement_category_form
+#: model:ir.actions.act_window,name:marketplace.act_mkp_announ_category_form
 #: model:ir.model,name:marketplace.model_marketplace_announcement_category
-#: model:ir.ui.menu,name:marketplace.menu_action_marketplace_announcement_category_form
-#: view:marketplace.announcement.category:0
+#: model:ir.ui.menu,name:marketplace.menu_act_mkp_announ_category_form
+#: view:marketplace.announcement.category:marketplace.view_marketplace_announcement_category_tree
 msgid "Offers/Wants Categories"
-msgstr "Catégories d'Offre/Demande"
+msgstr "Catégories d'Offres/Demandes"
 
 #. module: marketplace
-#: view:marketplace.announcement.category:0
+#: view:marketplace.announcement.category:marketplace.view_marketplace_announcement_category_form
 msgid "Offers/Wants Category"
-msgstr "Offres/Demandes Catégories"
+msgstr "Catégorie d'Offres/Demandes"
 
 #. module: marketplace
-#: view:marketplace.tag:0
+#: view:marketplace.tag:marketplace.view_marketplace_tag_form
 msgid "Offers/Wants Tag"
-msgstr "Offre/Demande Etiquette"
+msgstr "Mot clé d'Offres/Demandes"
 
 #. module: marketplace
 #: model:ir.actions.act_window,name:marketplace.action_marketplace_tag_form
 #: model:ir.ui.menu,name:marketplace.menu_action_marketplace_tag_form
-#: view:marketplace.tag:0
+#: view:marketplace.tag:marketplace.view_marketplace_tag_tree
 msgid "Offers/Wants Tags"
-msgstr "Offres/Demandes Etiquettes"
-
-#. module: marketplace
-#: code:addons/marketplace/marketplace.py:574
-#, python-format
-msgid "One of the currency is missing in the configuration!"
-msgstr ""
+msgstr "Mots clés d'Offres/Demandes"
 
 #. module: marketplace
 #: model:ir.ui.menu,name:marketplace.menu_marketplace_my_market_ongoing
 msgid "Ongoing"
-msgstr ""
-
-#. module: marketplace
-#: code:addons/marketplace/marketplace.py:340
-#: code:addons/marketplace/marketplace.py:870
-#, python-format
-msgid ""
-"Only the author of the announcement or a moderator can change the state of "
-"the announce!"
-msgstr ""
+msgstr "En cours"
 
 #. module: marketplace
 #: selection:marketplace.proposition,state:0
@@ -746,15 +587,10 @@ msgid "Open"
 msgstr "Ouvrir"
 
 #. module: marketplace
-#: view:marketplace.announcement:0
-#: view:marketplace.proposition:0
+#: view:marketplace.announcement:marketplace.view_marketplace_announcement_search
+#: view:marketplace.proposition:marketplace.view_marketplace_proposition_search
 msgid "Open offers"
 msgstr "Offres ouvertes"
-
-#. module: marketplace
-#: field:res.partner.marketplace.currency,limit:0
-msgid "Override limit"
-msgstr "Surcharger limite"
 
 #. module: marketplace
 #: selection:marketplace.proposition,state:0
@@ -763,13 +599,11 @@ msgstr "Payé"
 
 #. module: marketplace
 #: field:marketplace.announcement.category,parent_id:0
-msgid "Parent Category"
-msgstr "Catégorie parente"
+msgid "Parent"
+msgstr "Parent"
 
 #. module: marketplace
 #: model:ir.model,name:marketplace.model_res_partner
-#: field:res.partner.marketplace.balance,partner_id:0
-#: field:res.partner.marketplace.currency,partner_id:0
 msgid "Partner"
 msgstr "Partenaire"
 
@@ -780,53 +614,37 @@ msgid "Partners"
 msgstr "Partenaires"
 
 #. module: marketplace
-#: view:marketplace.proposition:0
+#: view:marketplace.proposition:marketplace.view_marketplace_proposition_form
 msgid "Pay"
 msgstr "Payer"
 
 #. module: marketplace
-#: selection:account.move,marketplace_action:0
-msgid "Payment"
-msgstr "Paiement"
-
-#. module: marketplace
-#: selection:account.move,marketplace_action:0
 #: selection:marketplace.proposition,state:0
 msgid "Payment confirmation"
 msgstr "Confirmation du paiement"
 
 #. module: marketplace
-#: selection:account.move,marketplace_action:0
-msgid "Payment confirmation cancellation"
-msgstr "Annulation de la confirmation du paiement"
-
-#. module: marketplace
-#: field:marketplace.proposition,payment_id:0
-msgid "Payment move"
-msgstr "Mouvement de paiement"
-
-#. module: marketplace
-#: model:ir.actions.act_window,name:marketplace.action_marketplace_proposition_my_market_ongoing_payments_to_confirm
-#: model:ir.ui.menu,name:marketplace.menu_action_marketplace_proposition_my_market_ongoing_payments_to_confirm
+#: model:ir.actions.act_window,name:marketplace.act_mkp_prop_my_market_ongoing_payments_to_confirm
+#: model:ir.ui.menu,name:marketplace.menu_act_mkp_prop_my_market_ongoing_payments_to_confirm
 msgid "Payments to confirm"
-msgstr ""
+msgstr "Paiements à confirmer"
 
 #. module: marketplace
-#: model:ir.actions.act_window,name:marketplace.action_marketplace_announcement_the_market_the_offers_per_category
-#: model:ir.actions.act_window,name:marketplace.action_marketplace_announcement_the_market_the_wants_per_category
+#: model:ir.actions.act_window,name:marketplace.act_mkp_announ_the_market_the_offers_per_category
+#: model:ir.actions.act_window,name:marketplace.act_mkp_announ_the_market_the_wants_per_category
 #: model:ir.actions.act_window,name:marketplace.action_marketplace_the_market_transactions_per_category
-#: model:ir.ui.menu,name:marketplace.menu_action_marketplace_announcement_the_market_the_offers_per_category
-#: model:ir.ui.menu,name:marketplace.menu_action_marketplace_announcement_the_market_the_wants_per_category
+#: model:ir.ui.menu,name:marketplace.menu_act_mkp_announ_the_market_the_offers_per_category
+#: model:ir.ui.menu,name:marketplace.menu_act_mkp_announ_the_market_the_wants_per_category
 #: model:ir.ui.menu,name:marketplace.menu_action_marketplace_the_market_transactions_per_category
 msgid "Per category"
 msgstr "Par catégorie"
 
 #. module: marketplace
-#: model:ir.actions.act_window,name:marketplace.action_marketplace_announcement_the_market_the_offers_per_location
-#: model:ir.actions.act_window,name:marketplace.action_marketplace_announcement_the_market_the_wants_per_location
+#: model:ir.actions.act_window,name:marketplace.act_mkp_announ_the_market_the_offers_per_location
+#: model:ir.actions.act_window,name:marketplace.act_mkp_announ_the_market_the_wants_per_location
 #: model:ir.actions.act_window,name:marketplace.action_marketplace_the_market_transactions_per_location
-#: model:ir.ui.menu,name:marketplace.menu_action_marketplace_announcement_the_market_the_offers_per_location
-#: model:ir.ui.menu,name:marketplace.menu_action_marketplace_announcement_the_market_the_wants_per_location
+#: model:ir.ui.menu,name:marketplace.menu_act_mkp_announ_the_market_the_offers_per_location
+#: model:ir.ui.menu,name:marketplace.menu_act_mkp_announ_the_market_the_wants_per_location
 #: model:ir.ui.menu,name:marketplace.menu_action_marketplace_the_market_transactions_per_location
 msgid "Per location"
 msgstr "Par localisation"
@@ -838,36 +656,37 @@ msgstr "Image"
 
 #. module: marketplace
 #: model:ir.model,name:marketplace.model_marketplace_proposition
-#: view:marketplace.proposition:0
+#: view:marketplace.proposition:marketplace.view_marketplace_proposition_form
 msgid "Proposition"
 msgstr "Proposition"
 
 #. module: marketplace
 #: field:marketplace.announcement,proposition_ids:0
-#: view:marketplace.proposition:0
+#: view:marketplace.proposition:marketplace.view_marketplace_proposition_search
+#: view:marketplace.proposition:marketplace.view_marketplace_proposition_tree
 msgid "Propositions"
 msgstr "Propositions"
 
 #. module: marketplace
-#: model:ir.actions.act_window,name:marketplace.action_marketplace_proposition_my_market_as_receiver_propositions_from_other
-#: model:ir.ui.menu,name:marketplace.menu_action_marketplace_proposition_my_market_as_receiver_propositions_from_other
+#: model:ir.actions.act_window,name:marketplace.act_mkp_prop_my_market_as_asker_propositions_from_other
+#: model:ir.ui.menu,name:marketplace.menu_act_mkp_prop_my_market_as_asker_propositions_from_other
 msgid "Propositions from others"
-msgstr ""
+msgstr "Propositions des autres"
 
 #. module: marketplace
-#: model:ir.actions.act_window,name:marketplace.action_marketplace_proposition_my_market_ongoing_propositions_to_accept
-#: model:ir.ui.menu,name:marketplace.menu_action_marketplace_proposition_my_market_ongoing_propositions_to_accept
+#: model:ir.actions.act_window,name:marketplace.act_mkp_prop_my_market_ongoing_propositions_to_accept
+#: model:ir.ui.menu,name:marketplace.menu_act_mkp_prop_my_market_ongoing_propositions_to_accept
 msgid "Propositions to accept"
-msgstr ""
+msgstr "Propositions à accepter"
 
 #. module: marketplace
-#: view:marketplace.announcement:0
-#: view:marketplace.proposition:0
+#: view:marketplace.announcement:marketplace.view_marketplace_announcement_form
+#: view:marketplace.proposition:marketplace.view_marketplace_proposition_form
 msgid "Publish"
 msgstr "Publier"
 
 #. module: marketplace
-#: view:marketplace.announcement:0
+#: view:marketplace.announcement:marketplace.view_marketplace_announcement_search
 msgid "Publish date"
 msgstr "Date de publication"
 
@@ -879,12 +698,17 @@ msgstr "Publié"
 #. module: marketplace
 #: field:marketplace.announcement,publish_date:0
 msgid "Published on"
-msgstr ""
+msgstr "Publiée le"
 
 #. module: marketplace
-#: view:marketplace.proposition:0
+#: view:marketplace.proposition:marketplace.view_marketplace_proposition_form
 msgid "Put in draft"
 msgstr "Mettre en brouillon"
+
+#. module: marketplace
+#: model:marketplace.tag,name:marketplace.tag_odoo_python
+msgid "Python Development"
+msgstr "Développement Python"
 
 #. module: marketplace
 #: field:marketplace.announcement,quantity:0
@@ -892,38 +716,27 @@ msgid "Quantity"
 msgstr "Quantité"
 
 #. module: marketplace
-#: view:marketplace.announcement:0
+#: view:marketplace.announcement:marketplace.view_marketplace_announcement_form
 msgid "Re-Open"
 msgstr "Ré-Ouvrir"
 
 #. module: marketplace
-#: field:marketplace.config.currency,currency_id:0
-msgid "Real currency"
-msgstr "Monnaie réelle"
-
-#. module: marketplace
-#: selection:account.move,marketplace_action:0
-#: view:marketplace.proposition:0
+#: view:marketplace.proposition:marketplace.view_marketplace_proposition_form
 msgid "Refund"
 msgstr "Avoir"
 
 #. module: marketplace
-#: selection:account.move,marketplace_action:0
-msgid "Refund Payment"
-msgstr "Paiement de l'avoir"
-
-#. module: marketplace
 #: selection:marketplace.proposition,state:0
 msgid "Refund payment confirmation"
-msgstr "Confirmation du paiement de l'avoir"
+msgstr "Confirmation du paiement de l'Avoir"
 
 #. module: marketplace
-#: view:marketplace.announcement:0
+#: view:marketplace.announcement:marketplace.view_marketplace_announcement_search
 msgid "Region"
 msgstr "Région"
 
 #. module: marketplace
-#: view:marketplace.proposition:0
+#: view:marketplace.proposition:marketplace.view_marketplace_proposition_form
 msgid "Reject"
 msgstr "Rejeté"
 
@@ -933,34 +746,21 @@ msgid "Rejected"
 msgstr "Refusé"
 
 #. module: marketplace
-#: selection:account.move,marketplace_action:0
-msgid "Reservation"
-msgstr "Réservation"
+#: model:ir.actions.act_window,name:marketplace.act_mkp_prop_my_market_as_bringer_replies_from_other
+#: model:ir.ui.menu,name:marketplace.menu_act_mkp_prop_my_market_as_bringer_replies_from_other
+msgid "Replies from others"
+msgstr "Réponses des autres"
 
 #. module: marketplace
-#: selection:account.move,marketplace_action:0
-msgid "Reservation Cancellation"
-msgstr "Annulation de la réservation"
+#: model:ir.actions.act_window,name:marketplace.act_mkp_prop_my_market_ongoing_replies_to_accept
+#: model:ir.ui.menu,name:marketplace.menu_act_mkp_prop_my_market_ongoing_replies_to_accept
+msgid "Replies to accept"
+msgstr "Réponses à accepter"
 
 #. module: marketplace
-#: field:marketplace.proposition,reservation_id:0
-msgid "Reservation move"
-msgstr "Mouvement de réservation"
-
-#. module: marketplace
-#: field:res.partner.marketplace.balance,reserved:0
-msgid "Reserved"
-msgstr "Réservé"
-
-#. module: marketplace
-#: field:res.partner.marketplace.currency,reserved_account:0
-msgid "Reserved account"
-msgstr "Compte de reservation"
-
-#. module: marketplace
-#: view:marketplace.proposition:0
+#: view:marketplace.proposition:marketplace.view_marketplace_proposition_form
 msgid "Return to paid"
-msgstr "Renvoyer au statut payé"
+msgstr "Retrounerau statut Payée"
 
 #. module: marketplace
 #: field:marketplace.announcement.category,parent_right:0
@@ -973,7 +773,7 @@ msgid "Sequence"
 msgstr "Séquence"
 
 #. module: marketplace
-#: view:marketplace.announcement:0
+#: view:marketplace.announcement:marketplace.view_marketplace_announcement_form
 msgid "Set to Draft"
 msgstr "Mettre en brouillon"
 
@@ -983,7 +783,12 @@ msgid "Skip confirm"
 msgstr "Sauter la confirmation"
 
 #. module: marketplace
-#: view:marketplace.announcement:0
+#: field:marketplace.proposition,skip_vote:0
+msgid "Skip vote?"
+msgstr "Sauter l'Avis ?"
+
+#. module: marketplace
+#: view:marketplace.announcement:marketplace.view_marketplace_announcement_search
 #: field:marketplace.announcement,state_id:0
 msgid "State"
 msgstr "État"
@@ -1005,11 +810,6 @@ msgid "Street2"
 msgstr "Rue 2"
 
 #. module: marketplace
-#: field:marketplace.announcement.currency,subtotal:0
-msgid "Subtotal"
-msgstr "Sous-total"
-
-#. module: marketplace
 #: field:marketplace.announcement,message_summary:0
 #: field:marketplace.proposition,message_summary:0
 msgid "Summary"
@@ -1019,7 +819,7 @@ msgstr "Résumé"
 #: model:ir.model,name:marketplace.model_marketplace_tag
 #: field:marketplace.tag,name:0
 msgid "Tag"
-msgstr "Etiquette"
+msgstr "Étiquette"
 
 #. module: marketplace
 #: field:marketplace.announcement,tag_ids:0
@@ -1028,14 +828,14 @@ msgid "Tags"
 msgstr "Étiquettes"
 
 #. module: marketplace
-#: view:marketplace.announcement:0
+#: view:marketplace.announcement:marketplace.view_marketplace_announcement_form
 msgid "Tags..."
 msgstr "Étiquettes..."
 
 #. module: marketplace
 #: model:ir.ui.menu,name:marketplace.menu_marketplace_the_market
 msgid "The Market"
-msgstr ""
+msgstr "Le Marché"
 
 #. module: marketplace
 #: help:marketplace.announcement.category,active:0
@@ -1043,47 +843,40 @@ msgid "The active field allows you to hide the category without removing it."
 msgstr "Le champ actif permet de masquer la catégorie sans la supprimer."
 
 #. module: marketplace
-#: code:addons/marketplace/marketplace.py:882
+#: code:addons/marketplace/marketplace.py:590
 #, python-format
 msgid "There is not enough quantity available!"
-msgstr ""
+msgstr "Il n'y a pas assez de quantité disponible"
 
 #. module: marketplace
-#: view:marketplace.announcement:0
+#: view:marketplace.announcement:marketplace.view_marketplace_announcement_form
 msgid "Title..."
 msgstr "Titre..."
 
 #. module: marketplace
-#: field:marketplace.transaction,total:0
-msgid "Total"
-msgstr "Total"
-
-#. module: marketplace
 #: field:marketplace.announcement,vote_total:0
 #: field:marketplace.proposition,vote_total:0
-msgid "Total vote"
-msgstr "Total des votes"
+msgid "Total feedback"
+msgstr "Total des Avis"
 
 #. module: marketplace
-#: field:account.move,marketplace_transaction_id:0
-#: model:ir.model,name:marketplace.model_marketplace_transaction
-#: field:marketplace.announcement.currency,transaction_id:0
+#: model:ir.model,name:marketplace.model_account_wallet_transaction
+#: field:marketplace.proposition,transaction_id:0
 msgid "Transaction"
 msgstr "Transaction"
 
 #. module: marketplace
 #: model:ir.ui.menu,name:marketplace.menu_marketplace_the_market_transactions
 msgid "Transactions"
-msgstr ""
+msgstr "Transactions"
 
 #. module: marketplace
 #: model:ir.actions.act_window,name:marketplace.action_marketplace_moderation_dispute
 #: model:ir.ui.menu,name:marketplace.menu_action_marketplace_moderation_dispute
 msgid "Transactions in dispute"
-msgstr ""
+msgstr "Transactions en négociation"
 
 #. module: marketplace
-#: field:account.move,marketplace_action:0
 #: field:marketplace.announcement,type:0
 #: field:marketplace.proposition,type:0
 msgid "Type"
@@ -1091,18 +884,13 @@ msgstr "Type"
 
 #. module: marketplace
 #: field:marketplace.announcement,uom_id:0
-msgid "Unit"
-msgstr ""
-
-#. module: marketplace
-#: field:marketplace.proposition,uom_id:0
 msgid "Unit of Measure"
 msgstr "Unité de mesure"
 
 #. module: marketplace
 #: field:marketplace.announcement,infinite_qty:0
 msgid "Unlimited"
-msgstr ""
+msgstr "Illimité"
 
 #. module: marketplace
 #: field:marketplace.announcement,message_unread:0
@@ -1111,54 +899,37 @@ msgid "Unread Messages"
 msgstr "Messages non-lus"
 
 #. module: marketplace
-#: field:marketplace.announcement,emergency:0
-msgid "Urgent?"
-msgstr ""
-
-#. module: marketplace
-#: field:marketplace.announcement,vote_vote:0
-#: field:marketplace.proposition,vote_vote:0
-msgid "Vote"
-msgstr "Vote"
-
-#. module: marketplace
 #: field:marketplace.announcement.category,vote_config_result_ids:0
 msgid "Vote Types"
-msgstr ""
+msgstr "Type d'Avis"
 
 #. module: marketplace
-#: field:marketplace.announcement,vote_comment:0
-#: field:marketplace.proposition,vote_comment:0
-msgid "Vote comment"
-msgstr ""
-
-#. module: marketplace
-#: model:ir.model,name:marketplace.model_vote_config_settings
 #: field:marketplace.announcement.category,vote_config_ids:0
 msgid "Vote configuration"
-msgstr ""
+msgstr "Configuration des Avis"
 
 #. module: marketplace
 #: field:marketplace.announcement,vote_user_ids:0
 #: field:marketplace.proposition,vote_user_ids:0
 msgid "Vote users"
-msgstr "Vote utilisateurs"
+msgstr "Utilisateurs des Avis"
+
+#. module: marketplace
+#: field:marketplace.announcement,vote_voters:0
+#: field:marketplace.proposition,vote_voters:0
+msgid "Voters"
+msgstr "Aviseurs"
 
 #. module: marketplace
 #: field:marketplace.announcement,vote_vote_ids:0
 #: field:marketplace.proposition,vote_vote_ids:0
 msgid "Votes"
-msgstr "Votes"
+msgstr "Avis"
 
 #. module: marketplace
 #: selection:marketplace.proposition,state:0
 msgid "Waiting for votes"
-msgstr ""
-
-#. module: marketplace
-#: selection:marketplace.announcement,type:0
-msgid "Want"
-msgstr "Demande"
+msgstr "En attente d'Avis"
 
 #. module: marketplace
 #: model:ir.ui.menu,name:marketplace.menu_marketplace_the_market_the_wants
@@ -1166,51 +937,69 @@ msgid "Wants"
 msgstr "Demandes"
 
 #. module: marketplace
-#: model:ir.actions.act_window,name:marketplace.action_marketplace_announcement_my_market_as_bringer_wants_to_follow
-#: model:ir.ui.menu,name:marketplace.menu_action_marketplace_announcement_my_market_as_bringer_wants_to_follow
+#: model:ir.actions.act_window,name:marketplace.act_mkp_announ_my_market_as_bringer_wants_to_follow
+#: model:ir.ui.menu,name:marketplace.menu_act_mkp_announ_my_market_as_bringer_wants_to_follow
 msgid "Wants to follow"
-msgstr ""
+msgstr "Demandes à suivre"
 
 #. module: marketplace
 #: field:marketplace.announcement,website_message_ids:0
 #: field:marketplace.proposition,website_message_ids:0
 msgid "Website Messages"
-msgstr ""
+msgstr "Messages du site web"
 
 #. module: marketplace
 #: help:marketplace.announcement,website_message_ids:0
 #: help:marketplace.proposition,website_message_ids:0
 msgid "Website communication history"
-msgstr ""
+msgstr "Historique de communication du site web"
 
 #. module: marketplace
 #: field:marketplace.announcement,name:0
 #: field:marketplace.proposition,announcement_id:0
 msgid "What"
-msgstr ""
+msgstr "Quoi"
 
 #. module: marketplace
 #: field:marketplace.announcement,delivery_date:0
 msgid "When"
-msgstr ""
+msgstr "Quand"
 
 #. module: marketplace
 #: field:marketplace.announcement,address:0
 msgid "Where"
-msgstr ""
+msgstr "Où"
 
 #. module: marketplace
-#: field:marketplace.announcement,company_name:0
-#: field:marketplace.announcement,user_id:0
-#: field:marketplace.transaction,company_name:0
-#: field:marketplace.transaction,user_id:0
+#: field:marketplace.announcement,partner_id:0
 msgid "Who"
-msgstr ""
+msgstr "Qui"
 
 #. module: marketplace
-#: field:marketplace.announcement.currency,price_unit:0
-msgid "Wished unit price"
-msgstr "Prix unitaire voulu"
+#: code:addons/marketplace/marketplace.py:338
+#: code:addons/marketplace/marketplace.py:536
+#, python-format
+msgid "You need to have the role  to perform this action!"
+msgstr "Vous devez avoir le rôle pour faire cette action  !"
+
+#. module: marketplace
+#: code:addons/marketplace/marketplace.py:692
+#, python-format
+msgid ""
+"You need to have the role is_announcer to tick the cancel checkbox from "
+"announcer"
+msgstr ""
+"Vous devez avoir le rôle 'Est annonceur' pour cocher la case Annulation de "
+"cet annonceur  !"
+
+#. module: marketplace
+#: code:addons/marketplace/marketplace.py:686
+#, python-format
+msgid ""
+"You need to have the role is_user to tick the cancel checkbox from user"
+msgstr ""
+"Vous devez avoir le rôle 'Est annonceur' pour cocher la case Annulation de "
+"cet utilisateur  !"
 
 #. module: marketplace
 #: field:marketplace.announcement,zip:0
@@ -1218,11 +1007,7 @@ msgid "Zip"
 msgstr "Code postal"
 
 #. module: marketplace
-#: model:ir.model,name:marketplace.model_ir_attachment
-msgid "ir.attachment"
-msgstr "ir.attachment"
-
-#. module: marketplace
-#: model:ir.model,name:marketplace.model_marketplace_config_currency
-msgid "marketplace.config.currency"
-msgstr "marketplace.config.currency"
+#: view:marketplace.announcement:marketplace.view_marketplace_announcement_form_admin
+#: view:marketplace.proposition:marketplace.view_marketplace_proposition_form_admin
+msgid "[('user_ids','!=',False)]"
+msgstr ""
