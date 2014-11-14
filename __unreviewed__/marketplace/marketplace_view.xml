@@ -66,7 +66,8 @@
                         <page string="General">
                             <group>
                                 <group>
-                                    <field name="delivery_date"/>
+                                    <field name="date_from"/>
+                                    <field name="date_to"/>
                                     <field name="street"/>
                                     <field name="street2"/>
                                     <field name="zip"/>

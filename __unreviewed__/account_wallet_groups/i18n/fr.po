@@ -1,0 +1,45 @@
+# French translation for odoo-vertical-community
+# Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
+# This file is distributed under the same license as the odoo-vertical-community package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: odoo-vertical-community\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2014-10-28 12:13+0000\n"
+"PO-Revision-Date: 2014-11-14 00:53+0000\n"
+"Last-Translator: dussart julien <juliendussart@yahoo.fr>\n"
+"Language-Team: French <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2014-11-14 11:48+0000\n"
+"X-Generator: Launchpad (build 17241)\n"
+
+#. module: account_wallet_groups
+#: model:ir.model,name:account_wallet_groups.model_mail_group
+msgid "Discussion group"
+msgstr "Groupe de discussion"
+
+#. module: account_wallet_groups
+#: field:mail.group,partner_wallet_ids:0
+msgid "Partners Wallet"
+msgstr "Portefeuille du groupe"
+
+#. module: account_wallet_groups
+#: model:ir.model,name:account_wallet_groups.model_account_wallet_transaction
+msgid "Transaction"
+msgstr "Transaction"
+
+#. module: account_wallet_groups
+#: view:account.wallet.transaction:account_wallet_groups.view_account_wallet_transaction_form_admin_groups
+#: view:account.wallet.transaction:account_wallet_groups.view_account_wallet_transaction_form_groups
+msgid "['|',('user_ids','!=',False),('group_id','!=',False)]"
+msgstr ""
+
+#. module: account_wallet_groups
+#: view:account.wallet.transaction:account_wallet_groups.view_account_wallet_transaction_form_groups
+msgid ""
+"['|',('user_ids','in',uid),('group_id.partner_wallet_ids.user_ids','in',uid)]"
+msgstr ""

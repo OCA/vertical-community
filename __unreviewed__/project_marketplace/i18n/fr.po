@@ -1,0 +1,110 @@
+# French translation for odoo-vertical-community
+# Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
+# This file is distributed under the same license as the odoo-vertical-community package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: odoo-vertical-community\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2014-11-11 10:00+0000\n"
+"PO-Revision-Date: 2014-11-14 00:52+0000\n"
+"Last-Translator: YannickB (YOLO consulting) <yannick.buron@gmail.com>\n"
+"Language-Team: French <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2014-11-14 12:16+0000\n"
+"X-Generator: Launchpad (build 17241)\n"
+
+#. module: project_marketplace
+#: field:project.task,announcement_id:0
+msgid "Announcement"
+msgstr "Annonce"
+
+#. module: project_marketplace
+#: view:project.task:project_marketplace.view_project_task_form_marketplace
+msgid "Create announcement"
+msgstr "Créer une Annonce"
+
+#. module: project_marketplace
+#: code:addons/project_marketplace/project_marketplace.py:74
+#, python-format
+msgid "Data error!"
+msgstr "Erreur de donnée !"
+
+#. module: project_marketplace
+#: help:project.task,announcement_creator_id:0
+msgid "If empty, the assigned partner will be used"
+msgstr "si vide, le partenaire attribué sera utilisé"
+
+#. module: project_marketplace
+#: selection:project.assigned.partner.config,marketplace_assignment:0
+#: selection:project.task.type,marketplace_assignment:0
+msgid "Invoicer"
+msgstr "Factureur"
+
+#. module: project_marketplace
+#: model:ir.model,name:project_marketplace.model_marketplace_announcement
+msgid "Offer/Want"
+msgstr "Offre/Demande"
+
+#. module: project_marketplace
+#: selection:project.assigned.partner.config,marketplace_assignment:0
+#: selection:project.task.type,marketplace_assignment:0
+msgid "Payer"
+msgstr "Payeur"
+
+#. module: project_marketplace
+#: field:marketplace.proposition,planned_hours:0
+msgid "Planned Hours"
+msgstr "Heures prévues"
+
+#. module: project_marketplace
+#: model:ir.model,name:project_marketplace.model_project_project
+msgid "Project"
+msgstr "Projet"
+
+#. module: project_marketplace
+#: model:ir.model,name:project_marketplace.model_marketplace_proposition
+#: field:project.task,proposition_id:0
+msgid "Proposition"
+msgstr "Proposition"
+
+#. module: project_marketplace
+#: model:ir.model,name:project_marketplace.model_project_task
+#: field:marketplace.announcement,task_id:0
+msgid "Task"
+msgstr "Tâche"
+
+#. module: project_marketplace
+#: model:ir.model,name:project_marketplace.model_project_task_type
+msgid "Task Stage"
+msgstr "Étape de tâche"
+
+#. module: project_marketplace
+#: field:project.assigned.partner.config,marketplace_assignment:0
+#: field:project.task.type,marketplace_assignment:0
+msgid "Use assignment from marketplace"
+msgstr "Poster une Demande sur la Place de marché"
+
+#. module: project_marketplace
+#: field:marketplace.proposition,task_want_id:0
+msgid "We need your help for"
+msgstr "Nous avons besoin de votre aide pour"
+
+#. module: project_marketplace
+#: field:project.task,announcement_creator_id:0
+msgid "Who will create the announcement?"
+msgstr "Qui va créer l'Annonce ?"
+
+#. module: project_marketplace
+#: field:marketplace.proposition,task_id:0
+msgid "Work to do"
+msgstr "Actions à mener"
+
+#. module: project_marketplace
+#: code:addons/project_marketplace/project_marketplace.py:75
+#, python-format
+msgid "You need to specify the author of the announcement!"
+msgstr "Vous devez spécifiez l'auteur de l'Annonce"

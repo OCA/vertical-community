@@ -1,0 +1,81 @@
+# French translation for odoo-vertical-community
+# Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
+# This file is distributed under the same license as the odoo-vertical-community package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: odoo-vertical-community\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2014-10-28 12:31+0000\n"
+"PO-Revision-Date: 2014-11-14 00:52+0000\n"
+"Last-Translator: Sybille Saint Girons <sybille@valeureux.org>\n"
+"Language-Team: French <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2014-11-14 12:16+0000\n"
+"X-Generator: Launchpad (build 17241)\n"
+
+#. module: marketplace_groups
+#: field:marketplace.announcement,context_group_ids:0
+msgid "Groups"
+msgstr "Groupes"
+
+#. module: marketplace_groups
+#: view:marketplace.announcement:marketplace_groups.view_marketplace_announcement_form_groups
+msgid "Groups..."
+msgstr "Groupes..."
+
+#. module: marketplace_groups
+#: model:ir.ui.menu,name:marketplace_groups.menu_marketplace_my_market_my_groups
+#: view:marketplace.announcement:marketplace_groups.view_marketplace_announcement_search_groups
+msgid "My groups"
+msgstr "Mes groupes"
+
+#. module: marketplace_groups
+#: model:ir.model,name:marketplace_groups.model_marketplace_announcement
+msgid "Offer/Want"
+msgstr "Offre/Demande"
+
+#. module: marketplace_groups
+#: model:ir.actions.act_window,name:marketplace_groups.action_mkp_announ_my_market_my_groups_offers
+#: model:ir.ui.menu,name:marketplace_groups.menu_action_mkp_announ_my_market_my_groups_offers
+msgid "Offers"
+msgstr "Offres"
+
+#. module: marketplace_groups
+#: model:ir.actions.act_window,name:marketplace_groups.action_marketplace_the_market_transactions_per_group
+#: model:ir.actions.act_window,name:marketplace_groups.action_mkp_announ_the_market_the_offers_per_group
+#: model:ir.actions.act_window,name:marketplace_groups.action_mkp_announ_the_market_the_wants_per_group
+#: model:ir.ui.menu,name:marketplace_groups.menu_action_marketplace_the_market_transactions_per_group
+#: model:ir.ui.menu,name:marketplace_groups.menu_action_mkp_announ_the_market_the_offers_per_group
+#: model:ir.ui.menu,name:marketplace_groups.menu_action_mkp_announ_the_market_the_wants_per_group
+msgid "Per group"
+msgstr "Par groupe"
+
+#. module: marketplace_groups
+#: model:ir.actions.act_window,name:marketplace_groups.action_mkp_prop_my_market_my_groups_transactions
+#: model:ir.ui.menu,name:marketplace_groups.menu_action_mkp_prop_my_market_my_groups_transactions
+msgid "Transactions"
+msgstr "Transactions"
+
+#. module: marketplace_groups
+#: model:ir.actions.act_window,name:marketplace_groups.action_mkp_announ_my_market_my_groups_wants
+#: model:ir.ui.menu,name:marketplace_groups.menu_action_mkp_announ_my_market_my_groups_wants
+msgid "Wants"
+msgstr "Demandes"
+
+#. module: marketplace_groups
+#: view:marketplace.announcement:marketplace_groups.view_marketplace_announcement_form_admin_groups
+#: view:marketplace.proposition:marketplace_groups.view_marketplace_proposition_form_admin_groups
+#: view:vote.vote:marketplace_groups.view_vote_vote_form_groups
+msgid "['|',('user_ids','!=',False),('group_id','!=',False)]"
+msgstr ""
+
+#. module: marketplace_groups
+#: view:marketplace.announcement:marketplace_groups.view_marketplace_announcement_form_groups
+#: view:marketplace.proposition:marketplace_groups.view_marketplace_proposition_form_groups
+msgid ""
+"['|',('user_ids','in',uid),('group_id.partner_wallet_ids.user_ids','in',uid)]"
+msgstr ""

@@ -1,0 +1,298 @@
+# French translation for odoo-vertical-community
+# Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
+# This file is distributed under the same license as the odoo-vertical-community package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: odoo-vertical-community\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2014-11-11 10:00+0000\n"
+"PO-Revision-Date: 2014-11-14 00:43+0000\n"
+"Last-Translator: Sybille Saint Girons <sybille@valeureux.org>\n"
+"Language-Team: French <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2014-11-14 12:16+0000\n"
+"X-Generator: Launchpad (build 17241)\n"
+
+#. module: vote
+#: selection:vote.vote.line,vote:0
+msgid "-1"
+msgstr "-1"
+
+#. module: vote
+#: selection:vote.vote.line,vote:0
+msgid "-2"
+msgstr "-2"
+
+#. module: vote
+#: field:vote.config.line,action:0
+msgid "Action"
+msgstr "Action"
+
+#. module: vote
+#: selection:vote.config.line,action:0
+msgid "Add"
+msgstr "Ajouter"
+
+#. module: vote
+#: field:vote.model,vote_average:0
+msgid "Average vote"
+msgstr "Moyenne des Avis"
+
+#. module: vote
+#: field:vote.vote,comment:0
+msgid "Comment"
+msgstr "Commentaire"
+
+#. module: vote
+#: model:ir.model,name:vote.model_community_config_settings
+msgid "Community configuration"
+msgstr "Configuration de la Communauté"
+
+#. module: vote
+#: field:vote.category,base_config_inherit_line_del_ids:0
+msgid "Configuration line deleted"
+msgstr "Ligne de configuration supprimée"
+
+#. module: vote
+#: field:vote.vote,create_date:0
+msgid "Create date"
+msgstr "Date de création"
+
+#. module: vote
+#: field:vote.config.line,create_uid:0
+#: field:vote.evaluated,create_uid:0
+#: field:vote.type,create_uid:0
+#: field:vote.vote,create_uid:0
+#: field:vote.vote.line,create_uid:0
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: vote
+#: field:vote.config.line,create_date:0
+#: field:vote.evaluated,create_date:0
+#: field:vote.type,create_date:0
+#: field:vote.vote.line,create_date:0
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: vote
+#: field:res.partner,vote_evaluated_id:0
+#: field:vote.vote,evaluated_object_ids:0
+msgid "Evaluated"
+msgstr "Avisée"
+
+#. module: vote
+#: view:res.partner:vote.view_partner_form_vote
+#: view:vote.vote:vote.view_vote_vote_evaluated_form
+#: view:vote.vote:vote.view_vote_vote_evaluated_tree
+#: view:vote.vote:vote.view_vote_vote_form
+#: view:vote.vote:vote.view_vote_vote_tree
+msgid "Feedback"
+msgstr "Avis"
+
+#. module: vote
+#: field:vote.category,id:0
+#: field:vote.config.line,id:0
+#: field:vote.evaluated,id:0
+#: field:vote.model,id:0
+#: field:vote.type,id:0
+#: field:vote.vote,id:0
+#: field:vote.vote.line,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: vote
+#: view:res.partner:vote.view_partner_form_vote
+msgid "Internal Notes"
+msgstr "Notes Internes"
+
+#. module: vote
+#: field:vote.vote,is_complete:0
+msgid "Is complete?"
+msgstr "Est complet ?"
+
+#. module: vote
+#: field:vote.config.line,write_uid:0
+#: field:vote.evaluated,write_uid:0
+#: field:vote.type,write_uid:0
+#: field:vote.vote,write_uid:0
+#: field:vote.vote.line,write_uid:0
+msgid "Last Updated by"
+msgstr "Modifié par"
+
+#. module: vote
+#: field:vote.config.line,write_date:0
+#: field:vote.evaluated,write_date:0
+#: field:vote.type,write_date:0
+#: field:vote.vote,write_date:0
+#: field:vote.vote.line,write_date:0
+msgid "Last Updated on"
+msgstr "Modifié le"
+
+#. module: vote
+#: view:community.config.settings:vote.view_community_configuration_vote
+#: view:vote.config.line:vote.view_vote_config_line_form
+msgid "Line"
+msgstr "Ligne"
+
+#. module: vote
+#: view:community.config.settings:vote.view_community_configuration_vote
+#: field:community.config.settings,vote_line_ids:0
+#: field:vote.vote,line_ids:0
+msgid "Lines"
+msgstr "Lignes"
+
+#. module: vote
+#: field:vote.vote.line,model:0
+msgid "Model"
+msgstr "Modèle"
+
+#. module: vote
+#: field:vote.config.line,name:0
+#: field:vote.vote,res_name:0
+msgid "Name"
+msgstr "Nom"
+
+#. module: vote
+#: field:vote.vote,model_name:0
+msgid "Object"
+msgstr "Objet"
+
+#. module: vote
+#: model:ir.model,name:vote.model_res_partner
+#: field:vote.vote,partner_id:0
+#: field:vote.vote.line,partner_id:0
+msgid "Partner"
+msgstr "Partenaire"
+
+#. module: vote
+#: field:vote.config.line,res_id:0
+#: field:vote.vote,res_id:0
+#: field:vote.vote.line,res_id:0
+msgid "Related Document ID"
+msgstr "ID du document associé"
+
+#. module: vote
+#: field:vote.config.line,model:0
+#: field:vote.vote,model:0
+msgid "Related Document Model"
+msgstr "Modèle de document associé"
+
+#. module: vote
+#: selection:vote.config.line,action:0
+msgid "Remove"
+msgstr "Retirer"
+
+#. module: vote
+#: field:vote.config.line,sequence:0
+msgid "Sequence"
+msgstr "Séquence"
+
+#. module: vote
+#: field:vote.config.line,stored:0
+msgid "Stored?"
+msgstr "Archivé ?"
+
+#. module: vote
+#: field:vote.config.line,target_model:0
+msgid "Target model"
+msgstr "Modèle cible"
+
+#. module: vote
+#: field:vote.type,name:0
+msgid "Title"
+msgstr "Titre"
+
+#. module: vote
+#: field:vote.model,vote_total:0
+msgid "Total feedback"
+msgstr "Total des Avis"
+
+#. module: vote
+#: view:vote.type:vote.view_vote_type_form
+#: field:vote.vote.line,type_id:0
+msgid "Type"
+msgstr "Type"
+
+#. module: vote
+#: view:vote.type:vote.view_vote_type_tree
+msgid "Types"
+msgstr "Types"
+
+#. module: vote
+#: view:community.config.settings:vote.view_community_configuration_vote
+#: model:ir.model,name:vote.model_vote_vote
+#: model:ir.ui.menu,name:vote.menu_vote_configuration
+#: field:vote.vote.line,vote:0
+#: field:vote.vote.line,vote_id:0
+msgid "Vote"
+msgstr "Aviser"
+
+#. module: vote
+#: model:ir.model,name:vote.model_vote_category
+msgid "Vote Category"
+msgstr "Catégorie d'Avis"
+
+#. module: vote
+#: model:ir.model,name:vote.model_vote_model
+msgid "Vote Model"
+msgstr "Modèle d'Avis"
+
+#. module: vote
+#: field:vote.category,vote_config_result_ids:0
+msgid "Vote Types"
+msgstr "Types d'Avis"
+
+#. module: vote
+#: field:vote.category,vote_config_ids:0
+msgid "Vote configuration"
+msgstr "Configuration des Avis"
+
+#. module: vote
+#: model:ir.model,name:vote.model_vote_vote_line
+msgid "Vote line"
+msgstr "Ligne d'Avis"
+
+#. module: vote
+#: model:ir.actions.act_window,name:vote.action_vote_type
+#: model:ir.ui.menu,name:vote.menu_vote_type
+#: view:vote.config.line:vote.view_vote_config_line_tree
+msgid "Vote types"
+msgstr "Types d'Avis"
+
+#. module: vote
+#: field:vote.model,vote_user_ids:0
+msgid "Vote users"
+msgstr "Utilisateurs d'Avis"
+
+#. module: vote
+#: field:vote.model,vote_voters:0
+msgid "Voters"
+msgstr "Aviseurs"
+
+#. module: vote
+#: field:res.partner,vote_ids:0
+#: field:vote.model,vote_vote_ids:0
+#: field:vote.vote,line_string:0
+#: view:vote.vote.line:vote.view_vote_vote_line_tree
+msgid "Votes"
+msgstr ""
+
+#. module: vote
+#: sql_constraint:vote.vote:0
+msgid "We can only have one feedback per record per partner"
+msgstr "Nous ne pouvons avoir qu'un Avis par enregistrement / partenaire"
+
+#. module: vote
+#: sql_constraint:vote.vote.line:0
+msgid "You can only have one feedback per type"
+msgstr "Nous ne pouvons avoir qu'un Avis par type"
+
+#. module: vote
+#: view:vote.vote:vote.view_vote_vote_form_admin
+msgid "[('user_ids','!=',False)]"
+msgstr ""

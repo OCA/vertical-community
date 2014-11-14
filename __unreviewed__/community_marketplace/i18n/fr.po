@@ -1,0 +1,23 @@
+# French translation for odoo-vertical-community
+# Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
+# This file is distributed under the same license as the odoo-vertical-community package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: odoo-vertical-community\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2014-10-28 12:26+0000\n"
+"PO-Revision-Date: 2014-11-14 00:54+0000\n"
+"Last-Translator: YannickB (YOLO consulting) <yannick.buron@gmail.com>\n"
+"Language-Team: French <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2014-11-14 11:56+0000\n"
+"X-Generator: Launchpad (build 17241)\n"
+
+#. module: community_marketplace
+#: model:ir.model,name:community_marketplace.model_res_groups
+msgid "Access Groups"
+msgstr "Groupes d'accès"
