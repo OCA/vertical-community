@@ -18,13 +18,9 @@
 #
 ##############################################################################
 
-import logging
-
-from openerp.osv import fields, osv, orm
+from openerp.osv import fields, osv
 from openerp import SUPERUSER_ID
 from openerp.tools.translate import _
-
-_logger = logging.getLogger(__name__)
 
 
 class ProjectTask(osv.osv):

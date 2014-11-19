@@ -18,13 +18,8 @@
 #
 ##############################################################################
 
-import logging
-
-from openerp.osv import fields, osv, orm
+from openerp.osv import fields, osv
 from openerp import SUPERUSER_ID
-from openerp.tools.translate import _
-
-_logger = logging.getLogger(__name__)
 
 
 class CommunityModuleConfiguration(osv.osv_memory):
@@ -183,5 +178,3 @@ class CommunityModuleConfiguration(osv.osv_memory):
         )
 
         return res
-
-

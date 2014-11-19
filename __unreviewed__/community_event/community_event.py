@@ -18,12 +18,7 @@
 #
 ##############################################################################
 
-import logging
-
-from openerp.osv import fields, osv, orm
-from openerp.tools.translate import _
-
-_logger = logging.getLogger(__name__)
+from openerp.osv import osv
 
 
 class GroupsView(osv.osv):
@@ -46,8 +41,8 @@ class GroupsView(osv.osv):
         res = super(GroupsView, self).\
             get_simplified_groups_by_application(cr, uid, context=context)
 
-        #We need to catch the exception for the community module installation,
-        #  the records are not created at this point
+        # We need to catch the exception for the community module installation,
+        # the records are not created at this point
         try:
             category = model.get_object(
                 cr, uid, 'event', 'module_category_event_management'
@@ -66,5 +61,3 @@ class GroupsView(osv.osv):
             pass
 
         return res
-
-

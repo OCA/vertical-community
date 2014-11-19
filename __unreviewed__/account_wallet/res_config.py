@@ -18,14 +18,7 @@
 #
 ##############################################################################
 
-import logging
-from datetime import datetime
-
-from openerp.osv import fields, osv, orm
-from openerp import SUPERUSER_ID
-from openerp import workflow
-from openerp.tools.translate import _
-
+from openerp.osv import fields, osv
 import openerp.addons.decimal_precision as dp
 
 
@@ -51,7 +44,7 @@ class CommunityConfigSettings(osv.osv):
     }
 
     #TODO
-    #Try to remove warning at module loading, but not working since
+    # Try to remove warning at module loading, but not working since
     #  xml is loaded after the table modification
     # _defaults = {
     #     'journal_id': lambda s,cr,uid,c:

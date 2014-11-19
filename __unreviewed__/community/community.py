@@ -18,12 +18,7 @@
 #
 ##############################################################################
 
-import logging
-
-from openerp.osv import fields, osv, orm
-from openerp.tools.translate import _
-
-_logger = logging.getLogger(__name__)
+from openerp.osv import osv
 
 
 class CommunityInit(osv.osv):

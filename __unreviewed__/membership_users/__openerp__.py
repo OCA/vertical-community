@@ -42,5 +42,5 @@ Add users management in the association part of Odoo
         'security/ir.model.access.csv',
         'membership_users_view.xml'
     ],
- 'installable': True,
+    'installable': True,
 }

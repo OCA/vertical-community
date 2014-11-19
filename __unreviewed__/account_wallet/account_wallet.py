@@ -18,17 +18,14 @@
 #
 ##############################################################################
 
-import logging
 from datetime import datetime
 
-from openerp.osv import fields, osv, orm
+from openerp.osv import fields, osv
 from openerp import SUPERUSER_ID
 from openerp import workflow
 from openerp.tools.translate import _
 
 import openerp.addons.decimal_precision as dp
-
-_logger = logging.getLogger(__name__)
 
 
 class AccountWalletCurrencyLine(osv.osv):

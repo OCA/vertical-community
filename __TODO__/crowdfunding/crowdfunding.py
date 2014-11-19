@@ -21,16 +21,7 @@
 
 import openerp.addons.decimal_precision as dp
 
-from openerp import netsvc
-from openerp import pooler
-from openerp import SUPERUSER_ID
-from openerp.osv import fields, osv, orm
-from openerp.tools.translate import _
-from datetime import datetime
-import base64
-
-import logging
-#_logger = logging.getLogger(__name__)
+from openerp.osv import fields, osv
 
 
 class CrowdfundingCampaign(osv.AbstractModel):
@@ -186,5 +177,3 @@ class CrowdfundingTransaction(osv.osv):
     _defaults = {
         'model_id': _default_model,
     }
-
-
