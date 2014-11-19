@@ -33,9 +33,8 @@ import logging
 #_logger = logging.getLogger(__name__)
 
 
-
-class project_project(osv.osv):
+class ProjectProject(osv.osv):
 
     _name = 'project.project'
-    _inherit = ['project.project','crowdfunding.campaign']
+    _inherit = ['project.project', 'crowdfunding.campaign']
 

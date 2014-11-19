@@ -38,17 +38,24 @@ class CommunityModuleConfiguration(osv.osv_memory):
 
     _columns = {
         'module_community_blog': fields.boolean('Install Blog module'),
-        # 'module_community_crowdfunding': fields.boolean('Install crowdfunding'),
+        # 'module_community_crowdfunding':
+        # fields.boolean('Install crowdfunding'),
         'module_community_crm': fields.boolean('Install CRM module'),
         'module_community_event': fields.boolean('Install Event module'),
         'module_community_forum': fields.boolean('Install Forum module'),
-        'module_community_marketplace': fields.boolean('Install Marketplace module'),
-        'wallet_chart': fields.selection([('l10n_fr_wallet', 'French chart of account')], string="Wallet Chart"),
+        'module_community_marketplace': fields.boolean(
+            'Install Marketplace module'
+        ),
+        'wallet_chart': fields.selection(
+            [
+                ('l10n_fr_wallet', 'French chart of account')
+            ], string="Wallet Chart"),
         'module_community_project': fields.boolean('Install Project module'),
     }
 
     def onchange_marketplace(self, cr, uid, ids, marketplace, context=None):
-        # Reset wallet chart with get_default value if we change the marketplace checkbox
+        # Reset wallet chart with get_default value if we
+        # change the marketplace checkbox
         res = {'value': {'wallet_chart': False}}
         default = self.get_default_wallet_chart(cr, uid, '', context=None)
         if default['wallet_chart'] and marketplace:
@@ -59,10 +66,13 @@ class CommunityModuleConfiguration(osv.osv_memory):
         # Get install wallet chart
         module_obj = self.pool.get('ir.module.module')
         installed_module_ids = module_obj.search(
-            cr, uid, [('state', 'in', ['installed', 'to upgrade'])], context=context
+            cr, uid, [('state', 'in', ['installed', 'to upgrade'])],
+            context=context
         )
         installed_modules = []
-        for module in module_obj.browse(cr, uid, installed_module_ids, context=context):
+        for module in module_obj.browse(
+                cr, uid, installed_module_ids, context=context
+        ):
             installed_modules.append(module.name)
         res = {'wallet_chart': False}
         if 'l10n_fr_wallet' in installed_modules:
@@ -74,9 +84,13 @@ class CommunityModuleConfiguration(osv.osv_memory):
         ir_module = self.pool['ir.module.module']
         config = self.browse(cr, uid, ids[0], context)
         if config.wallet_chart:
-            module_ids = ir_module.search(cr, uid, [('name', '=', config.wallet_chart)], context=context)
+            module_ids = ir_module.search(
+                cr, uid, [('name', '=', config.wallet_chart)], context=context
+            )
             if module_ids:
-                ir_module.button_immediate_install(cr, uid, module_ids, context=context)
+                ir_module.button_immediate_install(
+                    cr, uid, module_ids, context=context
+                )
 
     def execute(self, cr, uid, ids, context=None):
         # Install or uninstall specified modules
@@ -94,36 +108,48 @@ class CommunityModuleConfiguration(osv.osv_memory):
                 if module and module.state in ('installed', 'to upgrade'):
                     to_uninstall_ids.append(module.id)
 
-        res = super(CommunityModuleConfiguration, self).execute(cr, SUPERUSER_ID, ids, context=context)
+        res = super(CommunityModuleConfiguration, self).execute(
+            cr, SUPERUSER_ID, ids, context=context
+        )
 
         to_install_dependencies = []
         modules = []
         for module in to_install:
             modules.append(module[0])
         installed_module_ids = ir_module.search(
-            cr, uid, [('state', 'in', ['installed', 'to upgrade'])], context=context
+            cr, uid, [('state', 'in', ['installed', 'to upgrade'])],
+            context=context
         )
         installed_modules = []
-        for module in ir_module.browse(cr, uid, installed_module_ids, context=context):
+        for module in ir_module.browse(
+                cr, uid, installed_module_ids, context=context
+        ):
             installed_modules.append(module.name)
-        if 'community_marketplace' in modules and 'community_project' in installed_modules \
-                or 'community_project' in modules and 'community_marketplace' in installed_modules:
+        if 'community_marketplace' in modules and 'community_project' \
+                in installed_modules or 'community_project' in modules \
+                and 'community_marketplace' in installed_modules:
             to_install_dependencies.append('project_marketplace')
-        # if 'community_crowdfunding' in modules and 'community_project' in installed_modules \
-        #         or 'community_project' in modules and 'community_crowdfunding' in installed_modules:
+        # if 'community_crowdfunding' in modules and 'community_project'
+        # in installed_modules or 'community_project' in modules
+        # and 'community_crowdfunding' in installed_modules:
         #     to_install_dependencies.append('project_crowdfunding')
-        # if 'community_crowdfunding' in modules and 'community_marketplace' in installed_modules \
-        #         or 'community_marketplace' in modules and 'community_marketplace' in installed_modules:
+        # if 'community_crowdfunding' in modules and 'community_marketplace'
+        # in installed_modules or 'community_marketplace' in modules
+        # and 'community_marketplace' in installed_modules:
         #     to_install_dependencies.append('marketplace_crowdfunding')
 
         to_install_final = []
-        module_ids = ir_module.search(cr, uid, [('name', 'in', to_install_dependencies)], context=context)
+        module_ids = ir_module.search(
+            cr, uid, [('name', 'in', to_install_dependencies)], context=context
+        )
         for module in ir_module.browse(cr, uid, module_ids, context=context):
             to_install_final.append((module.name, module))
 
         to_uninstall_dependencies = []
         modules = []
-        for module in ir_module.browse(cr, uid, to_uninstall_ids, context=context):
+        for module in ir_module.browse(
+                cr, uid, to_uninstall_ids, context=context
+        ):
             modules.append(module.name)
         if 'community_blog' in modules:
             to_uninstall_dependencies.append('website_blog')
@@ -141,13 +167,20 @@ class CommunityModuleConfiguration(osv.osv_memory):
             to_uninstall_dependencies.append('project')
 
         to_uninstall_final_ids = []
-        module_ids = ir_module.search(cr, uid, [('name', 'in', to_uninstall_dependencies)], context=context)
+        module_ids = ir_module.search(
+            cr, uid, [('name', 'in', to_uninstall_dependencies)],
+            context=context
+        )
         for module in ir_module.browse(cr, uid, module_ids, context=context):
             to_uninstall_final_ids.append(module.id)
 
         if to_uninstall_ids:
-            ir_module.button_immediate_uninstall(cr, SUPERUSER_ID, to_uninstall_final_ids, context=context)
-        self._install_modules(cr, SUPERUSER_ID, to_install_final, context=context)
+            ir_module.button_immediate_uninstall(
+                cr, SUPERUSER_ID, to_uninstall_final_ids, context=context
+            )
+        self._install_modules(
+            cr, SUPERUSER_ID, to_install_final, context=context
+        )
 
         return res
 

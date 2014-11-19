@@ -35,23 +35,34 @@ class ProjectProject(osv.osv):
     _inherit = 'project.project'
 
     _columns = {
-        'team_id': fields.many2one('mail.group', 'Team', domain=[('type', '=', 'circle')])
+        'team_id': fields.many2one(
+            'mail.group', 'Team', domain=[('type', '=', 'circle')]
+        )
     }
 
     def create(self, cr, uid, vals, context=None):
         # On create, followers of the team automatically follow the project
         group_obj = self.pool.get('mail.group')
-        res = super(ProjectProject, self).create(cr, uid, vals, context=context)
+        res = super(ProjectProject, self).create(
+            cr, uid, vals, context=context
+        )
         if 'team_id' in vals:
-            group_obj._update_project_followers(cr, uid, [vals['team_id']], context=context)
+            group_obj._update_project_followers(
+                cr, uid, [vals['team_id']], context=context
+            )
         return res
 
     def write(self, cr, uid, ids, vals, context=None):
-        # If we change the team, followers of the new team automatically follow the project
+        # If we change the team, followers of the new team
+        # automatically follow the project
         group_obj = self.pool.get('mail.group')
-        res = super(ProjectProject, self).write(cr, uid, ids, vals, context=context)
+        res = super(ProjectProject, self).write(
+            cr, uid, ids, vals, context=context
+        )
         if 'team_id' in vals:
-            group_obj._update_project_followers(cr, uid, [vals['team_id']], context=context)
+            group_obj._update_project_followers(
+                cr, uid, [vals['team_id']], context=context
+            )
         return res
 
 
@@ -64,25 +75,37 @@ class ProjectTask(osv.osv):
     _inherit = 'project.task'
 
     def create(self, cr, uid, vals, context=None):
-        # On create, if assigned parter is a group his followers automatically follow the task
+        # On create, if assigned parter is a group his
+        # followers automatically follow the task
         partner_obj = self.pool.get('res.partner')
         group_obj = self.pool.get('mail.group')
         res = super(ProjectTask, self).create(cr, uid, vals, context=context)
         if 'assigned_partner_id' in vals:
-            partner = partner_obj.browse(cr, uid, vals['assigned_partner_id'], context=context)
+            partner = partner_obj.browse(
+                cr, uid, vals['assigned_partner_id'], context=context
+            )
             if partner.group_id:
-                group_obj._update_project_followers(cr, uid, [partner.group_id.id], context=context)
+                group_obj._update_project_followers(
+                    cr, uid, [partner.group_id.id], context=context
+                )
         return res
 
     def write(self, cr, uid, ids, vals, context=None):
-        # On change of assigned partner, if assigned parter is a group his followers automatically follow the task
+        # On change of assigned partner, if assigned parter
+        # is a group his followers automatically follow the task
         partner_obj = self.pool.get('res.partner')
         group_obj = self.pool.get('mail.group')
-        res = super(ProjectTask, self).write(cr, uid, ids, vals, context=context)
+        res = super(ProjectTask, self).write(
+            cr, uid, ids, vals, context=context
+        )
         if 'assigned_partner_id' in vals:
-            partner = partner_obj.browse(cr, uid, vals['assigned_partner_id'], context=context)
+            partner = partner_obj.browse(
+                cr, uid, vals['assigned_partner_id'], context=context
+            )
             if partner.group_id:
-                group_obj._update_project_followers(cr, uid, [partner.group_id.id], context=context)
+                group_obj._update_project_followers(
+                    cr, uid, [partner.group_id.id], context=context
+                )
         return res
 
 
@@ -98,7 +121,8 @@ class MailGroup(osv.osv):
     }
 
     def _update_project_followers(self, cr, uid, ids, context=None):
-        # Update followers on project and task linked with the follower of the group
+        # Update followers on project and task linked
+        # with the follower of the group
         project_obj = self.pool.get('project.project')
         task_obj = self.pool.get('project.task')
 
@@ -106,18 +130,26 @@ class MailGroup(osv.osv):
         for g in self.browse(cr, uid, ids, context=context):
             if g.partner_id:
                 partner_ids.append(g.partner_id.id)
-        partner_ids = [g.partner_id and g.partner_id.id for g in self.browse(cr, uid, ids, context=context)]
+        partner_ids = [g.partner_id and g.partner_id.id
+                       for g in self.browse(cr, uid, ids, context=context)]
 
         followers = self._get_followers(cr, uid, ids, '', '', context=context)
 
-        project_ids = project_obj.search(cr, uid, [('team_id', 'in', ids)], context=context)
+        project_ids = project_obj.search(
+            cr, uid, [('team_id', 'in', ids)], context=context
+        )
         projects = {}
-        for project in project_obj.browse(cr, uid, project_ids, context=context):
+        for project in project_obj.browse(
+                cr, uid, project_ids, context=context
+        ):
             if not project.team_id.id in projects:
                 projects[project.team_id.id] = []
             projects[project.team_id.id].append(project.id)
 
-        task_ids = task_obj.search(cr, uid, [('assigned_partner_id', 'in', partner_ids)], context=context)
+        task_ids = task_obj.search(
+            cr, uid, [('assigned_partner_id', 'in', partner_ids)],
+            context=context
+        )
         tasks = {}
         for task in task_obj.browse(cr, uid, task_ids, context=context):
             if not task.assigned_partner_id.id in tasks:
@@ -128,16 +160,20 @@ class MailGroup(osv.osv):
             if group.id in projects:
                 project_obj.message_subscribe(
                     cr, uid, projects[group.id],
-                    followers[group.id]['message_follower_ids'], context=context
+                    followers[group.id]['message_follower_ids'],
+                    context=context
                 )
             if group.id in tasks:
                 task_obj.message_subscribe(
                     cr, uid, tasks[group.id],
-                    followers[group.id]['message_follower_ids'], context=context
+                    followers[group.id]['message_follower_ids'],
+                    context=context
                 )
         return True
 
-    def message_subscribe(self, cr, uid, ids, partner_ids, subtype_ids=None, context={}):
+    def message_subscribe(
+            self, cr, uid, ids, partner_ids, subtype_ids=None, context={}
+    ):
         res = super(MailGroup, self).message_subscribe(
             cr, uid, ids, partner_ids,
             subtype_ids=subtype_ids, context=context

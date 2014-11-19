@@ -30,8 +30,10 @@ Project with Groups
 
 Integrate project with groups
 -----------------------------
-    * Project can be linked to circle, member of the circle automatically follow the project
-    * Task can be assigned to role, member of the role automatically follow the task
+    * Project can be linked to circle, member of the circle
+        automatically follow the project
+    * Task can be assigned to role, member of the role
+        automatically follow the task
 """,
     'website': 'https://github.com/YannickB/community-management',
     'depends': [

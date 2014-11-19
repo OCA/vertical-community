@@ -29,7 +29,8 @@ _logger = logging.getLogger(__name__)
 class ProjectTaskType(osv.osv):
 
     """
-    Specify the default assigned partner for each stage, and trigger config update on each project when changed
+    Specify the default assigned partner for each stage,
+    and trigger config update on each project when changed
     """
     _inherit = 'project.task.type'
 
@@ -53,17 +54,23 @@ class ProjectTaskType(osv.osv):
                 #_logger.info('projects will be recomputed')
                 for project in type.project_ids:
                     project_ids[project.id] = project.id
-            project_obj._update_stored_config(cr, uid, list(project_ids), context=context)
+            project_obj._update_stored_config(
+                cr, uid, list(project_ids), context=context
+            )
 
     def create(self, cr, uid, vals, context=None):
         # Trigger update config on create
-        res = super(ProjectTaskType, self).create(cr, uid, vals, context=context)
+        res = super(ProjectTaskType, self).create(
+            cr, uid, vals, context=context
+        )
         self._update_assigned_partner(cr, uid, [res], vals, context=context)
         return res
 
     def write(self, cr, uid, ids, vals, context=None):
         # Trigger update config on write
-        res = super(ProjectTaskType, self).write(cr, uid, ids, vals, context=context)
+        res = super(ProjectTaskType, self).write(
+            cr, uid, ids, vals, context=context
+        )
         self._update_assigned_partner(cr, uid, ids, vals, context=context)
         return res
 
@@ -71,7 +78,8 @@ class ProjectTaskType(osv.osv):
 class ProjectAssignedPartnerModel(osv.AbstractModel):
 
     """
-    Abstract class used by project and task to create config lines. Inherit base.config.inherit.model.
+    Abstract class used by project and task to create config lines.
+    Inherit base.config.inherit.model.
     """
 
     _name = 'project.assigned.partner.model'
@@ -84,13 +92,17 @@ class ProjectAssignedPartnerModel(osv.AbstractModel):
     _columns = {
         'assigned_partner_config_ids': fields.one2many(
             'project.assigned.partner.config', 'res_id',
-            domain=lambda self: [('model', '=', self._name), ('stored', '=', False)],
+            domain=lambda self: [
+                ('model', '=', self._name), ('stored', '=', False)
+            ],
             auto_join=True,
             string='Assigned Partner configuration'
         ),
         'assigned_partner_config_result_ids': fields.one2many(
             'project.assigned.partner.config', 'res_id',
-            domain=lambda self: [('model', '=', self._name), ('stored', '=', True)],
+            domain=lambda self: [
+                ('model', '=', self._name), ('stored', '=', True)
+            ],
             auto_join=True,
             string='Assigned Partner', readonly=True
         ),
@@ -102,9 +114,11 @@ class ProjectAssignedPartnerModel(osv.AbstractModel):
             'model': self._name,
             'res_id': id,
             'stage_id': 'stage_id' in record and record.stage_id.id or False,
-            'partner_id': 'partner_id' in record and record.partner_id.id or False,
+            'partner_id': 'partner_id' in record
+                          and record.partner_id.id or False,
             'sequence': 'sequence' in record
-                        and record.sequence or 'stage_id' in record and record.stage_id.sequence or False,
+                        and record.sequence or 'stage_id' in record
+                        and record.stage_id.sequence or False,
             'stored': True
         }
 
@@ -142,13 +156,20 @@ class ProjectProject(osv.osv):
         # Get project childs
         analytic_ids = {}
         for project in self.browse(cr, uid, ids, context=context):
-            analytic_ids[project.analytic_account_id.id] = project.analytic_account_id.id
-        return self.search(cr, uid, [('parent_id', 'in', list(analytic_ids))], context=context)
+            analytic_ids[project.analytic_account_id.id] = \
+                project.analytic_account_id.id
+        return self.search(cr, uid, [
+            ('parent_id', 'in', list(analytic_ids))
+        ], context=context)
 
-    def _update_stored_config_external_children(self, cr, uid, ids, context=None):
+    def _update_stored_config_external_children(
+            self, cr, uid, ids, context=None
+    ):
         # Trigger update config in tasks linked to this project
         task_obj = self.pool.get('project.task')
-        task_ids = task_obj.search(cr, uid, [('project_id', 'in', ids)], context=context)
+        task_ids = task_obj.search(
+            cr, uid, [('project_id', 'in', ids)], context=context
+        )
         task_obj._update_stored_config(cr, uid, task_ids, context=context)
         return True
 
@@ -156,7 +177,8 @@ class ProjectProject(osv.osv):
 class ProjectTask(osv.osv):
 
     """
-    Add assignment fields in project.task and recompute assigned partner when we change stage
+    Add assignment fields in project.task and recompute
+    assigned partner when we change stage
     """
 
     _name = 'project.task'
@@ -172,7 +194,9 @@ class ProjectTask(osv.osv):
         res = {}
         if record.project_id:
             for config in record.project_id.assigned_partner_config_result_ids:
-                res[config.stage_id.id] = self._prepare_config(cr, uid, record.id, config, vals={}, context=context)
+                res[config.stage_id.id] = self._prepare_config(
+                    cr, uid, record.id, config, vals={}, context=context
+                )
         return res
 
     def _update_assigned_partner(self, cr, uid, ids, vals, context=None):
@@ -193,13 +217,17 @@ class ProjectTask(osv.osv):
                         vals['assigned_partner_id'] = config.partner_id.id
 
         if 'assigned_partner_id' in vals:
-            partner = self.pool.get('res.partner').browse(cr, uid, vals['assigned_partner_id'], context=context)
+            partner = self.pool.get('res.partner').browse(
+                cr, uid, vals['assigned_partner_id'], context=context
+            )
             if partner.user_ids:
                 vals['user_id'] = partner.user_ids[0].id
             else:
                 vals['user_id'] = False
         if 'reviewer_partner_id' in vals:
-            partner = self.pool.get('res.partner').browse(cr, uid, vals['reviewer_partner_id'], context=context)
+            partner = self.pool.get('res.partner').browse(
+                cr, uid, vals['reviewer_partner_id'], context=context
+            )
             if partner.user_ids:
                 vals['reviewer_id'] = partner.user_ids[0].id
             else:
@@ -215,8 +243,12 @@ class ProjectTask(osv.osv):
 
     def write(self, cr, uid, ids, vals, context=None):
         # Trigger the function to update the assigned partner on write
-        vals = self._update_assigned_partner(cr, uid, ids, vals, context=context)
-        res = super(ProjectTask, self).write(cr, uid, ids, vals, context=context)
+        vals = self._update_assigned_partner(
+            cr, uid, ids, vals, context=context
+        )
+        res = super(ProjectTask, self).write(
+            cr, uid, ids, vals, context=context
+        )
         return res
 
 
@@ -230,6 +262,8 @@ class ProjectAssignedPartnerConfig(osv.osv):
     _inherit = 'base.config.inherit.line'
 
     _columns = {
-        'stage_id': fields.many2one('project.task.type', 'Stage', required=True),
+        'stage_id': fields.many2one(
+            'project.task.type', 'Stage', required=True
+        ),
         'partner_id': fields.many2one('res.partner', 'Assigned Partner'),
     }

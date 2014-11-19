@@ -57,21 +57,27 @@ class MailGroup(osv.osv):
             ('circle', 'Circle'),
             ('role', 'Role')
         ], 'Type', required=True),
-        'parent_id': fields.many2one('mail.group', 'Parent', select=True, ondelete='cascade'),
+        'parent_id': fields.many2one(
+            'mail.group', 'Parent', select=True, ondelete='cascade'
+        ),
         'partner_id': fields.many2one('res.partner', 'Partner'),
         'child_ids': fields.one2many('mail.group', 'parent_id', 'Childs'),
         'sequence': fields.integer(
             'Sequence', select=True,
             help="Sets the displaying sequence order for a group list."
         ),
-        'right_ids': fields.many2many('mail.group.right', 'mail_group_rights', 'group_id', 'right_id', 'Rights'),
+        'right_ids': fields.many2many(
+            'mail.group.right', 'mail_group_rights',
+            'group_id', 'right_id', 'Rights'
+        ),
         'partner_invitation_ids': fields.many2many(
             'res.partner', 'mail_group_partner_invitations',
             'group_id', 'partner_id', 'Partners invitation', readonly=True
         ),
         'partner_group_management_ids': fields.many2many(
             'res.partner', 'mail_group_partner_group_management',
-            'group_id', 'partner_id', 'Partners group management', readonly=True
+            'group_id', 'partner_id', 'Partners group management',
+            readonly=True
         ),
     }
 
@@ -95,7 +101,9 @@ class MailGroup(osv.osv):
         partner_obj = self.pool.get('res.partner')
         for group in self.browse(cr, uid, ids):
             if not group.partner_id:
-                partner_id = partner_obj.create(cr, uid, {'name': group.name, 'group_id': group.id})
+                partner_id = partner_obj.create(
+                    cr, uid, {'name': group.name, 'group_id': group.id}
+                )
                 self.write(cr, uid, [group.id], {'partner_id': partner_id})
         return True
 
@@ -104,13 +112,19 @@ class MailGroup(osv.osv):
         partner_obj = self.pool.get('res.partner')
         res = super(MailGroup, self).create(cr, uid, vals, context=context)
         if 'parent_id' in vals and vals['parent_id']:
-            self.update_followers(cr, uid, [vals['parent_id']], context=context)
+            self.update_followers(
+                cr, uid, [vals['parent_id']], context=context
+            )
         if 'partner_id' in vals:
-            partner_obj.write(cr, uid, [vals['partner_id']], {'group_id': False}, context=context)
+            partner_obj.write(
+                cr, uid, [vals['partner_id']], {'group_id': False},
+                context=context
+            )
         return res
 
     def write(self, cr, uid, ids, vals, context=None):
-        # Refresh followers list and partner linked when partner_id or parent_id change
+        # Refresh followers list and partner linked
+        # when partner_id or parent_id change
         partner_obj = self.pool.get('res.partner')
         old_parent_ids = []
 
@@ -130,14 +144,23 @@ class MailGroup(osv.osv):
 
         if 'partner_id' in vals:
             if vals['partner_id']:
-                partner_obj.write(cr, uid, [vals['partner_id']], {'group_id': False}, context=context)
+                partner_obj.write(
+                    cr, uid, [vals['partner_id']],
+                    {'group_id': False}, context=context
+                )
             if old_partner_ids:
-                partner_obj.write(cr, uid, old_partner_ids, {'group_id': False}, context=context)
+                partner_obj.write(
+                    cr, uid, old_partner_ids,
+                    {'group_id': False}, context=context
+                )
 
         if 'name' in vals:
             for group in self.browse(cr, uid, ids, context=context):
                 if group.partner_id:
-                    partner_obj.write(cr, uid, [group.partner_id.id], {'name': vals['name']}, context=context)
+                    partner_obj.write(
+                        cr, uid, [group.partner_id.id],
+                        {'name': vals['name']}, context=context
+                    )
         return res
 
     def get_right_from_children(self, cr, uid, ids, context=None):
@@ -159,17 +182,22 @@ class MailGroup(osv.osv):
 
                 for right in rights:
                     if right in child_rights:
-                        res[group.id][right.code].extend([u.id for u in child.message_follower_ids])
+                        res[group.id][right.code].extend(
+                            [u.id for u in child.message_follower_ids]
+                        )
 
             for right in rights:
                 #deduplicate
-                res[group.id][right.code] = list(set(res[group.id][right.code]))
+                res[group.id][right.code] = list(
+                    set(res[group.id][right.code])
+                )
 
         return res
 
     def update_followers(self, cr, uid, ids, context={}):
-        # Update the followers for specified groups but also his children and his parents. This function is
-        #  recursive on the up side and then update rights on children if the group has no parents
+        # Update the followers for specified groups but also his children
+        # and his parents. This function is recursive on the up side and
+        #  then update rights on children if the group has no parents
         context['in_recursivity'] = True
 
         rights = self.get_right_from_children(cr, uid, ids, context=context)
@@ -190,7 +218,8 @@ class MailGroup(osv.osv):
                 for child in group.child_ids:
                     self.message_subscribe(
                         cr, uid, [group.id],
-                        [p.id for p in child.message_follower_ids], context=context
+                        [p.id for p in child.message_follower_ids],
+                        context=context
                     )
             if group.parent_id:
                 parent_ids.append(group.parent_id.id)
@@ -201,22 +230,27 @@ class MailGroup(osv.osv):
             self.update_followers(cr, uid, parent_ids, context=context)
 
         if group_without_parent_ids:
-            self.update_rights_descendant(cr, uid, group_without_parent_ids, rights, context=context)
+            self.update_rights_descendant(
+                cr, uid, group_without_parent_ids, rights, context=context
+            )
 
     def update_rights_descendant(self, cr, uid, ids, rights, context=None):
-        # Called by groups without parent to update rights of all children groups. Recursive function
+        # Called by groups without parent to update rights of
+        # all children groups. Recursive function
 
         child_ids = []
         child_rights = self.get_right_from_children(
             cr, uid,
-            [c.id for group in self.browse(cr, uid, ids, context=context) for c in group.child_ids], context=context
+            [c.id for group in self.browse(cr, uid, ids, context=context)
+             for c in group.child_ids], context=context
         )
         for group in self.browse(cr, uid, ids, context=context):
 
             for child in group.child_ids:
                 child_ids.append(child.id)
                 vals = {}
-                for right, partner_from_group_ids in rights[group.id].iteritems():
+                for right, partner_from_group_ids \
+                        in rights[group.id].iteritems():
                     partner_ids = child_rights[child.id][right]
                     partner_ids += partner_from_group_ids
                     child_rights[child.id][right] += partner_from_group_ids
@@ -225,24 +259,41 @@ class MailGroup(osv.osv):
                 self.write(cr, uid, [child.id], vals, context=context)
 
         if child_ids:
-            self.update_rights_descendant(cr, uid, child_ids, child_rights, context=context)
+            self.update_rights_descendant(
+                cr, uid, child_ids, child_rights, context=context
+            )
 
-    def message_subscribe(self, cr, uid, ids, partner_ids, subtype_ids=None, context={}):
-        # Override message_subscribe to recompute followers on parents when someone subscribe to a group
+    def message_subscribe(
+            self, cr, uid, ids, partner_ids, subtype_ids=None, context={}
+    ):
+        # Override message_subscribe to recompute followers on parents
+        # when someone subscribe to a group
         res = super(MailGroup, self).message_subscribe(
             cr, uid, ids, partner_ids,
             subtype_ids=subtype_ids, context=context
         )
         for group in self.browse(cr, uid, ids, context=context):
-            if not 'in_recursivity' in context or 'in_recursivity' in context and not context['in_recursivity']:
-                self.update_followers(cr, SUPERUSER_ID, [group.id], context=context)
+            if not 'in_recursivity' in context or 'in_recursivity' \
+                    in context and not context['in_recursivity']:
+                self.update_followers(
+                    cr, SUPERUSER_ID, [group.id], context=context
+                )
 
     def message_unsubscribe(self, cr, uid, ids, partner_ids, context={}):
-        # Override message_subscribe to recompute followers on parents when someone unsubscribe from a group
-        res = super(MailGroup, self).message_unsubscribe(cr, uid, ids, partner_ids, context=context)
-        for group in self.browse(cr, uid, ids, context=context):
-            if not 'in_recursivity' in context or 'in_recursivity' in context and not context['in_recursivity']:
-                self.update_followers(cr, SUPERUSER_ID, [group.id], context=context)
+        # Override message_subscribe to recompute followers on parents
+        # when someone unsubscribe from a group
+        res = super(MailGroup, self).message_unsubscribe(
+            cr, uid, ids, partner_ids, context=context
+        )
+        for group in self.browse(
+                cr, uid, ids, context=context
+        ):
+            if not 'in_recursivity' in context \
+                    or 'in_recursivity' in context \
+                    and not context['in_recursivity']:
+                self.update_followers(
+                    cr, SUPERUSER_ID, [group.id], context=context
+                )
 
 
 class ResPartner(osv.osv):
@@ -254,14 +305,17 @@ class ResPartner(osv.osv):
     _inherit = 'res.partner'
 
     def _get_group(self, cr, uid, ids, prop, unknow_none, context=None):
-        # Get the group linked to the partner. We use a function field on the partner side to simulate a one2one
+        # Get the group linked to the partner.
+        # We use a function field on the partner side to simulate a one2one
         group_obj = self.pool.get('mail.group')
 
         res = {}
         for partner in self.browse(cr, uid, ids, context=context):
             res[partner.id] = False
 
-            group_ids = group_obj.search(cr, uid, [('partner_id', '=', partner.id)], context=context)
+            group_ids = group_obj.search(
+                cr, uid, [('partner_id', '=', partner.id)], context=context
+            )
             if group_ids:
                 res[partner.id] = group_ids[0]
 

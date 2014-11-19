@@ -35,22 +35,34 @@ class GroupsView(osv.osv):
     _inherit = 'res.groups'
 
     def get_simplified_groups_by_application(self, cr, uid, context=None):
-        """ return all groups classified by application (module category), as a list of pairs:
-                [(app, kind, [group, ...]), ...],
-            where app and group are browse records, and kind is either 'boolean' or 'selection'.
-            Applications are given in sequence order.  If kind is 'selection', the groups are
-            given in reverse implication order.
+        """ return all groups classified by application (module category),
+        as a list of pairs: [(app, kind, [group, ...]), ...],
+        where app and group are browse records, and kind is either 'boolean'
+        or 'selection'. Applications are given in sequence order. If kind is
+        'selection', the groups are given in reverse implication order.
         """
         model = self.pool.get('ir.model.data')
 
-        res = super(GroupsView, self).get_simplified_groups_by_application(cr, uid, context=context)
+        res = super(GroupsView, self).get_simplified_groups_by_application(
+            cr, uid, context=context
+        )
 
-        #We need to catch the exception for the community module installation, the records are not created at this point
+        #We need to catch the exception for the community module installation,
+        # the records are not created at this point
         try:
-            category = model.get_object(cr, uid, 'base', 'module_category_project_management')
-            group_project_user = model.get_object(cr, uid, 'project', 'group_project_user')
-            group_project_manager = model.get_object(cr, uid, 'project', 'group_project_manager')
-            res.append((category, 'selection', [group_project_user, group_project_manager]))
+            category = model.get_object(
+                cr, uid, 'base', 'module_category_project_management'
+            )
+            group_project_user = model.get_object(
+                cr, uid, 'project', 'group_project_user'
+            )
+            group_project_manager = model.get_object(
+                cr, uid, 'project', 'group_project_manager'
+            )
+            res.append((
+                category, 'selection',
+                [group_project_user, group_project_manager]
+            ))
 
         except ValueError:
             pass

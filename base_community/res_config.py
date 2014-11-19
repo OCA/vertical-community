@@ -29,7 +29,8 @@ _logger = logging.getLogger(__name__)
 class CommunityConfigSettings(osv.osv):
 
     """
-    Community setting which will be used to contain all configuration fields on the community theme
+    Community setting which will be used to contain all configuration
+    fields on the community theme
     """
 
     _name = 'community.config.settings'

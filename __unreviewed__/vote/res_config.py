@@ -57,7 +57,9 @@ class CommunityConfigSettings(osv.osv):
 
     def write(self, cr, uid, ids, vals, context=None):
         # On write, all object linked to the vote are updated
-        res = super(CommunityConfigSettings, self).write(cr, uid, ids, vals, context=context)
+        res = super(CommunityConfigSettings, self).write(
+            cr, uid, ids, vals, context=context
+        )
 
         models = {}
         for config in self.browse(cr, uid, ids, context=context):
@@ -66,8 +68,12 @@ class CommunityConfigSettings(osv.osv):
 
         for model in models:
             model_obj = self.pool.get(model)
-            model_ids = model_obj.search(cr, uid, [('parent_id', '=', False)], context=context)
-            model_obj._update_stored_config(cr, uid, model_ids, context=context)
+            model_ids = model_obj.search(
+                cr, uid, [('parent_id', '=', False)], context=context
+            )
+            model_obj._update_stored_config(
+                cr, uid, model_ids, context=context
+            )
         return res
 
 
@@ -81,7 +87,9 @@ class VoteConfigLine(osv.osv):
     _inherit = 'base.config.inherit.line'
 
     _columns = {
-        'target_model': fields.many2one('ir.model', 'Target model', ondelete='cascade'),
+        'target_model': fields.many2one(
+            'ir.model', 'Target model', ondelete='cascade'
+        ),
         'name': fields.many2one('vote.type', 'Name', required=True),
     }
 

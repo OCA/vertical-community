@@ -28,13 +28,14 @@
 Account Wallet.
 ===============
 
-Allow each partners to have a wallet linked to their account, and to make transactions between them.
------------------------------------------------------------------------------------------------------
+Allow each partners to have a wallet and make transactions between them.
+------------------------------------------------------------------------
     * Transactions between partners
     * Based on accounting entries
     * Multi-currency and configurable account chart
     * Limits management
-    * Display balances on the partner record, with possible override of limit and accounts used
+    * Display balances on the partner record, with possible
+        override of limit and accounts used
 """,
     'website': 'https://github.com/YannickB/community-management',
     'depends': [

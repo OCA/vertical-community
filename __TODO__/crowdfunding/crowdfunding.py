@@ -33,12 +33,10 @@ import logging
 #_logger = logging.getLogger(__name__)
 
 
-
-class crowdfunding_campaign(osv.AbstractModel):
+class CrowdfundingCampaign(osv.AbstractModel):
 
     _name = 'crowdfunding.campaign'
     _description = 'Campaign'
-
 
     def _get_price_name(self, cr, uid, ids, prop, unknow_none, context=None):
         res = {}
@@ -52,32 +50,52 @@ class crowdfunding_campaign(osv.AbstractModel):
             res[campaign.id] = ''
         return res
 
-
     _columns = {
         'crowdfunding': fields.boolean('Launch a crowdfunding campaign?'),
         'crowdfunding_description': fields.text('Crowdfunding description'),
-        'crowdfunding_currency_mode': fields.selection([('one','Only one currency'),('all','All currency')], 'Currency mode', required=True, help="Specify the currency mode, if you select one then you'll get the currency when a goal for one currency if attein but you'll lose all other currency. If you select all, you must atteign each goal for each currency but you'll win all the currency"),
+        'crowdfunding_currency_mode': fields.selection(
+            [('one', 'Only one currency'), ('all', 'All currency')],
+            'Currency mode', required=True,
+            help="Specify the currency mode, if you select one then you'll get"
+            " the currency when a goal for one currency if attein but "
+            "you'll lose all other currency. If you select all, "
+            "you must atteign each goal for each currency but "
+            "you'll win all the currency"
+        ),
         'crowdfunding_date_limit': fields.datetime('Limit date'),
-        'crowdfunding_total': fields.function(_get_price_name, string='Total', type="char", size=64, digits_compute= dp.get_precision('Account'), store=True, readonly=True),
-        'crowdfunding_currency_ids': fields.one2many('account.wallet.currency.line', 'res_id',
-            domain=lambda self: [('model', '=', self._name),('field','=','crowdfunding_currency_ids')],
-            auto_join=True,
-            string='Currencies'),
-        'crowdfunding_reward_ids': fields.one2many('crowdfunding.reward', 'res_id',
+        'crowdfunding_total': fields.function(
+            _get_price_name, string='Total', type="char",
+            size=64, digits_compute=dp.get_precision('Account'),
+            store=True, readonly=True
+        ),
+        'crowdfunding_currency_ids': fields.one2many(
+            'account.wallet.currency.line', 'res_id',
+            domain=lambda self: [
+                ('model', '=', self._name),
+                ('field', '=', 'crowdfunding_currency_ids')
+            ],
+            auto_join=True, string='Currencies'
+        ),
+        'crowdfunding_reward_ids': fields.one2many(
+            'crowdfunding.reward', 'res_id',
             domain=lambda self: [('model', '=', self._name)],
             auto_join=True,
             string='Rewards'),
-        'crowdfunding_transaction_ids': fields.one2many('crowdfunding.transaction', 'res_id',
+        'crowdfunding_transaction_ids': fields.one2many(
+            'crowdfunding.transaction', 'res_id',
             domain=lambda self: [('model', '=', self._name)],
             auto_join=True,
             string='Transactions'),
-        'crowdfunding_funded': fields.function(_get_funded, string="Funded?", type="boolean", store=True, readonly=True),
+        'crowdfunding_funded': fields.function(
+            _get_funded,
+            string="Funded?", type="boolean", store=True, readonly=True
+        ),
         'crowdfunding_state': fields.selection([
-            ('draft','Draft'),
-            ('open','Open'),
-            ('done','Closed'),
-            ('cancel','Cancelled'),
-            ],'Status', readonly=True, required=True),
+            ('draft', 'Draft'),
+            ('open', 'Open'),
+            ('done', 'Closed'),
+            ('cancel', 'Cancelled'),
+        ], 'Status', readonly=True, required=True),
     }
 
     _defaults = {
@@ -85,11 +103,11 @@ class crowdfunding_campaign(osv.AbstractModel):
         'crowdfunding_state': 'draft'
     }
 
-class crowdfunding_reward(osv.osv):
+
+class CrowdfundingReward(osv.osv):
 
     _name = 'crowdfunding.reward'
     _description = 'Reward'
-
 
     def _get_price_name(self, cr, uid, ids, prop, unknow_none, context=None):
         res = {}
@@ -97,29 +115,45 @@ class crowdfunding_reward(osv.osv):
             res[reward.id] = ''
         return res
 
-    def _get_qty_available(self, cr, uid, ids, prop, unknow_none, context=None):
+    def _get_qty_available(
+            self, cr, uid, ids, prop, unknow_none, context=None
+    ):
         res = {}
         for reward in self.browse(cr, uid, ids, context=context):
             res[reward.id] = ''
         return res
-
 
     _columns = {
         'model': fields.char('Related Document Model', size=128, select=1),
         'res_id': fields.integer('Related Document ID', select=1),
         'name': fields.char('Name', size=128, required=True),
         'description': fields.text('Description'),
-        'total': fields.function(_get_price_name, string='Total', type="char", size=64, digits_compute= dp.get_precision('Account'), store=True, readonly=True),
-        'currency_ids': fields.one2many('account.wallet.currency.line', 'res_id',
-            domain=lambda self: [('model', '=', self._name),('field','=','currency_ids')],
+        'total': fields.function(
+            _get_price_name, string='Total', type="char", size=64,
+            digits_compute=dp.get_precision('Account'),
+            store=True, readonly=True
+        ),
+        'currency_ids': fields.one2many(
+            'account.wallet.currency.line', 'res_id',
+            domain=lambda self: [
+                ('model', '=', self._name), ('field', '=', 'currency_ids')
+            ],
             auto_join=True,
-            string='Currencies'),
+            string='Currencies'
+        ),
         'quantity': fields.integer('Quantity'),
-        'quantity_available': fields.function(_get_qty_available, type="integer", string="Available", readonly=True),
-        'partner_ids': fields.many2many('res.partner', 'crowdfunding_reward_partner_rel', 'reward_id', 'partner_id', 'Partners'),
+        'quantity_available': fields.function(
+            _get_qty_available, type="integer",
+            string="Available", readonly=True
+        ),
+        'partner_ids': fields.many2many(
+            'res.partner', 'crowdfunding_reward_partner_rel',
+            'reward_id', 'partner_id', 'Partners'
+        ),
     }
 
-class crowdfunding_transaction(osv.osv):
+
+class CrowdfundingTransaction(osv.osv):
 
     _name = 'crowdfunding.transaction'
     _description = 'Transaction'
@@ -128,20 +162,25 @@ class crowdfunding_transaction(osv.osv):
     _columns = {
         'model': fields.char('Related Document Model', size=128, select=1),
         'res_id': fields.integer('Related Document ID', select=1),
-        'crowfunding_transfer_anyway': fields.boolean('The receiver will be able to get the currency even without atteigning the goal'),
+        'crowfunding_transfer_anyway': fields.boolean(
+            'The receiver will be able to get the currency'
+            ' even without atteigning the goal'
+        ),
         'state': fields.selection([
-            ('draft','Draft'),
-            ('open','Open'),
-            ('confirm','Confirm'),
-            ('paid','Paid'),
-            ('confirm_refund','Refund payment confirmation'),
-            ('cancel','Cancelled')], readonly=True, required=True),
+            ('draft', 'Draft'),
+            ('open', 'Open'),
+            ('confirm', 'Confirm'),
+            ('paid', 'Paid'),
+            ('confirm_refund', 'Refund payment confirmation'),
+            ('cancel', 'Cancelled')], readonly=True, required=True),
     }
 
     def _default_model(self, cr, uid, context=None):
 
         proxy = self.pool.get('ir.model.data')
-        result = proxy.get_object_reference(cr, uid, 'crowdfunding', 'model_crowdfunding_transaction')
+        result = proxy.get_object_reference(
+            cr, uid, 'crowdfunding', 'model_crowdfunding_transaction'
+        )
         return result[1]
 
     _defaults = {

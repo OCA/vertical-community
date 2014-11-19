@@ -30,24 +30,33 @@ _logger = logging.getLogger(__name__)
 class MarketplaceAnnouncement(osv.osv):
 
     """
-    Make sure the users who has wallet right on the group has the corresponding rights on the announcement.
+    Make sure the users who has wallet right on the group has
+    the corresponding rights on the announcement.
     Also, announcement can now be made in the context of a group.
     """
 
     _inherit = 'marketplace.announcement'
 
     def _get_user_role(self, cr, uid, ids, prop, unknow_none, context=None):
-        res = super(MarketplaceAnnouncement, self)._get_user_role(cr, uid, ids, prop, unknow_none, context=context)
-        partner_id = self.pool.get('res.users').browse(cr, uid, uid, context=context).partner_id.id
+        res = super(MarketplaceAnnouncement, self)._get_user_role(
+            cr, uid, ids, prop, unknow_none, context=context
+        )
+        partner_id = self.pool.get('res.users').browse(
+            cr, uid, uid, context=context
+        ).partner_id.id
         for announcement in self.browse(cr, uid, ids, context=context):
-            if announcement.partner_id.group_id \
-                    and partner_id in [p.id for p in announcement.partner_id.group_id.partner_wallet_ids]:
+            if announcement.partner_id.group_id and partner_id in \
+                [p.id for p in
+                 announcement.partner_id.group_id.partner_wallet_ids]:
                 res[announcement.id]['is_user'] = True
         return res
 
     _columns = {
         'context_group_ids': fields.many2many(
-            'mail.group', 'marketplace_announcement_group_rel', 'announcement_id', 'group_id', 'Groups'
+            'mail.group', 'marketplace_announcement_group_rel',
+            'announcement_id', 'group_id', 'Groups'
         ),
-        'is_user': fields.function(_get_user_role, type="boolean", string="Is user?", multi='role'),
+        'is_user': fields.function(
+            _get_user_role, type="boolean", string="Is user?", multi='role'
+        ),
     }
