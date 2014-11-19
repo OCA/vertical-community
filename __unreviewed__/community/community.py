@@ -57,7 +57,7 @@ class GroupsView(osv.osv):
             cr, uid, context=context
         )
 
-        #We need to catch the exception for the community module installation,
+        # We need to catch the exception for the community module installation,
         # the records are not created at this point
         try:
             category = model.get_object(
