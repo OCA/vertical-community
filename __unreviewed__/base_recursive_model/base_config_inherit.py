@@ -95,7 +95,6 @@ class BaseConfigInheritModel(osv.AbstractModel):
         )
         config_del_obj.unlink(cr, uid, config_del_ids, context=context)
 
-        res = {}
         for record in self.browse(cr, uid, ids, context=context):
 
             config_lines = {}

@@ -38,7 +38,7 @@ class AccountWalletCurrencyLine(osv.osv):
     _description = 'Currency line'
 
     def _get_subtotal(self, cr, uid, ids, field_name, arg, context=None):
-        #Compute the total value which will be transfer
+        # Compute the total value which will be transfer
         # for the specified currency
         res = {}
         for currency in self.browse(cr, uid, ids, context=context):
@@ -226,7 +226,7 @@ class AccountWalletTransaction(osv.osv):
                 cr, uid, 'product', 'product_uom_unit'
             )
             return result[1]
-        except Exception, ex:
+        except Exception:
             return False
 
     def _default_model(self, cr, uid, context=None):
@@ -301,9 +301,9 @@ class AccountWalletTransaction(osv.osv):
                 move_line_obj._remove_move_reconcile(
                     cr, uid, [line.id], context=context
                 )
-                if not line.account_id.id in res:
+                if line.account_id.id not in res:
                     res[line.account_id.id] = {}
-                if not line.partner_id.id in res[line.account_id.id]:
+                if line.partner_id.id not in res[line.account_id.id]:
                     res[line.account_id.id][line.partner_id.id] = {}
                     res[line.account_id.id][
                         line.partner_id.id
@@ -758,7 +758,7 @@ class ResPartner(osv.osv):
         for partner_currency in partner_currency_obj.browse(
                 cr, uid, partner_currency_ids, context=context
         ):
-            if not partner_currency.partner_id.id in partner_currency_limits:
+            if partner_currency.partner_id.id not in partner_currency_limits:
                 partner_currency_limits[partner_currency.partner_id.id] = {}
             partner_currency_limits[
                 partner_currency.partner_id.id
@@ -828,7 +828,7 @@ class ResPartner(osv.osv):
         for partner_currency in partner_currency_obj.browse(
                 cr, uid, partner_currency_ids, context=context
         ):
-            if not partner_currency.currency_id.id in partner_currencies:
+            if partner_currency.currency_id.id not in partner_currencies:
                 partner_currencies[partner_currency.currency_id.id] = {}
             accounts = {
                 'available': False
@@ -868,9 +868,9 @@ class ResPartner(osv.osv):
                 currency_id = company_currency_id
             if val is None:
                 val = 0
-            if not currency_id in res:
+            if currency_id not in res:
                 res[currency_id] = {}
-            if not pid in res[currency_id]:
+            if pid not in res[currency_id]:
                 res[currency_id][pid] = {}
             res[currency_id][pid][account_id] = val
 
@@ -1061,7 +1061,7 @@ class ResPartnerWalletBalance(osv.osv):
         )
     }
 
-    #TODO
+    # TODO
     # I can't activate this constraint because it cause bugs with tests
     # _sql_constraints = [
     #    ('balance', 'unique(partner_id,currency_id)',

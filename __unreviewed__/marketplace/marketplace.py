@@ -299,7 +299,7 @@ class MarketplaceAnnouncement(osv.osv):
                 cr, uid, 'product', 'product_uom_unit'
             )
             return result[1]
-        except Exception, ex:
+        except Exception:
             return False
 
     def _default_currency_ids(self, cr, uid, context=None):
@@ -431,7 +431,6 @@ class MarketplaceAnnouncement(osv.osv):
     def change_state(self, cr, uid, ids, new_state, *args):
         # Called by workflow, launch needed action depending of the next state
         for announcement in self.browse(cr, uid, ids):
-            #_logger.info('uid %s, new_state %s', uid, new_state)
             fields = {'state': new_state}
             self.write(cr, uid, [announcement.id], fields)
 
@@ -892,8 +891,6 @@ class MarketplaceProposition(osv.osv):
                         _("You need to have the role is_user to"
                           " tick the cancel checkbox from user")
                     )
-                #_logger.info('uid %s, proposition.is_announcer %s',
-                #  uid, proposition.is_announcer)
                 if 'want_cancel_announcer' in vals \
                         and not proposition.is_announcer:
                     raise osv.except_osv(

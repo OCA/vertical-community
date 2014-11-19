@@ -110,7 +110,7 @@ class VoteModel(osv.AbstractModel):
             res[record.id]['vote_average'] = 0
             res[record.id]['vote_total'] = 0
             res[record.id]['vote_user_ids'] = []
-            #TODO
+            # TODO
 #            if self._vote_alternative_model and
 # self._vote_alternative_link_field and self._vote_alternative_domain:
 #                domain = [(self._vote_alternative_link_field, '=', record.id)]
@@ -150,7 +150,6 @@ class VoteModel(osv.AbstractModel):
         vote_config_obj = self.pool.get('vote.config.line')
         res = {}
         for record in self.browse(cr, uid, ids, context=context):
-            #_logger.info('record %s', record)
             res[record.id] = []
             if self._vote_category_field \
                     and getattr(record, self._vote_category_field):
@@ -307,7 +306,6 @@ class VoteVote(osv.Model):
 
     def _default_line_ids(self, cr, uid, context={}):
         # Get the vote line from model config
-        _logger.info('context %s', context)
         model = context.get('default_model')
         res_id = context.get('default_res_id')
 
@@ -315,12 +313,10 @@ class VoteVote(osv.Model):
         if model and res_id:
             model_obj = self.pool.get(model)
             record = model_obj.browse(cr, uid, [res_id], context=context)
-            _logger.info('record %s', record)
             if record:
                 for vote_type in model_obj._get_vote_config(
                         cr, uid, [res_id], context=context
                 )[res_id]:
-                    _logger.info('vote_type %s', vote_type)
                     vote_lines.append((0, 0, {
                         'type_id': vote_type['id'],
                     }))
@@ -367,7 +363,7 @@ class VoteVote(osv.Model):
         # Trigger the evaluated computation on write
         res = super(VoteVote, self).write(cr, uid, ids, vals, context=context)
         # Protection anti recursivity
-        if not 'evaluated_object_ids' in vals:
+        if 'evaluated_object_ids' not in vals:
             self._update_evaluated(cr, uid, ids, context=context)
         return res
 

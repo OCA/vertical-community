@@ -43,7 +43,7 @@ class CommunityConfigSettings(osv.osv):
         ),
     }
 
-    #TODO
+    # TODO
     # Try to remove warning at module loading, but not working since
     #  xml is loaded after the table modification
     # _defaults = {

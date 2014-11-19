@@ -46,7 +46,6 @@ class ProjectTaskType(osv.osv):
         if self._boolean_update_projects(cr, uid, vals, context=context):
             project_ids = {}
             for type in self.browse(cr, uid, ids, context=context):
-                #_logger.info('projects will be recomputed')
                 for project in type.project_ids:
                     project_ids[project.id] = project.id
             project_obj._update_stored_config(
@@ -205,7 +204,7 @@ class ProjectTask(osv.osv):
                 cr, uid, vals['reviewer_id'], context=context
             ).partner_id.id
 
-        if 'stage_id' in vals and not 'assigned_partner_id' in vals:
+        if 'stage_id' in vals and 'assigned_partner_id' not in vals:
             for task in self.browse(cr, uid, ids, context=context):
                 for config in task.assigned_partner_config_result_ids:
                     if config.stage_id.id == vals['stage_id']:

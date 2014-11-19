@@ -141,7 +141,7 @@ class MarketplaceAnnouncement(osv.osv):
             cr, uid, ids, vals, context=context
         )
 
-        #Update function fields in task
+        # Update function fields in task
         if 'task_id' in vals:
             if vals['task_id']:
                 task_obj.write(cr, uid, [vals['task_id']], {}, context=context)
@@ -221,7 +221,7 @@ class MarketplaceProposition(osv.osv):
                         cr, SUPERUSER_ID,
                         [proposition.id], {'task_id': task_id}
                     )
-                    #Update function field in task
+                    # Update function field in task
                     task_obj.write(
                         cr, SUPERUSER_ID, [task_id],
                         {'name': proposition.announcement_id.name}
@@ -242,7 +242,7 @@ class MarketplaceProposition(osv.osv):
             cr, uid, ids, vals, context=context
         )
 
-        #Update function fields in task
+        # Update function fields in task
         if 'task_id' in vals:
             if vals['task_id']:
                 task_obj.write(cr, uid, [vals['task_id']], {}, context=context)

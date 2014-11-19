@@ -182,7 +182,7 @@ class MailGroup(osv.osv):
                         )
 
             for right in rights:
-                #deduplicate
+                # deduplicate
                 res[group.id][right.code] = list(
                     set(res[group.id][right.code])
                 )
@@ -268,11 +268,12 @@ class MailGroup(osv.osv):
             subtype_ids=subtype_ids, context=context
         )
         for group in self.browse(cr, uid, ids, context=context):
-            if not 'in_recursivity' in context or 'in_recursivity' \
+            if 'in_recursivity' not in context or 'in_recursivity' \
                     in context and not context['in_recursivity']:
                 self.update_followers(
                     cr, SUPERUSER_ID, [group.id], context=context
                 )
+        return res
 
     def message_unsubscribe(self, cr, uid, ids, partner_ids, context={}):
         # Override message_subscribe to recompute followers on parents
@@ -283,12 +284,13 @@ class MailGroup(osv.osv):
         for group in self.browse(
                 cr, uid, ids, context=context
         ):
-            if not 'in_recursivity' in context \
+            if 'in_recursivity' not in context \
                     or 'in_recursivity' in context \
                     and not context['in_recursivity']:
                 self.update_followers(
                     cr, SUPERUSER_ID, [group.id], context=context
                 )
+        return res
 
 
 class ResPartner(osv.osv):
@@ -315,7 +317,6 @@ class ResPartner(osv.osv):
                 res[partner.id] = group_ids[0]
 
         return res
-
 
     _columns = {
         'group_id': fields.function(

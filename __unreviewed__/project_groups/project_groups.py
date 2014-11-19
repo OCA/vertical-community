@@ -137,7 +137,7 @@ class MailGroup(osv.osv):
         for project in project_obj.browse(
                 cr, uid, project_ids, context=context
         ):
-            if not project.team_id.id in projects:
+            if project.team_id.id not in projects:
                 projects[project.team_id.id] = []
             projects[project.team_id.id].append(project.id)
 
@@ -147,7 +147,7 @@ class MailGroup(osv.osv):
         )
         tasks = {}
         for task in task_obj.browse(cr, uid, task_ids, context=context):
-            if not task.assigned_partner_id.id in tasks:
+            if task.assigned_partner_id.id not in tasks:
                 tasks[task.assigned_partner_id.group_id.id] = []
             tasks[task.assigned_partner_id.group_id.id].append(task.id)
 
