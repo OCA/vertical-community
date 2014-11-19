@@ -18,22 +18,24 @@
 #
 ##############################################################################
 
-{'name': 'OpenERP CommunityTools - Crowdfunding',
- 'version': '1.0',
- 'category': 'Community',
- 'depends': ['community',
-             'crowdfunding',
-             ],
- 'author': 'Yannick Buron',
- 'license': 'AGPL-3',
- 'website': 'https://github.com/YannickB/community-management',
- 'description': """
+{
+    'name': 'OpenERP CommunityTools - Crowdfunding',
+    'version': '1.0',
+    'category': 'Community',
+    'depends': [
+        'community',
+        'crowdfunding',
+    ],
+    'author': 'Yannick Buron',
+    'license': 'AGPL-3',
+    'website': 'https://github.com/YannickB/community-management',
+    'description': """
 OpenERP for Communities - Crowdfunding
-=================
+======================================
 
 """,
- 'data': [],
- 'demo': [],
- 'installable': True,
- 'application': True,
+    'data': [],
+    'demo': [],
+    'installable': True,
+    'application': True,
 }

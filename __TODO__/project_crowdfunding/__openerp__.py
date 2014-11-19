@@ -19,24 +19,25 @@
 #
 ##############################################################################
 
-{'name': 'Project Crowdfunding',
- 'version': '1.0',
- 'category': 'Community',
- 'depends': ['crowdfunding',
-             'project_groups',
-             'project',
-             ],
- 'author': 'Yannick Buron',
- 'license': 'AGPL-3',
- 'website': 'https://launchpad.net/marketplace',
- 'description': """
+{
+    'name': 'Project Crowdfunding',
+    'version': '1.0',
+    'category': 'Community',
+    'depends': [
+        'crowdfunding',
+        'project_groups',
+        'project',
+    ],
+    'author': 'Yannick Buron',
+    'license': 'AGPL-3',
+    'website': 'https://launchpad.net/marketplace',
+    'description': """
 Project Crowdfunding
 =================
 
 """,
- 'demo': [],
- 'data': ['project_crowdfunding_view.xml',
-          ],
- 'installable': True,
- 'application': True,
+    'demo': [],
+    'data': ['project_crowdfunding_view.xml'],
+    'installable': True,
+    'application': True,
 }

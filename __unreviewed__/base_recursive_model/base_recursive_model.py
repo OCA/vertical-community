@@ -18,32 +18,33 @@
 #
 ##############################################################################
 
-import logging
-
-from openerp.osv import fields, osv, orm
-from openerp.tools.translate import _
-
-_logger = logging.getLogger(__name__)
+from openerp.osv import fields, osv
 
 
 class BaseRecursiveModel(osv.AbstractModel):
 
     """
-    Abstract model which can be inherited for model which need a parent-children relation
+    Abstract model which can be inherited for model
+    which need a parent-children relation
     """
 
     def name_get(self, cr, uid, ids, context=None):
-        # Return the categories' display name, including their direct parent by default.
+        # Return the categories' display name,
+        # including their direct parent by default.
         if context is None:
             context = {}
         if context.get('category_display') == 'short':
-            return super(BaseRecursiveModel, self).name_get(cr, uid, ids, context=context)
+            return super(BaseRecursiveModel, self).name_get(
+                cr, uid, ids, context=context
+            )
         if isinstance(ids, (int, long)):
             ids = [ids]
-        reads = self.read(cr, uid, ids, ['name', 'parent_id', 'sequence'], context=context)
+        reads = self.read(
+            cr, uid, ids, ['name', 'parent_id', 'sequence'], context=context
+        )
         res = []
         for record in reads:
-            if context.get('path_with_sequence') == True:
+            if context.get('path_with_sequence'):
                 name = str(record['sequence']) + ' ' + record['name']
             else:
                 name = record['name']
@@ -52,15 +53,22 @@ class BaseRecursiveModel(osv.AbstractModel):
             res.append((record['id'], name))
         return res
 
-    def name_search(self, cr, uid, name, args=None, operator='ilike', context=None, limit=100):
-        # Search all category which contain name in their own name or in their parents
+    def name_search(
+            self, cr, uid, name, args=None, operator='ilike',
+            context=None, limit=100
+    ):
+        # Search all category which contain name
+        # in their own name or in their parents
         if not args:
             args = []
         if not context:
             context = {}
         if name:
             name = name.split(' / ')[-1]
-            ids = self.search(cr, uid, [('name', operator, name)] + args, limit=limit, context=context)
+            ids = self.search(
+                cr, uid, [('name', operator, name)] + args,
+                limit=limit, context=context
+            )
         else:
             ids = self.search(cr, uid, args, limit=limit, context=context)
         return self.name_get(cr, uid, ids, context)
@@ -72,17 +80,19 @@ class BaseRecursiveModel(osv.AbstractModel):
     _name = 'base.recursive.model'
 
     _columns = {
-        'complete_name': fields.function(_name_get_fnc, type="char", string='Full Name', store=True),
+        'complete_name': fields.function(
+            _name_get_fnc, type="char", string='Full Name', store=True
+        ),
         'parent_left': fields.integer('Left parent', select=True),
         'parent_right': fields.integer('Right parent', select=True),
     }
     _constraints = [
-        (osv.osv._check_recursion, 'Error ! You can not create recursive categories.', ['parent_id'])
+        (
+            osv.osv._check_recursion,
+            'Error ! You can not create recursive categories.', ['parent_id']
+        )
     ]
     _parent_name = "parent_id"
     _parent_store = True
     _parent_order = 'sequence, name'
     _order = 'parent_left'
-
-
-

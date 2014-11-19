@@ -19,23 +19,24 @@
 #
 ##############################################################################
 
-{'name': 'Marketplace Crowdfunding',
- 'version': '1.0',
- 'category': 'Community',
- 'depends': ['crowdfunding',
-             'marketplace'
-             ],
- 'author': 'Yannick Buron',
- 'license': 'AGPL-3',
- 'website': 'https://launchpad.net/marketplace',
- 'description': """
+{
+    'name': 'Marketplace Crowdfunding',
+    'version': '1.0',
+    'category': 'Community',
+    'depends': [
+        'crowdfunding',
+        'marketplace'
+    ],
+    'author': 'Yannick Buron',
+    'license': 'AGPL-3',
+    'website': 'https://launchpad.net/marketplace',
+    'description': """
 Marketplace Crowdfunding
 =================
 
 """,
- 'demo': [],
- 'data': ['marketplace_crowdfunding_view.xml',
-          ],
- 'installable': True,
- 'application': True,
+    'demo': [],
+    'data': ['marketplace_crowdfunding_view.xml'],
+    'installable': True,
+    'application': True,
 }
