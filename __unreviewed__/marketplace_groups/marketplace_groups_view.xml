@@ -142,8 +142,8 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field eval="False" name="view_id"/>
-            <field name="domain">[('partner_id.group_id','!=',False)]</field>
-            <field name="context">{'group_by':'partner_id'}</field>
+            <field name="domain">[('sender_id.group_id','!=',False)]</field>
+            <field name="context">{'group_by':'sender_id'}</field>
             <field name="search_view_id" ref="marketplace.view_marketplace_proposition_search"/>
         </record>
 
