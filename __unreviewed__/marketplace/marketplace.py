@@ -459,9 +459,17 @@ class MarketplaceProposition(osv.osv):
         'announcement_id': fields.many2one('marketplace.announcement', 'What', required=True),
         'name': fields.related('announcement_id', 'name', type='char', string='Name', store=True),
         'type': fields.related('announcement_id', 'type', type='char', string='Type', store=True),
+        'city': fields.related(
+            'announcement_id', 'city',
+            type='char', size=128, string='City', store=True
+        ),
+        'country_id': fields.related(
+            'announcement_id', 'country_id', type='many2one',
+            relation='res.country', string='Country', store=True
+        ),
         'description_announcement_id': fields.many2one('marketplace.announcement', 'Link to announcement description'),
         'category_id': fields.related(
-            'announcement_id', 'category_id', type="many2one",
+            'announcement_id', 'category_id', type="many2one", store=True,
             relation="marketplace.announcement.category", string='Category'
         ),
         'want_cancel_user': fields.boolean('(Replyer) Cancel the transaction'),
