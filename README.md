@@ -9,7 +9,7 @@ If you are interested by this project, please join the mailing-list: https://lau
 
 Contributions are welcome. Please read the guidelines of the OCA : http://odoo-community.org/page/website.how-to
 
-**Translations:**<br>Please use for the translations the translation section launchpad:
+**Translations:**<br>Please use for the translations the translation section on launchpad:
 https://translations.launchpad.net/odoo-vertical-community
 
 **Temporary process:**<br>
