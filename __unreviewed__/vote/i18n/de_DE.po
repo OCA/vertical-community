@@ -1,0 +1,297 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* vote
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: odoo-vertical-community\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-10-28 12:27+0000\n"
+"PO-Revision-Date: 2014-11-19 18:23+0100\n"
+"Last-Translator: Lucas Huber <lh@jeema.solutions>\n"
+"Language-Team: German Maintainers <go@jeema.solutions>\n"
+"Language: de_DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.6.10\n"
+
+#. module: vote
+#: selection:vote.vote.line,vote:0
+msgid "-1"
+msgstr "-1"
+
+#. module: vote
+#: selection:vote.vote.line,vote:0
+msgid "-2"
+msgstr "-2"
+
+#. module: vote
+#: field:vote.config.line,action:0
+msgid "Action"
+msgstr "Massnahme"
+
+#. module: vote
+#: selection:vote.config.line,action:0
+msgid "Add"
+msgstr "Hinzufügen"
+
+#. module: vote
+#: field:vote.model,vote_average:0
+msgid "Average vote"
+msgstr "Durchschnitt der Stimmen"
+
+#. module: vote
+#: field:vote.vote,comment:0
+msgid "Comment"
+msgstr "Anmerkung"
+
+# RevTran=Community Configuration
+#. module: vote
+#: model:ir.model,name:vote.model_community_config_settings
+msgid "Community configuration"
+msgstr "Gemeinschaft Konfiguration"
+
+# RevTran=Deleted configuration line
+# RevTran=Deleted configuration line
+#. module: vote
+#: field:vote.category,base_config_inherit_line_del_ids:0
+msgid "Configuration line deleted"
+msgstr "Konfigurationszeile gelöscht"
+
+# RevTran=Creation date
+# RevTran=Creation date
+#. module: vote
+#: field:vote.vote,create_date:0
+msgid "Create date"
+msgstr "Erstellungsdatum"
+
+# RevTran=Prepared by
+# RevTran=Prepared by
+#. module: vote
+#: field:vote.config.line,create_uid:0 field:vote.evaluated,create_uid:0
+#: field:vote.type,create_uid:0 field:vote.vote,create_uid:0
+#: field:vote.vote.line,create_uid:0
+msgid "Created by"
+msgstr "Erstellt von"
+
+#. module: vote
+#: field:vote.config.line,create_date:0 field:vote.evaluated,create_date:0
+#: field:vote.type,create_date:0 field:vote.vote.line,create_date:0
+msgid "Created on"
+msgstr "GesteIlt am."
+
+# RevTran=Reviewed
+# RevTran=Reviewed
+#. module: vote
+#: field:res.partner,vote_evaluated_id:0
+#: field:vote.vote,evaluated_object_ids:0
+msgid "Evaluated"
+msgstr "Bewertet"
+
+#. module: vote
+#: view:res.partner:vote.view_partner_form_vote
+#: view:vote.vote:vote.view_vote_vote_evaluated_form
+#: view:vote.vote:vote.view_vote_vote_evaluated_tree
+#: view:vote.vote:vote.view_vote_vote_form
+#: view:vote.vote:vote.view_vote_vote_tree
+msgid "Feedback"
+msgstr "Feedback"
+
+#. module: vote
+#: field:vote.category,id:0 field:vote.config.line,id:0
+#: field:vote.evaluated,id:0 field:vote.model,id:0 field:vote.type,id:0
+#: field:vote.vote,id:0 field:vote.vote.line,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: vote
+#: view:res.partner:vote.view_partner_form_vote
+msgid "Internal Notes"
+msgstr "Interne Notizen"
+
+# RevTran=is complete.
+# RevTran=is complete.
+#. module: vote
+#: field:vote.vote,is_complete:0
+msgid "Is complete?"
+msgstr "erledigt."
+
+# RevTran=Last Updated By
+# RevTran=Last Updated By
+#. module: vote
+#: field:vote.config.line,write_uid:0 field:vote.evaluated,write_uid:0
+#: field:vote.type,write_uid:0 field:vote.vote,write_uid:0
+#: field:vote.vote.line,write_uid:0
+msgid "Last Updated by"
+msgstr "Zuletzt aktualisiert von"
+
+#. module: vote
+#: field:vote.config.line,write_date:0 field:vote.evaluated,write_date:0
+#: field:vote.type,write_date:0 field:vote.vote,write_date:0
+#: field:vote.vote.line,write_date:0
+msgid "Last Updated on"
+msgstr "Zuletzt aktualisiert am"
+
+#. module: vote
+#: view:community.config.settings:vote.view_community_configuration_vote
+#: view:vote.config.line:vote.view_vote_config_line_form
+msgid "Line"
+msgstr "Linie"
+
+# RevTran=Rows
+# RevTran=Rows
+#. module: vote
+#: view:community.config.settings:vote.view_community_configuration_vote
+#: field:community.config.settings,vote_line_ids:0 field:vote.vote,line_ids:0
+msgid "Lines"
+msgstr "Zeilen"
+
+#. module: vote
+#: field:vote.vote.line,model:0
+msgid "Model"
+msgstr "Modell"
+
+#. module: vote
+#: field:vote.config.line,name:0 field:vote.vote,res_name:0
+msgid "Name"
+msgstr "Name"
+
+#. module: vote
+#: field:vote.vote,model_name:0
+msgid "Object"
+msgstr "Objekt"
+
+#. module: vote
+#: model:ir.model,name:vote.model_res_partner field:vote.vote,partner_id:0
+#: field:vote.vote.line,partner_id:0
+msgid "Partner"
+msgstr "Partner"
+
+#. module: vote
+#: field:vote.config.line,res_id:0 field:vote.vote,res_id:0
+#: field:vote.vote.line,res_id:0
+msgid "Related Document ID"
+msgstr "Dokument ID Bezug"
+
+# RevTran=Related document model
+# RevTran=Related document model
+#. module: vote
+#: field:vote.config.line,model:0 field:vote.vote,model:0
+msgid "Related Document Model"
+msgstr "Verwandtes Dokumentmodell"
+
+#. module: vote
+#: selection:vote.config.line,action:0
+msgid "Remove"
+msgstr "Entfernen"
+
+# RevTran=Consequence, Result, Outcome
+# RevTran=Consequence, Result, Outcome
+#. module: vote
+#: field:vote.config.line,sequence:0
+msgid "Sequence"
+msgstr "Folge"
+
+# RevTran=Saved
+# RevTran=Saved
+#. module: vote
+#: field:vote.config.line,stored:0
+msgid "Stored?"
+msgstr "Gespeichert?"
+
+#. module: vote
+#: field:vote.config.line,target_model:0
+msgid "Target model"
+msgstr "Zielmodell"
+
+#. module: vote
+#: field:vote.type,name:0
+msgid "Title"
+msgstr "Titel"
+
+# RevTran=See all feedback
+# RevTran=See all feedback
+#. module: vote
+#: field:vote.model,vote_total:0
+msgid "Total feedback"
+msgstr "Gesamtes Feedback"
+
+#. module: vote
+#: view:vote.type:vote.view_vote_type_form field:vote.vote.line,type_id:0
+msgid "Type"
+msgstr "Typ"
+
+#. module: vote
+#: view:vote.type:vote.view_vote_type_tree
+msgid "Types"
+msgstr "Typen"
+
+#. module: vote
+#: view:community.config.settings:vote.view_community_configuration_vote
+#: model:ir.model,name:vote.model_vote_vote
+#: model:ir.ui.menu,name:vote.menu_vote_configuration
+#: field:vote.vote.line,vote:0 field:vote.vote.line,vote_id:0
+msgid "Vote"
+msgstr "Abstimmung"
+
+#. module: vote
+#: model:ir.model,name:vote.model_vote_category
+msgid "Vote Category"
+msgstr "Abstimmung Kategorie"
+
+#. module: vote
+#: model:ir.model,name:vote.model_vote_model
+msgid "Vote Model"
+msgstr "Abstimmungs Modell"
+
+#. module: vote
+#: field:vote.category,vote_config_result_ids:0
+msgid "Vote Types"
+msgstr "Abstimmung Typen"
+
+#. module: vote
+#: field:vote.category,vote_config_ids:0
+msgid "Vote configuration"
+msgstr "Abstimmungs Konfiguration"
+
+#. module: vote
+#: model:ir.model,name:vote.model_vote_vote_line
+msgid "Vote line"
+msgstr "Abstimmungs Linie"
+
+#. module: vote
+#: model:ir.actions.act_window,name:vote.action_vote_type
+#: model:ir.ui.menu,name:vote.menu_vote_type
+#: view:vote.config.line:vote.view_vote_config_line_tree
+msgid "Vote types"
+msgstr "Abstimmungs Typen"
+
+#. module: vote
+#: field:vote.model,vote_user_ids:0
+msgid "Vote users"
+msgstr "Abstimmung Benutzer"
+
+#. module: vote
+#: field:vote.model,vote_voters:0
+msgid "Voters"
+msgstr "Abstimmende"
+
+#. module: vote
+#: field:res.partner,vote_ids:0 field:vote.model,vote_vote_ids:0
+#: field:vote.vote,line_string:0
+#: view:vote.vote.line:vote.view_vote_vote_line_tree
+msgid "Votes"
+msgstr "Abstimmungen"
+
+#. module: vote
+#: sql_constraint:vote.vote:0
+msgid "We can only have one feedback per record per partner"
+msgstr "Wir akzeptieren nur ein Feedback per Eintrag pro Partner"
+
+#. module: vote
+#: sql_constraint:vote.vote.line:0
+msgid "You can only have one feedback per type"
+msgstr "Du kannst nur ein Feedback pro Typ haben"
+

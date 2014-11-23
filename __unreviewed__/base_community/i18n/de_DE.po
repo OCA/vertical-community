@@ -1,0 +1,61 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* base_community
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-10-28 12:16+0000\n"
+"PO-Revision-Date: 2014-11-19 17:28+0100\n"
+"Last-Translator: Lucas Huber <lh@jeema.solutions>\n"
+"Language-Team: German Maintainers <lh@jeema.solutions>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: de_DE\n"
+"X-Generator: Poedit 1.6.10\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#. module: base_community
+#: view:community.config.settings:base_community.view_community_configuration
+#: model:ir.actions.act_window,name:base_community.action_community_configuration
+#: model:ir.ui.menu,name:base_community.menu_community_admin_configuration
+msgid "Community"
+msgstr "Community"
+
+#. module: base_community
+#: model:ir.model,name:base_community.model_community_config_settings
+msgid "Community configuration"
+msgstr "Community Konfiguration"
+
+#. module: base_community
+#: view:community.config.settings:base_community.view_community_configuration
+msgid "Configure Community"
+msgstr "Konfiguriere Community"
+
+#. module: base_community
+#: field:community.config.settings,create_uid:0
+msgid "Created by"
+msgstr "Erstellt von"
+
+#. module: base_community
+#: field:community.config.settings,create_date:0
+msgid "Created on"
+msgstr "Erstellt am"
+
+#. module: base_community
+#: field:community.config.settings,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: base_community
+#: field:community.config.settings,write_uid:0
+msgid "Last Updated by"
+msgstr "Letzter Update von"
+
+#. module: base_community
+#: field:community.config.settings,write_date:0
+msgid "Last Updated on"
+msgstr "Letzter Update am"

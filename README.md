@@ -1,9 +1,11 @@
 # Odoo for Communities Verticalization #
 The OCA Communities Verticalizations project is a collaborative effort to develop a robust, commercial-grade, set of apps to transform odoo into a full featured platform for communities. 
 The project is managed by a growing worldwide community of volunteers that are willing to contribute to the development and documentation to make this vision real.
+
 ## About ##
 Communities Verticalizations provides solutions to manages a wide range of needs of collaborative project and organisations. It bundles helpful existing odoo apps as Blog, Forum together with new modules to finally get a versatile and interconnected selection of community related apps.
 The new apps are covering almost any basic needs to manage many types of ressurces in Non Profit Organisations. So it includes apps für Crowdfunding, Coworking, Complementary Currencies and a powerful Marketplace. The currency (eWallet) modules are fully integrated into the financial part of odoo so it allows to perform many financial and monetary actions. You can use it for issuing currencies, paying resources from the marketplace or a shop, sending/receiving digital cash aso.. Because the eWallet is able to handle multi-currencies, the framework is open to include other transaction engines as Cyclos or Cryptocurrency framework one day.
+
 ## Contributing ##
 If you are interested by this project, please join the mailing-list: https://launchpad.net/~odoo-communitytools-team
 

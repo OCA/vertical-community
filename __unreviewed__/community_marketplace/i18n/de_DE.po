@@ -1,0 +1,1202 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* marketplace
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-11-11 09:58+0000\n"
+"PO-Revision-Date: 2014-11-17 12:08+0100\n"
+"Last-Translator: Lucas Huber <lh@jeema.solutions>\n"
+"Language-Team: Swissgerman Maintainers\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.6.10\n"
+"Language: de_DE\n"
+
+#. module: marketplace
+#: field:marketplace.proposition,call_moderator_announcer:0
+msgid "(Announcer) Call moderator?"
+msgstr "(Gesuchssteller) Moderator anrufen?"
+
+#. module: marketplace
+#: field:marketplace.proposition,want_cancel_announcer:0
+msgid "(Announcer) Cancel the transaction"
+msgstr "(Gesuchssteller) Abbrechen der Transaktion"
+
+# RevTran=(Replyer) call moderator?
+#. module: marketplace
+#: field:marketplace.proposition,call_moderator_user:0
+msgid "(Replyer) Call moderator?"
+msgstr "(Antworter) Anruf Moderator?"
+
+# RevTran=(Replyer) cancel the transaction
+#. module: marketplace
+#: field:marketplace.proposition,want_cancel_user:0
+msgid "(Replyer) Cancel the transaction"
+msgstr "(Antworter) Abbrechen der Transaktion"
+
+# RevTran=Acceptance
+#. module: marketplace
+#: view:marketplace.proposition:marketplace.view_marketplace_proposition_form
+msgid "Accept"
+msgstr "Akzeptieren"
+
+#. module: marketplace
+#: selection:marketplace.proposition,state:0
+msgid "Accepted"
+msgstr "Akzeptiert"
+
+# RevTran=Access Error
+#. module: marketplace
+#: code:addons/marketplace/marketplace.py:337
+#: code:addons/marketplace/marketplace.py:535
+#: code:addons/marketplace/marketplace.py:590
+#: code:addons/marketplace/marketplace.py:685
+#: code:addons/marketplace/marketplace.py:691
+#, python-format
+msgid "Access error!"
+msgstr "Zugangsfehler"
+
+#. module: marketplace
+#: field:marketplace.announcement.category,active:0
+msgid "Active"
+msgstr "Aktiv"
+
+#. module: marketplace
+#: model:ir.actions.act_window,name:marketplace.act_mkp_announ_the_market_the_offers_all
+#: model:ir.actions.act_window,name:marketplace.act_mkp_announ_the_market_the_wants_all
+#: model:ir.actions.act_window,name:marketplace.action_marketplace_the_market_transactions_all
+#: model:ir.ui.menu,name:marketplace.menu_act_mkp_announ_the_market_the_offers_all
+#: model:ir.ui.menu,name:marketplace.menu_act_mkp_announ_the_market_the_wants_all
+#: model:ir.ui.menu,name:marketplace.menu_action_marketplace_the_market_transactions_all
+msgid "All"
+msgstr "Alle"
+
+#. module: marketplace
+#: field:marketplace.proposition,already_accepted:0
+msgid "Already accepted?"
+msgstr "Bereits akzeptiert?"
+
+#. module: marketplace
+#: field:marketplace.proposition,already_published:0
+msgid "Already published?"
+msgstr "Bereits erschienen?"
+
+# RevTran=How Asker
+# RevTran=How Asker
+#. module: marketplace
+#: model:ir.ui.menu,name:marketplace.menu_marketplace_my_market_as_asker
+msgid "As Asker"
+msgstr "Als Fragender"
+
+#. module: marketplace
+#: model:ir.ui.menu,name:marketplace.menu_marketplace_my_market_as_bringer
+msgid "As Bringer"
+msgstr "Als Bringer"
+
+#. module: marketplace
+#: view:marketplace.announcement:marketplace.view_marketplace_announcement_search
+msgid "Author"
+msgstr "Autor"
+
+#. module: marketplace
+#: field:marketplace.announcement,quantity_available:0
+msgid "Available"
+msgstr "Verfügbar"
+
+#. module: marketplace
+#: field:marketplace.announcement,vote_average:0
+#: field:marketplace.proposition,vote_average:0
+msgid "Average vote"
+msgstr "Durchschnitt der Stimmen"
+
+#. module: marketplace
+#: field:ir.attachment,binary_field:0
+msgid "Binary field"
+msgstr "Binärfeld"
+
+#. module: marketplace
+#: view:marketplace.announcement:marketplace.view_marketplace_announcement_form
+#: view:marketplace.proposition:marketplace.view_marketplace_proposition_form
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#. module: marketplace
+#: selection:marketplace.announcement,state:0
+#: selection:marketplace.proposition,state:0
+msgid "Cancelled"
+msgstr "Abgebrochen"
+
+#. module: marketplace
+#: view:marketplace.announcement:marketplace.view_marketplace_announcement_search
+#: field:marketplace.announcement,category_id:0
+#: field:marketplace.proposition,category_id:0
+#: field:marketplace.tag,category_id:0
+msgid "Category"
+msgstr "Kategorie"
+
+#. module: marketplace
+#: field:marketplace.announcement.category,name:0
+msgid "Category Name"
+msgstr "Kategoriename"
+
+#. module: marketplace
+#: field:marketplace.announcement.category,child_ids:0
+msgid "Childs"
+msgstr "Kinder"
+
+#. module: marketplace
+#: view:marketplace.announcement:marketplace.view_marketplace_announcement_search
+#: field:marketplace.announcement,city:0
+msgid "City"
+msgstr "Stadt"
+
+# RevTran=Conclude
+# RevTran=Conclude
+#. module: marketplace
+#: view:marketplace.announcement:marketplace.view_marketplace_announcement_form
+msgid "Close"
+msgstr "Abschliessen"
+
+#. module: marketplace
+#: selection:marketplace.announcement,state:0
+msgid "Closed"
+msgstr "Geschlossen"
+
+#. module: marketplace
+#: model:ir.ui.menu,name:marketplace.menu_marketplace_configuration
+msgid "Configuration"
+msgstr "Konfiguration"
+
+# RevTran=Deleted configuration line
+# RevTran=Deleted configuration line
+#. module: marketplace
+#: field:marketplace.announcement.category,base_config_inherit_line_del_ids:0
+msgid "Configuration line deleted"
+msgstr "Konfigurationszeile gelöscht"
+
+# RevTran=Confirm payment receipt
+# RevTran=Confirm payment receipt
+#. module: marketplace
+#: view:marketplace.proposition:marketplace.view_marketplace_proposition_form
+msgid "Confirm payment reception"
+msgstr "Bestätigen Zahlungsempfang"
+
+# RevTran=Confirm refund payment receipt
+# RevTran=Confirm refund payment receipt
+#. module: marketplace
+#: view:marketplace.proposition:marketplace.view_marketplace_proposition_form
+msgid "Confirm refund payment reception"
+msgstr "Bestätigen Erstattung Zahlungsempfang"
+
+# RevTran=According to my skills
+# RevTran=According to my skills
+#. module: marketplace
+#: model:ir.actions.act_window,name:marketplace.act_mkp_announ_the_market_the_wants_my_skills
+#: model:ir.ui.menu,name:marketplace.menu_act_mkp_announ_the_market_the_wants_my_skills
+msgid "Corresponding to my skills"
+msgstr "Entsprechend meinen Fähigkeiten"
+
+#. module: marketplace
+#: view:marketplace.announcement:marketplace.view_marketplace_announcement_search
+#: field:marketplace.announcement,country_id:0
+msgid "Country"
+msgstr "Land"
+
+# RevTran=Creation date
+# RevTran=Creation date
+#. module: marketplace
+#: field:marketplace.announcement,create_date:0
+msgid "Create date"
+msgstr "Erstellungsdatum"
+
+# RevTran=Prepared by
+# RevTran=Prepared by
+#. module: marketplace
+#: field:marketplace.announcement,create_uid:0
+#: field:marketplace.announcement.category,create_uid:0
+#: field:marketplace.proposition,create_uid:0
+#: field:marketplace.tag,create_uid:0
+msgid "Created by"
+msgstr "Erstellt von"
+
+#. module: marketplace
+#: field:marketplace.announcement.category,create_date:0
+#: field:marketplace.proposition,create_date:0
+#: field:marketplace.tag,create_date:0
+msgid "Created on"
+msgstr "GesteIlt am."
+
+#. module: marketplace
+#: field:marketplace.announcement,currency_ids:0
+msgid "Currencies"
+msgstr "Währungen"
+
+#. module: marketplace
+#: field:marketplace.announcement,currency_mode:0
+msgid "Currency mode"
+msgstr "Währungs-Modus"
+
+# RevTran=Date of the last message posted on the board.
+# RevTran=Date of the last message posted on the board.
+#. module: marketplace
+#: help:marketplace.announcement,message_last_post:0
+#: help:marketplace.proposition,message_last_post:0
+msgid "Date of the last message posted on the record."
+msgstr "Datum der letzten Nachricht gepostet auf für  diesen Vorgang."
+
+#. module: marketplace
+#: field:marketplace.announcement,description:0
+msgid "Description"
+msgstr "Beschreibung"
+
+# RevTran=Money order
+# RevTran=Money order
+#. module: marketplace
+#: selection:marketplace.announcement,state:0
+#: view:marketplace.proposition:marketplace.view_marketplace_proposition_search
+#: selection:marketplace.proposition,state:0
+msgid "Draft"
+msgstr "Zahlungsanweisung"
+
+#. module: marketplace
+#: model:marketplace.announcement.category,name:marketplace.category_erp
+msgid "ERP"
+msgstr "ERP"
+
+# RevTran=Reviewed
+# RevTran=Reviewed
+#. module: marketplace
+#: field:marketplace.announcement,vote_evaluated_id:0
+msgid "Evaluated"
+msgstr "Bewertet"
+
+#. module: marketplace
+#: field:marketplace.announcement,expiration_date:0
+msgid "Expiry on"
+msgstr "Ablauf auf"
+
+#. module: marketplace
+#: field:marketplace.announcement,message_follower_ids:0
+#: field:marketplace.proposition,message_follower_ids:0
+msgid "Followers"
+msgstr "Abonnenten"
+
+#. module: marketplace
+#: model:marketplace.tag,name:marketplace.tag_odoo_formation
+msgid "Formation"
+msgstr "Formation"
+
+#. module: marketplace
+#: model:marketplace.tag,name:marketplace.tag_odoo_frontend
+msgid "Frontend"
+msgstr "Front-End"
+
+# RevTran=Full name
+# RevTran=Full name
+#. module: marketplace
+#: field:marketplace.announcement.category,complete_name:0
+msgid "Full Name"
+msgstr "Vollständiger Name"
+
+#. module: marketplace
+#: view:marketplace.announcement:marketplace.view_marketplace_announcement_form
+msgid "General"
+msgstr "Allgemeines"
+
+# RevTran=Group by
+# RevTran=Group by
+#. module: marketplace
+#: view:marketplace.announcement:marketplace.view_marketplace_announcement_search
+msgid "Group By..."
+msgstr "Gruppieren mit"
+
+#. module: marketplace
+#: model:marketplace.tag,name:marketplace.tag_odoo_helpdesk
+msgid "Helpdesk"
+msgstr "Help Desk"
+
+# RevTran=Does the Chatter Summary (number of messages, ...). This summary is directly in HTML format to be inserted in Kanban views.
+# RevTran=Does the Chatter Summary (number of messages, ...). This summary is directly in HTML format to be inserted in Kanban views.
+#. module: marketplace
+#: help:marketplace.announcement,message_summary:0
+#: help:marketplace.proposition,message_summary:0
+msgid ""
+"Holds the Chatter summary (number of messages, ...). This summary is "
+"directly in html format in order to be inserted in kanban views."
+msgstr ""
+"Chat Zusammenfassung (Anzahl der Nachrichten, ...). Diese Zusammenfassung "
+"ist direkt im HTML-Format, um in Kanban Ansichten eingefügt werden zu "
+"könnenwerden."
+
+# RevTran=What I offer
+# RevTran=What I offer
+#. module: marketplace
+#: view:marketplace.announcement:marketplace.view_marketplace_announcement_form
+#: selection:marketplace.announcement,type:0
+msgid "I offer"
+msgstr "Ich biete"
+
+# RevTran=I suggest all of the following currencies
+# RevTran=I suggest all of the following currencies
+#. module: marketplace
+#: selection:marketplace.announcement,currency_mode:0
+msgid "I propose all the following currencies"
+msgstr "Ich schlage vor, alle folgenden Währungen"
+
+# RevTran=I was suggest one of the following currencies
+# RevTran=I was suggest one of the following currencies
+#. module: marketplace
+#: selection:marketplace.announcement,currency_mode:0
+msgid "I propose one of the following currencies"
+msgstr "folgende Währungen wurden vorgeschlagen"
+
+#. module: marketplace
+#: view:marketplace.announcement:marketplace.view_marketplace_announcement_form
+#: selection:marketplace.announcement,type:0
+msgid "I want"
+msgstr "Ich möchte"
+
+#. module: marketplace
+#: field:marketplace.announcement,id:0
+#: field:marketplace.announcement.category,id:0
+#: field:marketplace.proposition,id:0 field:marketplace.tag,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: marketplace
+#: model:marketplace.announcement.category,name:marketplace.category_it
+msgid "IT"
+msgstr "IT"
+
+# RevTran=If this option is enabled new messages require your attention.
+# RevTran=If this option is enabled new messages require your attention.
+#. module: marketplace
+#: help:marketplace.announcement,message_unread:0
+#: help:marketplace.proposition,message_unread:0
+msgid "If checked new messages require your attention."
+msgstr ""
+"Wenn diese Option aktiviert ist, erfordern neue Nachrichten Ihre "
+"Aufmerksamkeit."
+
+#. module: marketplace
+#: view:marketplace.announcement:marketplace.view_marketplace_announcement_search
+#: view:marketplace.proposition:marketplace.view_marketplace_proposition_search
+msgid "In Progress"
+msgstr "in Bearbeitung"
+
+#. module: marketplace
+#: view:marketplace.proposition:marketplace.view_marketplace_proposition_form
+msgid "Invoice"
+msgstr "Rechnung"
+
+# RevTran=Invoice amount
+# RevTran=Invoice amount
+#. module: marketplace
+#: selection:marketplace.proposition,state:0
+msgid "Invoiced"
+msgstr "Rechnungsbetrag"
+
+# RevTran=If a trailer
+# RevTran=If a trailer
+#. module: marketplace
+#: field:marketplace.announcement,message_is_follower:0
+#: field:marketplace.proposition,message_is_follower:0
+msgid "Is a Follower"
+msgstr "Ist ein Follower"
+
+# RevTran=Is Announcer?
+# RevTran=Is Announcer?
+#. module: marketplace
+#: field:marketplace.proposition,is_announcer:0
+msgid "Is announcer?"
+msgstr "Ist Gesuchssteller?"
+
+#. module: marketplace
+#: field:marketplace.proposition,is_dispute:0
+msgid "Is in dispute?"
+msgstr "Streitig ist?"
+
+# RevTran=If a moderator or a date?
+# RevTran=If a moderator or a date?
+#. module: marketplace
+#: field:marketplace.proposition,is_moderator_or_aggree:0
+msgid "Is moderator or aggreed?"
+msgstr "Ist Moderator oder verabredet?"
+
+# RevTran=Is Moderator?
+# RevTran=Is Moderator?
+#. module: marketplace
+#: field:marketplace.announcement,is_moderator:0
+#: field:marketplace.proposition,is_moderator:0
+msgid "Is moderator?"
+msgstr "Ist Moderator?"
+
+# RevTran=Is a member?
+# RevTran=Is a member?
+#. module: marketplace
+#: field:marketplace.announcement,is_user:0
+#: field:marketplace.proposition,is_user:0
+msgid "Is user?"
+msgstr "Ist Benutzer?"
+
+# RevTran=Message Date
+# RevTran=Message Date
+#. module: marketplace
+#: field:marketplace.announcement,message_last_post:0
+#: field:marketplace.proposition,message_last_post:0
+msgid "Last Message Date"
+msgstr "Nachtichtendatum"
+
+# RevTran=Last Updated By
+# RevTran=Last Updated By
+#. module: marketplace
+#: field:marketplace.announcement,write_uid:0
+#: field:marketplace.announcement.category,write_uid:0
+#: field:marketplace.proposition,write_uid:0 field:marketplace.tag,write_uid:0
+msgid "Last Updated by"
+msgstr "Zuletzt aktualisiert von"
+
+#. module: marketplace
+#: field:marketplace.announcement,write_date:0
+#: field:marketplace.announcement.category,write_date:0
+#: field:marketplace.proposition,write_date:0
+#: field:marketplace.tag,write_date:0
+msgid "Last Updated on"
+msgstr "Zuletzt aktualisiert am"
+
+# RevTran=Left Mother
+# RevTran=Left Mother
+#. module: marketplace
+#: field:marketplace.announcement.category,parent_left:0
+msgid "Left parent"
+msgstr "Linke offene Seite"
+
+#. module: marketplace
+#: field:marketplace.proposition,description_announcement_id:0
+msgid "Link to announcement description"
+msgstr "Link zur Ankündigung Beschreibung"
+
+# RevTran=Make a reply \\ \/ proposal
+# RevTran=Make a reply \\ \/ proposal
+#. module: marketplace
+#: view:marketplace.announcement:marketplace.view_marketplace_announcement_form
+msgid "Make a reply / proposal"
+msgstr "Machen Sie eine Antwort / Vorschlag"
+
+#. module: marketplace
+#: model:ir.ui.menu,name:marketplace.menu_marketplace
+msgid "Marketplace"
+msgstr "Marktplatz"
+
+# RevTran=Notifications
+# RevTran=Notifications
+#. module: marketplace
+#: field:marketplace.announcement,message_ids:0
+#: field:marketplace.proposition,message_ids:0
+msgid "Messages"
+msgstr "Nachrichten"
+
+# RevTran=News and Communication History
+# RevTran=News and Communication History
+#. module: marketplace
+#: help:marketplace.announcement,message_ids:0
+#: help:marketplace.proposition,message_ids:0
+msgid "Messages and communication history"
+msgstr "Nachrichten und Kommunikationsgeschichte"
+
+#. module: marketplace
+#: model:ir.ui.menu,name:marketplace.menu_marketplace_moderation
+msgid "Moderation"
+msgstr "Moderation"
+
+#. module: marketplace
+#: model:ir.ui.menu,name:marketplace.menu_marketplace_my_market
+msgid "My Market"
+msgstr "Mein Markt"
+
+#. module: marketplace
+#: model:ir.actions.act_window,name:marketplace.act_mkp_announ_my_market_as_bringer_my_offers
+#: model:ir.ui.menu,name:marketplace.menu_act_mkp_announ_my_market_as_bringer_my_offers
+msgid "My Offers"
+msgstr "Meine Angebote"
+
+# RevTran=My redemption
+# RevTran=My redemption
+#. module: marketplace
+#: model:ir.actions.act_window,name:marketplace.act_mkp_prop_my_market_as_bringer_my_cashing
+#: model:ir.ui.menu,name:marketplace.menu_act_mkp_prop_my_market_as_bringer_my_cashing
+msgid "My cashing"
+msgstr "Meine Einnahmen"
+
+# RevTran=My Offers
+# RevTran=My Offers
+#. module: marketplace
+#: view:marketplace.announcement:marketplace.view_marketplace_announcement_search
+#: view:marketplace.proposition:marketplace.view_marketplace_proposition_search
+msgid "My offers"
+msgstr "Meine Angebote"
+
+# RevTran=My money
+# RevTran=My money
+#. module: marketplace
+#: model:ir.actions.act_window,name:marketplace.act_mkp_prop_my_market_as_asker_my_payments
+#: model:ir.ui.menu,name:marketplace.menu_act_mkp_prop_my_market_as_asker_my_payments
+msgid "My payments"
+msgstr "Meine Zahlungen"
+
+# RevTran=My sentences, other
+# RevTran=My sentences, other
+#. module: marketplace
+#: model:ir.actions.act_window,name:marketplace.act_mkp_prop_my_market_as_bringer_my_propositions
+#: model:ir.ui.menu,name:marketplace.menu_act_mkp_prop_my_market_as_bringer_my_propositions
+msgid "My propositions to others"
+msgstr "Meine Vorschläge für andere"
+
+# RevTran=My answers to other
+# RevTran=My answers to other
+#. module: marketplace
+#: model:ir.actions.act_window,name:marketplace.act_mkp_prop_my_market_as_asker_my_replies
+#: model:ir.ui.menu,name:marketplace.menu_act_mkp_prop_my_market_as_asker_my_replies
+msgid "My replies to others"
+msgstr "Meine Antworten auf andere"
+
+#. module: marketplace
+#: view:marketplace.announcement:marketplace.view_marketplace_announcement_search
+msgid "My skills"
+msgstr "Meine Fähigkeiten"
+
+# RevTran=My skills (Categories)
+# RevTran=My skills (Categories)
+#. module: marketplace
+#: field:res.partner,skill_category_ids:0
+msgid "My skills (categories)"
+msgstr "Meine Fähigkeiten (Kategorien)"
+
+# RevTran=My skills (Tags)
+# RevTran=My skills (Tags)
+#. module: marketplace
+#: field:res.partner,skill_tag_ids:0
+msgid "My skills (tags)"
+msgstr "Meine Fähigkeiten (Tags)"
+
+#. module: marketplace
+#: model:ir.actions.act_window,name:marketplace.act_mkp_prop_my_market_ongoing_moderation
+#: model:ir.ui.menu,name:marketplace.menu_act_mkp_prop_my_market_ongoing_moderation
+msgid "My transactions in moderation"
+msgstr "Meine Transaktionen in Moderation"
+
+# RevTran=My wishes
+# RevTran=My wishes
+#. module: marketplace
+#: model:ir.actions.act_window,name:marketplace.act_mkp_announ_my_market_as_asker_my_wants
+#: model:ir.ui.menu,name:marketplace.menu_act_mkp_announ_my_market_as_asker_my_wants
+msgid "My wants"
+msgstr "Meine Wünsche"
+
+#. module: marketplace
+#: field:marketplace.proposition,name:0
+msgid "Name"
+msgstr "Name"
+
+# RevTran=ODOO
+# RevTran=ODOO
+#. module: marketplace
+#: model:marketplace.announcement.category,name:marketplace.category_odoo
+msgid "Odoo"
+msgstr "Odoo"
+
+#. module: marketplace
+#: view:marketplace.announcement:marketplace.view_marketplace_announcement_form
+#: view:marketplace.proposition:marketplace.view_marketplace_proposition_form
+msgid "Offer"
+msgstr "Angebot"
+
+# RevTran=Offer \\ \/ want
+# RevTran=Offer \\ \/ want
+#. module: marketplace
+#: model:ir.model,name:marketplace.model_marketplace_announcement
+msgid "Offer/Want"
+msgstr "Angebot / Nachfragen"
+
+#. module: marketplace
+#: model:ir.ui.menu,name:marketplace.menu_marketplace_the_market_the_offers
+#: view:marketplace.announcement:marketplace.view_marketplace_announcement_search
+#: view:marketplace.announcement:marketplace.view_marketplace_announcement_tree
+msgid "Offers"
+msgstr "Angebote"
+
+# RevTran=To follow Deals
+# RevTran=To follow Deals
+#. module: marketplace
+#: model:ir.actions.act_window,name:marketplace.act_mkp_announ_my_market_as_asker_offers_to_follow
+#: model:ir.ui.menu,name:marketplace.menu_act_mkp_announ_my_market_as_asker_offers_to_follow
+msgid "Offers to follow"
+msgstr "Angebote zu folgen"
+
+# RevTran=Offers \\ \/ Prefer Categories
+# RevTran=Offers \\ \/ Prefer Categories
+#. module: marketplace
+#: model:ir.actions.act_window,name:marketplace.act_mkp_announ_category_form
+#: model:ir.model,name:marketplace.model_marketplace_announcement_category
+#: model:ir.ui.menu,name:marketplace.menu_act_mkp_announ_category_form
+#: view:marketplace.announcement.category:marketplace.view_marketplace_announcement_category_tree
+msgid "Offers/Wants Categories"
+msgstr "Angebote / Nachfragen Kategorien"
+
+# RevTran=Offers \\ \/ Wants Category
+# RevTran=Offers \\ \/ Wants Category
+#. module: marketplace
+#: view:marketplace.announcement.category:marketplace.view_marketplace_announcement_category_form
+msgid "Offers/Wants Category"
+msgstr "Angebote / Nachfragen Kategorie"
+
+# RevTran=Offers \\ \/ Prefer Day
+# RevTran=Offers \\ \/ Prefer Day
+#. module: marketplace
+#: view:marketplace.tag:marketplace.view_marketplace_tag_form
+msgid "Offers/Wants Tag"
+msgstr "Angebote / Nachfragen Schlagwort"
+
+# RevTran=Offers \\ \/ Prefer Tags
+# RevTran=Offers \\ \/ Prefer Tags
+#. module: marketplace
+#: model:ir.actions.act_window,name:marketplace.action_marketplace_tag_form
+#: model:ir.ui.menu,name:marketplace.menu_action_marketplace_tag_form
+#: view:marketplace.tag:marketplace.view_marketplace_tag_tree
+msgid "Offers/Wants Tags"
+msgstr "Angebote / Nachfragen Schlagwörter"
+
+# RevTran=Present
+# RevTran=Present
+#. module: marketplace
+#: model:ir.ui.menu,name:marketplace.menu_marketplace_my_market_ongoing
+msgid "Ongoing"
+msgstr "Gegemwärtige"
+
+# RevTran=Opening
+# RevTran=Opening
+#. module: marketplace
+#: selection:marketplace.proposition,state:0
+msgid "Open"
+msgstr "Öffnen"
+
+# RevTran=Open Offers
+# RevTran=Open Offers
+#. module: marketplace
+#: view:marketplace.announcement:marketplace.view_marketplace_announcement_search
+#: view:marketplace.proposition:marketplace.view_marketplace_proposition_search
+msgid "Open offers"
+msgstr "Offene Angebote"
+
+#. module: marketplace
+#: selection:marketplace.proposition,state:0
+msgid "Paid"
+msgstr "Bezahlt"
+
+#. module: marketplace
+#: field:marketplace.announcement.category,parent_id:0
+msgid "Parent"
+msgstr "Laufende"
+
+#. module: marketplace
+#: model:ir.model,name:marketplace.model_res_partner
+msgid "Partner"
+msgstr "Partner"
+
+# RevTran=Partner
+# RevTran=Partner
+#. module: marketplace
+#: field:marketplace.announcement.category,partner_ids:0
+#: field:marketplace.tag,partner_ids:0
+msgid "Partners"
+msgstr "Partner"
+
+# RevTran=Payment
+# RevTran=Payment
+#. module: marketplace
+#: view:marketplace.proposition:marketplace.view_marketplace_proposition_form
+msgid "Pay"
+msgstr "Bezahlen"
+
+# RevTran=Receipt
+# RevTran=Receipt
+#. module: marketplace
+#: selection:marketplace.proposition,state:0
+msgid "Payment confirmation"
+msgstr "Zahlungsbestätigung"
+
+# RevTran=To confirm payments
+# RevTran=To confirm payments
+#. module: marketplace
+#: model:ir.actions.act_window,name:marketplace.act_mkp_prop_my_market_ongoing_payments_to_confirm
+#: model:ir.ui.menu,name:marketplace.menu_act_mkp_prop_my_market_ongoing_payments_to_confirm
+msgid "Payments to confirm"
+msgstr "Zahlungen zu bestätigen"
+
+#. module: marketplace
+#: model:ir.actions.act_window,name:marketplace.act_mkp_announ_the_market_the_offers_per_category
+#: model:ir.actions.act_window,name:marketplace.act_mkp_announ_the_market_the_wants_per_category
+#: model:ir.actions.act_window,name:marketplace.action_marketplace_the_market_transactions_per_category
+#: model:ir.ui.menu,name:marketplace.menu_act_mkp_announ_the_market_the_offers_per_category
+#: model:ir.ui.menu,name:marketplace.menu_act_mkp_announ_the_market_the_wants_per_category
+#: model:ir.ui.menu,name:marketplace.menu_action_marketplace_the_market_transactions_per_category
+msgid "Per category"
+msgstr "Pro Kategorie"
+
+# RevTran=2 per location
+# RevTran=2 per location
+#. module: marketplace
+#: model:ir.actions.act_window,name:marketplace.act_mkp_announ_the_market_the_offers_per_location
+#: model:ir.actions.act_window,name:marketplace.act_mkp_announ_the_market_the_wants_per_location
+#: model:ir.actions.act_window,name:marketplace.action_marketplace_the_market_transactions_per_location
+#: model:ir.ui.menu,name:marketplace.menu_act_mkp_announ_the_market_the_offers_per_location
+#: model:ir.ui.menu,name:marketplace.menu_act_mkp_announ_the_market_the_wants_per_location
+#: model:ir.ui.menu,name:marketplace.menu_action_marketplace_the_market_transactions_per_location
+msgid "Per location"
+msgstr "pro Standort"
+
+# RevTran=Image
+# RevTran=Image
+#. module: marketplace
+#: field:marketplace.announcement,picture:0
+msgid "Picture"
+msgstr "Bild"
+
+# RevTran=Statement
+# RevTran=Statement
+#. module: marketplace
+#: model:ir.model,name:marketplace.model_marketplace_proposition
+#: view:marketplace.proposition:marketplace.view_marketplace_proposition_form
+msgid "Proposition"
+msgstr "Aussage"
+
+# RevTran=Statement
+# RevTran=Statement
+#. module: marketplace
+#: field:marketplace.announcement,proposition_ids:0
+#: view:marketplace.proposition:marketplace.view_marketplace_proposition_search
+#: view:marketplace.proposition:marketplace.view_marketplace_proposition_tree
+msgid "Propositions"
+msgstr "Aussagen"
+
+# RevTran=Propositions of other
+# RevTran=Propositions of other
+#. module: marketplace
+#: model:ir.actions.act_window,name:marketplace.act_mkp_prop_my_market_as_asker_propositions_from_other
+#: model:ir.ui.menu,name:marketplace.menu_act_mkp_prop_my_market_as_asker_propositions_from_other
+msgid "Propositions from others"
+msgstr "Propositions von anderen"
+
+# RevTran=To accept Propositions
+# RevTran=To accept Propositions
+#. module: marketplace
+#: model:ir.actions.act_window,name:marketplace.act_mkp_prop_my_market_ongoing_propositions_to_accept
+#: model:ir.ui.menu,name:marketplace.menu_act_mkp_prop_my_market_ongoing_propositions_to_accept
+msgid "Propositions to accept"
+msgstr "Propositions zu akzeptieren"
+
+#. module: marketplace
+#: view:marketplace.announcement:marketplace.view_marketplace_announcement_form
+#: view:marketplace.proposition:marketplace.view_marketplace_proposition_form
+msgid "Publish"
+msgstr "Veröffentlichen"
+
+# RevTran=Published
+# RevTran=Published
+#. module: marketplace
+#: view:marketplace.announcement:marketplace.view_marketplace_announcement_search
+msgid "Publish date"
+msgstr "Veröffentlicht"
+
+#. module: marketplace
+#: selection:marketplace.announcement,state:0
+msgid "Published"
+msgstr "Veröffentlicht"
+
+# RevTran=Published on:
+# RevTran=Published on:
+#. module: marketplace
+#: field:marketplace.announcement,publish_date:0
+msgid "Published on"
+msgstr "Veröffentlicht am:"
+
+# RevTran=In your draft
+# RevTran=In your draft
+#. module: marketplace
+#: view:marketplace.proposition:marketplace.view_marketplace_proposition_form
+msgid "Put in draft"
+msgstr "In Entwurfsmodus setzen"
+
+#. module: marketplace
+#: model:marketplace.tag,name:marketplace.tag_odoo_python
+msgid "Python Development"
+msgstr "Python-Entwicklung"
+
+#. module: marketplace
+#: field:marketplace.announcement,quantity:0
+msgid "Quantity"
+msgstr "Menge: %s"
+
+# RevTran=Re-open
+# RevTran=Re-open
+#. module: marketplace
+#: view:marketplace.announcement:marketplace.view_marketplace_announcement_form
+msgid "Re-Open"
+msgstr "Wieder öffnen"
+
+#. module: marketplace
+#: view:marketplace.proposition:marketplace.view_marketplace_proposition_form
+msgid "Refund"
+msgstr "Rückerstattung"
+
+# RevTran=Refund Payment Confirmation
+# RevTran=Refund Payment Confirmation
+#. module: marketplace
+#: selection:marketplace.proposition,state:0
+msgid "Refund payment confirmation"
+msgstr "Rückerstattung Zahlungsbestätigung"
+
+#. module: marketplace
+#: view:marketplace.announcement:marketplace.view_marketplace_announcement_search
+msgid "Region"
+msgstr "Region"
+
+# RevTran=Discard
+# RevTran=Discard
+#. module: marketplace
+#: view:marketplace.proposition:marketplace.view_marketplace_proposition_form
+msgid "Reject"
+msgstr "Verwerfen"
+
+#. module: marketplace
+#: selection:marketplace.proposition,state:0
+msgid "Rejected"
+msgstr "Abgelehnt"
+
+# RevTran=Responses from other
+# RevTran=Responses from other
+#. module: marketplace
+#: model:ir.actions.act_window,name:marketplace.act_mkp_prop_my_market_as_bringer_replies_from_other
+#: model:ir.ui.menu,name:marketplace.menu_act_mkp_prop_my_market_as_bringer_replies_from_other
+msgid "Replies from others"
+msgstr "Antworten von anderen"
+
+# RevTran=To accept answers
+# RevTran=To accept answers
+#. module: marketplace
+#: model:ir.actions.act_window,name:marketplace.act_mkp_prop_my_market_ongoing_replies_to_accept
+#: model:ir.ui.menu,name:marketplace.menu_act_mkp_prop_my_market_ongoing_replies_to_accept
+msgid "Replies to accept"
+msgstr "Antworten zum akzeptieren"
+
+# RevTran=Back to pay
+# RevTran=Back to pay
+#. module: marketplace
+#: view:marketplace.proposition:marketplace.view_marketplace_proposition_form
+msgid "Return to paid"
+msgstr "Zurück zu zahlen"
+
+# RevTran=Right Mother
+# RevTran=Right Mother
+#. module: marketplace
+#: field:marketplace.announcement.category,parent_right:0
+msgid "Right parent"
+msgstr "Rechts laufende "
+
+# RevTran=Consequence, Result, Outcome
+# RevTran=Consequence, Result, Outcome
+#. module: marketplace
+#: field:marketplace.announcement.category,sequence:0
+msgid "Sequence"
+msgstr "Folge"
+
+#. module: marketplace
+#: view:marketplace.announcement:marketplace.view_marketplace_announcement_form
+msgid "Set to Draft"
+msgstr "Auf Entwurfmodus gestellt"
+
+# RevTran=Next confirm
+# RevTran=Next confirm
+#. module: marketplace
+#: field:marketplace.proposition,skip_confirm:0
+msgid "Skip confirm"
+msgstr "Übergehen"
+
+# RevTran=Next vote?
+# RevTran=Next vote?
+#. module: marketplace
+#: field:marketplace.proposition,skip_vote:0
+msgid "Skip vote?"
+msgstr "Übergehe Abstimmung?"
+
+#. module: marketplace
+#: view:marketplace.announcement:marketplace.view_marketplace_announcement_search
+#: field:marketplace.announcement,state_id:0
+msgid "State"
+msgstr "Staat"
+
+#. module: marketplace
+#: field:marketplace.announcement,state:0
+#: field:marketplace.proposition,state:0
+msgid "Status"
+msgstr "Status"
+
+#. module: marketplace
+#: field:marketplace.announcement,street:0
+msgid "Street"
+msgstr "Strasse"
+
+#. module: marketplace
+#: field:marketplace.announcement,street2:0
+msgid "Street2"
+msgstr "Strasse 2"
+
+#. module: marketplace
+#: field:marketplace.announcement,message_summary:0
+#: field:marketplace.proposition,message_summary:0
+msgid "Summary"
+msgstr "Zusammenfassung"
+
+# RevTran=Day
+# RevTran=Day
+#. module: marketplace
+#: model:ir.model,name:marketplace.model_marketplace_tag
+#: field:marketplace.tag,name:0
+msgid "Tag"
+msgstr "Tag"
+
+#. module: marketplace
+#: field:marketplace.announcement,tag_ids:0
+#: field:marketplace.announcement.category,tag_ids:0
+msgid "Tags"
+msgstr "Tags"
+
+# RevTran=Tags ...
+# RevTran=Tags ...
+#. module: marketplace
+#: view:marketplace.announcement:marketplace.view_marketplace_announcement_form
+msgid "Tags..."
+msgstr "Tags ..."
+
+# RevTran=The market
+# RevTran=The market
+#. module: marketplace
+#: model:ir.ui.menu,name:marketplace.menu_marketplace_the_market
+msgid "The Market"
+msgstr "Der Markt"
+
+# RevTran=The active field, you can the category, without hiding it.
+# RevTran=The active field, you can the category, without hiding it.
+#. module: marketplace
+#: help:marketplace.announcement.category,active:0
+msgid "The active field allows you to hide the category without removing it."
+msgstr "Feld erlaubt die Kategorie zu verbergen."
+
+#. module: marketplace
+#: code:addons/marketplace/marketplace.py:590
+#, python-format
+msgid "There is not enough quantity available!"
+msgstr "Es ist nicht genügend Guthaben vorhanden!"
+
+# RevTran=Title
+# RevTran=Title
+#. module: marketplace
+#: view:marketplace.announcement:marketplace.view_marketplace_announcement_form
+msgid "Title..."
+msgstr "Titel"
+
+# RevTran=See all feedback
+# RevTran=See all feedback
+#. module: marketplace
+#: field:marketplace.announcement,vote_total:0
+#: field:marketplace.proposition,vote_total:0
+msgid "Total feedback"
+msgstr "Gesamtes Feedback"
+
+#. module: marketplace
+#: model:ir.model,name:marketplace.model_account_wallet_transaction
+#: field:marketplace.proposition,transaction_id:0
+msgid "Transaction"
+msgstr "Transaktion"
+
+#. module: marketplace
+#: model:ir.ui.menu,name:marketplace.menu_marketplace_the_market_transactions
+msgid "Transactions"
+msgstr "Transaktionen"
+
+#. module: marketplace
+#: model:ir.actions.act_window,name:marketplace.action_marketplace_moderation_dispute
+#: model:ir.ui.menu,name:marketplace.menu_action_marketplace_moderation_dispute
+msgid "Transactions in dispute"
+msgstr "Transaktionen in Diskussion"
+
+#. module: marketplace
+#: field:marketplace.announcement,type:0 field:marketplace.proposition,type:0
+msgid "Type"
+msgstr "Typ"
+
+# RevTran=Measurement unit
+# RevTran=Measurement unit
+#. module: marketplace
+#: field:marketplace.announcement,uom_id:0
+msgid "Unit of Measure"
+msgstr "Masseinheit"
+
+# RevTran=Unbegrenzt
+# RevTran=Unbegrenzt
+#. module: marketplace
+#: field:marketplace.announcement,infinite_qty:0
+msgid "Unlimited"
+msgstr "Unlimitiert"
+
+#. module: marketplace
+#: field:marketplace.announcement,message_unread:0
+#: field:marketplace.proposition,message_unread:0
+msgid "Unread Messages"
+msgstr "Ungelesene Nachrichten"
+
+# RevTran=Vote types
+# RevTran=Vote types
+#. module: marketplace
+#: field:marketplace.announcement.category,vote_config_result_ids:0
+msgid "Vote Types"
+msgstr "Abstimmungs Typen"
+
+#. module: marketplace
+#: field:marketplace.announcement.category,vote_config_ids:0
+msgid "Vote configuration"
+msgstr "Abstimmungs Konfiguration"
+
+# RevTran=Vote Users
+# RevTran=Vote Users
+#. module: marketplace
+#: field:marketplace.announcement,vote_user_ids:0
+#: field:marketplace.proposition,vote_user_ids:0
+msgid "Vote users"
+msgstr "Abstimmung Nutzer"
+
+# RevTran=Agreement
+# RevTran=Agreement
+#. module: marketplace
+#: field:marketplace.announcement,vote_voters:0
+#: field:marketplace.proposition,vote_voters:0
+msgid "Voters"
+msgstr "Abstimmung"
+
+# RevTran=Tune
+# RevTran=Tune
+#. module: marketplace
+#: field:marketplace.announcement,vote_vote_ids:0
+#: field:marketplace.proposition,vote_vote_ids:0
+msgid "Votes"
+msgstr "Stimmen"
+
+#. module: marketplace
+#: selection:marketplace.proposition,state:0
+msgid "Waiting for votes"
+msgstr "Warten auf Stimmen"
+
+# RevTran=Request
+# RevTran=Request
+#. module: marketplace
+#: model:ir.ui.menu,name:marketplace.menu_marketplace_the_market_the_wants
+msgid "Wants"
+msgstr "Nachfragen"
+
+# RevTran=Will follow
+# RevTran=Will follow
+#. module: marketplace
+#: model:ir.actions.act_window,name:marketplace.act_mkp_announ_my_market_as_bringer_wants_to_follow
+#: model:ir.ui.menu,name:marketplace.menu_act_mkp_announ_my_market_as_bringer_wants_to_follow
+msgid "Wants to follow"
+msgstr "Nachfragen zum folgen"
+
+# RevTran=Website news
+# RevTran=Website news
+#. module: marketplace
+#: field:marketplace.announcement,website_message_ids:0
+#: field:marketplace.proposition,website_message_ids:0
+msgid "Website Messages"
+msgstr "Website Nachrichten"
+
+#. module: marketplace
+#: help:marketplace.announcement,website_message_ids:0
+#: help:marketplace.proposition,website_message_ids:0
+msgid "Website communication history"
+msgstr "Webseite Kommunikationshistorie"
+
+# RevTran=Which
+# RevTran=Which
+#. module: marketplace
+#: field:marketplace.announcement,name:0
+#: field:marketplace.proposition,announcement_id:0
+msgid "What"
+msgstr "Welche"
+
+#. module: marketplace
+#: field:marketplace.announcement,delivery_date:0
+msgid "When"
+msgstr "Wenn"
+
+#. module: marketplace
+#: field:marketplace.announcement,address:0
+msgid "Where"
+msgstr "Wo"
+
+# RevTran=Which
+# RevTran=Which
+#. module: marketplace
+#: field:marketplace.announcement,partner_id:0
+msgid "Who"
+msgstr "Welche"
+
+# RevTran=You have the role to perform this action can!
+# RevTran=You have the role to perform this action can!
+#. module: marketplace
+#: code:addons/marketplace/marketplace.py:338
+#: code:addons/marketplace/marketplace.py:536
+#, python-format
+msgid "You need to have the role  to perform this action!"
+msgstr ""
+"Sie müssen die entsprechenden Rechte haben, um diese Aktion durchführen zu "
+"können!"
+
+# RevTran=You must have the role is_announcer tick the checkbox cancel by Announcer
+# RevTran=You must have the role is_announcer tick the checkbox cancel by Announcer
+#. module: marketplace
+#: code:addons/marketplace/marketplace.py:692
+#, python-format
+msgid ""
+"You need to have the role is_announcer to tick the cancel checkbox from "
+"announcer"
+msgstr ""
+"Sie müssen die Rolle 'is_announcer' haben um die Checkbox 'Abbrechen von "
+"Gesuchssteller' zu bestätigen"
+
+# RevTran=You must have the role is_user tick the checkbox Cancel by user
+# RevTran=You must have the role is_user tick the checkbox Cancel by user
+#. module: marketplace
+#: code:addons/marketplace/marketplace.py:686
+#, python-format
+msgid "You need to have the role is_user to tick the cancel checkbox from user"
+msgstr ""
+"Sie müssen die Rolle 'is_user' haben um die Checkbox 'Abbrechen von "
+"Benutzer' zu bestätigen"
+
+# RevTran=Postal code
+# RevTran=Postal code
+#. module: marketplace
+#: field:marketplace.announcement,zip:0
+msgid "Zip"
+msgstr "PLZ"
+
+#. module: marketplace
+#: view:marketplace.announcement:marketplace.view_marketplace_announcement_form_admin
+#: view:marketplace.proposition:marketplace.view_marketplace_proposition_form_admin
+msgid "[('user_ids','!=',False)]"
+msgstr ""
