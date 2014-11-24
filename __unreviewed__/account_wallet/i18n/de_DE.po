@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 8.0\n"
+"Project-Id-Version: odoo-vertical-community\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-11 10:31+0000\n"
-"PO-Revision-Date: 2014-11-19 14:30+0100\n"
+"PO-Revision-Date: 2014-11-24 14:33+0100\n"
 "Last-Translator: Lucas Huber <lh@jeema.solutions>\n"
 "Language-Team: German Maintainers\n"
 "MIME-Version: 1.0\n"
@@ -94,7 +94,7 @@ msgstr "Community Journal"
 #. module: account_wallet
 #: model:ir.model,name:account_wallet.model_community_config_settings
 msgid "Community configuration"
-msgstr "Gemeinschaft Konfiguration"
+msgstr "Community Konfiguration"
 
 #. module: account_wallet
 #: field:account.wallet.config.currency,config_id:0
