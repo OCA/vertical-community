@@ -740,7 +740,7 @@ class ResPartner(osv.osv):
 
     _columns = {
         'wallet_currency_ids': fields.one2many('res.partner.wallet.currency', 'partner_id', 'Currencies'),
-        'wallet_balance_ids': fields.one2many("res.partner.wallet.balance", 'partner_id', 'Balances'),
+        'wallet_balance_ids': fields.one2many("res.partner.wallet.balance", 'partner_id', 'Balances', readonly=True),
         'create_date': fields.datetime('Create date'),
     }
 
