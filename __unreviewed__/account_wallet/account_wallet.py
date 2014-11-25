@@ -127,7 +127,7 @@ class AccountWalletTransaction(osv.osv):
         'currency_ids': fields.one2many(
             'account.wallet.currency.line', 'res_id',
             domain=lambda self: [('model', '=', self._name), ('field', '=', 'currency_ids')],
-            auto_join=True, string='Currencies', readonly=True, states={'draft': [('readonly', False)]}
+            auto_join=True, string='Currencies'
         ),
         'already_published': fields.boolean('Already published?'),
         'move_ids': fields.one2many('account.move', 'wallet_transaction_id', 'Moves'),
