@@ -719,9 +719,9 @@ class ResPartner(osv.osv):
                     line_id = lines[partner.id][currency['currency_id']]
                     del currency['partner_id']
                     del currency['currency_id']
-                    line_obj.write(cr, uid, [line_id], currency, context=context)
+                    line_obj.write(cr, SUPERUSER_ID, [line_id], currency, context=context)
                 else:
-                    line_obj.create(cr, uid, currency, context=context)
+                    line_obj.create(cr, SUPERUSER_ID, currency, context=context)
 
         return res
 

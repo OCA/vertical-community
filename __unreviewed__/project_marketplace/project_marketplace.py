@@ -159,7 +159,7 @@ class MarketplaceProposition(osv.osv):
             'description': (proposition.announcement_id.description or '') + '\n\n=========\n\n' +
                            (proposition.description or ''),
             'planned_hours': proposition.planned_hours,
-            'date_deadline': proposition.announcement_id.delivery_date,
+            'date_deadline': proposition.announcement_id.date_from,
         }
         if proposition.type == 'want' and proposition.announcement_id.task_id:
             task_vals['project_id'] = proposition.announcement_id.task_id.project_id.id
