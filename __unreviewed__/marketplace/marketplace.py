@@ -593,18 +593,18 @@ class MarketplaceProposition(osv.osv):
         transaction_obj = self.pool.get('account.wallet.transaction')
         for proposition in self.browse(cr, uid, ids):
             fields = {'state': new_state}
-            if new_state == 'open':
+            if proposition.state == 'draft' and new_state == 'open':
                 if proposition.quantity > \
                         proposition.announcement_id.quantity_available and not proposition.announcement_id.infinite_qty:
                     raise osv.except_osv(_('Access error!'), _("There is not enough quantity available!"))
                 transaction_obj.write(cr, uid, [proposition.transaction_id.id], {'state': 'draft'})
                 workflow.trg_delete(uid, 'account.wallet.transaction', proposition.transaction_id.id, cr)
                 fields['already_published'] = True
-            if new_state == 'accepted':
+            if proposition.state == 'open' and new_state == 'accepted':
                 transaction_obj.prepare_move(cr, uid, [proposition.transaction_id.id], 'reservation')
                 announcement_obj.test_close(cr, uid, [proposition.announcement_id.id])
                 fields['already_accepted'] = True
-            if new_state == 'invoiced':
+            if proposition.state == 'accepted' and new_state == 'invoiced':
                 transaction_obj.prepare_move(cr, uid, [proposition.transaction_id.id], 'invoice')
             if new_state == 'cancel':
                 transaction_obj.refund(
@@ -624,16 +624,17 @@ class MarketplaceProposition(osv.osv):
         self.test_access_role(cr, uid, ids, 'is_sender', *args)
 
         for proposition in self.browse(cr, uid, ids):
-            transaction_obj.prepare_move(cr, uid, [proposition.transaction_id.id], 'payment')
+            if proposition.state == 'invoiced':
+                transaction_obj.prepare_move(cr, uid, [proposition.transaction_id.id], 'payment')
 
-            skip_confirm = transaction_obj.get_skip_confirm(cr, uid, proposition.transaction_id)
-            if not skip_confirm:
-                workflow.trg_validate(
-                    uid, 'marketplace.proposition', proposition.id, 'proposition_invoiced_confirm', cr
-                )
-            else:
-                workflow.trg_validate(uid, 'marketplace.proposition', proposition.id, 'proposition_invoiced_vote', cr)
-                self.test_vote(cr, uid, [proposition.id])
+                skip_confirm = transaction_obj.get_skip_confirm(cr, uid, proposition.transaction_id)
+                if not skip_confirm:
+                    workflow.trg_validate(
+                        uid, 'marketplace.proposition', proposition.id, 'proposition_invoiced_confirm', cr
+                    )
+                else:
+                    workflow.trg_validate(uid, 'marketplace.proposition', proposition.id, 'proposition_invoiced_vote', cr)
+                    self.test_vote(cr, uid, [proposition.id])
         return True
 
     def confirm(self, cr, uid, ids, *args):
@@ -642,8 +643,9 @@ class MarketplaceProposition(osv.osv):
         self.test_access_role(cr, uid, ids, 'is_receiver', *args)
 
         for proposition in self.browse(cr, uid, ids):
-            workflow.trg_validate(uid, 'marketplace.proposition', proposition.id, 'proposition_confirm_vote', cr)
-            transaction_obj.prepare_move(cr, uid, [proposition.transaction_id.id], 'confirm')
+            if proposition.state == 'confirm':
+                transaction_obj.prepare_move(cr, uid, [proposition.transaction_id.id], 'confirm')
+                workflow.trg_validate(uid, 'marketplace.proposition', proposition.id, 'proposition_confirm_vote', cr)
 
         self.test_vote(cr, uid, ids)
         return True
@@ -660,8 +662,9 @@ class MarketplaceProposition(osv.osv):
                 role_to_test = 'is_receiver'
             self.test_access_role(cr, uid, ids, role_to_test, *args)
 
-            workflow.trg_delete(uid, 'marketplace.proposition', proposition.id, cr)
-            workflow.trg_create(uid, 'marketplace.proposition', proposition.id, cr)
+            if state in ['cancel', 'rejected', 'paid']:
+                workflow.trg_delete(uid, 'marketplace.proposition', proposition.id, cr)
+                workflow.trg_create(uid, 'marketplace.proposition', proposition.id, cr)
 
             if state == 'paid':
                 skip_confirm = transaction_obj.get_skip_confirm(cr, uid, proposition.transaction_id)

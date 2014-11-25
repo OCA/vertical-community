@@ -202,6 +202,17 @@
                         <field name="call_moderator_user" attrs="{'readonly':[('is_user', '!=', True)], 'invisible':[('is_user', '!=', True),('call_moderator_user', '!=', True)]}"/>
                         <field name="call_moderator_announcer" attrs="{'readonly':[('is_announcer', '!=', True)], 'invisible':[('is_announcer', '!=', True),('call_moderator_announcer', '!=', True)]}"/>
                     </group>
+                    <field name="move_ids" groups="account.group_account_user" readonly="1">
+                        <tree string="Journal Entries">
+                            <field name="name"/>
+                            <field name="ref"/>
+                            <field name="wallet_action"/>
+                            <field name="date"/>
+                            <field name="partner_id"/>
+                            <field name="amount" sum="Total Amount"/>
+                            <field name="state"/>
+                        </tree>
+                    </field>
                     <field name="is_user" invisible="1"/>
                     <field name="is_announcer" invisible="1"/>
                     <field name="is_moderator" invisible="1"/>
