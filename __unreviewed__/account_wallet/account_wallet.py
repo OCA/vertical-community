@@ -63,6 +63,7 @@ class AccountWalletCurrencyLine(osv.osv):
     }
 
     _defaults = {
+        'model': 'account.wallet.transaction',
         'field': 'currency_ids'
     }
 
