@@ -190,8 +190,9 @@
             <field name="inherit_id" ref="base.view_partner_form"/>
             <field name="arch" type="xml">
                 <page string="Internal Notes" position="after">
-                    <page string="Community">
-                        <field name="wallet_balance_ids">
+                    <page string="Community" >
+                        <field name="see_balance" invisible="1"/>
+                        <field name="wallet_balance_ids" attrs="{'invisible': [('see_balance','!=', True)]}">
                             <tree string="Balance">
                                 <field name="currency_id"/>
                                 <field name="limit_negative" invisible="1"/>
@@ -202,7 +203,7 @@
                                 <field name="reserved"/>
                             </tree>
                         </field>
-                        <field name="wallet_currency_ids"/>
+                        <field name="wallet_currency_ids" groups="account_wallet.group_account_wallet_moderator"/>
                     </page>
                 </page>
             </field>

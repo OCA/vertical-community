@@ -38,6 +38,7 @@ class CommunityConfigSettings(osv.osv):
     _inherit = 'community.config.settings'
 
     _columns = {
+        'display_balance': fields.boolean('Everyone can see balances?'),
         'journal_id': fields.many2one('account.journal', 'Community Journal', required=True),
         'currency_ids': fields.one2many('account.wallet.config.currency', 'config_id', 'Currencies'),
         'default_currency_id': fields.many2one('res.currency', 'Default currency', 

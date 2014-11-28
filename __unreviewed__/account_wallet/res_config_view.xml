@@ -44,6 +44,10 @@
                         <label for="id" string="Currencies"/>
                         <div name="currencies">
                             <div>
+                                <field name="display_balance" class="oe_inline"/>
+                                <label for="display_balance"/>
+                            </div>
+                            <div>
                                 <field name="journal_id" class="oe_inline"/>
                                 <label for="journal_id"/>
                             </div>
