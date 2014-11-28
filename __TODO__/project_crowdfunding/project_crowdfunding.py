@@ -22,7 +22,7 @@
 from openerp.osv import osv
 
 
-class ProjectProject(osv.osv):
+class ProjectProject(osv.Model):
 
     _name = 'project.project'
     _inherit = ['project.project', 'crowdfunding.campaign']

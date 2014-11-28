@@ -95,7 +95,7 @@ class CrowdfundingCampaign(osv.AbstractModel):
     }
 
 
-class CrowdfundingReward(osv.osv):
+class CrowdfundingReward(osv.Model):
 
     _name = 'crowdfunding.reward'
     _description = 'Reward'
@@ -144,7 +144,7 @@ class CrowdfundingReward(osv.osv):
     }
 
 
-class CrowdfundingTransaction(osv.osv):
+class CrowdfundingTransaction(osv.Model):
 
     _name = 'crowdfunding.transaction'
     _description = 'Transaction'

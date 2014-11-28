@@ -21,7 +21,7 @@
 from openerp.osv import osv
 
 
-class GroupsView(osv.osv):
+class GroupsView(osv.Model):
 
     """
     Add group in user simplified form

@@ -21,7 +21,7 @@
 from openerp.osv import fields, osv
 
 
-class ProjectTaskType(osv.osv):
+class ProjectTaskType(osv.Model):
 
     """
     Specify the default assigned partner for each stage,
@@ -122,7 +122,7 @@ class ProjectAssignedPartnerModel(osv.AbstractModel):
         return res
 
 
-class ProjectProject(osv.osv):
+class ProjectProject(osv.Model):
 
     """
     Add assignment fields in project.project
@@ -168,7 +168,7 @@ class ProjectProject(osv.osv):
         return True
 
 
-class ProjectTask(osv.osv):
+class ProjectTask(osv.Model):
 
     """
     Add assignment fields in project.task and recompute
@@ -246,7 +246,7 @@ class ProjectTask(osv.osv):
         return res
 
 
-class ProjectAssignedPartnerConfig(osv.osv):
+class ProjectAssignedPartnerConfig(osv.Model):
 
     """
     Extend the configuration line with field specific to partner assignment

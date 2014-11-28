@@ -21,7 +21,7 @@
 from openerp.osv import fields, osv
 
 
-class ProjectProject(osv.osv):
+class ProjectProject(osv.Model):
 
     """
     Add link between project and group
@@ -61,7 +61,7 @@ class ProjectProject(osv.osv):
         return res
 
 
-class ProjectTask(osv.osv):
+class ProjectTask(osv.Model):
 
     """
     Add link between task and group
@@ -104,7 +104,7 @@ class ProjectTask(osv.osv):
         return res
 
 
-class MailGroup(osv.osv):
+class MailGroup(osv.Model):
 
     _inherit = 'mail.group'
 

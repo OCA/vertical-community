@@ -25,7 +25,7 @@ from openerp import SUPERUSER_ID
 from openerp.tools.translate import _
 
 
-class ResPartner(osv.osv):
+class ResPartner(osv.Model):
 
     """
     Add some field in partner to use as a member presentation page
@@ -74,7 +74,7 @@ def name_selection_groups(ids):
     return 'sel_groups_' + '_'.join(map(str, ids))
 
 
-class GroupsView(osv.osv):
+class GroupsView(osv.Model):
 
     """
     Copy some function we find in base module in order to manage

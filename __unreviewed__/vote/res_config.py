@@ -21,7 +21,7 @@
 from openerp.osv import fields, osv
 
 
-class VoteType(osv.osv):
+class VoteType(osv.Model):
 
     """
     Object used for configuring available vote types
@@ -34,7 +34,7 @@ class VoteType(osv.osv):
     }
 
 
-class CommunityConfigSettings(osv.osv):
+class CommunityConfigSettings(osv.Model):
 
     """
     Add vote configuration in community configuration
@@ -72,7 +72,7 @@ class CommunityConfigSettings(osv.osv):
         return res
 
 
-class VoteConfigLine(osv.osv):
+class VoteConfigLine(osv.Model):
 
     """
     Configuration line

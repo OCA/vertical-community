@@ -229,7 +229,7 @@ class BaseConfigInheritLine(osv.AbstractModel):
     _order = 'sequence'
 
 
-class BaseConfigInheritLineDel(osv.osv):
+class BaseConfigInheritLineDel(osv.Model):
 
     """
     Lines created when a configuration line where deleted in parent,

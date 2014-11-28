@@ -25,7 +25,7 @@ from openerp.osv import osv
 _logger = logging.getLogger(__name__)
 
 
-class CommunityConfigSettings(osv.osv):
+class CommunityConfigSettings(osv.Model):
 
     """
     Community setting which will be used to contain all configuration

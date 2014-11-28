@@ -22,7 +22,7 @@ from openerp.osv import fields, osv
 import openerp.addons.decimal_precision as dp
 
 
-class CommunityConfigSettings(osv.osv):
+class CommunityConfigSettings(osv.Model):
 
     """
     Add currencies configuration to community settings
@@ -56,7 +56,7 @@ class CommunityConfigSettings(osv.osv):
     # }
 
 
-class AccountWalletConfigCurrency(osv.osv):
+class AccountWalletConfigCurrency(osv.Model):
 
     """
     Lines containing the general configuration for wallet currencies

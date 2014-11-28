@@ -27,7 +27,7 @@ from openerp.tools.translate import _
 from datetime import datetime
 
 
-class MarketplaceAnnouncementCategory(osv.osv):
+class MarketplaceAnnouncementCategory(osv.Model):
     """
     Announcement category, we can only have
     one category per announcement. Recursive.
@@ -63,7 +63,7 @@ class MarketplaceAnnouncementCategory(osv.osv):
     }
 
 
-class MarketplaceTag(osv.osv):
+class MarketplaceTag(osv.Model):
     """
     Announcement tag, you can assigned several tag per announcement.
     Tag are linked to the category specified in the announcement.
@@ -85,7 +85,7 @@ class MarketplaceTag(osv.osv):
     _order = 'category_id, name'
 
 
-class MarketplaceAnnouncement(osv.osv):
+class MarketplaceAnnouncement(osv.Model):
     """
     Object containing the announcement from the users.
     Can be either an offer or a demand
@@ -481,7 +481,7 @@ class MarketplaceAnnouncement(osv.osv):
         }
 
 
-class MarketplaceProposition(osv.osv):
+class MarketplaceProposition(osv.Model):
     """
     Object containing the proposition to the announcement.
     Inherit transaction and so update balances when closed.
@@ -907,7 +907,7 @@ class MarketplaceProposition(osv.osv):
         return res
 
 
-class AccountWalletTransaction(osv.osv):
+class AccountWalletTransaction(osv.Model):
     """
     Override transaction if proposition id an answer to a want,
     to exchange sender and receiver place
@@ -936,7 +936,7 @@ class AccountWalletTransaction(osv.osv):
         return res
 
 
-class ResPartner(osv.osv):
+class ResPartner(osv.Model):
     """
     Add skills management in partner form, which are linked to category and tag
     """
@@ -956,7 +956,7 @@ class ResPartner(osv.osv):
     }
 
 
-class IrAttachment(osv.osv):
+class IrAttachment(osv.Model):
     """
     Add the field name in ir.attachment, to easily retrieve the picture
     """

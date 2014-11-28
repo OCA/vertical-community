@@ -23,7 +23,7 @@ from openerp import SUPERUSER_ID
 from openerp.tools.translate import _
 
 
-class ProjectTask(osv.osv):
+class ProjectTask(osv.Model):
     _inherit = 'project.task'
 
     def _get_marketplace(self, cr, uid, ids, prop, unknow_none, context=None):
@@ -102,7 +102,7 @@ class ProjectTask(osv.osv):
         return True
 
 
-class MarketplaceAnnouncement(osv.osv):
+class MarketplaceAnnouncement(osv.Model):
     """
     Link announcement to task.
     """
@@ -151,7 +151,7 @@ class MarketplaceAnnouncement(osv.osv):
         return res
 
 
-class MarketplaceProposition(osv.osv):
+class MarketplaceProposition(osv.Model):
     """
     Make link between proposition and task
     """
@@ -252,7 +252,7 @@ class MarketplaceProposition(osv.osv):
         return res
 
 
-class ProjectTaskType(osv.osv):
+class ProjectTaskType(osv.Model):
     """
     Add assignment to payer or invoicer from marketplace in task type
     """
@@ -277,7 +277,7 @@ class ProjectTaskType(osv.osv):
         return res
 
 
-class ProjectAssignedPartnerConfig(osv.osv):
+class ProjectAssignedPartnerConfig(osv.Model):
     """
     Add marketplace_assignment in field in configuration lines
     """
@@ -292,7 +292,7 @@ class ProjectAssignedPartnerConfig(osv.osv):
     }
 
 
-class ProjectProject(osv.osv):
+class ProjectProject(osv.Model):
     """
     Add marketplace_assignment in configuration computation
     """
@@ -316,7 +316,7 @@ class ProjectProject(osv.osv):
         return res
 
 
-class ProjectTask(osv.osv):
+class ProjectTask(osv.Model):
     """
     Make changes in task assignment to use marketplace info if necessary
     """

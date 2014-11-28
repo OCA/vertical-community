@@ -22,7 +22,7 @@
 from openerp.osv import fields, osv
 
 
-class MarketplaceAnnouncement(osv.osv):
+class MarketplaceAnnouncement(osv.Model):
 
     _name = 'marketplace.announcement'
     _inherit = ['marketplace.announcement', 'crowdfunding.campaign']

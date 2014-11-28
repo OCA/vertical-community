@@ -28,7 +28,7 @@ from openerp.tools.translate import _
 import openerp.addons.decimal_precision as dp
 
 
-class AccountWalletCurrencyLine(osv.osv):
+class AccountWalletCurrencyLine(osv.Model):
     """
     Object which contain the values of the transaction.
     Theses object can be linked to other object than account.wallet.transaction
@@ -87,7 +87,7 @@ class AccountWalletCurrencyLine(osv.osv):
     ]
 
 
-class AccountWalletTransaction(osv.osv):
+class AccountWalletTransaction(osv.Model):
     """
     Main object used for transferring currencies, from sender_id to receiver_id
     It has his own workflow, from draft to done and can be refund.
@@ -694,7 +694,7 @@ class AccountWalletTransaction(osv.osv):
         return True
 
 
-class AccountMove(osv.osv):
+class AccountMove(osv.Model):
     """
     Add fields to link account move to the wallet transaction
     """
@@ -718,7 +718,7 @@ class AccountMove(osv.osv):
     }
 
 
-class ResPartner(osv.osv):
+class ResPartner(osv.Model):
     """
     Display balance in partner form and add element for configuration
     specific to the partner
@@ -991,7 +991,7 @@ class ResPartner(osv.osv):
     }
 
 
-class ResPartnerWalletCurrency(osv.osv):
+class ResPartnerWalletCurrency(osv.Model):
     """
     Lines for configuring wallet for each currency in partner
     """
@@ -1029,7 +1029,7 @@ class ResPartnerWalletCurrency(osv.osv):
     }
 
 
-class ResPartnerWalletBalance(osv.osv):
+class ResPartnerWalletBalance(osv.Model):
     """
     Lines for displaying balances in partner
     """
@@ -1070,7 +1070,7 @@ class ResPartnerWalletBalance(osv.osv):
     # ]
 
 
-class ResCurrency(osv.osv):
+class ResCurrency(osv.Model):
     """
     Add a boolean in currency to identify currency usable in wallet
     """

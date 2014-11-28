@@ -21,7 +21,7 @@
 from openerp.osv import fields, osv
 
 
-class MailGroup(osv.osv):
+class MailGroup(osv.Model):
     """
     Add the rights wallet in groups,
     to know who can use the wallet of the group
@@ -37,7 +37,7 @@ class MailGroup(osv.osv):
     }
 
 
-class AccountWalletTransaction(osv.osv):
+class AccountWalletTransaction(osv.Model):
     """
     Make sure the users who has wallet right on the group
     has the corresponding rights on the transaction

@@ -22,7 +22,7 @@ from openerp.osv import fields, osv
 from openerp import SUPERUSER_ID
 
 
-class MailGroupRight(osv.osv):
+class MailGroupRight(osv.Model):
 
     """
     Define rights which can be assigned to children groups of a circle.
@@ -37,7 +37,7 @@ class MailGroupRight(osv.osv):
     }
 
 
-class MailGroup(osv.osv):
+class MailGroup(osv.Model):
 
     """
     Improve mail.group to make it recursive and manage holacracy concepts
@@ -293,7 +293,7 @@ class MailGroup(osv.osv):
         return res
 
 
-class ResPartner(osv.osv):
+class ResPartner(osv.Model):
 
     """
     Add link to mail.group in res.partner
