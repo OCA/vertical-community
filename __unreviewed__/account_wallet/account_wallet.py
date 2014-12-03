@@ -163,6 +163,7 @@ class AccountWalletTransaction(osv.osv):
         config = proxy.get_object(cr, uid, 'base_community', 'community_settings')
         return [(0, 0, {
             'model': self._name,
+            'field': 'currency_ids',
             'price_unit': 1.0,
             'currency_id': config.default_currency_id.id
         })]
