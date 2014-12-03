@@ -104,7 +104,7 @@
     uid: 'user_test1'
 -
   !python {model: marketplace.proposition}: |
-    from openerp.osv import osv
+    from openerp.osv import orm, osv
     from openerp import workflow
     try:
       self.confirm(cr, uid, [ref('proposition_test_2')])
@@ -185,7 +185,7 @@
     uid: 'user_test2'
 -
   !python {model: marketplace.proposition}: |
-    from openerp.osv import osv
+    from openerp.osv import orm, osv
     from openerp import workflow
     try:
       workflow.trg_validate(uid, 'marketplace.proposition', ref('proposition_test_2'), 'proposition_confirm_refund_cancel', cr)

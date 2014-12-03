@@ -18,10 +18,10 @@
 #
 ##############################################################################
 
-from openerp.osv import fields, osv
+from openerp.osv import fields, orm
 
 
-class BaseConfigInheritModel(osv.AbstractModel):
+class BaseConfigInheritModel(orm.AbstractModel):
 
     """
     Abstract model which can be inherited by model which need to have
@@ -202,7 +202,7 @@ class BaseConfigInheritModel(osv.AbstractModel):
         return res
 
 
-class BaseConfigInheritLine(osv.AbstractModel):
+class BaseConfigInheritLine(orm.AbstractModel):
 
     """
     Lines containing the configuration. Depending of the stored field,
@@ -229,7 +229,7 @@ class BaseConfigInheritLine(osv.AbstractModel):
     _order = 'sequence'
 
 
-class BaseConfigInheritLineDel(osv.Model):
+class BaseConfigInheritLineDel(orm.Model):
 
     """
     Lines created when a configuration line where deleted in parent,

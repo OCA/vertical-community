@@ -18,10 +18,10 @@
 #
 ##############################################################################
 
-from openerp.osv import fields, osv
+from openerp.osv import fields, orm
 
 
-class VoteCategory(osv.AbstractModel):
+class VoteCategory(orm.AbstractModel):
 
     """
     Abstract model for vote category,
@@ -86,7 +86,7 @@ class VoteCategory(osv.AbstractModel):
         return res
 
 
-class VoteModel(osv.AbstractModel):
+class VoteModel(orm.AbstractModel):
 
     """
     Abstract class used by object which can be voted
@@ -213,7 +213,7 @@ class VoteModel(osv.AbstractModel):
     }
 
 
-class VoteVote(osv.Model):
+class VoteVote(orm.Model):
 
     """
     Object containing the vote
@@ -368,7 +368,7 @@ class VoteVote(osv.Model):
         return res
 
 
-class VoteVoteLine(osv.Model):
+class VoteVoteLine(orm.Model):
 
     """
     Vote line, containing the numeric vote for each vote type
@@ -407,7 +407,7 @@ class VoteVoteLine(osv.Model):
     ]
 
 
-class VoteEvaluated(osv.Model):
+class VoteEvaluated(orm.Model):
 
     """
     Abstract class used to mark the object which can be evaluated
@@ -423,7 +423,7 @@ class VoteEvaluated(osv.Model):
 #    }
 
 
-class ResPartner(osv.Model):
+class ResPartner(orm.Model):
 
     """
     Mark res.partner as a evaluated class, and create the field with votes

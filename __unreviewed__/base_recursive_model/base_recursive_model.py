@@ -18,10 +18,10 @@
 #
 ##############################################################################
 
-from openerp.osv import fields, osv
+from openerp.osv import fields, orm, osv, osv
 
 
-class BaseRecursiveModel(osv.AbstractModel):
+class BaseRecursiveModel(orm.AbstractModel):
 
     """
     Abstract model which can be inherited for model

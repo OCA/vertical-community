@@ -19,10 +19,10 @@
 #
 ##############################################################################
 
-from openerp.osv import fields, osv
+from openerp.osv import fields, orm
 
 
-class MarketplaceAnnouncement(osv.Model):
+class MarketplaceAnnouncement(orm.Model):
 
     _name = 'marketplace.announcement'
     _inherit = ['marketplace.announcement', 'crowdfunding.campaign']

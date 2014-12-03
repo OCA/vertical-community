@@ -44,7 +44,7 @@
     uid: 'user_test2'
 -
   !python {model: account.wallet.transaction}: |
-    from openerp.osv import osv
+    from openerp.osv import orm, osv
     try:
       self.confirm(cr, uid, [ref('transaction_test_2')])
       assert False, "Test2 was able to confirm the transaction!"
@@ -78,7 +78,7 @@
     uid: 'user_test1'
 -
   !python {model: account.wallet.transaction}: |
-    from openerp.osv import osv
+    from openerp.osv import orm, osv
     from openerp import workflow
     try:
       workflow.trg_validate(uid, 'account.wallet.transaction', ref('transaction_test_2'), 'transaction_confirm_done', cr)
@@ -110,7 +110,7 @@
     uid: 'user_test1'
 -
   !python {model: account.wallet.transaction}: |
-    from openerp.osv import osv
+    from openerp.osv import orm, osv
     try:
       self.reset_workflow(cr, uid, [ref('transaction_test_2')])
       assert False, "Test1 was able to cancel the transaction!"
@@ -134,7 +134,7 @@
     uid: 'user_test2'
 -
   !python {model: account.wallet.transaction}: |
-    from openerp.osv import osv
+    from openerp.osv import orm, osv
     from openerp import workflow
     try:
       workflow.trg_validate(uid, 'account.wallet.transaction', ref('transaction_test_2'), 'transaction_confirm_refund_cancel', cr)

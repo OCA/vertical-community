@@ -18,12 +18,12 @@
 #
 ##############################################################################
 
-from openerp.osv import fields, osv
+from openerp.osv import fields, orm, osv
 from openerp import SUPERUSER_ID
 from openerp.tools.translate import _
 
 
-class ProjectTask(osv.Model):
+class ProjectTask(orm.Model):
     _inherit = 'project.task'
 
     def _get_marketplace(self, cr, uid, ids, prop, unknow_none, context=None):
@@ -102,7 +102,7 @@ class ProjectTask(osv.Model):
         return True
 
 
-class MarketplaceAnnouncement(osv.Model):
+class MarketplaceAnnouncement(orm.Model):
     """
     Link announcement to task.
     """
@@ -151,7 +151,7 @@ class MarketplaceAnnouncement(osv.Model):
         return res
 
 
-class MarketplaceProposition(osv.Model):
+class MarketplaceProposition(orm.Model):
     """
     Make link between proposition and task
     """
@@ -252,7 +252,7 @@ class MarketplaceProposition(osv.Model):
         return res
 
 
-class ProjectTaskType(osv.Model):
+class ProjectTaskType(orm.Model):
     """
     Add assignment to payer or invoicer from marketplace in task type
     """
@@ -277,7 +277,7 @@ class ProjectTaskType(osv.Model):
         return res
 
 
-class ProjectAssignedPartnerConfig(osv.Model):
+class ProjectAssignedPartnerConfig(orm.Model):
     """
     Add marketplace_assignment in field in configuration lines
     """
@@ -292,7 +292,7 @@ class ProjectAssignedPartnerConfig(osv.Model):
     }
 
 
-class ProjectProject(osv.Model):
+class ProjectProject(orm.Model):
     """
     Add marketplace_assignment in configuration computation
     """
@@ -316,7 +316,7 @@ class ProjectProject(osv.Model):
         return res
 
 
-class ProjectTask(osv.Model):
+class ProjectTask(orm.Model):
     """
     Make changes in task assignment to use marketplace info if necessary
     """

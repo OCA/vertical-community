@@ -25,7 +25,7 @@
     uid: 'user_test2'
 -
   !python {model: account.wallet.transaction}: |
-    from openerp.osv import osv
+    from openerp.osv import orm, osv
     try:
       self.confirm(cr, uid, [ref('transaction_test_0')])
       assert False, "Test2 was able to confirm the transaction!"
@@ -60,7 +60,7 @@
     uid: 'user_test1'
 -
   !python {model: account.wallet.transaction}: |
-    from openerp.osv import osv
+    from openerp.osv import orm, osv
     try:
       self.reset_workflow(cr, uid, [ref('transaction_test_0')])
       assert False, "Test1 was able to cancel the transaction!"

@@ -18,11 +18,11 @@
 #
 ##############################################################################
 
-from openerp.osv import fields, osv
+from openerp.osv import fields, orm
 import openerp.addons.decimal_precision as dp
 
 
-class CommunityConfigSettings(osv.Model):
+class CommunityConfigSettings(orm.Model):
 
     """
     Add currencies configuration to community settings
@@ -56,7 +56,7 @@ class CommunityConfigSettings(osv.Model):
     # }
 
 
-class AccountWalletConfigCurrency(osv.Model):
+class AccountWalletConfigCurrency(orm.Model):
 
     """
     Lines containing the general configuration for wallet currencies

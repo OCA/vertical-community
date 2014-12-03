@@ -20,12 +20,12 @@
 
 from lxml import etree
 from lxml.builder import E
-from openerp.osv import fields, osv
+from openerp.osv import fields, orm
 from openerp import SUPERUSER_ID
 from openerp.tools.translate import _
 
 
-class ResPartner(osv.Model):
+class ResPartner(orm.Model):
 
     """
     Add some field in partner to use as a member presentation page
@@ -74,7 +74,7 @@ def name_selection_groups(ids):
     return 'sel_groups_' + '_'.join(map(str, ids))
 
 
-class GroupsView(osv.Model):
+class GroupsView(orm.Model):
 
     """
     Copy some function we find in base module in order to manage

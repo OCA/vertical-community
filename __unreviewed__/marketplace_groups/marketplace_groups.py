@@ -21,12 +21,12 @@
 
 import logging
 
-from openerp.osv import fields, osv
+from openerp.osv import fields, orm
 
 _logger = logging.getLogger(__name__)
 
 
-class MarketplaceAnnouncement(osv.Model):
+class MarketplaceAnnouncement(orm.Model):
 
     """
     Make sure the users who has wallet right on the group has

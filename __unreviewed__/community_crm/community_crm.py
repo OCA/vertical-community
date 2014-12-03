@@ -20,12 +20,12 @@
 
 import logging
 
-from openerp.osv import osv
+from openerp.osv import orm
 
 _logger = logging.getLogger(__name__)
 
 
-class GroupsView(osv.Model):
+class GroupsView(orm.Model):
 
     """
     Add group in user simplified form

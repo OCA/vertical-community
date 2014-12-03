@@ -19,10 +19,10 @@
 #
 ##############################################################################
 
-from openerp.osv import osv
+from openerp.osv import orm
 
 
-class ProjectProject(osv.Model):
+class ProjectProject(orm.Model):
 
     _name = 'project.project'
     _inherit = ['project.project', 'crowdfunding.campaign']

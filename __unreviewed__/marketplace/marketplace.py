@@ -20,14 +20,14 @@
 
 import openerp.addons.decimal_precision as dp
 
-from openerp.osv import fields, osv
+from openerp.osv import fields, orm, osv
 from openerp import SUPERUSER_ID
 from openerp import workflow
 from openerp.tools.translate import _
 from datetime import datetime
 
 
-class MarketplaceAnnouncementCategory(osv.Model):
+class MarketplaceAnnouncementCategory(orm.Model):
     """
     Announcement category, we can only have
     one category per announcement. Recursive.
@@ -63,7 +63,7 @@ class MarketplaceAnnouncementCategory(osv.Model):
     }
 
 
-class MarketplaceTag(osv.Model):
+class MarketplaceTag(orm.Model):
     """
     Announcement tag, you can assigned several tag per announcement.
     Tag are linked to the category specified in the announcement.
@@ -85,7 +85,7 @@ class MarketplaceTag(osv.Model):
     _order = 'category_id, name'
 
 
-class MarketplaceAnnouncement(osv.Model):
+class MarketplaceAnnouncement(orm.Model):
     """
     Object containing the announcement from the users.
     Can be either an offer or a demand
@@ -481,7 +481,7 @@ class MarketplaceAnnouncement(osv.Model):
         }
 
 
-class MarketplaceProposition(osv.Model):
+class MarketplaceProposition(orm.Model):
     """
     Object containing the proposition to the announcement.
     Inherit transaction and so update balances when closed.
@@ -907,7 +907,7 @@ class MarketplaceProposition(osv.Model):
         return res
 
 
-class AccountWalletTransaction(osv.Model):
+class AccountWalletTransaction(orm.Model):
     """
     Override transaction if proposition id an answer to a want,
     to exchange sender and receiver place
@@ -936,7 +936,7 @@ class AccountWalletTransaction(osv.Model):
         return res
 
 
-class ResPartner(osv.Model):
+class ResPartner(orm.Model):
     """
     Add skills management in partner form, which are linked to category and tag
     """
@@ -956,7 +956,7 @@ class ResPartner(osv.Model):
     }
 
 
-class IrAttachment(osv.Model):
+class IrAttachment(orm.Model):
     """
     Add the field name in ir.attachment, to easily retrieve the picture
     """

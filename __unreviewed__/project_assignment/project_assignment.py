@@ -18,10 +18,10 @@
 #
 ##############################################################################
 
-from openerp.osv import fields, osv
+from openerp.osv import fields, orm
 
 
-class ProjectTaskType(osv.Model):
+class ProjectTaskType(orm.Model):
 
     """
     Specify the default assigned partner for each stage,
@@ -69,7 +69,7 @@ class ProjectTaskType(osv.Model):
         return res
 
 
-class ProjectAssignedPartnerModel(osv.AbstractModel):
+class ProjectAssignedPartnerModel(orm.AbstractModel):
 
     """
     Abstract class used by project and task to create config lines.
@@ -122,7 +122,7 @@ class ProjectAssignedPartnerModel(osv.AbstractModel):
         return res
 
 
-class ProjectProject(osv.Model):
+class ProjectProject(orm.Model):
 
     """
     Add assignment fields in project.project
@@ -168,7 +168,7 @@ class ProjectProject(osv.Model):
         return True
 
 
-class ProjectTask(osv.Model):
+class ProjectTask(orm.Model):
 
     """
     Add assignment fields in project.task and recompute
@@ -246,7 +246,7 @@ class ProjectTask(osv.Model):
         return res
 
 
-class ProjectAssignedPartnerConfig(osv.Model):
+class ProjectAssignedPartnerConfig(orm.Model):
 
     """
     Extend the configuration line with field specific to partner assignment

@@ -21,10 +21,10 @@
 
 import openerp.addons.decimal_precision as dp
 
-from openerp.osv import fields, osv
+from openerp.osv import fields, orm
 
 
-class CrowdfundingCampaign(osv.AbstractModel):
+class CrowdfundingCampaign(orm.AbstractModel):
 
     _name = 'crowdfunding.campaign'
     _description = 'Campaign'
@@ -95,7 +95,7 @@ class CrowdfundingCampaign(osv.AbstractModel):
     }
 
 
-class CrowdfundingReward(osv.Model):
+class CrowdfundingReward(orm.Model):
 
     _name = 'crowdfunding.reward'
     _description = 'Reward'
@@ -144,7 +144,7 @@ class CrowdfundingReward(osv.Model):
     }
 
 
-class CrowdfundingTransaction(osv.Model):
+class CrowdfundingTransaction(orm.Model):
 
     _name = 'crowdfunding.transaction'
     _description = 'Transaction'

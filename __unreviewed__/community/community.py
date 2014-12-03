@@ -18,10 +18,10 @@
 #
 ##############################################################################
 
-from openerp.osv import osv
+from openerp.osv import orm
 
 
-class CommunityInit(osv.Model):
+class CommunityInit(orm.Model):
 
     """
     Define a function called at the module installation to set some parameters
@@ -36,7 +36,7 @@ class CommunityInit(osv.Model):
         icp.set_param(cr, uid, 'auth_signup.reset_password', True)
 
 
-class GroupsView(osv.Model):
+class GroupsView(orm.Model):
 
     """
     Add group specific to community in user simplified form
