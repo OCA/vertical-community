@@ -1,0 +1,128 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* membership_users
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: odoo-vertical-community\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-10-28 12:27+0000\n"
+"PO-Revision-Date: 2014-11-19 17:49+0100\n"
+"Last-Translator: Lucas Huber <lh@jeema.solutions>\n"
+"Language-Team: German Maintainers <go@jeema.solutions>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: de_DE\n"
+"X-Generator: Poedit 1.6.10\n"
+
+#. module: membership_users
+#: view:res.users:membership_users.view_users_simple_form_membership_users
+msgid ""
+"A password reset has been requested for this user. An email containing the "
+"following link has been sent:"
+msgstr ""
+"Ein Password Reset wurde für diesen user angefordert. Eine Mail mit "
+"folgendem link wurde gesendet:"
+
+#. module: membership_users
+#: model:ir.model,name:membership_users.model_res_groups
+msgid "Access Groups"
+msgstr "Zugangsgruppen"
+
+#. module: membership_users
+#: code:addons/membership_users/membership_users.py:83
+#: view:res.users:membership_users.user_groups_view_simple_form
+#, python-format
+msgid "Access rights"
+msgstr "Rechte"
+
+#. module: membership_users
+#: view:res.partner:membership_users.account_view_partner_form_membership_users
+msgid "Accounting"
+msgstr "Buchhaltung"
+
+#. module: membership_users
+#: view:res.users:membership_users.view_users_simple_form_membership_users
+msgid ""
+"An invitation email containing the following subscription link has been sent:"
+msgstr ""
+"Eine Einladungs Mail für die folgende Mitgliedschaft wurde per Mail "
+"gesendet: "
+
+#. module: membership_users
+#: view:res.users:membership_users.user_groups_view_simple_form
+msgid "Community"
+msgstr "Community"
+
+#. module: membership_users
+#: view:res.partner:membership_users.view_partner_form_membership_users
+msgid "Internal Notes"
+msgstr "Interne Notizen"
+
+#. module: membership_users
+#: view:res.partner:membership_users.membership_view_partner_form_membership_users
+msgid "Membership"
+msgstr "Mitgliedschaft "
+
+#. module: membership_users
+#: model:res.groups,name:membership_users.group_membership_moderator
+msgid "Membership / Manage Users"
+msgstr "Mitgliedschaft / Manage Users"
+
+#. module: membership_users
+#: model:ir.actions.server,name:membership_users.action_membership_my_account
+#: model:ir.ui.menu,name:membership_users.menu_action_membership_my_account
+msgid "My account"
+msgstr "Mein Konto"
+
+#. module: membership_users
+#: code:addons/membership_users/membership_users.py:93
+#, python-format
+msgid "Other"
+msgstr "Andere"
+
+#. module: membership_users
+#: model:ir.model,name:membership_users.model_res_partner
+msgid "Partner"
+msgstr "Partner"
+
+#. module: membership_users
+#: view:res.partner:membership_users.view_partner_form_membership_users
+#: field:res.partner,presentation:0
+msgid "Presentation"
+msgstr "Präsentation"
+
+#. module: membership_users
+#: view:res.partner:membership_users.view_partner_form_membership_users
+msgid "Sales & Purchases"
+msgstr "Verkauf & Einkauf"
+
+#. module: membership_users
+#: view:res.users:membership_users.view_users_simple_form_membership_users
+msgid "Send an invitation email"
+msgstr "Sende eine Partner Einladung per Mail"
+
+#. module: membership_users
+#: view:res.users:membership_users.view_users_simple_form_membership_users
+msgid "Send reset password link by email"
+msgstr "Sende einen Password Reset per Mail "
+
+#. module: membership_users
+#: model:ir.actions.act_window,name:membership_users.action_membership_users
+#: model:ir.ui.menu,name:membership_users.menu_action_membership_users
+msgid "Users"
+msgstr "Nutzer"
+
+#. module: membership_users
+#: view:res.partner:membership_users.account_view_partner_form_membership_users
+#: view:res.partner:membership_users.view_partner_form_membership_users
+msgid "account.group_account_user"
+msgstr "Ist Benutzer?"
+
+#. module: membership_users
+#: view:res.partner:membership_users.membership_view_partner_form_membership_users
+#: view:res.partner:membership_users.view_partner_form_membership_users
+msgid "membership_users.group_membership_moderator"
+msgstr "membership_users.group_membership_moderator"

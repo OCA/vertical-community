@@ -1,0 +1,142 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* community
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: odoo-vertical-community\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-11-11 09:56+0000\n"
+"PO-Revision-Date: 2014-11-19 17:44+0100\n"
+"Last-Translator: Lucas Huber <lh@jeema.solutions>\n"
+"Language-Team: German Maintainers <lh@jeema.solutions>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: de_DE\n"
+"X-Generator: Poedit 1.6.10\n"
+
+#. module: community
+#: model:ir.model,name:community.model_res_groups
+msgid "Access Groups"
+msgstr "Zugangsgruppen"
+
+#. module: community
+#: view:community.module.config.settings:community.view_config_settings
+msgid "Apply"
+msgstr "Anwenden"
+
+#. module: community
+#: view:community.module.config.settings:community.view_config_settings
+msgid "Cancel"
+msgstr "Cancel"
+
+#. module: community
+#: view:community.module.config.settings:community.view_config_settings
+#: model:ir.module.category,name:community.module_category_community
+#: model:ir.ui.menu,name:community.menu_community_admin_configuration
+msgid "Community"
+msgstr "Community"
+
+#. module: community
+#: model:res.groups,name:community.group_community_administrator
+msgid "Community / Administrator"
+msgstr "Community / Administrator"
+
+#. module: community
+#: model:res.groups,name:community.group_community_user
+msgid "Community / User"
+msgstr "Community / Benutzer"
+
+#. module: community
+#: view:community.module.config.settings:community.view_config_settings
+msgid "Community Management"
+msgstr "Community Management"
+
+#. module: community
+#: model:ir.actions.act_window,name:community.action_config_settings
+#: model:ir.ui.menu,name:community.menu_action_config_settings_association
+#: model:ir.ui.menu,name:community.menu_action_config_settings_configuration
+msgid "Community modules"
+msgstr "Community Module"
+
+#. module: community
+#: view:community.module.config.settings:community.view_config_settings
+msgid "Configure Community modules"
+msgstr "Konfiguriere Community Module"
+
+#. module: community
+#: field:community.init,create_uid:0
+#: field:community.module.config.settings,create_uid:0
+msgid "Created by"
+msgstr "Erstellt von"
+
+#. module: community
+#: field:community.init,create_date:0
+#: field:community.module.config.settings,create_date:0
+msgid "Created on"
+msgstr "Erstellt am"
+
+#. module: community
+#: selection:community.module.config.settings,wallet_chart:0
+msgid "French chart of account"
+msgstr "Französischer Kontenrahmen"
+
+#. module: community
+#: field:community.init,id:0 field:community.module.config.settings,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: community
+#: field:community.module.config.settings,module_community_blog:0
+msgid "Install Blog module"
+msgstr "Installiere Blog Module"
+
+#. module: community
+#: field:community.module.config.settings,module_community_crm:0
+msgid "Install CRM module"
+msgstr "Installiere CRM Module"
+
+#. module: community
+#: field:community.module.config.settings,module_community_event:0
+msgid "Install Event module"
+msgstr "Installiere Event/Anlässe Module"
+
+#. module: community
+#: field:community.module.config.settings,module_community_forum:0
+msgid "Install Forum module"
+msgstr "Installiere Forum Module"
+
+#. module: community
+#: field:community.module.config.settings,module_community_marketplace:0
+msgid "Install Marketplace module"
+msgstr "Installiere Marketplace Module"
+
+#. module: community
+#: field:community.module.config.settings,module_community_project:0
+msgid "Install Project module"
+msgstr "Installiere Projektmanagement Module"
+
+#. module: community
+#: field:community.init,write_uid:0
+#: field:community.module.config.settings,write_uid:0
+msgid "Last Updated by"
+msgstr "Letzter Updated von"
+
+#. module: community
+#: field:community.init,write_date:0
+#: field:community.module.config.settings,write_date:0
+msgid "Last Updated on"
+msgstr "Letzter Updated am"
+
+#. module: community
+#: model:ir.module.category,description:community.module_category_community
+msgid "Transform Odoo into a powerfull community management tool."
+msgstr "Verwandle Odoo in ein mächtiges Community Management tool."
+
+#. module: community
+#: field:community.module.config.settings,wallet_chart:0
+msgid "Wallet Chart"
+msgstr "Wallet Kontenrahmen?"

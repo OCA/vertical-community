@@ -5,18 +5,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: odoo-vertical-community\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-28 12:26+0000\n"
-"PO-Revision-Date: 2014-11-24 14:40+0100\n"
+"POT-Creation-Date: 2014-10-28 12:27+0000\n"
+"PO-Revision-Date: 2014-11-19 17:49+0100\n"
 "Last-Translator: Lucas Huber <lh@jeema.solutions>\n"
-"Language-Team: \n"
+"Language-Team: German Maintainers <go@jeema.solutions>\n"
+"Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"Language: de_DE\n"
 "X-Generator: Poedit 1.6.10\n"
 
-#. module: community_marketplace
-#: model:ir.model,name:community_marketplace.model_res_groups
+#. module: community_project
+#: model:ir.model,name:community_project.model_res_groups
+#, fuzzy
 msgid "Access Groups"
-msgstr "Zugangs Gruppen"
+msgstr "Zugangsgruppen"

@@ -1,0 +1,283 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mail_holacracy
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: odoo-vertical-community\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-10-28 12:27+0000\n"
+"PO-Revision-Date: 2014-11-19 17:49+0100\n"
+"Last-Translator: Lucas Huber <lh@jeema.solutions>\n"
+"Language-Team: German Maintainers <go@jeema.solutions>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: de_DE\n"
+"X-Generator: Poedit 1.6.10\n"
+
+#. module: mail_holacracy
+#: constraint:mail.group:0
+msgid "A role can't have children"
+msgstr "Eine Rolle kann keine Unterrollen haben"
+
+#. module: mail_holacracy
+#: model:mail.group,name:mail_holacracy.group_board
+msgid "Board"
+msgstr "Board"
+
+#. module: mail_holacracy
+#: model:mail.group,name:mail_holacracy.group_organisations_camptocamp
+msgid "Camptocamp"
+msgstr "Camptocamp"
+
+#. module: mail_holacracy
+#: field:mail.group,child_ids:0
+#, fuzzy
+msgid "Childs"
+msgstr "Kinder"
+
+#. module: mail_holacracy
+#: selection:mail.group,type:0
+msgid "Circle"
+msgstr "Kreis"
+
+#. module: mail_holacracy
+#: field:mail.group.right,code:0
+msgid "Code"
+msgstr "Code"
+
+#. module: mail_holacracy
+#: model:mail.group,name:mail_holacracy.group_teams_localizations_swiss_committers
+#: model:mail.group,name:mail_holacracy.group_teams_ocaprojects_maintainerstools_committers
+msgid "Committers"
+msgstr "Committers"
+
+#. module: mail_holacracy
+#: view:mail.group:mail_holacracy.view_mail_group_form_holacracy
+msgid "Create Partner"
+msgstr "Erstelle einen Partner"
+
+#. module: mail_holacracy
+#: field:mail.group.right,create_uid:0
+msgid "Created by"
+msgstr "Erstellt von"
+
+#. module: mail_holacracy
+#: field:mail.group.right,create_date:0
+msgid "Created on"
+msgstr "Erstellt am"
+
+#. module: mail_holacracy
+#: model:mail.group,name:mail_holacracy.group_delegate
+msgid "Delegate"
+msgstr "Delegieren"
+
+#. module: mail_holacracy
+#: model:mail.group,name:mail_holacracy.group_organisations_camptocamp_director
+#: model:mail.group,name:mail_holacracy.group_organisations_vauxoo_director
+#: model:mail.group,name:mail_holacracy.group_organisations_yourcompany_director
+msgid "Director"
+msgstr "Director"
+
+#. module: mail_holacracy
+#: model:ir.model,name:mail_holacracy.model_mail_group
+msgid "Discussion group"
+msgstr "Diskussionsgruppe"
+
+#. module: mail_holacracy
+#: selection:mail.group,type:0
+msgid "Discussions"
+msgstr "Diskussionen"
+
+#. module: mail_holacracy
+#: model:mail.group,name:mail_holacracy.group_organisations_camptocamp_employee
+#: model:mail.group,name:mail_holacracy.group_organisations_yourcompany_employee
+msgid "Employees"
+msgstr "Angestellte"
+
+#. module: mail_holacracy
+#: field:mail.group,complete_name:0
+msgid "Full Name"
+msgstr "Vollständiger Name"
+
+#. module: mail_holacracy
+#: model:ir.actions.server,name:mail_holacracy.mail_group_action_tree
+#: field:res.partner,group_id:0
+msgid "Group"
+msgstr "Gruppe"
+
+#. module: mail_holacracy
+#: view:mail.group:mail_holacracy.view_mail_group_tree_tree
+msgid "Groups"
+msgstr "Gruppen"
+
+#. module: mail_holacracy
+#: model:ir.actions.act_window,name:mail_holacracy.action_mail_group_tree
+#: model:ir.ui.menu,name:mail_holacracy.menu_action_mail_group_tree
+msgid "Groups list"
+msgstr "Gruppen Liste"
+
+#. module: mail_holacracy
+#: field:mail.group.right,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: mail_holacracy
+#: field:mail.group.right,write_uid:0
+msgid "Last Updated by"
+msgstr "Letzter Update von"
+
+#. module: mail_holacracy
+#: field:mail.group.right,write_date:0
+msgid "Last Updated on"
+msgstr "Letzter Updated am"
+
+#. module: mail_holacracy
+#: field:mail.group,parent_left:0
+msgid "Left parent"
+msgstr "Linke laufende"
+
+#. module: mail_holacracy
+#: model:mail.group,name:mail_holacracy.group_teams_localizations
+msgid "Localizations"
+msgstr "Localizations"
+
+#. module: mail_holacracy
+#: model:mail.group,name:mail_holacracy.group_teams_ocaprojects_maintainerstools
+msgid "Maintainers Tools Team"
+msgstr "Maintainers Tools Team"
+
+#. module: mail_holacracy
+#: model:mail.group,name:mail_holacracy.group_members
+#: model:mail.group,name:mail_holacracy.group_teams_localizations_swiss_members
+#: model:mail.group,name:mail_holacracy.group_teams_ocaprojects_maintainerstools_members
+msgid "Members"
+msgstr "Mitglieder"
+
+#. module: mail_holacracy
+#: field:mail.group.right,name:0
+msgid "Name"
+msgstr "Name"
+
+#. module: mail_holacracy
+#: model:mail.group,name:mail_holacracy.group_oca
+msgid "OCA"
+msgstr "OCA"
+
+#. module: mail_holacracy
+#: model:mail.group,name:mail_holacracy.group_teams_ocaprojects
+msgid "OCA Projects"
+msgstr "OCA Projects"
+
+#. module: mail_holacracy
+#: model:mail.group,name:mail_holacracy.group_organisations
+msgid "Organisations"
+msgstr "Organisationen"
+
+#. module: mail_holacracy
+#: field:mail.group,parent_id:0
+msgid "Parent"
+msgstr "Laufend"
+
+#. module: mail_holacracy
+#: model:ir.model,name:mail_holacracy.model_res_partner
+#: field:mail.group,partner_id:0
+msgid "Partner"
+msgstr "Partner"
+
+#. module: mail_holacracy
+#: field:mail.group,partner_group_management_ids:0
+msgid "Partners group management"
+msgstr "Partner Gruppen Management"
+
+#. module: mail_holacracy
+#: field:mail.group,partner_invitation_ids:0
+msgid "Partners invitation"
+msgstr "Partner Einladung"
+
+#. module: mail_holacracy
+#: model:mail.group,name:mail_holacracy.group_oca_president
+msgid "President"
+msgstr "Preäident"
+
+#. module: mail_holacracy
+#: model:mail.group,name:mail_holacracy.group_organisations_camptocamp_projectmanagers
+msgid "Project Managers"
+msgstr "Projektmanagers"
+
+#. module: mail_holacracy
+#: field:mail.group,parent_right:0
+msgid "Right parent"
+msgstr "Rechts laufend"
+
+#. module: mail_holacracy
+#: field:mail.group,right_ids:0
+msgid "Rights"
+msgstr "Rechte"
+
+#. module: mail_holacracy
+#: view:mail.group:mail_holacracy.view_mail_group_form_holacracy
+msgid "Rights..."
+msgstr "Rechte.."
+
+#. module: mail_holacracy
+#: selection:mail.group,type:0
+msgid "Role"
+msgstr "Rolle"
+
+#. module: mail_holacracy
+#: view:mail.group:mail_holacracy.view_mail_group_form_holacracy
+msgid "Roles"
+msgstr "Rollen"
+
+#. module: mail_holacracy
+#: field:mail.group,sequence:0
+msgid "Sequence"
+msgstr "Folge"
+
+#. module: mail_holacracy
+#: help:mail.group,sequence:0
+msgid "Sets the displaying sequence order for a group list."
+msgstr "Setze die darstellende Sequenz Reihenfolge für eine Gruppen Liste."
+
+#. module: mail_holacracy
+#: model:mail.group,name:mail_holacracy.group_teams_localizations_swiss
+msgid "Swiss Localization Team"
+msgstr "Swiss Localization Team"
+
+#. module: mail_holacracy
+#: model:mail.group,name:mail_holacracy.group_teams
+msgid "Teams"
+msgstr "Teams"
+
+#. module: mail_holacracy
+#: model:mail.group,name:mail_holacracy.group_oca_treasurer
+msgid "Treasurer"
+msgstr "Treasurer"
+
+#. module: mail_holacracy
+#: field:mail.group,type:0
+msgid "Type"
+msgstr "Type"
+
+#. module: mail_holacracy
+#: model:mail.group,name:mail_holacracy.group_organisations_vauxoo
+msgid "Vauxoo"
+msgstr "Vauxoo"
+
+#. module: mail_holacracy
+#: model:mail.group,name:mail_holacracy.group_organisations_yourcompany
+msgid "Your Company"
+msgstr "Deine Organisation"
+
+#. module: mail_holacracy
+#: view:mail.group:mail_holacracy.view_mail_group_form_holacracy
+msgid "base.group_erp_manager"
+msgstr "base.group_erp_manager"
+
+#. module: mail_holacracy
+#: view:res.partner:mail_holacracy.view_partner_form_holacracy
+msgid "{'readonly': [('group_id','!=',False)]}"
+msgstr ""
