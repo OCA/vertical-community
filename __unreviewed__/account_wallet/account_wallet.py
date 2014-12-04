@@ -140,7 +140,8 @@ class AccountWalletTransaction(orm.Model):
 
     _track = {
         'state': {
-            'account_wallet.mt_transaction_state': lambda self, cr, uid, obj, ctx=None: obj.already_published == True,
+            'account_wallet.mt_transaction_state': lambda self,
+            cr, uid, obj, ctx=None: obj.already_published,
         },
     }
 
@@ -197,13 +198,16 @@ class AccountWalletTransaction(orm.Model):
             _get_user_role, type="boolean",
             string="Is moderator?", multi='role'
         ),
-        'state': fields.selection([
-            ('draft', 'Draft'),
-            ('confirm', 'Confirm'),
-            ('done', 'Closed'),
-            ('confirm_refund', 'Confirm Refund'),
-            ('cancel', 'Cancelled'),
-        ], 'Status', readonly=True, required=True, track_visibility='onchange'),
+        'state': fields.selection(
+            [
+                ('draft', 'Draft'),
+                ('confirm', 'Confirm'),
+                ('done', 'Closed'),
+                ('confirm_refund', 'Confirm Refund'),
+                ('cancel', 'Cancelled'),
+            ], 'Status', readonly=True,
+            required=True, track_visibility='onchange'
+        ),
 
     }
 
@@ -277,11 +281,11 @@ class AccountWalletTransaction(orm.Model):
             cr, uid, vals, context=context
         )
 
-        #Ensure we don't create a new line when we call write
+        # Ensure we don't create a new line when we call write
         if 'currency_ids' in vals:
             del vals['currency_ids']
             
-        #Call write for the message_subscribe
+        # Call write for the message_subscribe
         self.write(cr, uid, [res], vals, context=context)
         return res
 
@@ -769,11 +773,17 @@ class ResPartner(orm.Model):
         # Control the access rights of the current user
         user_obj = self.pool.get('res.users')
         proxy = self.pool.get('ir.model.data')
-        config = proxy.get_object(cr, uid, 'base_community', 'community_settings')
+        config = proxy.get_object(
+            cr, uid, 'base_community', 'community_settings'
+        )
         res = {}
         for partner in self.browse(cr, uid, ids, context=context):
             res[partner.id] = False
-            if uid in [u.id for u in partner.user_ids] or config.display_balance or user_obj.has_group(cr, uid, 'account_wallet.group_account_wallet_moderator'):
+            if uid in [u.id for u in partner.user_ids] or \
+                    config.display_balance or user_obj.has_group(
+                        cr, uid,
+                        'account_wallet.group_account_wallet_moderator'
+                    ):
                 res[partner.id] = True
         return res
 
@@ -1011,7 +1021,9 @@ class ResPartner(orm.Model):
                         cr, SUPERUSER_ID, [line_id], currency, context=context
                     )
                 else:
-                    line_obj.create(cr, SUPERUSER_ID, currency, context=context)
+                    line_obj.create(
+                        cr, SUPERUSER_ID, currency, context=context
+                    )
 
         return res
 
@@ -1040,7 +1052,9 @@ class ResPartner(orm.Model):
             readonly=True
         ),
         'create_date': fields.datetime('Create date'),
-        'see_balance': fields.function(_get_see_balance, type="boolean", string="Can see balance?"),
+        'see_balance': fields.function(
+            _get_see_balance, type="boolean", string="Can see balance?"
+        ),
     }
 
 

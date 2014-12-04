@@ -622,22 +622,24 @@ class MarketplaceProposition(orm.Model):
         ),
         'skip_confirm': fields.boolean('Skip confirm'),
         'skip_vote': fields.boolean('Skip vote?'),
-        'state': fields.selection([
-            ('draft', 'Draft'),
-            ('open', 'Open'),
-            ('accepted', 'Accepted'),
-            ('rejected', 'Rejected'),
-            ('invoiced', 'Invoiced'),
-            ('confirm', 'Payment confirmation'),
-            ('vote', 'Waiting for votes'),
-            ('paid', 'Paid'),
-            (
-                'confirm_refund',
-                'Refund payment confirmation'
-            ),
-            ('cancel', 'Cancelled'),
-        ], 'Status', readonly=True,
-        required=True, track_visibility='onchange'),
+        'state': fields.selection(
+            [
+                ('draft', 'Draft'),
+                ('open', 'Open'),
+                ('accepted', 'Accepted'),
+                ('rejected', 'Rejected'),
+                ('invoiced', 'Invoiced'),
+                ('confirm', 'Payment confirmation'),
+                ('vote', 'Waiting for votes'),
+                ('paid', 'Paid'),
+                (
+                    'confirm_refund',
+                    'Refund payment confirmation'
+                ),
+                ('cancel', 'Cancelled'),
+            ], 'Status', readonly=True,
+            required=True, track_visibility='onchange'
+        ),
     }
 
     def _default_currency_ids(self, cr, uid, context=None):
