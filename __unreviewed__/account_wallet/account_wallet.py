@@ -284,7 +284,6 @@ class AccountWalletTransaction(orm.Model):
         # Ensure we don't create a new line when we call write
         if 'currency_ids' in vals:
             del vals['currency_ids']
-            
         # Call write for the message_subscribe
         self.write(cr, uid, [res], vals, context=context)
         return res
