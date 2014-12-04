@@ -111,6 +111,13 @@
             </field>
         </record>
 
+        <record id="mt_transaction_state" model="mail.message.subtype">
+            <field name="name">Transaction State Changed</field>
+            <field name="res_model">account.wallet.transaction</field>
+            <field name="default" eval="True"/>
+            <field name="description">Transaction state</field>
+        </record>
+
         <record id="act_account_wallet_transactions_all" model="ir.actions.act_window">
             <field name="name">All</field>
             <field name="res_model">account.wallet.transaction</field>

@@ -452,6 +452,12 @@ class MarketplaceProposition(osv.osv):
     _inherit = ['mail.thread', 'vote.model']
     _vote_category_field = 'category_id'
     _vote_category_model = 'marketplace.announcement.category'
+    _track = {
+        'state': {
+            'marketplace.mt_proposition_state': lambda self,
+            cr, uid, obj, ctx=None: obj.already_published,
+        },
+    }
     _columns = {
         'transaction_id': fields.many2one(
             'account.wallet.transaction', 'Transaction', ondelete="cascade", required=True, auto_join=True
@@ -499,7 +505,8 @@ class MarketplaceProposition(osv.osv):
             ('paid', 'Paid'),
             ('confirm_refund', 'Refund payment confirmation'),
             ('cancel', 'Cancelled'),
-        ], 'Status', readonly=True, required=True),
+        ], 'Status', readonly=True,
+        required=True, track_visibility='onchange'),
     }
 
     def _default_currency_ids(self, cr, uid, context=None):
@@ -678,6 +685,19 @@ class MarketplaceProposition(osv.osv):
                     )
         return True
 
+    def partner_subscribe(self, cr, uid, ids, vals, context=None):
+        for proposition in self.browse(cr, uid, ids, context=context):
+            if 'sender_id' in vals:
+                self.message_subscribe(
+                    cr, uid, [proposition.id],
+                    [vals['sender_id']], context=context
+                )
+            if 'receiver_id' in vals:
+                self.message_subscribe(
+                    cr, uid, [proposition.id],
+                    [vals['receiver_id']], context=context
+                )
+
     def create(self, cr, uid, vals, context=None):
         # Getting receiver_id from announcement when creating
         if 'announcement_id' in vals:
@@ -686,6 +706,9 @@ class MarketplaceProposition(osv.osv):
             )
             vals['receiver_id'] = announcement.partner_id.id
         res = super(MarketplaceProposition, self).create(cr, uid, vals, context=context)
+
+        self.partner_subscribe(cr, uid, [res], vals, context=context)
+
         return res
 
     def write(self, cr, uid, ids, vals, context=None):
@@ -697,13 +720,16 @@ class MarketplaceProposition(osv.osv):
                         _('Access error!'),
                         _("You need to have the role is_user to tick the cancel checkbox from user")
                     )
-                #_logger.info('uid %s, proposition.is_announcer %s', uid, proposition.is_announcer)
+
                 if 'want_cancel_announcer' in vals and not proposition.is_announcer:
                     raise osv.except_osv(
                         _('Access error!'),
                         _("You need to have the role is_announcer to tick the cancel checkbox from announcer")
                     )
         res = super(MarketplaceProposition, self).write(cr, uid, ids, vals, context=context)
+
+        self.partner_subscribe(cr, uid, ids, vals, context=context)
+
         for proposition in self.browse(cr, uid, ids, context=context):
             if proposition.state == 'vote':
                 self.test_vote(cr, uid, [proposition.id], context=context)

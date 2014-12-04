@@ -115,6 +115,13 @@ class AccountWalletTransaction(osv.osv):
     _name = 'account.wallet.transaction'
     _description = 'Transaction'
     _inherit = ['mail.thread']
+
+    _track = {
+        'state': {
+            'account_wallet.mt_transaction_state': lambda self, cr, uid, obj, ctx=None: obj.already_published == True,
+        },
+    }
+
     _columns = {
         'sender_id': fields.many2one('res.partner', 'Sender', required=True, readonly=True,
                                      states={'draft': [('readonly', False)]}, select=1),
@@ -147,7 +154,7 @@ class AccountWalletTransaction(osv.osv):
             ('done', 'Closed'),
             ('confirm_refund', 'Confirm Refund'),
             ('cancel', 'Cancelled'),
-        ], 'Status', readonly=True, required=True),
+        ], 'Status', readonly=True, required=True, track_visibility='onchange'),
 
     }
 
@@ -203,6 +210,36 @@ class AccountWalletTransaction(osv.osv):
     _constraints = [
         (_check_same_partner, 'You cannot make a transaction between the same partner.', ['sender_id']),
     ]
+
+    def create(self, cr, uid, vals, context=None):
+        res = super(AccountWalletTransaction, self).create(
+            cr, uid, vals, context=context
+        )
+
+        #Ensure we don't create a new line when we call write
+        if 'currency_ids' in vals:
+            del vals['currency_ids']
+            
+        #Call write for the message_subscribe
+        self.write(cr, uid, [res], vals, context=context)
+        return res
+
+    def write(self, cr, uid, ids, vals, context=None):
+        res = super(AccountWalletTransaction, self).write(
+            cr, uid, ids, vals, context=context
+        )
+        for transaction in self.browse(cr, uid, ids, context=context):
+            if 'sender_id' in vals:
+                self.message_subscribe(
+                    cr, uid, [transaction.id],
+                    [vals['sender_id']], context=context
+                )
+            if 'receiver_id' in vals:
+                self.message_subscribe(
+                    cr, uid, [transaction.id],
+                    [vals['receiver_id']], context=context
+                )
+        return res
 
     def unlink(self, cr, uid, ids, context=None):
         # When we remove the transaction, we also remove all linked lines

@@ -188,7 +188,7 @@
                             <field name="description"/>
                         </group>
                         <group>
-                            <field name="sender_id" domain="[('user_ids','in',uid)]"/>
+                            <field name="sender_id" attrs="{'readonly': [('state', '!=', 'draft')]}" domain="[('user_ids','in',uid)]"/>
                             <field name="quantity" attrs="{'readonly':[('state','!=','draft')]}"/>
                             <field name="uom_id"/>
                             <field name="description_announcement_id" domain="[('partner_id.user_ids','in',uid)]" attrs="{'readonly':[('state','!=','draft')]}"/>
@@ -252,6 +252,13 @@
                     <filter name="my_offers" string="My offers" domain="[('sender_id.user_ids','in',uid)]" icon="terp-check"/>
                 </search>
             </field>
+        </record>
+
+        <record id="mt_proposition_state" model="mail.message.subtype">
+            <field name="name">Proposition State Changed</field>
+            <field name="res_model">marketplace.proposition</field>
+            <field name="default" eval="True"/>
+            <field name="description">Proposition state</field>
         </record>
 
 
