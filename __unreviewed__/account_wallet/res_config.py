@@ -31,6 +31,7 @@ class CommunityConfigSettings(orm.Model):
     _inherit = 'community.config.settings'
 
     _columns = {
+        'display_balance': fields.boolean('Everyone can see balances?'),
         'journal_id': fields.many2one(
             'account.journal', 'Community Journal', required=True
         ),

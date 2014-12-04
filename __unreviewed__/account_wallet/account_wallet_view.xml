@@ -62,12 +62,15 @@
                             <field name="quantity" invisible="1"/>
                         </group>
                     </group>
-                    <field name="currency_ids" context="{'default_model': 'account.wallet.transaction'}" attrs="{'readonly': [('model_name','!=','account.wallet.transaction'),('model_name','!=',False)]}"/>
-                    <field name="move_ids" readonly="1">
-                        <tree string="Moves">
+                    <field name="currency_ids" context="{'default_model': 'account.wallet.transaction'}" attrs="{'readonly': ['|', ('state','!=','draft'),('model_name','!=','account.wallet.transaction'),('model_name','!=',False)]}"/>
+                    <field name="move_ids" groups="account.group_account_user" readonly="1">
+                        <tree string="Journal Entries">
                             <field name="name"/>
-                            <field name="date"/>
+                            <field name="ref"/>
                             <field name="wallet_action"/>
+                            <field name="date"/>
+                            <field name="partner_id"/>
+                            <field name="amount" sum="Total Amount"/>
                             <field name="state"/>
                         </tree>
                     </field>
@@ -106,6 +109,13 @@
                     <filter name="my_transactions" string="My transactions" domain="['|',('sender_id.user_ids','in',uid),('receiver_id.user_ids','in',uid)]" icon="terp-check"/>
                 </search>
             </field>
+        </record>
+
+        <record id="mt_transaction_state" model="mail.message.subtype">
+            <field name="name">Transaction State Changed</field>
+            <field name="res_model">account.wallet.transaction</field>
+            <field name="default" eval="True"/>
+            <field name="description">Transaction state</field>
         </record>
 
         <record id="act_account_wallet_transactions_all" model="ir.actions.act_window">
@@ -160,15 +170,23 @@
             <field name="model">res.partner.wallet.currency</field>
             <field name="arch" type="xml">
                 <form string="Currency">
-                    <field name="currency_id"/>
-                    <field name="limit_negative"/>
-                    <field name="limit_negative_value" attrs="{'invisible': [('limit_negative','=',False)]}"/>
-                    <field name="limit_positive"/>
-                    <field name="limit_positive_value" attrs="{'invisible': [('limit_positive','=',False)]}"/>
-                    <field name="available_account"/>
-                    <field name="reserved_account"/>
-                    <field name="expense_account"/>
-                    <field name="income_account"/>
+                    <group>
+                        <group>
+                            <field name="currency_id"/>
+                            <field name="limit_negative"/>
+                            <field name="limit_negative_value" attrs="{'invisible': [('limit_negative','=',False)]}"/>
+                            <field name="limit_positive"/>
+                            <field name="limit_positive_value" attrs="{'invisible': [('limit_positive','=',False)]}"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="available_account"/>
+                            <field name="reserved_account"/>
+                            <field name="expense_account"/>
+                            <field name="income_account"/>
+                        </group>
+                    </group>
                 </form>
             </field>
         </record>
@@ -179,8 +197,9 @@
             <field name="inherit_id" ref="base.view_partner_form"/>
             <field name="arch" type="xml">
                 <page string="Internal Notes" position="after">
-                    <page string="Community">
-                        <field name="wallet_balance_ids">
+                    <page string="Community" >
+                        <field name="see_balance" invisible="1"/>
+                        <field name="wallet_balance_ids" attrs="{'invisible': [('see_balance','!=', True)]}">
                             <tree string="Balance">
                                 <field name="currency_id"/>
                                 <field name="limit_negative" invisible="1"/>
@@ -191,7 +210,7 @@
                                 <field name="reserved"/>
                             </tree>
                         </field>
-                        <field name="wallet_currency_ids"/>
+                        <field name="wallet_currency_ids" groups="account_wallet.group_account_wallet_moderator"/>
                     </page>
                 </page>
             </field>

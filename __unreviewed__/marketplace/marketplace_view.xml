@@ -39,7 +39,7 @@
                     <field name="state" widget="statusbar" statusbar_visible="draft,open,done"/>
                 </header>
                 <sheet string="Offer">
-                    <field name="picture" widget="image" class="oe_left oe_avatar" options="{&quot;preview_image&quot;: &quot;image_medium&quot;, &quot;size&quot;: [90, 90]}"/>
+                    <!--<field name="picture" widget="image" class="oe_left oe_avatar" options="{&quot;preview_image&quot;: &quot;image_medium&quot;, &quot;size&quot;: [90, 90]}"/>-->
                     <div class="oe_title">
                         <h1>
                         <span attrs="{'invisible': [('type','=','want')]}">I offer</span>
@@ -188,7 +188,7 @@
                             <field name="description"/>
                         </group>
                         <group>
-                            <field name="sender_id" domain="[('user_ids','in',uid)]"/>
+                            <field name="sender_id" attrs="{'readonly': [('state', '!=', 'draft')]}" domain="[('user_ids','in',uid)]"/>
                             <field name="quantity" attrs="{'readonly':[('state','!=','draft')]}"/>
                             <field name="uom_id"/>
                             <field name="description_announcement_id" domain="[('partner_id.user_ids','in',uid)]" attrs="{'readonly':[('state','!=','draft')]}"/>
@@ -196,12 +196,23 @@
                             <field name="want_cancel_announcer" states="accepted,invoiced,confirm" attrs="{'readonly':[('is_announcer', '!=', True),('is_moderator','!=',True)]}"/>
                             <field name="want_cancel_user" states="accepted,invoiced,confirm" attrs="{'readonly':[('is_user', '!=', True),('is_moderator','!=',True)]}"/>
                     </group>
-                    <field name="currency_ids" context="{'default_model': 'account.wallet.transaction','default_res_id': active_id}"/>
+                    <field name="currency_ids" attrs="{'readonly': [('state','!=','draft')]}" context="{'default_model': 'account.wallet.transaction'}"/>
                     <field name="vote_vote_ids" context="{'default_model': 'marketplace.proposition','default_res_id': active_id, 'form_view_ref' : 'vote.view_vote_vote_form', 'tree_view_ref' : 'vote.view_vote_vote_tree'}"/>
                     <group>
                         <field name="call_moderator_user" attrs="{'readonly':[('is_user', '!=', True)], 'invisible':[('is_user', '!=', True),('call_moderator_user', '!=', True)]}"/>
                         <field name="call_moderator_announcer" attrs="{'readonly':[('is_announcer', '!=', True)], 'invisible':[('is_announcer', '!=', True),('call_moderator_announcer', '!=', True)]}"/>
                     </group>
+                    <field name="move_ids" groups="account.group_account_user" readonly="1">
+                        <tree string="Journal Entries">
+                            <field name="name"/>
+                            <field name="ref"/>
+                            <field name="wallet_action"/>
+                            <field name="date"/>
+                            <field name="partner_id"/>
+                            <field name="amount" sum="Total Amount"/>
+                            <field name="state"/>
+                        </tree>
+                    </field>
                     <field name="is_user" invisible="1"/>
                     <field name="is_announcer" invisible="1"/>
                     <field name="is_moderator" invisible="1"/>
@@ -241,6 +252,13 @@
                     <filter name="my_offers" string="My offers" domain="[('sender_id.user_ids','in',uid)]" icon="terp-check"/>
                 </search>
             </field>
+        </record>
+
+        <record id="mt_proposition_state" model="mail.message.subtype">
+            <field name="name">Proposition State Changed</field>
+            <field name="res_model">marketplace.proposition</field>
+            <field name="default" eval="True"/>
+            <field name="description">Proposition state</field>
         </record>
 
 

@@ -552,6 +552,12 @@ class MarketplaceProposition(orm.Model):
     _inherit = ['mail.thread', 'vote.model']
     _vote_category_field = 'category_id'
     _vote_category_model = 'marketplace.announcement.category'
+    _track = {
+        'state': {
+            'marketplace.mt_proposition_state': lambda self,
+            cr, uid, obj, ctx=None: obj.already_published,
+        },
+    }
     _columns = {
         'transaction_id': fields.many2one(
             'account.wallet.transaction', 'Transaction',
@@ -566,11 +572,19 @@ class MarketplaceProposition(orm.Model):
         'type': fields.related(
             'announcement_id', 'type', type='char', string='Type', store=True
         ),
+        'city': fields.related(
+            'announcement_id', 'city',
+            type='char', size=128, string='City', store=True
+        ),
+        'country_id': fields.related(
+            'announcement_id', 'country_id', type='many2one',
+            relation='res.country', string='Country', store=True
+        ),
         'description_announcement_id': fields.many2one(
             'marketplace.announcement', 'Link to announcement description'
         ),
         'category_id': fields.related(
-            'announcement_id', 'category_id', type="many2one",
+            'announcement_id', 'category_id', type="many2one", store=True,
             relation="marketplace.announcement.category", string='Category'
         ),
         'want_cancel_user': fields.boolean('(Replyer) Cancel the transaction'),
@@ -622,7 +636,8 @@ class MarketplaceProposition(orm.Model):
                 'Refund payment confirmation'
             ),
             ('cancel', 'Cancelled'),
-        ], 'Status', readonly=True, required=True),
+        ], 'Status', readonly=True,
+        required=True, track_visibility='onchange'),
     }
 
     def _default_currency_ids(self, cr, uid, context=None):
@@ -736,7 +751,7 @@ class MarketplaceProposition(orm.Model):
         transaction_obj = self.pool.get('account.wallet.transaction')
         for proposition in self.browse(cr, uid, ids):
             fields = {'state': new_state}
-            if new_state == 'open':
+            if proposition.state == 'draft' and new_state == 'open':
                 if proposition.quantity > \
                         proposition.announcement_id.quantity_available \
                         and not proposition.announcement_id.infinite_qty:
@@ -755,7 +770,7 @@ class MarketplaceProposition(orm.Model):
                     proposition.transaction_id.id, cr
                 )
                 fields['already_published'] = True
-            if new_state == 'accepted':
+            if proposition.state == 'open' and new_state == 'accepted':
                 transaction_obj.prepare_move(
                     cr, uid, [proposition.transaction_id.id], 'reservation'
                 )
@@ -763,7 +778,7 @@ class MarketplaceProposition(orm.Model):
                     cr, uid, [proposition.announcement_id.id]
                 )
                 fields['already_accepted'] = True
-            if new_state == 'invoiced':
+            if proposition.state == 'accepted' and new_state == 'invoiced':
                 transaction_obj.prepare_move(
                     cr, uid, [proposition.transaction_id.id], 'invoice'
                 )
@@ -795,13 +810,14 @@ class MarketplaceProposition(orm.Model):
         self.test_access_role(cr, uid, ids, 'is_sender', *args)
 
         for proposition in self.browse(cr, uid, ids):
-            transaction_obj.prepare_move(
-                cr, uid, [proposition.transaction_id.id], 'payment'
-            )
+            if proposition.state == 'invoiced':
+                transaction_obj.prepare_move(
+                    cr, uid, [proposition.transaction_id.id], 'payment'
+                )
 
-            skip_confirm = transaction_obj.get_skip_confirm(
-                cr, uid, proposition.transaction_id
-            )
+                skip_confirm = transaction_obj.get_skip_confirm(
+                    cr, uid, proposition.transaction_id
+                )
             if not skip_confirm:
                 workflow.trg_validate(
                     uid, 'marketplace.proposition',
@@ -822,13 +838,14 @@ class MarketplaceProposition(orm.Model):
         self.test_access_role(cr, uid, ids, 'is_receiver', *args)
 
         for proposition in self.browse(cr, uid, ids):
-            workflow.trg_validate(
-                uid, 'marketplace.proposition',
-                proposition.id, 'proposition_confirm_vote', cr
-            )
-            transaction_obj.prepare_move(
-                cr, uid, [proposition.transaction_id.id], 'confirm'
-            )
+            if proposition.state == 'confirm':
+                transaction_obj.prepare_move(
+                    cr, uid, [proposition.transaction_id.id], 'confirm'
+                )
+                workflow.trg_validate(
+                    uid, 'marketplace.proposition',
+                    proposition.id, 'proposition_confirm_vote', cr
+                )
 
         self.test_vote(cr, uid, ids)
         return True
@@ -846,12 +863,13 @@ class MarketplaceProposition(orm.Model):
                 role_to_test = 'is_receiver'
             self.test_access_role(cr, uid, ids, role_to_test, *args)
 
-            workflow.trg_delete(
-                uid, 'marketplace.proposition', proposition.id, cr
-            )
-            workflow.trg_create(
-                uid, 'marketplace.proposition', proposition.id, cr
-            )
+            if state in ['cancel', 'rejected', 'paid']:
+                workflow.trg_delete(
+                    uid, 'marketplace.proposition', proposition.id, cr
+                )
+                workflow.trg_create(
+                    uid, 'marketplace.proposition', proposition.id, cr
+                )
 
             if state == 'paid':
                 skip_confirm = transaction_obj.get_skip_confirm(
@@ -869,6 +887,19 @@ class MarketplaceProposition(orm.Model):
                     )
         return True
 
+    def partner_subscribe(self, cr, uid, ids, vals, context=None):
+        for proposition in self.browse(cr, uid, ids, context=context):
+            if 'sender_id' in vals:
+                self.message_subscribe(
+                    cr, uid, [proposition.id],
+                    [vals['sender_id']], context=context
+                )
+            if 'receiver_id' in vals:
+                self.message_subscribe(
+                    cr, uid, [proposition.id],
+                    [vals['receiver_id']], context=context
+                )
+
     def create(self, cr, uid, vals, context=None):
         # Getting receiver_id from announcement when creating
         if 'announcement_id' in vals:
@@ -876,9 +907,13 @@ class MarketplaceProposition(orm.Model):
                 cr, uid, vals['announcement_id'], context=context
             )
             vals['receiver_id'] = announcement.partner_id.id
+
         res = super(MarketplaceProposition, self).create(
             cr, uid, vals, context=context
         )
+
+        self.partner_subscribe(cr, uid, [res], vals, context=context)
+
         return res
 
     def write(self, cr, uid, ids, vals, context=None):
@@ -901,6 +936,9 @@ class MarketplaceProposition(orm.Model):
         res = super(MarketplaceProposition, self).write(
             cr, uid, ids, vals, context=context
         )
+
+        self.partner_subscribe(cr, uid, ids, vals, context=context)
+
         for proposition in self.browse(cr, uid, ids, context=context):
             if proposition.state == 'vote':
                 self.test_vote(cr, uid, [proposition.id], context=context)

@@ -76,6 +76,7 @@ class AccountWalletCurrencyLine(orm.Model):
     }
 
     _defaults = {
+        'model': 'account.wallet.transaction',
         'field': 'currency_ids'
     }
 
@@ -136,6 +137,13 @@ class AccountWalletTransaction(orm.Model):
     _name = 'account.wallet.transaction'
     _description = 'Transaction'
     _inherit = ['mail.thread']
+
+    _track = {
+        'state': {
+            'account_wallet.mt_transaction_state': lambda self, cr, uid, obj, ctx=None: obj.already_published == True,
+        },
+    }
+
     _columns = {
         'sender_id': fields.many2one(
             'res.partner', 'Sender', required=True, readonly=True,
@@ -195,7 +203,7 @@ class AccountWalletTransaction(orm.Model):
             ('done', 'Closed'),
             ('confirm_refund', 'Confirm Refund'),
             ('cancel', 'Cancelled'),
-        ], 'Status', readonly=True, required=True),
+        ], 'Status', readonly=True, required=True, track_visibility='onchange'),
 
     }
 
@@ -214,6 +222,7 @@ class AccountWalletTransaction(orm.Model):
         )
         return [(0, 0, {
             'model': self._name,
+            'field': 'currency_ids',
             'price_unit': 1.0,
             'currency_id': config.default_currency_id.id
         })]
@@ -262,6 +271,36 @@ class AccountWalletTransaction(orm.Model):
             ['sender_id']
         ),
     ]
+
+    def create(self, cr, uid, vals, context=None):
+        res = super(AccountWalletTransaction, self).create(
+            cr, uid, vals, context=context
+        )
+
+        #Ensure we don't create a new line when we call write
+        if 'currency_ids' in vals:
+            del vals['currency_ids']
+            
+        #Call write for the message_subscribe
+        self.write(cr, uid, [res], vals, context=context)
+        return res
+
+    def write(self, cr, uid, ids, vals, context=None):
+        res = super(AccountWalletTransaction, self).write(
+            cr, uid, ids, vals, context=context
+        )
+        for transaction in self.browse(cr, uid, ids, context=context):
+            if 'sender_id' in vals:
+                self.message_subscribe(
+                    cr, uid, [transaction.id],
+                    [vals['sender_id']], context=context
+                )
+            if 'receiver_id' in vals:
+                self.message_subscribe(
+                    cr, uid, [transaction.id],
+                    [vals['receiver_id']], context=context
+                )
+        return res
 
     def unlink(self, cr, uid, ids, context=None):
         # When we remove the transaction, we also remove all linked lines
@@ -726,6 +765,18 @@ class ResPartner(orm.Model):
 
     _inherit = 'res.partner'
 
+    def _get_see_balance(self, cr, uid, ids, prop, unknow_none, context=None):
+        # Control the access rights of the current user
+        user_obj = self.pool.get('res.users')
+        proxy = self.pool.get('ir.model.data')
+        config = proxy.get_object(cr, uid, 'base_community', 'community_settings')
+        res = {}
+        for partner in self.browse(cr, uid, ids, context=context):
+            res[partner.id] = False
+            if uid in [u.id for u in partner.user_ids] or config.display_balance or user_obj.has_group(cr, uid, 'account_wallet.group_account_wallet_moderator'):
+                res[partner.id] = True
+        return res
+
     def get_wallet_limits(self, cr, uid, ids, currency_ids, context=None):
         # Get the wallet limits for specified partners
         # from general and partner config
@@ -957,10 +1008,10 @@ class ResPartner(orm.Model):
                     del currency['partner_id']
                     del currency['currency_id']
                     line_obj.write(
-                        cr, uid, [line_id], currency, context=context
+                        cr, SUPERUSER_ID, [line_id], currency, context=context
                     )
                 else:
-                    line_obj.create(cr, uid, currency, context=context)
+                    line_obj.create(cr, SUPERUSER_ID, currency, context=context)
 
         return res
 
@@ -985,9 +1036,11 @@ class ResPartner(orm.Model):
             'res.partner.wallet.currency', 'partner_id', 'Currencies'
         ),
         'wallet_balance_ids': fields.one2many(
-            "res.partner.wallet.balance", 'partner_id', 'Balances'
+            'res.partner.wallet.balance', 'partner_id', 'Balances',
+            readonly=True
         ),
         'create_date': fields.datetime('Create date'),
+        'see_balance': fields.function(_get_see_balance, type="boolean", string="Can see balance?"),
     }
 
 
