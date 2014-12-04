@@ -33,7 +33,7 @@
     uid: 'user_test2'
 -
   !python {model: marketplace.announcement}: |
-    from openerp.osv import osv
+    from openerp.osv import orm, osv
     from openerp import workflow
     try:
       workflow.trg_validate(uid, 'marketplace.announcement', ref('announcement_test_0'), 'announcement_draft_open', cr)
@@ -59,7 +59,7 @@
     uid: 'user_test2'
 -
   !python {model: marketplace.announcement}: |
-    from openerp.osv import osv
+    from openerp.osv import orm, osv
     from openerp import workflow
     try:
       workflow.trg_validate(uid, 'marketplace.announcement', ref('announcement_test_0'), 'announcement_open_done', cr)

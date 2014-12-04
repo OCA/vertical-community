@@ -20,16 +20,16 @@
 
 import logging
 
-from openerp.osv import fields, osv, orm
-from openerp.tools.translate import _
+from openerp.osv import orm
 
 _logger = logging.getLogger(__name__)
 
 
-class CommunityConfigSettings(osv.osv):
+class CommunityConfigSettings(orm.Model):
 
     """
-    Community setting which will be used to contain all configuration fields on the community theme
+    Community setting which will be used to contain all configuration
+    fields on the community theme
     """
 
     _name = 'community.config.settings'

@@ -26,7 +26,7 @@
     uid: 'user_test1'
 -
   !python {model: marketplace.proposition}: |
-    from openerp.osv import osv
+    from openerp.osv import orm, osv
     from openerp import workflow
     try:
       workflow.trg_validate(uid, 'marketplace.proposition', ref('proposition_test_1'), 'proposition_draft_open', cr)
@@ -52,7 +52,7 @@
     uid: 'user_test2'
 -
   !python {model: marketplace.proposition}: |
-    from openerp.osv import osv
+    from openerp.osv import orm, osv
     from openerp import workflow
     try:
       workflow.trg_validate(uid, 'marketplace.proposition', ref('proposition_test_1'), 'proposition_open_rejected', cr)
@@ -78,7 +78,7 @@
     uid: 'user_test2'
 -
   !python {model: marketplace.proposition}: |
-    from openerp.osv import osv
+    from openerp.osv import orm, osv
     try:
       self.reset_workflow(cr, uid, [ref('proposition_test_1')])
       assert False, "Test2 was able to reset the proposition!"
@@ -115,7 +115,7 @@
     uid: 'user_test2'
 -
   !python {model: marketplace.proposition}: |
-    from openerp.osv import osv
+    from openerp.osv import orm, osv
     from openerp import workflow
     try:
       workflow.trg_validate(uid, 'marketplace.proposition', ref('proposition_test_1'), 'proposition_open_accepted', cr)
@@ -146,7 +146,7 @@
     uid: 'user_test1'
 -
   !python {model: marketplace.proposition}: |
-    from openerp.osv import osv
+    from openerp.osv import orm, osv
     from openerp import workflow
     try:
       workflow.trg_validate(uid, 'marketplace.proposition', ref('proposition_test_1'), 'proposition_accepted_cancel', cr)
@@ -160,7 +160,7 @@
     uid: 'user_test1'
 -
   !python {model: marketplace.proposition}: |
-    from openerp.osv import osv
+    from openerp.osv import orm, osv
     from openerp import workflow
     try:
       self.write(cr, uid, [ref('proposition_test_1')], {'want_cancel_user': True}, context=context)
@@ -174,7 +174,7 @@
     uid: 'user_test2'
 -
   !python {model: marketplace.proposition}: |
-    from openerp.osv import osv
+    from openerp.osv import orm, osv
     from openerp import workflow
     try:
       self.write(cr, uid, [ref('proposition_test_1')], {'want_cancel_announcer': True}, context=context)
@@ -262,7 +262,7 @@
     uid: 'user_test2'
 -
   !python {model: marketplace.proposition}: |
-    from openerp.osv import osv
+    from openerp.osv import orm, osv
     from openerp import workflow
     try:
       workflow.trg_validate(uid, 'marketplace.proposition', ref('proposition_test_1'), 'proposition_accepted_invoiced', cr)
@@ -293,7 +293,7 @@
     uid: 'user_test1'
 -
   !python {model: marketplace.proposition}: |
-    from openerp.osv import osv
+    from openerp.osv import orm, osv
     from openerp import workflow
     try:
       self.pay(cr, uid, [ref('proposition_test_1')])
@@ -366,7 +366,7 @@
     uid: 'user_test2'
 -
   !python {model: marketplace.proposition}: |
-    from openerp.osv import osv
+    from openerp.osv import orm, osv
     try:
       self.reset_workflow(cr, uid, [ref('proposition_test_1')])
       assert False, "Test2 was able to cancel the proposition!"
