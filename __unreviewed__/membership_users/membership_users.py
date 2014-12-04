@@ -18,18 +18,14 @@
 #
 ##############################################################################
 
-import logging
-
 from lxml import etree
 from lxml.builder import E
-from openerp.osv import fields, osv, orm
+from openerp.osv import fields, orm
 from openerp import SUPERUSER_ID
 from openerp.tools.translate import _
 
-_logger = logging.getLogger(__name__)
 
-
-class ResPartner(osv.osv):
+class ResPartner(orm.Model):
 
     """
     Add some field in partner to use as a member presentation page
@@ -46,15 +42,23 @@ class ResPartner(osv.osv):
             res[partner.id]['is_moderator'] = False
             if uid in [u.id for u in partner.user_ids]:
                 res[partner.id]['is_user'] = True
-            if self.pool.get('res.users').has_group(cr, uid, 'membership_users.group_membership_moderator'):
+            if self.pool.get('res.users').has_group(
+                    cr, uid, 'membership_users.group_membership_moderator'
+            ):
                 res[partner.id]['is_moderator'] = True
         return res
 
     _columns = {
         'presentation': fields.text('Presentation'),
         'show_phone': fields.boolean('Show phone to others members?'),
-        'is_user': fields.function(_get_user_role, type="boolean", string="Is user?", multi='role'),
-        'is_moderator': fields.function(_get_user_role, type="boolean", string="Is moderator?", multi='role'),
+        'is_user': fields.function(
+            _get_user_role, type="boolean",
+            string="Is user?", multi='role'
+        ),
+        'is_moderator': fields.function(
+            _get_user_role, type="boolean",
+            string="Is moderator?", multi='role'
+        ),
     }
 
 
@@ -70,25 +74,28 @@ def name_selection_groups(ids):
     return 'sel_groups_' + '_'.join(map(str, ids))
 
 
-class GroupsView(osv.osv):
+class GroupsView(orm.Model):
 
     """
-    Copy some function we find in base module in order to manage groups from the simplied user form
+    Copy some function we find in base module in order to manage
+    groups from the simplied user form
     """
 
     _inherit = 'res.groups'
 
     def get_simplified_groups_by_application(self, cr, uid, context=None):
-        """ return all groups classified by application (module category), as a list of pairs:
-                [(app, kind, [group, ...]), ...],
-            where app and group are browse records, and kind is either 'boolean' or 'selection'.
-            Applications are given in sequence order.  If kind is 'selection', the groups are
-            given in reverse implication order.
+        """ return all groups classified by application (module category),
+        as a list of pairs: [(app, kind, [group, ...]), ...],
+        where app and group are browse records, and kind is either 'boolean'
+        or 'selection'. Applications are given in sequence order. If kind is
+        'selection', the groups are given in reverse implication order.
         """
         return []
 
     def update_user_groups_view(self, cr, uid, context=None):
-        res = super(GroupsView, self).update_user_groups_view(cr, uid, context=context)
+        res = super(GroupsView, self).update_user_groups_view(
+            cr, uid, context=context
+        )
 
         view = self.pool['ir.model.data'].xmlid_to_object(
             cr, SUPERUSER_ID,
@@ -97,7 +104,9 @@ class GroupsView(osv.osv):
         if view and view.exists() and view._name == 'ir.ui.view':
             xml1, xml2 = [], []
             xml1.append(E.separator(string=_('Access rights'), colspan="4"))
-            for app, kind, gs in self.get_simplified_groups_by_application(cr, uid, context):
+            for app, kind, gs in self.get_simplified_groups_by_application(
+                    cr, uid, context
+            ):
                 attrs = {}
                 if kind == 'selection':
                     # application name with a selection field
@@ -107,13 +116,18 @@ class GroupsView(osv.osv):
                 else:
                     # application separator with boolean fields
                     app_name = app and app.name or _('Other')
-                    xml2.append(E.separator(string=app_name, colspan="4", **attrs))
+                    xml2.append(E.separator(
+                        string=app_name, colspan="4", **attrs
+                    ))
                     for g in gs:
                         field_name = name_boolean_group(g.id)
                         xml2.append(E.field(name=field_name, **attrs))
 
-            xml = E.group(*(xml1 + xml2), name="group_groups_id", position="inside")
+            xml = E.group(*(xml1 + xml2),
+                          name="group_groups_id", position="inside")
             xml.addprevious(etree.Comment("GENERATED AUTOMATICALLY BY GROUPS"))
-            xml_content = etree.tostring(xml, pretty_print=True, xml_declaration=True, encoding="utf-8")
+            xml_content = etree.tostring(
+                xml, pretty_print=True, xml_declaration=True, encoding="utf-8"
+            )
             view.write({'arch': xml_content})
         return res

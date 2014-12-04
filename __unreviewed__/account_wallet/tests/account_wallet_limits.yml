@@ -17,7 +17,7 @@
   I check that test1, the sender, can't confirm it because of the limit
 -
   !python {model: account.wallet.transaction}: |
-    from openerp.osv import osv
+    from openerp.osv import orm, osv
     try:
       self.confirm(cr, uid, [ref('transaction_test_3')])
       assert False, "Test1 was able to confirm the transaction before changing the limit!"

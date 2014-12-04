@@ -25,7 +25,7 @@
     uid: 'base_community.user_luc'
 -
   !python {model: account.wallet.transaction}: |
-    from openerp.osv import osv
+    from openerp.osv import orm, osv
     try:
       self.confirm(cr, uid, [ref('transaction_test_0')])
       assert False, "Luc was able to confirm the transaction!"
@@ -38,7 +38,7 @@
     uid: 'base_community.user_mark'
 -
   !python {model: account.wallet.transaction}: |
-    from openerp.osv import osv
+    from openerp.osv import orm, osv
     try:
       self.confirm(cr, uid, [ref('transaction_test_0')])
       assert False, "Mark was able to confirm the transaction!"
@@ -73,7 +73,7 @@
     uid: 'base_community.user_luc'
 -
   !python {model: account.wallet.transaction}: |
-    from openerp.osv import osv
+    from openerp.osv import orm, osv
     try:
       self.reset_workflow(cr, uid, [ref('transaction_test_0')])
       assert False, "Luc was able to cancel the transaction!"
@@ -86,7 +86,7 @@
     uid: 'base.user_demo'
 -
   !python {model: account.wallet.transaction}: |
-    from openerp.osv import osv
+    from openerp.osv import orm, osv
     try:
       self.reset_workflow(cr, uid, [ref('transaction_test_0')])
       assert False, "Demo was able to cancel the transaction!"

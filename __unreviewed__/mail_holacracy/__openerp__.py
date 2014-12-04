@@ -28,13 +28,15 @@
 Mail for Holacracy
 ==================
 
-This module improve the mail.group object in order to use him for holacracy process
------------------------------------------------------------------------------------
-    * Mail.group is now a recursive model. You can't subscribe to a parent group but each followers of a group is
-       automatically subscribed to his parent group
+This module improve the mail.group object in order to use him for holacracy
+---------------------------------------------------------------------------
+    * Mail.group is now a recursive model. You can't subscribe to a parent
+        group but each followers of a group is automatically
+        subscribed to his parent group
     * A group can now be a normal group, a circle or a role
     * In a circle, you can define permissions for children groups
-    * A group can now be linked to a partner, you can easily create it from the group
+    * A group can now be linked to a partner,
+        you can easily create it from the group
 
 http://en.wikipedia.org/wiki/Holacracy
 """,

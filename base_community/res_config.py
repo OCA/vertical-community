@@ -18,4 +18,21 @@
 #
 ##############################################################################
 
-import res_config
+import logging
+
+from openerp.osv import orm
+
+_logger = logging.getLogger(__name__)
+
+
+class CommunityConfigSettings(orm.Model):
+
+    """
+    Community setting which will be used to contain all configuration
+    fields on the community theme
+    """
+
+    _name = 'community.config.settings'
+    _description = 'Community configuration'
+
+    _inherit = 'res.config.settings'

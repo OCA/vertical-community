@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-##############################################################################
+# #############################################################################
 #
-#    Author: Yannick Buron. Copyright Yannick Buron
+# Author: Yannick Buron. Copyright Yannick Buron
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -18,18 +18,13 @@
 #
 ##############################################################################
 
-import logging
-
-from openerp.osv import fields, osv, orm
-from openerp.tools.translate import _
-
-_logger = logging.getLogger(__name__)
+from openerp.osv import fields, orm
 
 
-class MailGroup(osv.osv):
-
+class MailGroup(orm.Model):
     """
-    Add the rights wallet in groups, to know who can use the wallet of the group
+    Add the rights wallet in groups,
+    to know who can use the wallet of the group
     """
 
     _inherit = 'mail.group'
@@ -42,29 +37,45 @@ class MailGroup(osv.osv):
     }
 
 
-class AccountWalletTransaction(osv.osv):
-
+class AccountWalletTransaction(orm.Model):
     """
-    Make sure the users who has wallet right on the group has the corresponding rights on the transaction
+    Make sure the users who has wallet right on the group
+    has the corresponding rights on the transaction
     """
 
     _inherit = 'account.wallet.transaction'
 
     def _get_user_role(self, cr, uid, ids, prop, unknow_none, context=None):
-        # Correct the function which compute the transaction right to take account of the user right on the group
-        res = super(AccountWalletTransaction, self)._get_user_role(cr, uid, ids, prop, unknow_none, context=context)
-        partner_id = self.pool.get('res.users').browse(cr, uid, uid, context=context).partner_id.id
+        # Correct the function which compute the transaction
+        # right to take account of the user right on the group
+        res = super(AccountWalletTransaction, self)._get_user_role(
+            cr, uid, ids, prop, unknow_none, context=context
+        )
+        partner_id = self.pool.get('res.users').browse(
+            cr, uid, uid, context=context
+        ).partner_id.id
         for transaction in self.browse(cr, uid, ids, context=context):
             if transaction.sender_id.group_id and partner_id \
-                    in [p.id for p in transaction.sender_id.group_id.partner_wallet_ids]:
+                    in [p.id for p in
+                        transaction.sender_id.group_id.partner_wallet_ids]:
                 res[transaction.id]['is_sender'] = True
             if transaction.receiver_id.group_id \
-                    and partner_id in [p.id for p in transaction.receiver_id.group_id.partner_wallet_ids]:
+                    and partner_id in [
+                        p.id for p in transaction.receiver_id.
+                        group_id.partner_wallet_ids
+                    ]:
                 res[transaction.id]['is_receiver'] = True
         return res
 
     _columns = {
-        'is_sender': fields.function(_get_user_role, type="boolean", string="Is sender?", multi='role'),
-        'is_receiver': fields.function(_get_user_role, type="boolean", string="Is receiver?", multi='role'),
-        'is_moderator': fields.function(_get_user_role, type="boolean", string="Is moderator?", multi='role'),
+        'is_sender': fields.function(
+            _get_user_role, type="boolean", string="Is sender?", multi='role'
+        ),
+        'is_receiver': fields.function(
+            _get_user_role, type="boolean", string="Is receiver?", multi='role'
+        ),
+        'is_moderator': fields.function(
+            _get_user_role, type="boolean",
+            string="Is moderator?", multi='role'
+        ),
     }
