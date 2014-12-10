@@ -79,7 +79,7 @@
                             <field name="currency_mode"/>
                             <field name="currency_ids" context="{'default_model': 'marketplace.announcement','default_res_id': active_id}"/>
                             <field name="proposition_ids" context="{'default_announcement_id': id}"/>
-                            <button name='add_proposition' string='Make a reply / proposal' type='object' attrs="{'invisible':['|',('state','!=','open'),('is_user', '=', True),('is_moderator','!=',True)]}"/>
+<!--                            <button name='add_proposition' string='Make a reply / proposal' type='object' attrs="{'invisible':['|',('state','!=','open'),('is_user', '=', True),('is_moderator','!=',True)]}"/>-->
                         </page>
 <!--                        <page string="Votes">
                             <field name="vote_evaluated_ids"/>
