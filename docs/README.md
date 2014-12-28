@@ -2,4 +2,4 @@
 
 This is a test page for the home of the documentation
 
-[Holocracy Messaging](/holocracy/)
+[Holocracy Messaging](/holocracy.md/)
