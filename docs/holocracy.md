@@ -1,6 +1,6 @@
 # Holocracy/Messaging Apps#
 
-This module enhances the mail.group object in order to use it for holacracy process and nesting message groups into each other. 
+This module enhances the mail.group object in order to use it for holocracy processes and nesting message groups into each other. 
 
 ## Functions ##
 - Group Messaging is now a recursive application. You can't subscribe to a parent group but each followers of a group is automatically subscribed to his parent group
