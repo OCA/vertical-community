@@ -23,6 +23,7 @@ Within the module CA-Technology is a circle which represent a company with sever
 1. Board role have several rights it can control wallet, invitation and group management. 
 1. Engineering circle group people involved in technical matters. It have a specific wallet which is controlled by treasury role. Please not that this circle have his own circles and roles.
 Member Aurélie follow engineering circle, design circle and board role. That means she follow project and discussion from engineering and design. But she also can control CA-Technology wallet as a member of Board role. Thus during transactions she can use wallet for CA-Technology.
+
 ## Use ##
 To access the settings of the Holocracy functions you have to enter the following menu:
 
