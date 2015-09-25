@@ -38,3 +38,6 @@ from the downloaded repo you have to copy now the account_reversal module from t
 ## Installing the modules ##
 Then go to you odoo webinterface to the module section and start "Update module list". Then look for the "Odoo for Communities" and the marketplace module and install them.
 We hope you enjoy checking out what all you can do with this apps. But remember the modules are still in a Testing/Beta phase.
+
+[//]: # (addons)
+[//]: # (end addons)
