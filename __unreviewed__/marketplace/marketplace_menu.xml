@@ -348,7 +348,7 @@
 
         <menuitem action="act_mkp_prop_my_market_as_asker_my_payments" id="menu_act_mkp_prop_my_market_as_asker_my_payments" parent="menu_marketplace_my_market_as_asker" sequence="14"/>
 
-        <menuitem id="account_wallet.menu_account_wallet" name="Transactions" parent="menu_marketplace" sequence="7"/>
+        <menuitem id="account_wallet.menu_account_wallet" name="Donations" parent="menu_marketplace" sequence="7"/>
 
 
         <!-- Moderation -->
