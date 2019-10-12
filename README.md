@@ -1,5 +1,5 @@
 # Odoo for Communities Verticalization #
-The OCA Communities Verticalizations project is a collaborative effort to develop a robust, commercial-grade, set of apps to transform odoo into a full featured platform for communities. 
+The OCA Communities Verticalizations project is a collaborative effort to develop a robust, commercial-grade, set of apps to transform odoo into a full featured platform for communities.
 The project is managed by a growing worldwide community of volunteers that are willing to contribute to the development and documentation to make this vision real.
 
 ## About ##
@@ -38,5 +38,3 @@ from the downloaded repo you have to copy now the account_reversal module from t
 ## Installing the modules ##
 Then go to you odoo webinterface to the module section and start "Update module list". Then look for the "Odoo for Communities" and the marketplace module and install them.
 We hope you enjoy checking out what all you can do with this apps. But remember the modules are still in a Testing/Beta phase.
-
-
